@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Level;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +21,23 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $levels = ["Operator", "Ketua P4MP", "Tim Auditor", "Auditee"];
+        foreach ($levels as $level) {
+            Level::create([
+                'name' => $level
+            ]);
+        }
+
+        $users = [
+            ["nip" => 2003071, "level_id" => Level::where("name", "Operator")->first()->id, "password" => bcrypt("password")],
+            ["nip" => 2003073, "level_id" => Level::where("name", "Ketua P4MP")->first()->id, "password" => bcrypt("password")],
+            ["nip" => 2003075, "level_id" => Level::where("name", "Tim Auditor")->first()->id, "password" => bcrypt("password")],
+            ["nip" => 2003077, "level_id" => Level::where("name", "Auditee")->first()->id, "password" => bcrypt("password")]
+        ];
+
+        foreach ($users as $user) {
+            User::create($user);
+        }
     }
 }
