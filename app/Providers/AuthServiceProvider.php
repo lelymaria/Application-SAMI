@@ -25,16 +25,16 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define("operator", function($user){
-            return $user->role->name === "Operator";
+            return $user->levelRole->name === "Operator";
         });
-        Gate::define("ketua P4MP", function($user){
-            return $user->role->name === "Ketua P4MP";
+        Gate::define("ketuaP4mp", function($user){
+            return $user->levelRole->name === "Ketua P4MP";
         });
-        Gate::define("tim Auditor", function($user){
-            return $user->role->name === "Tim Auditor";
+        Gate::define("timAuditor", function($user){
+            return $user->levelRole->name === "Tim Auditor";
         });
         Gate::define("auditee", function($user){
-            return $user->role->name === "Auditee";
+            return $user->levelRole->name === "Auditee";
         });
     }
 }

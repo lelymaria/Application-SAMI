@@ -9,8 +9,8 @@
     <title>Login :: SAMI</title>
 
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="../../public/images/favicon.png">
-    <link href="css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('../../public/images/favicon.png') }}">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 </head>
 
@@ -24,7 +24,7 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <div class="text-center mb-3">
-                                        <img src="images/polindra.png" alt="">
+                                        <img src="{{ asset('images/polindra.png') }}" alt="">
                                     </div>
                                     <h4 class="text-center mb-4">Sign in your account</h4>
                                     <form action="{{ url('/login') }}" method="post">
@@ -76,9 +76,9 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="vendor/global/global.min.js"></script>
-    <script src="js/custom.min.js"></script>
-    <script src="js/dlabnav-init.js"></script>
+    <script src="{{ asset('vendor/global/global.min.js') }}"></script>
+    <script src="{{ asset('js/custom.min.js') }}"></script>
+    <script src="{{ asset('js/dlabnav-init.js') }}"></script>
 </body>
 
 </html>

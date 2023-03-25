@@ -5,15 +5,6 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="admin, dashboard">
-    <meta name="author" content="DexignZone">
-    <meta name="robots" content="index, follow">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Dompet : Payment Admin Template">
-    <meta property="og:title" content="Dompet : Payment Admin Template">
-    <meta property="og:description" content="Dompet : Payment Admin Template">
-    <meta property="og:image" content="https://dompet.dexignlab.com/xhtml/social-image.png">
-    <meta name="format-detection" content="telephone=no">
 
     <!-- PAGE TITLE HERE -->
     <title>SAMI</title>
@@ -21,10 +12,10 @@
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
 
-    <link href="vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-    <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
+    <link href="{{ asset('vendor/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('vendor/nouislider/nouislider.min.css') }}">
     <!-- Style css -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 </head>
 
@@ -114,21 +105,21 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="vendor/global/global.min.js"></script>
-    <script src="vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="{{ asset('vendor/global/global.min.j') }}s"></script>
+    <script src="{{ asset('vendor/chart.js/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
 
     <!-- Apex Chart -->
-    <script src="vendor/apexchart/apexchart.js"></script>
-    <script src="vendor/nouislider/nouislider.min.js"></script>
-    <script src="vendor/wnumb/wNumb.js"></script>
+    <script src="{{ asset('vendor/apexchart/apexchart.js') }}"></script>
+    <script src="{{ asset('vendor/nouislider/nouislider.min.js') }}"></script>
+    <script src="{{ asset('vendor/wnumb/wNumb.js') }}"></script>
 
     <!-- Dashboard 1 -->
-    <script src="js/dashboard/dashboard-1.js"></script>
+    <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
 
-    <script src="js/custom.min.js"></script>
-    <script src="js/dlabnav-init.js"></script>
-    <script src="js/demo.js"></script>
+    <script src="{{ asset('js/custom.min.js') }}"></script>
+    <script src="{{ asset('js/dlabnav-init.js') }}"></script>
+    <script src="{{ asset('js/demo.js') }}"></script>
 
 </body>
 

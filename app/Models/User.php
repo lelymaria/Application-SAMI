@@ -50,6 +50,6 @@ class User extends Authenticatable
     ];
 
     public function levelRole() {
-        return $this->hasOne(Level::class, 'name', 'level_id');
+        return $this->hasOne(Level::class, 'id', 'level_id');
     }
 }
