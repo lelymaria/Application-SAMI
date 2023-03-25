@@ -10,11 +10,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function login() {
-        return view('auth.login');
-    }
-
-    public function index() {
-        return view('layout.main');
+    public function welcome() {
+        return view('welcome');
     }
 }
