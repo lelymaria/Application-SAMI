@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AuthenticationController extends Controller
 {
@@ -16,23 +17,31 @@ class AuthenticationController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::where('nip', $request->nip)->first();
+        DB::beginTransaction();
+        try {
+            $user = User::where('nip', $request->nip)->first();
 
-        if (!$user) {
-            return back()->with('message', 'NIP is not available!');
-        }
-        if (!Hash::check($request->password, $user->password)) {
-            return back()->with('message', 'Password is wrong!');
-        }
+            if (!$user) {
+                return back()->with('message', 'NIP is not available!');
+            }
+            if (!Hash::check($request->password, $user->password)) {
+                return back()->with('message', 'Password is wrong!');
+            }
 
-        if (Auth::attempt([
-            'nip' => $user->nip,
-            'password' => $request->password
-        ])) {
-            $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            if (Auth::attempt([
+                'nip' => $user->nip,
+                'password' => $request->password
+            ])) {
+                $request->session()->regenerate();
+                return redirect()->intended('dashboard');
+            }
+
+            DB::commit();
+            return back();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
         }
-        return back();
     }
 
     public function logout() {
