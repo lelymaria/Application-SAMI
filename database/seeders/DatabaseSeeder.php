@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $levels = ["Operator", "Ketua P4MP", "Tim Auditor", "Auditee"];
+        $levels = ["Operator", "Ketua P4MP", "Tim Auditor", "Auditee", "Jurusan"];
         foreach ($levels as $level) {
             Level::create([
                 'name' => $level
@@ -33,7 +33,8 @@ class DatabaseSeeder extends Seeder
             ["nip" => 2003071, "level_id" => Level::where("name", "Operator")->first()->id, "password" => bcrypt("password")],
             ["nip" => 2003073, "level_id" => Level::where("name", "Ketua P4MP")->first()->id, "password" => bcrypt("password")],
             ["nip" => 2003075, "level_id" => Level::where("name", "Tim Auditor")->first()->id, "password" => bcrypt("password")],
-            ["nip" => 2003077, "level_id" => Level::where("name", "Auditee")->first()->id, "password" => bcrypt("password")]
+            ["nip" => 2003077, "level_id" => Level::where("name", "Auditee")->first()->id, "password" => bcrypt("password")],
+            ["nip" => 2003079, "level_id" => Level::where("name", "Jurusan")->first()->id, "password" => bcrypt("password")]
         ];
 
         foreach ($users as $user) {

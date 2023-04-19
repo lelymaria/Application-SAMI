@@ -10,10 +10,11 @@
     <title>SAMI</title>
 
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/polindra1.png') }}">
 
     <link href="{{ asset('vendor/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/nouislider/nouislider.min.css') }}">
+    
     <!-- Style css -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
@@ -50,7 +51,7 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        @include('layout.navbar')
+        @include('layouts.navbar')
         <!--**********************************
             Nav header end
         ***********************************-->
@@ -66,7 +67,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        @include('layout.sidebar')
+        @include('layouts.sidebar')
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -77,6 +78,7 @@
         <div class="content-body">
             <!-- row -->
             <div class="container-fluid">
+                @yield('content')
             </div>
         </div>
         <!--**********************************
@@ -88,7 +90,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
-        @include('layout.footer')
+        @include('layouts.footer')
         <!--**********************************
             Footer end
         ***********************************-->
