@@ -61,6 +61,15 @@
                       </a>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+							<i class="flaticon-043-menu"></i>
+							<span class="nav-text">Data</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="/datajurusan">Jurusan</a></li>
+                            <li><a href="/dataprodi">Prodi</a></li>
+                        </ul>
+                    </li>
+                  <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                           <i class="flaticon-045-heart"></i>
                           <span class="nav-text">Manage User</span>
                       </a>

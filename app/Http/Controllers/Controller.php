@@ -44,6 +44,12 @@ class Controller extends BaseController
     public function dokRtm() {
         return view('operator.dokumentasi.dokumentasi_rtm');
     }
+    public function dataJurusan() {
+        return view('operator.data.data_jurusan');
+    }
+    public function dataProdi() {
+        return view('operator.data.data_prodi');
+    }
 
     // UPDATE FOLDER OPERATOR
     public function updateAkunKepalap4mp() {

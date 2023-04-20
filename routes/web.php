@@ -37,6 +37,9 @@ Route::get('/historiami', [Controller::class, "historiAmi"]);
 // (Dokumentasi Ami)
 Route::get('/dokumentasiAmi', [Controller::class, "dokAmi"]);
 Route::get('/dokumentasiRtm', [Controller::class, "dokRtm"]);
+// (Data)
+Route::get('/datajurusan', [Controller::class, "dataJurusan"]);
+Route::get('/dataprodi', [Controller::class, "dataProdi"]);
 
 //UPDATE FOLDER OPERATOR
 Route::get('/updateakunkepalap4mp', [Controller::class, "updateAkunKepalap4mp"]);
