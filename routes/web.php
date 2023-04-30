@@ -40,13 +40,36 @@ Route::get('/dokumentasiRtm', [Controller::class, "dokRtm"]);
 // (Data)
 Route::get('/datajurusan', [Controller::class, "dataJurusan"]);
 Route::get('/dataprodi', [Controller::class, "dataProdi"]);
-
-//UPDATE FOLDER OPERATOR
+//UPDATE->FOLDER OPERATOR
 Route::get('/updateakunkepalap4mp', [Controller::class, "updateAkunKepalap4mp"]);
 Route::get('/updateakunauditor', [Controller::class, "updateAkunAuditor"]);
 Route::get('/updateakunauditee', [Controller::class, "updateAkunAuditee"]);
 Route::get('/updateakunjurusan', [Controller::class, "updateAkunJurusan"]);
 
-//FOLDER AKUN
+
+//FOLDER MENU->AKUN
 Route::get('/profile', [Controller::class, "profile"]);
 Route::get('/editPassword', [Controller::class, "editPassword"]);
+//FOLDER MENU->DOKUMENTASI
+Route::get('/dokAMI', [Controller::class, "dokAmiAll"]);
+Route::get('/dokRTM', [Controller::class, "dokRtmAll"]);
+
+// FOLDER VIEWS
+Route::get('/pedomanAll', [Controller::class, "pedomanAll"]);
+Route::get('/historiAll', [Controller::class, "historiAll"]);
+
+// FOLDER P4MP->AMI
+Route::get('/laporanamiP4mp', [Controller::class, "laporanP4mp"]);
+Route::get('/monitoringamiP4mp', [Controller::class, "monitoringP4mp"]);
+Route::get('/verifikasitindakanP4mp', [Controller::class, "verifikasiP4mp"]);
+
+// FOLDER AUDITOR->AMI
+Route::get('/checklistAmiAuditor', [Controller::class, "checklistAmi"]);
+Route::get('/draftAmiAuditor', [Controller::class, "drafttemuanAmi"]);
+Route::get('/laporanAmiAuditor', [Controller::class, "laporanHasilAmi"]);
+
+// FOLDER AUDITEE->AMI
+Route::get('/datadukung', [Controller::class, "dataDukung"]);
+Route::get('/drafttemuanAuditee', [Controller::class, "drafttemuanAuditee"]);
+Route::get('/hasilChecklistAmi', [Controller::class, "hasilChecklistAmi"]);
+Route::get('/ketersediaanDok', [Controller::class, "ketersediaanDok"]);

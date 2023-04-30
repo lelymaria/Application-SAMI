@@ -7,7 +7,7 @@
               <div class="collapse navbar-collapse justify-content-between">
                   <div class="header-left">
                       <div class="dashboard_bar">
-                            Dashboard
+                          Dashboard
                       </div>
                   </div>
               </div>
@@ -33,19 +33,19 @@
                       </div>
                   </a>
                   <div class="dropdown-menu dropdown-menu-end">
-                      <a href="app-profile.html" class="dropdown-item ai-icon">
-                          <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary"
-                              width="18" height="18" viewbox="0 0 24 24" fill="none"
-                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <a href="/profile" class="dropdown-item ai-icon">
+                          <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18"
+                              height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
                               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                               <circle cx="12" cy="7" r="4"></circle>
                           </svg>
                           <span class="ms-2">Profile </span>
                       </a>
                       <a href="{{ url('logout') }}" class="dropdown-item ai-icon">
-                          <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger"
-                              width="18" height="18" viewbox="0 0 24 24" fill="none"
-                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18"
+                              height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
                               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                               <polyline points="16 17 21 12 16 7"></polyline>
                               <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -61,14 +61,14 @@
                       </a>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-043-menu"></i>
-							<span class="nav-text">Data</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="/datajurusan">Jurusan</a></li>
-                            <li><a href="/dataprodi">Prodi</a></li>
-                        </ul>
-                    </li>
+                          <i class="flaticon-043-menu"></i>
+                          <span class="nav-text">Data</span>
+                      </a>
+                      <ul aria-expanded="false">
+                          <li><a href="/datajurusan">Jurusan</a></li>
+                          <li><a href="/dataprodi">Prodi</a></li>
+                      </ul>
+                  </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                           <i class="flaticon-045-heart"></i>
                           <span class="nav-text">Manage User</span>
@@ -113,7 +113,7 @@
               @endcan
 
               @can('ketuaP4mp')
-                  <li><a href="/dash" class="ai-icon" aria-expanded="false">
+                  <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
                           <i class="flaticon-025-dashboard"></i>
                           <span class="nav-text">Dashboard</span>
                       </a>
@@ -123,11 +123,11 @@
                           <span class="nav-text">Audit Mutu Internal</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="form-pickers.html">Pedoman AMI</a></li>
-                          <li><a href="form-element.html">Monitoring AMI</a></li>
-                          <li><a href="form-wizard.html">Verifikasi Tindakan Koreksi</a></li>
-                          <li><a href="form-ckeditor.html">Laporan Hasil AMI</a></li>
-                          <li><a href="form-validation.html">History AMI</a></li>
+                          <li><a href="/pedomanAll">Pedoman AMI</a></li>
+                          <li><a href="/monitoringamiP4mp">Monitoring AMI</a></li>
+                          <li><a href="/verifikasitindakanP4mp">Verifikasi Tindakan Koreksi</a></li>
+                          <li><a href="/laporanamiP4mp">Laporan Hasil AMI</a></li>
+                          <li><a href="/historiAll">History AMI</a></li>
                       </ul>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -135,8 +135,8 @@
                           <span class="nav-text">Dokumentasi</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="chart-flot.html">AMI</a></li>
-                          <li><a href="chart-morris.html">RTM</a></li>
+                          <li><a href="/dokAMI">AMI</a></li>
+                          <li><a href="/dokRTM">RTM</a></li>
                       </ul>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -151,7 +151,7 @@
               @endcan
 
               @can('timAuditor')
-                  <li><a href="/dash" class="ai-icon" aria-expanded="false">
+                  <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
                           <i class="flaticon-025-dashboard"></i>
                           <span class="nav-text">Dashboard</span>
                       </a>
@@ -161,10 +161,10 @@
                           <span class="nav-text">Audit Mutu Internal</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="form-pickers.html">Pedoman AMI</a></li>
-                          <li><a href="form-element.html">Checklist AMI</a></li>
-                          <li><a href="form-wizard.html">Draft Temuan AMI</a></li>
-                          <li><a href="form-ckeditor.html">Laporan Hasil AMI</a></li>
+                          <li><a href="/pedomanAll">Pedoman AMI</a></li>
+                          <li><a href="/checklistAmiAuditor">Checklist AMI</a></li>
+                          <li><a href="/draftAmiAuditor">Draft Temuan AMI</a></li>
+                          <li><a href="/laporanAmiAuditor">Laporan Hasil AMI</a></li>
                       </ul>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -172,8 +172,8 @@
                           <span class="nav-text">Dokumentasi</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="chart-flot.html">AMI</a></li>
-                          <li><a href="chart-morris.html">RTM</a></li>
+                          <li><a href="/dokumentasiAmi">AMI</a></li>
+                          <li><a href="/dokumentasiRtm">RTM</a></li>
                       </ul>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -188,7 +188,7 @@
               @endcan
 
               @can('auditee')
-                  <li><a href="widget-basic.html" class="ai-icon" aria-expanded="false">
+                  <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
                           <i class="flaticon-025-dashboard"></i>
                           <span class="nav-text">Dashboard</span>
                       </a>
@@ -198,11 +198,11 @@
                           <span class="nav-text">Audit Mutu Internal</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="form-pickers.html">Pedoman AMI</a></li>
-                          <li><a href="form-element.html">Data Dukung</a></li>
-                          <li><a href="form-wizard.html">Ketersediaan Dokumen</a></li>
-                          <li><a href="form-ckeditor.html">Checklist Hasil AMI</a></li>
-                          <li><a href="form-validation.html">Draft Temuan AMI</a></li>
+                          <li><a href="/pedomanAll">Pedoman AMI</a></li>
+                          <li><a href="/datadukung">Data Dukung</a></li>
+                          <li><a href="/ketersediaanDok">Ketersediaan Dokumen</a></li>
+                          <li><a href="/hasilChecklistAmi">Checklist Hasil AMI</a></li>
+                          <li><a href="/drafttemuanAuditee">Draft Temuan AMI</a></li>
                       </ul>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -210,8 +210,8 @@
                           <span class="nav-text">Dokumentasi</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="chart-flot.html">AMI</a></li>
-                          <li><a href="chart-morris.html">RTM</a></li>
+                          <li><a href="/dokumentasiAmi">AMI</a></li>
+                          <li><a href="/dokumentasiRtm">RTM</a></li>
                       </ul>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -226,7 +226,7 @@
               @endcan
 
               @can('jurusan')
-                  <li><a href="/dash" class="ai-icon" aria-expanded="false">
+                  <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
                           <i class="flaticon-025-dashboard"></i>
                           <span class="nav-text">Dashboard</span>
                       </a>
@@ -236,8 +236,8 @@
                           <span class="nav-text">Audit Mutu Internal</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="form-pickers.html">Pedoman AMI</a></li>
-                          <li><a href="form-element.html">Monitoring</a></li>
+                          <li><a href="/pedomanAll">Pedoman AMI</a></li>
+                          <li><a href="/monitoringamiP4mp">Monitoring</a></li>
                       </ul>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -245,8 +245,8 @@
                           <span class="nav-text">Dokumentasi</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="chart-flot.html">AMI</a></li>
-                          <li><a href="chart-morris.html">RTM</a></li>
+                          <li><a href="/dokumentasiAmi">AMI</a></li>
+                          <li><a href="/dokumentasiRtm">RTM</a></li>
                       </ul>
                   </li>
                   <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
