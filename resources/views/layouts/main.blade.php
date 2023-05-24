@@ -59,7 +59,8 @@
         <!--**********************************
             Header start
         ***********************************-->
-
+        @stack('header')
+        @stack('header-dashboard')
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -122,7 +123,7 @@
     <script src="{{ asset('js/custom.min.js') }}"></script>
     <script src="{{ asset('js/dlabnav-init.js') }}"></script>
     <script src="{{ asset('js/demo.js') }}"></script>
-
+    @stack('js')
 </body>
 
 </html>

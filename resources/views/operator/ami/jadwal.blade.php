@@ -1,3 +1,45 @@
+@php
+    use Carbon\Carbon;
+@endphp
+@push('header')
+    <!--**********************************
+                                Header start
+                                ***********************************-->
+    <div class="header">
+        <div class="header-content">
+            <nav class="navbar navbar-expand">
+                <div class="collapse navbar-collapse justify-content-between">
+                    <div class="header-left">
+                        <div class="dashboard_bar">
+                            Audit Mutu Internal
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        @if (session('message'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                            <span><i class="mdi mdi-check-circle-outline"></i></span>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Congratulations!</h5>
+                            <p class="mb-0">{{ session('message') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+    <!--**********************************
+                                Header end ti-comment-alt
+                                ***********************************-->
+@endpush
 @extends('layouts.main')
 @section('content')
 @include('layouts.navbar')
@@ -28,42 +70,45 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-validate">
-                                    <form class="needs-validation" novalidate="">
+                                    <form class="needs-validation" novalidate="" action="{{ url('/ami/jadwalAmi') }}"
+                                        method="post">
+                                        @csrf
                                         <div class="row">
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Jadwal Mulai
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="validationCustom07"
-                                                        placeholder="http://example.com" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter a url.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Jadwal Selesai
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="validationCustom07"
-                                                        placeholder="http://example.com" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter a url.
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Jadwal
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        placeholder="http://example.com" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter a url.
-                                                    </div>
+                                                        name="nama_jadwal" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Jadwal Mulai
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <input type="date" class="form-control" id="validationCustom07"
+                                                        name="jadwal_mulai" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Jadwal
+                                                    Selesai
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <input type="date" class="form-control" id="validationCustom07"
+                                                        name="jadwal_selesai" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Tahun AMI
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="validationCustom07"
+                                                        name="tahun_ami" required>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -72,27 +117,33 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                                        <label class="form-check-label" for="flexSwitchCheckDefault">Proses</label>
-                                                      </div>
-                                                      <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
-                                                        <label class="form-check-label" for="flexSwitchCheckChecked">Pending</label>
-                                                      </div>
-
-                                                      <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
-                                                        <label class="form-check-label" for="flexSwitchCheckChecked">Selesai</label>
-                                                      </div>
+                                                        <input class="form-check-input" type="checkbox" role="switch"
+                                                            id="flexSwitchCheckDefault" name="status" value="proses">
+                                                        <label class="form-check-label"
+                                                            for="flexSwitchCheckDefault">Proses</label>
+                                                    </div>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" role="switch"
+                                                            id="flexSwitchCheckChecked" name="status" value="pending">
+                                                        <label class="form-check-label"
+                                                            for="flexSwitchCheckChecked">Pending</label>
+                                                    </div>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" role="switch"
+                                                            id="flexSwitchCheckChecked" name="status" value="selesai">
+                                                        <label class="form-check-label"
+                                                            for="flexSwitchCheckChecked">Selesai</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger light"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -111,24 +162,77 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Visitasi</td>
-                                <td>13/02/2023 - 14/03/2023</td>
-                                <td><a href="javascript:void(0);"><strong>Proses</strong></a></td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        <a href="#" class="btn btn-danger shadow btn-xs sharp"><i
-                                                class="fa fa-trash"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
+
+                            @foreach ($jadwal_ami as $jadwal)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $jadwal->nama_jadwal }}</td>
+                                    <td>{{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_mulai)->isoFormat('DD/MM/Y') }}
+                                        - {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_selesai)->isoFormat('DD/MM/Y') }}</td>
+                                    <td><a href="javascript:void(0);"><strong>{{ $jadwal->status }}</strong></a></td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="#" data-url="{{ url('/ami/jadwalAmi/' . $jadwal->id) }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                                data-bs-toggle="modal" data-bs-target="#updateJadwal"><i
+                                                    class="fas fa-pencil-alt"></i></a>
+                                            <form action="{{ url('/ami/jadwalAmi/' . $jadwal->id) }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="btn btn-danger shadow btn-xs sharp"><i
+                                                        class="fa fa-trash"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- update --}}
+    <div class="modal fade" id="updateJadwal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Jadwal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body" id="editModalBody">
+                    <div class="form-validate">
+                        <form class="needs-validation" novalidate="" action="{{ url('/ami/JadwalAmi/') }}" method="post">
+                            @csrf
+                            <div class="row" id="formBodyEdit">
+
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('js')
+    <script>
+        $('body').on('click', '.btn-edit', function() {
+            let url = $(this).data('url');
+            $('#editModalBody form').attr('action', url)
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    $('#editModalBody .row').html(data);
+                }
+            })
+        })
+    </script>
+@endpush

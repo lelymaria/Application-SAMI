@@ -27,18 +27,6 @@ class Controller extends BaseController
     {
         return view('operator.manage_akun.akun_jurusan');
     }
-    public function pedomanAmi()
-    {
-        return view('operator.ami.pedoman_ami');
-    }
-    public function standar()
-    {
-        return view('operator.ami.standar');
-    }
-    public function jadwalAmi()
-    {
-        return view('operator.ami.jadwal');
-    }
     public function pertanyaanStandar()
     {
         return view('operator.ami.pertanyaan_standar');
@@ -54,14 +42,6 @@ class Controller extends BaseController
     public function dokRtm()
     {
         return view('operator.dokumentasi.dokumentasi_rtm');
-    }
-    public function dataJurusan()
-    {
-        return view('operator.data.data_jurusan');
-    }
-    public function dataProdi()
-    {
-        return view('operator.data.data_prodi');
     }
 
     // UPDATE FOLDER OPERATOR

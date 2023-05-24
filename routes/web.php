@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\JadwalAmiController;
+use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\LayoutController;
+use App\Http\Controllers\PedomanAmiController;
+use App\Http\Controllers\ProgramStudiController;
+use App\Http\Controllers\StandarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +20,42 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Route::get('/', [Controller::class, "welcome"]);
-Route::get('/login', [AuthenticationController::class, "index"]);
+// Authentication
+Route::get('/', [AuthenticationController::class, "index"]);
 Route::post('/login', [AuthenticationController::class, "login"]);
 Route::get('/dashboard', [LayoutController::class, "index"])->middleware('auth');
 Route::get('/logout', [AuthenticationController::class, "logout"])->name("login");
+// JurusanController
+Route::get('/data/datajurusan', [JurusanController::class, "index"]);
+Route::post('/data/datajurusan', [JurusanController::class, "store"]);
+Route::get('/data/datajurusan/{id}', [JurusanController::class, "edit"]);
+Route::post('/data/datajurusan/{id}', [JurusanController::class, "update"]);
+Route::delete('/data/datajurusan/{id}', [JurusanController::class, "destroy"]);
+// ProdiController
+Route::get('/data/dataprodi', [ProgramStudiController::class, "index"]);
+Route::post('/data/dataprodi', [ProgramStudiController::class, "store"]);
+Route::get('/data/dataprodi/{id}', [ProgramStudiController::class, "edit"]);
+Route::post('/data/dataprodi/{id}', [ProgramStudiController::class, "update"]);
+Route::delete('/data/dataprodi/{id}', [ProgramStudiController::class, "destroy"]);
+// StandarController
+Route::get('/ami/standar', [StandarController::class, "index"]);
+Route::post('/ami/standar', [StandarController::class, "store"]);
+Route::get('/ami/standar/{id}', [StandarController::class, "edit"]);
+Route::post('/ami/standar/{id}', [StandarController::class, "update"]);
+Route::delete('/ami/standar/{id}', [StandarController::class, "destroy"]);
+// PedomanAmi
+Route::get('/ami/pedomanAmi', [PedomanAmiController::class, "index"]);
+Route::post('/ami/pedomanAmi', [PedomanAmiController::class, "store"]);
+Route::get('/ami/pedomanAmi/{id}', [PedomanAmiController::class, "edit"]);
+Route::post('/ami/pedomanAmi/{id}', [PedomanAmiController::class, "update"]);
+// JadwalAmi
+Route::get('/ami/jadwalAmi', [JadwalAmiController::class, "index"]);
+Route::post('/ami/jadwalAmi', [JadwalAmiController::class, "store"]);
+Route::get('/ami/jadwalAmi/{id}', [JadwalAmiController::class, "edit"]);
+Route::post('/ami/jadwalAmi/{id}', [JadwalAmiController::class, "update"]);
+Route::delete('/ami/jadwalAmi/{id}', [JadwalAmiController::class, "destroy"]);
 
+/* ============================================================= */
 
 //FOLDER OPERATOR
 // (Manage Akun)
@@ -30,16 +65,11 @@ Route::get('/akunauditee', [Controller::class, "akunAuditee"]);
 Route::get('/akunjurusan', [Controller::class, "akunJurusan"]);
 // (Ami)
 Route::get('/pedomanami', [Controller::class, "pedomanAmi"]);
-Route::get('/standar', [Controller::class, "standar"]);
-Route::get('/jadwalami', [Controller::class, "jadwalAmi"]);
 Route::get('/pertanyaanstandar', [Controller::class, "pertanyaanStandar"]);
 Route::get('/historiami', [Controller::class, "historiAmi"]);
 // (Dokumentasi Ami)
 Route::get('/dokumentasiAmi', [Controller::class, "dokAmi"]);
 Route::get('/dokumentasiRtm', [Controller::class, "dokRtm"]);
-// (Data)
-Route::get('/datajurusan', [Controller::class, "dataJurusan"]);
-Route::get('/dataprodi', [Controller::class, "dataProdi"]);
 //UPDATE->FOLDER OPERATOR
 Route::get('/updateakunkepalap4mp', [Controller::class, "updateAkunKepalap4mp"]);
 Route::get('/updateakunauditor', [Controller::class, "updateAkunAuditor"]);

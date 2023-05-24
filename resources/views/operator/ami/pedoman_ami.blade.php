@@ -1,6 +1,45 @@
+@push('header')
+    <!--**********************************
+                            Header start
+                            ***********************************-->
+    <div class="header">
+        <div class="header-content">
+            <nav class="navbar navbar-expand">
+                <div class="collapse navbar-collapse justify-content-between">
+                    <div class="header-left">
+                        <div class="dashboard_bar">
+                            Audit Mutu Internal
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        @if (session('message'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                            <span><i class="mdi mdi-check-circle-outline"></i></span>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Congratulations!</h5>
+                            <p class="mb-0">{{ session('message') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+    <!--**********************************
+                            Header end ti-comment-alt
+                            ***********************************-->
+@endpush
 @extends('layouts.main')
 @section('content')
-@include('layouts.navbar')
+    @include('layouts.navbar')
 
     <div class="row page-titles">
         <ol class="breadcrumb">
@@ -9,28 +48,130 @@
         </ol>
     </div>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div class="col-xl-12">
         <div class="card">
-            <div class="card-body">
-                <div class="d-xl-flex d-block align-items-start description-bx">
-                    <div>
-                        <h4 class="card-title">Description</h4>
-                        <span class="fs-12">Lorem ipsum dolor sit amet, consectetur</span>
-                        <p class="description mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                        </p>
+            <div class="card-header">
+                <h4 class="card-title">Pedoman</h4>
+                <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
+                    data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
+                            class="fa fa-plus color-secondary"></i>
+                    </span>Add</button>
+                {{-- Modal --}}
+                <div class="modal fade" id="basicModal">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tambah Pedoman</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-validate">
+                                    <form class="needs-validation" novalidate="" action="{{ url('/ami/pedomanAmi') }}"
+                                        method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Deskripsi
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <textarea rows="8" class="form-control" name="deskripsi" placeholder="Deskripsi"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="form-file">
+                                                    <input type="file" class="form-file-input form-control"
+                                                        name="file_pedoman">
+                                                </div>
+                                                <span class="input-group-text">Upload</span>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="d-flex mb-3">
-                    <a class="btn btn-dark light me-3" href="javascript:void(0);"><i
-                            class="fas fa-pencil-alt me-3 scale4"></i>Update Pedoman</a>
-                    <a href="javascript:void(0);" class="btn btn-primary"><i
-                            class="las la-download scale5 me-3"></i>Download Pedoman</a>
+            </div>
+            <div class="card-body">
+                @foreach ($pedoman_ami as $pedoman)
+                    <div class="d-xl-flex d-block align-items-start description-bx">
+                        <div>
+                            <h4 class="card-title">Deskripsi</h4>
+                            <p class="description mt-4">{{ $pedoman->deskripsi }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <a class="btn btn-dark light me-3 btn-edit" href="javascript:void(0);"
+                            data-url="{{ url('/ami/pedomanAmi/' . $pedoman->id) }}" data-bs-toggle="modal"
+                            data-bs-target="#updatePedoman"><i class="fas fa-pencil-alt me-3 scale4"></i>Update Pedoman</a>
+                        <a href="{{ asset('storage/' . $pedoman->file_pedoman_ami) }}" class="btn btn-primary"><i
+                                class="las la-download scale5 me-3"></i>Download Pedoman</a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- update --}}
+    <div class="modal fade" id="updatePedoman">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Pedoman AMI</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
                 </div>
+                <div class="modal-body" id="editModalBody">
+                    <div class="form-validate">
+                        <form class="needs-validation" novalidate="" action="{{ url('/ami/pedomanAmi/') }}"
+                            method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row" id="formBodyEdit">
+
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $('body').on('click', '.btn-edit', function() {
+            let url = $(this).data('url');
+            console.log(url);
+            $('#editModalBody form').attr('action', url)
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    console.log(data);
+                    $('#editModalBody .row').html(data);
+                }
+            })
+        })
+    </script>
+@endpush
