@@ -103,3 +103,6 @@ Route::get('/datadukung', [Controller::class, "dataDukung"]);
 Route::get('/drafttemuanAuditee', [Controller::class, "drafttemuanAuditee"]);
 Route::get('/hasilChecklistAmi', [Controller::class, "hasilChecklistAmi"]);
 Route::get('/ketersediaanDok', [Controller::class, "ketersediaanDok"]);
+
+
+Route::get('/standar/list_pertanyaan', [Controller::class, "listPertanyaan"]);

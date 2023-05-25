@@ -16,7 +16,7 @@ class StandarController extends Controller
         $data = [
             'standar' => Standar::all()
         ];
-        return view('operator.ami.standar', $data);
+        return view('ami.standar.standar', $data);
     }
 
     /**
@@ -59,7 +59,7 @@ class StandarController extends Controller
         $data = [
             "update_standar" => $standar
         ];
-        return view('operator.ami.update_standar', $data);
+        return view('ami.standar.update_standar', $data);
     }
 
     /**

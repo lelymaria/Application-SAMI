@@ -18,7 +18,7 @@ class PedomanAmiController extends Controller
         $data = [
             'pedoman_ami' => PedomanAmi::all()
         ];
-        return view('operator.ami.pedoman_ami', $data);
+        return view('ami.pedoman.pedoman_ami', $data);
     }
 
     /**
@@ -65,7 +65,7 @@ class PedomanAmiController extends Controller
         $data = [
             "update_pedoman" => $pedomanAmi,
         ];
-        return view('operator.ami.update_pedoman_ami', $data);
+        return view('ami.pedoman.update_pedoman_ami', $data);
     }
 
     /**

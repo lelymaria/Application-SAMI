@@ -16,7 +16,7 @@ class JadwalAmiController extends Controller
         $data = [
             'jadwal_ami' => JadwalAmi::all()
         ];
-        return view('operator.ami.jadwal', $data);
+        return view('ami.jadwal.jadwal', $data);
     }
 
     /**
@@ -63,7 +63,7 @@ class JadwalAmiController extends Controller
         $data = [
             "update_jadwal" => $jadwalAmi
         ];
-        return view('operator.ami.update_jadwal', $data);
+        return view('ami.jadwal.update_jadwal', $data);
     }
 
     /**

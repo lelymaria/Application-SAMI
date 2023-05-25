@@ -13,4 +13,6 @@ class PertanyaanStandar extends Model
 
     protected $table = 'pertanyaan_standar';
     protected $fillable = ['list_pertanyaan_standar'];
+
+    
 }

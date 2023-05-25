@@ -17,7 +17,7 @@ class JurusanController extends Controller
         $data = [
             'jurusan' => Jurusan::all()
         ];
-        return view('operator.data.data_jurusan', $data);
+        return view('data.jurusan.view_jurusan', $data);
     }
 
     /**
@@ -60,7 +60,7 @@ class JurusanController extends Controller
         $data = [
             "update_jurusan" => $jurusan
         ];
-        return view('operator.data.update_data_jurusan', $data);
+        return view('data.jurusan.update_jurusan', $data);
     }
 
     /**

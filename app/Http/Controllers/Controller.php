@@ -13,72 +13,72 @@ class Controller extends BaseController
     //FOLDER OPERATOR
     public function akunKepalap4mp()
     {
-        return view('operator.manage_akun.akun_kepalap4mp');
+        return view('manage_akun.p4mp.akun_kepalap4mp');
     }
     public function akunAuditor()
     {
-        return view('operator.manage_akun.akun_auditor');
+        return view('manage_akun.auditor.akun_auditor');
     }
     public function akunAuditee()
     {
-        return view('operator.manage_akun.akun_auditee');
+        return view('manage_akun.auditee.akun_auditee');
     }
     public function akunJurusan()
     {
-        return view('operator.manage_akun.akun_jurusan');
+        return view('manage_akun.jurusan.akun_jurusan');
     }
     public function pertanyaanStandar()
     {
-        return view('operator.ami.pertanyaan_standar');
+        return view('ami.pertanyaan_standar.view');
     }
     public function historiAmi()
     {
-        return view('operator.ami.histori_ami');
+        return view('ami.histori.histori_ami');
     }
     public function dokAmi()
     {
-        return view('operator.dokumentasi.dokumentasi_ami');
+        return view('ami.dokumentasi_ami.dokumentasi_ami');
     }
     public function dokRtm()
     {
-        return view('operator.dokumentasi.dokumentasi_rtm');
+        return view('ami.dokumentasi_rtm.dokumentasi_rtm');
     }
 
     // UPDATE FOLDER OPERATOR
     public function updateAkunKepalap4mp()
     {
-        return view('operator.manage_akun.update_kepalap4mp');
+        return view('manage_akun.p4mp.update_kepalap4mp');
     }
     public function updateAkunAuditor()
     {
-        return view('operator.manage_akun.update_auditor');
+        return view('manage_akun.auditor.update_auditor');
     }
     public function updateAkunAuditee()
     {
-        return view('operator.manage_akun.update_auditee');
+        return view('manage_akun.auditee.update_auditee');
     }
     public function UpdateAkunJurusan()
     {
-        return view('operator.manage_akun.update_jurusan');
+        return view('manage_akun.jurusan.update_jurusan');
     }
 
     //FOLDER MENU->AKUN
     public function profile()
     {
-        return view('menu.akun.profile');
+        return view('manage_akun.setting_akun.profile.profile');
     }
     public function editPassword()
     {
-        return view('menu.akun.edit_password');
+        return view('manage_akun.setting_akun.edit_password.edit_password');
     }
     //FOLDER MENU->DOKUMENTASI
     public function dokAmiAll()
     {
-        return view('menu.dokumentasi.dokumentasi_ami');
+        return view('ami.dokumentasi_ami.dokumentasi_ami');
     }
     public function dokRtmAll()
     {
-        return view('menu.dokumentasi.dokumentasi_rtm');
+        return view('ami.dokumentasi_rtm.dokumentasi_rtm');
     }
 
     //FOLDER VIEWS
@@ -88,52 +88,56 @@ class Controller extends BaseController
     }
     public function historiAll()
     {
-        return view('histori_ami');
+        return view('ami.histori.histori_ami');
     }
 
     // FOLDER P4MP->AMI
     public function monitoringP4mp()
     {
-        return view('p4mp.ami.monitoring_ami');
+        return view('ami.monitoring.monitoring_ami');
     }
     public function laporanP4mp()
     {
-        return view('p4mp.ami.laporan_hasil_ami');
+        return view('ami.laporan_hasil_ami.laporan_hasil_ami');
     }
     public function verifikasiP4mp()
     {
-        return view('p4mp.ami.verifikasi_tindakan_koreksi');
+        return view('ami.draft_temuan.verifikasi_tindakan_koreksi');
     }
 
     // FOLDER AUDITOR->AMI
     public function checklistAmi()
     {
-        return view('auditor.ami.checklist_ami');
+        return view('ami.dokumen_checklist.checklist_ami_auditor');
     }
     public function drafttemuanAmi()
     {
-        return view('auditor.ami.draft_temuan_ami');
+        return view('ami.draft_temuan.uraian_ketidaksesuaian');
     }
     public function laporanHasilAmi()
     {
-        return view('auditor.ami.laporan_hasil_ami');
+        return view('ami.laporan_hasil_ami.laporan_hasil_ami');
     }
 
     // FOLDER AUDITEE->AMI
     public function dataDukung()
     {
-        return view('auditee.ami.data_dukung');
+        return view('ami.data_dukung.data_dukung');
     }
     public function drafttemuanAuditee()
     {
-        return view('auditee.ami.draft_temuan_ami');
+        return view('ami.draft_temuan.analisa_dan_tindakan_auditee');
     }
     public function hasilChecklistAmi()
     {
-        return view('auditee.ami.hasil_checklist_ami');
+        return view('ami.dokumen_checklist.tanggapan_auditee');
     }
     public function ketersediaanDok()
     {
-        return view('auditee.ami.ketersediaan_dok');
+        return view('ami.ketersediaan_dokumen.ketersediaan_dok');
+    }
+    public function listPertanyaan()
+    {
+        return view('ami.pertanyaan_standar.list_pertanyaan_standar');
     }
 }

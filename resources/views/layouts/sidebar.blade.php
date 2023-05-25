@@ -145,6 +145,7 @@
                         <li><a href="/checklistAmiAuditor">Checklist AMI</a></li>
                         <li><a href="/draftAmiAuditor">Draft Temuan AMI</a></li>
                         <li><a href="/laporanAmiAuditor">Laporan Hasil AMI</a></li>
+                        <li><a href="/historiAll">History AMI</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -183,6 +184,7 @@
                         <li><a href="/ketersediaanDok">Ketersediaan Dokumen</a></li>
                         <li><a href="/hasilChecklistAmi">Checklist Hasil AMI</a></li>
                         <li><a href="/drafttemuanAuditee">Draft Temuan AMI</a></li>
+                        <li><a href="/historiAll">History AMI</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -218,6 +220,7 @@
                     <ul aria-expanded="false">
                         <li><a href="/pedomanAll">Pedoman AMI</a></li>
                         <li><a href="/monitoringamiP4mp">Monitoring</a></li>
+                        <li><a href="/historiAll">History AMI</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

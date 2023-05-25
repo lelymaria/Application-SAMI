@@ -18,7 +18,7 @@ class ProgramStudiController extends Controller
             'prodi' => ProgramStudi::all(),
             'jurusan' => Jurusan::all()
         ];
-        return view('operator.data.data_prodi', $data);
+        return view('data.prodi.view_prodi', $data);
     }
 
     /**
@@ -67,7 +67,7 @@ class ProgramStudiController extends Controller
             "update_prodi" => $prodi,
             "jurusan" => Jurusan::all()
         ];
-        return view('operator.data.update_data_prodi', $data);
+        return view('data.prodi.update_prodi', $data);
     }
 
     /**
