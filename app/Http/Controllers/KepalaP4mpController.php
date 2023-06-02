@@ -71,24 +71,56 @@ class KepalaP4mpController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(KepalaP4mp $kepalaP4mp)
+    public function edit(string $idKepalaP4mp)
     {
-        return view('manage_akun.p4mp.update_kepalap4mp');
+        $kepalaP4mp = KepalaP4mp::where('id_user', $idKepalaP4mp)->first();
+        $data = [
+            'update_akun_kepalaP4mp' => $kepalaP4mp
+        ];
+        return view('manage_akun.p4mp.update_kepalap4mp', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, KepalaP4mp $kepalaP4mp)
+    public function update(Request $request, string $idKepalaP4mp)
     {
-        //
+        $kepalaP4mp = KepalaP4mp::where('id_user', $idKepalaP4mp)->first();
+        $request->validate([
+            "periode_jabatan" => "required",
+            "email" => "required",
+            "nip" => "required|unique:users,nip",
+            "nama" => "required",
+            // "foto_profile" => "required",
+            // "new_password" => "required",
+            // "confirmations_password" => "required",
+        ]);
+
+        DB::transaction(function () use ($request, $kepalaP4mp) {
+            $user = User::findOrFail($kepalaP4mp);
+            $level = Level::where('name', 'Ketua P4MP')->first();
+            $user->update([
+                'nip' => $request->nip,
+                'password' => 'required|min:8|confirmed',
+                'level_id' => $level->id
+            ]);
+            $user->kepalaP4mp()->update([
+                'periode_jabatan' => $request->periode_jabatan,
+                'email' => $request->email,
+                'nama' => $request->nama,
+                'foto_profile' => Hash::make('foto_profile'),
+            ]);
+        });
+        return redirect('/manage_user/kepalaP4mp/' . $kepalaP4mp->idKepalaP4mp)->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KepalaP4mp $kepalaP4mp)
+    public function destroy(string $idKepalaP4mp)
     {
-        //
+        $kepalaP4mp = KepalaP4mp::findOrFail($idKepalaP4mp);
+        $kepalaP4mp->delete();
+        return redirect('/manage_user/kepalaP4mp/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

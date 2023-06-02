@@ -62,69 +62,51 @@ Header end ti-comment-alt
             <div class="card">
                 <div class="card-body">
                     <div class="form-validation">
-                        <form class="needs-validation" novalidate="">
+                        <form class="needs-validation" novalidate="" action="{{ url('/manage_user/kepalaP4mp/'. $kepalaP4mp->idKepalaP4mp) }}"
+                        method="post">
+                        @csrf
                             <div class="row">
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom01">Periode Jabatan
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom01"
-                                                placeholder="Enter a username.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a username.
-                                            </div>
+                                                name="periode_jabatan" value="{{ $update_akun_kepalaP4mp->periode_jabatan }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-lg-4 col-form-label" for="validationCustom02">Email<span
-                                                class="text-danger">*</span>
+                                        <label class="col-lg-4 col-form-label" for="validationCustom02">Email
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                placeholder="Your valid email.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a Email.
-                                            </div>
+                                                name="email">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom03">NIP
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom03"
-                                                placeholder="Choose a safe one.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a password.
-                                            </div>
+                                                name="nip">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom03">Nama
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom03"
-                                                placeholder="Choose a safe one.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a password.
-                                            </div>
+                                                name="nama">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom07">Password Baru
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom07"
-                                                placeholder="http://example.com" required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a url.
-                                            </div>
+                                                name="password">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -133,10 +115,7 @@ Header end ti-comment-alt
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom08"
-                                                placeholder="212-999-0000" required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a phone no.
-                                            </div>
+                                                name="confirmation_password">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

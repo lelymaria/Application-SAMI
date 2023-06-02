@@ -13,7 +13,7 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a href="/profile" class="dropdown-item ai-icon">
+                    <a href="{{ url('/profile') }}" class="dropdown-item ai-icon">
                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18"
                             height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -35,7 +35,7 @@
                 </div>
             </li>
             @can('operator')
-                <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
+                <li><a href="{{ url('/dashboard') }}" class="ai-icon" aria-expanded="false">
                         <i class="flaticon-025-dashboard"></i>
                         <span class="nav-text">Dashboard</span>
                     </a>
@@ -45,8 +45,8 @@
                         <span class="nav-text">Data</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/data/datajurusan">Jurusan</a></li>
-                        <li><a href="/data/dataprodi">Prodi</a></li>
+                        <li><a href="{{ url('/data/datajurusan') }}">Jurusan</a></li>
+                        <li><a href="{{ url('/data/dataprodi') }}">Prodi</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -54,11 +54,11 @@
                         <span class="nav-text">Manage User</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/manage_user/akun_operator">Operator</a></li>
-                        <li><a href="/manage_user/kepalaP4mp">Kepala P4MP</a></li>
-                        <li><a href="/manage_user/akun_jurusan">Jurusan</a></li>
-                        <li><a href="/manage_user/akun_auditor">Auditor</a></li>
-                        <li><a href="/manage_user/akun_auditee">Auditee</a></li>
+                        <li><a href="{{ url('/manage_user/akun_operator') }}">Operator</a></li>
+                        <li><a href="{{ url('/manage_user/kepalaP4mp') }}">Kepala P4MP</a></li>
+                        <li><a href="{{ url('/manage_user/akun_jurusan') }}">Jurusan</a></li>
+                        <li><a href="{{ url('/manage_user/akun_auditor') }}">Auditor</a></li>
+                        <li><a href="{{ url('/manage_user/akun_auditee') }}">Auditee</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -66,11 +66,11 @@
                         <span class="nav-text">Audit Mutu Internal</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/ami/pedomanAmi">Pedoman AMI</a></li>
-                        <li><a href="/ami/standar">Standar</a></li>
-                        <li><a href="/ami/jadwalAmi">Jadwal AMI</a></li>
-                        <li><a href="/ami/data_standar">Pertanyaan Standar</a></li>
-                        <li><a href="/historiami">History AMI</a></li>
+                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                        <li><a href="{{ url('/ami/standar') }}">Standar</a></li>
+                        <li><a href="{{ url('/ami/jadwalAmi') }}">Jadwal AMI</a></li>
+                        <li><a href="{{ url('/ami/data_standar') }}">Pertanyaan Standar</a></li>
+                        <li><a href="{{ url('/historiami') }}">History AMI</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -78,8 +78,8 @@
                         <span class="nav-text">Dokumentasi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/dokumentasiAmi">AMI</a></li>
-                        <li><a href="/dokumentasiRtm">RTM</a></li>
+                        <li><a href="{{ url('/dokumentasiAmi') }}">AMI</a></li>
+                        <li><a href="{{ url('/dokumentasiRtm') }}">RTM</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -87,8 +87,8 @@
                         <span class="nav-text">Account</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/profile">Profile</a></li>
-                        <li><a href="/password/edit">Edit Password</a></li>
+                        <li><a href="{{ url('/profile') }}">Profile</a></li>
+                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan

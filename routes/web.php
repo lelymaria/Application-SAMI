@@ -44,9 +44,9 @@ Route::post('/manage_user/akun_auditee', [AkunOperatorController::class, "store"
 // KepalaP4mp
 Route::get('/manage_user/kepalaP4mp', [KepalaP4mpController::class, "index"]);
 Route::post('/manage_user/kepalaP4mp', [KepalaP4mpController::class, "store"]);
-// Route::get('/manage_user/kepalaP4mp_edit/{id}', [KepalaP4mpController::class, "edit"]);
-// Route::post('/manage_user/kepalaP4mp/{id}', [KepalaP4mpController::class, "update"]);
-// Route::delete('/manage_user/kepalaP4mp/{id}', [KepalaP4mpController::class, "destroy"]);
+Route::get('/manage_user/kepalaP4mp_edit/{id}', [KepalaP4mpController::class, "edit"]);
+Route::post('/manage_user/kepalaP4mp/{id}', [KepalaP4mpController::class, "update"]);
+Route::delete('/manage_user/kepalaP4mp/{id}', [KepalaP4mpController::class, "destroy"]);
 // AkunJurusan
 Route::get('/manage_user/akun_jurusan', [AkunJurusanController::class, "index"]);
 Route::post('/manage_user/akun_jurusan', [AkunJurusanController::class, "store"]);

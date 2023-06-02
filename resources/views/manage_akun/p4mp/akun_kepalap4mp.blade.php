@@ -156,11 +156,15 @@
                                     <td><strong>{{ $kepala_p4mp->periode_jabatan }}</strong></td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="/manage_user/kepalaP4mp_edit"
-                                                class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                            <a href="{{ url('/manage_user/kepalaP4mp_edit/'.$kepala_p4mp->id) }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i
-                                                    class="fa fa-trash"></i></a>
+                                            <form action="{{ url('/manage_user/kepalaP4mp/'.$kepala_p4mp->id) }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="btn btn-danger shadow btn-xs sharp"><i
+                                                        class="fa fa-trash"></i></button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
