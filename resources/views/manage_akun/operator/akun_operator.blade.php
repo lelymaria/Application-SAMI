@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+    Header start
+    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+    Header end ti-comment-alt
+    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -44,19 +44,9 @@
     <div class="row page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Manage User</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Kepala P4MP</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Operator</a></li>
         </ol>
     </div>
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
     <div class="col-12">
         <div class="card">
@@ -71,24 +61,29 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Tambah Akun Kepala P4MP</h5>
+                                <h5 class="modal-title">Tambah Akun Auditee</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                                 </button>
                             </div>
-                            <form class="needs-validation" novalidate="" action="{{ url('/manage_user/kepalaP4mp') }}"
-                                method="post">
-                                @csrf
-                                <div class="modal-body">
-                                    <div class="form-validate">
+                            <div class="modal-body">
+                                <div class="form-validate">
+                                    <form class="needs-validation" novalidate="">
                                         <div class="row">
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom06">Periode
-                                                    Jabatan
+                                                <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="validationCustom06"
-                                                        name="periode_jabatan">
+                                                <div class="col-lg-6">
+                                                    <select class="default-select wide form-control"
+                                                        id="validationCustom05">
+                                                        <option data-display="Select">Please select</option>
+                                                        <option value="html">HTML</option>
+                                                        <option value="css">CSS</option>
+                                                        <option value="javascript">JavaScript</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please select a one.
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -97,7 +92,10 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="email">
+                                                        placeholder="http://example.com" required="">
+                                                    <div class="invalid-feedback">
+                                                        Please enter a url.
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -106,7 +104,10 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom08"
-                                                        name="nip">
+                                                        placeholder="212-999-0000" required="">
+                                                    <div class="invalid-feedback">
+                                                        Please enter a phone no.
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -115,18 +116,20 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom09"
-                                                        name="nama">
+                                                        placeholder="5" required="">
+                                                    <div class="invalid-feedback">
+                                                        Please enter a digits.
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger light"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -141,30 +144,27 @@
                                 <th>NIP</th>
                                 <th>Email</th>
                                 <th>Type</th>
-                                <th>Periode Jabatan</th>
+                                <th>Unit Kerja</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kepala_p4mp as $kepala_p4mp)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $kepala_p4mp->nama }}</td>
-                                    <td>{{ $kepala_p4mp->user->nip }}</td>
-                                    <td>{{ $kepala_p4mp->email }}</td>
-                                    <td><strong>{{ $kepala_p4mp->user->levelRole->name }}</strong></td>
-                                    <td><strong>{{ $kepala_p4mp->periode_jabatan }}</strong></td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="/manage_user/kepalaP4mp_edit"
-                                                class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i
-                                                    class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            <tr>
+                                <td>1</td>
+                                <td>Tiger Nixon</td>
+                                <td>2003073</td>
+                                <td>tiger@gmail.com</td>
+                                <td><a href="javascript:void(0);"><strong>auditee</strong></a></td>
+                                <td>Prodi KP</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="/updateakunauditee" class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                                class="fas fa-pencil-alt"></i></a>
+                                        <a href="#" class="btn btn-danger shadow btn-xs sharp"><i
+                                                class="fa fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

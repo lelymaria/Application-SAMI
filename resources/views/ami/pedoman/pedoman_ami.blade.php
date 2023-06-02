@@ -62,10 +62,13 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Pedoman</h4>
+                    @if ($pedoman_ami->count()>0)
+                @else
                 <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
                     data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
                             class="fa fa-plus color-secondary"></i>
                     </span>Add</button>
+                @endif
                 {{-- Modal --}}
                 <div class="modal fade" id="basicModal">
                     <div class="modal-dialog" role="document">

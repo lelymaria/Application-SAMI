@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pertanyaan_standar', function (Blueprint $table) {
+        Schema::create('kepala_p4mp', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_standar');
-            $table->text('list_pertanyaan_standar');
+            $table->uuid('id_user');
+            $table->string('periode_jabatan');
+            $table->string('email');
+            $table->string('nama');
+            $table->string('foto_profile');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pertanyaan_standar');
+        Schema::dropIfExists('kepala_p4mps');
     }
 };

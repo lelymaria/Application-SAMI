@@ -12,7 +12,5 @@ class PertanyaanStandar extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'pertanyaan_standar';
-    protected $fillable = ['list_pertanyaan_standar'];
-
-    
+    protected $fillable = ['id_standar','list_pertanyaan_standar'];
 }

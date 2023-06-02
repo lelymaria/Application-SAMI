@@ -25,9 +25,9 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     protected $fillable = [
-        'name',
-        'email',
+        'nip',
         'password',
+        'level_id',
     ];
 
     /**
@@ -51,5 +51,9 @@ class User extends Authenticatable
 
     public function levelRole() {
         return $this->hasOne(Level::class, 'id', 'level_id');
+    }
+
+    public function kepalaP4mp() {
+        return $this->hasOne(KepalaP4mp::class, 'id_user', 'id');
     }
 }

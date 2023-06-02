@@ -119,6 +119,7 @@
 
     <!-- Dashboard 1 -->
     <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
+    <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 
     <script src="{{ asset('js/custom.min.js') }}"></script>
     <script src="{{ asset('js/dlabnav-init.js') }}"></script>

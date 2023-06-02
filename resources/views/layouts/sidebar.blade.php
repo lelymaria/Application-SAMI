@@ -54,10 +54,11 @@
                         <span class="nav-text">Manage User</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/akunkepalap4mp">Kepala P4MP</a></li>
-                        <li><a href="/akunjurusan">Jurusan</a></li>
-                        <li><a href="/akunauditor">Auditor</a></li>
-                        <li><a href="/akunauditee">Auditee</a></li>
+                        <li><a href="/manage_user/akun_operator">Operator</a></li>
+                        <li><a href="/manage_user/kepalaP4mp">Kepala P4MP</a></li>
+                        <li><a href="/manage_user/akun_jurusan">Jurusan</a></li>
+                        <li><a href="/manage_user/akun_auditor">Auditor</a></li>
+                        <li><a href="/manage_user/akun_auditee">Auditee</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -68,7 +69,7 @@
                         <li><a href="/ami/pedomanAmi">Pedoman AMI</a></li>
                         <li><a href="/ami/standar">Standar</a></li>
                         <li><a href="/ami/jadwalAmi">Jadwal AMI</a></li>
-                        <li><a href="/pertanyaanstandar">Pertanyaan Standar</a></li>
+                        <li><a href="/ami/data_standar">Pertanyaan Standar</a></li>
                         <li><a href="/historiami">History AMI</a></li>
                     </ul>
                 </li>
@@ -87,7 +88,7 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="/profile">Profile</a></li>
-                        <li><a href="/editPassword">Edit Password</a></li>
+                        <li><a href="/password/edit">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan
@@ -125,7 +126,7 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="/profile">Profile</a></li>
-                        <li><a href="/editPassword">Edit Password</a></li>
+                        <li><a href="/password/edit">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan
@@ -163,7 +164,7 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="/profile">Profile</a></li>
-                        <li><a href="/editPassword">Edit Password</a></li>
+                        <li><a href="/password/edit">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan
@@ -202,7 +203,7 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="/profile">Profile</a></li>
-                        <li><a href="/editPassword">Edit Password</a></li>
+                        <li><a href="/password/edit">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan
@@ -238,7 +239,7 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="/profile">Profile</a></li>
-                        <li><a href="/editPassword">Edit Password</a></li>
+                        <li><a href="/password/edit">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan

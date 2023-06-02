@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pertanyaan_standar', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('id_standar');
-            $table->text('list_pertanyaan_standar');
+        Schema::create('akun_operators', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pertanyaan_standar');
+        Schema::dropIfExists('akun_operators');
     }
 };

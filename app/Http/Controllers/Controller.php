@@ -11,26 +11,6 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     //FOLDER OPERATOR
-    public function akunKepalap4mp()
-    {
-        return view('manage_akun.p4mp.akun_kepalap4mp');
-    }
-    public function akunAuditor()
-    {
-        return view('manage_akun.auditor.akun_auditor');
-    }
-    public function akunAuditee()
-    {
-        return view('manage_akun.auditee.akun_auditee');
-    }
-    public function akunJurusan()
-    {
-        return view('manage_akun.jurusan.akun_jurusan');
-    }
-    public function pertanyaanStandar()
-    {
-        return view('ami.pertanyaan_standar.view');
-    }
     public function historiAmi()
     {
         return view('ami.histori.histori_ami');
@@ -44,33 +24,12 @@ class Controller extends BaseController
         return view('ami.dokumentasi_rtm.dokumentasi_rtm');
     }
 
-    // UPDATE FOLDER OPERATOR
-    public function updateAkunKepalap4mp()
-    {
-        return view('manage_akun.p4mp.update_kepalap4mp');
-    }
-    public function updateAkunAuditor()
-    {
-        return view('manage_akun.auditor.update_auditor');
-    }
-    public function updateAkunAuditee()
-    {
-        return view('manage_akun.auditee.update_auditee');
-    }
-    public function UpdateAkunJurusan()
-    {
-        return view('manage_akun.jurusan.update_jurusan');
-    }
-
     //FOLDER MENU->AKUN
     public function profile()
     {
         return view('manage_akun.setting_akun.profile.profile');
     }
-    public function editPassword()
-    {
-        return view('manage_akun.setting_akun.edit_password.edit_password');
-    }
+
     //FOLDER MENU->DOKUMENTASI
     public function dokAmiAll()
     {
