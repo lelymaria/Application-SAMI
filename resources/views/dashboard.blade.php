@@ -23,6 +23,7 @@ Header end ti-comment-alt
 @section('content')
 @include('layouts.navbar')
 
+@can('operator')
 <div class="container-fluid">
     <div class="row invoice-card-row">
         <div class="col-xl-3 col-xxl-3 col-sm-6">
@@ -34,7 +35,7 @@ Header end ti-comment-alt
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-white invoice-num">2478</h2>
+                        <h2 class="text-white invoice-num">{{ $p4mpCount }}</h2>
                         <span class="text-white fs-18">Akun Kepala P4MP</span>
                     </div>
                 </div>
@@ -49,7 +50,7 @@ Header end ti-comment-alt
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-white invoice-num">983</h2>
+                        <h2 class="text-white invoice-num">{{ $auditorCount }}</h2>
                         <span class="text-white fs-18">Akun Auditor</span>
                     </div>
                 </div>
@@ -64,7 +65,7 @@ Header end ti-comment-alt
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-white invoice-num">1256</h2>
+                        <h2 class="text-white invoice-num">{{ $auditeeCount }}</h2>
                         <span class="text-white fs-18">Akun Auditee</span>
                     </div>
                 </div>
@@ -79,7 +80,7 @@ Header end ti-comment-alt
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-white invoice-num">652</h2>
+                        <h2 class="text-white invoice-num">{{ $jurusanCount }}</h2>
                         <span class="text-white fs-18">Akun Jurusan</span>
                     </div>
                 </div>
@@ -116,5 +117,176 @@ Header end ti-comment-alt
         </div>
     </div>
 </div>
+@endcan
+
+@can('ketuaP4mp')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12">
+                            <div class="card-bx bg-blue">
+                                <img class="pattern-img" src="images/pattern/pattern6.png" alt="">
+                                <div class="card-info text-white">
+                                    <img src="images/pattern/circle.png" class="mb-4" alt="">
+                                    <h2 class="text-white card-balance">23 d : 23 h : 57 m : 12 s</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row  mt-xl-0 mt-4">
+                                <div class="col-md-6">
+                                    <ul class="card-list mt-4">
+                                        <li><span class="bg-blue circle"></span>Aktivitas<span>Visitasi</span></li>
+                                        <li><span class="bg-success circle"></span>Pelaksanaan<span>12 Mar - 14 Apr 2023</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endcan
+
+@can('lead')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12">
+                            <div class="card-bx bg-blue">
+                                <img class="pattern-img" src="images/pattern/pattern6.png" alt="">
+                                <div class="card-info text-white">
+                                    <img src="images/pattern/circle.png" class="mb-4" alt="">
+                                    <h2 class="text-white card-balance">23 d : 23 h : 57 m : 12 s</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row  mt-xl-0 mt-4">
+                                <div class="col-md-6">
+                                    <ul class="card-list mt-4">
+                                        <li><span class="bg-blue circle"></span>Aktivitas<span>Visitasi</span></li>
+                                        <li><span class="bg-success circle"></span>Pelaksanaan<span>12 Mar - 14 Apr 2023</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endcan
+
+@can('anggota')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12">
+                            <div class="card-bx bg-blue">
+                                <img class="pattern-img" src="images/pattern/pattern6.png" alt="">
+                                <div class="card-info text-white">
+                                    <img src="images/pattern/circle.png" class="mb-4" alt="">
+                                    <h2 class="text-white card-balance">23 d : 23 h : 57 m : 12 s</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row  mt-xl-0 mt-4">
+                                <div class="col-md-6">
+                                    <ul class="card-list mt-4">
+                                        <li><span class="bg-blue circle"></span>Aktivitas<span>Visitasi</span></li>
+                                        <li><span class="bg-success circle"></span>Pelaksanaan<span>12 Mar - 14 Apr 2023</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endcan
+
+@can('auditee')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12">
+                            <div class="card-bx bg-blue">
+                                <img class="pattern-img" src="images/pattern/pattern6.png" alt="">
+                                <div class="card-info text-white">
+                                    <img src="images/pattern/circle.png" class="mb-4" alt="">
+                                    <h2 class="text-white card-balance">23 d : 23 h : 57 m : 12 s</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row  mt-xl-0 mt-4">
+                                <div class="col-md-6">
+                                    <ul class="card-list mt-4">
+                                        <li><span class="bg-blue circle"></span>Aktivitas<span>Visitasi</span></li>
+                                        <li><span class="bg-success circle"></span>Pelaksanaan<span>12 Mar - 14 Apr 2023</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endcan
+
+@can('jurusan')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12">
+                            <div class="card-bx bg-blue">
+                                <img class="pattern-img" src="images/pattern/pattern6.png" alt="">
+                                <div class="card-info text-white">
+                                    <img src="images/pattern/circle.png" class="mb-4" alt="">
+                                    <h2 class="text-white card-balance">23 d : 23 h : 57 m : 12 s</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row  mt-xl-0 mt-4">
+                                <div class="col-md-6">
+                                    <ul class="card-list mt-4">
+                                        <li><span class="bg-blue circle"></span>Aktivitas<span>Visitasi</span></li>
+                                        <li><span class="bg-success circle"></span>Pelaksanaan<span>12 Mar - 14 Apr 2023</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endcan
 
 @endsection

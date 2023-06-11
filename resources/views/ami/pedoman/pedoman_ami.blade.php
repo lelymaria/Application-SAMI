@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                            Header start
-                            ***********************************-->
+                                Header start
+                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                            Header end ti-comment-alt
-                            ***********************************-->
+                                Header end ti-comment-alt
+                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,25 +49,27 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Pedoman</h4>
-                    @if ($pedoman_ami->count()>0)
+                @if ($pedoman_ami->count() > 0)
                 @else
-                <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
-                    data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
-                            class="fa fa-plus color-secondary"></i>
-                    </span>Add</button>
+                    @can('operator')
+                        <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
+                            data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
+                                    class="fa fa-plus color-secondary"></i>
+                            </span>Add</button>
+                    @endcan
                 @endif
                 {{-- Modal --}}
                 <div class="modal fade" id="basicModal">
@@ -121,9 +123,11 @@
                         </div>
                     </div>
                     <div class="d-flex mb-3">
-                        <a class="btn btn-dark light me-3 btn-edit" href="javascript:void(0);"
-                            data-url="{{ url('/ami/pedomanAmi/' . $pedoman->id) }}" data-bs-toggle="modal"
-                            data-bs-target="#updatePedoman"><i class="fas fa-pencil-alt me-3 scale4"></i>Update Pedoman</a>
+                        @can('operator')
+                            <a class="btn btn-dark light me-3 btn-edit" href="javascript:void(0);"
+                                data-url="{{ url('/ami/pedomanAmi/' . $pedoman->id) }}" data-bs-toggle="modal"
+                                data-bs-target="#updatePedoman"><i class="fas fa-pencil-alt me-3 scale4"></i>Update Pedoman</a>
+                        @endcan
                         <a href="{{ asset('storage/' . $pedoman->file_pedoman_ami) }}" class="btn btn-primary"><i
                                 class="las la-download scale5 me-3"></i>Download Pedoman</a>
                     </div>
