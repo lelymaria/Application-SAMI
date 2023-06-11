@@ -7,14 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Jurusan extends Model
+class UndanganAmi extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
-    protected $table = 'jurusan';
-    protected $fillable = ['nama_jurusan'];
-
-    public function akunJurusan() {
-        return $this->hasOne(AkunJurusan::class, 'id_jurusan', 'id');
-    }
+    protected $table = 'Undangan_ami';
+    protected $fillable = ['file_nama', 'file_undangan_ami'];
 }

@@ -15,6 +15,10 @@ class ProgramStudi extends Model
     protected $fillable = ['nama_prodi', 'id_jurusan'];
 
     public function jurusan() {
-        return $this->hasOne(Jurusan::class, "id", "id_jurusan");
+        return $this->hasOne(Jurusan::class, 'id', 'id_jurusan');
+    }
+
+    public function akunAuditee() {
+        return $this->hasOne(AkunAuditee::class, 'id_prodi', 'id');
     }
 }

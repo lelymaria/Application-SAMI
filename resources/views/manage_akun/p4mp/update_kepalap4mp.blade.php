@@ -40,17 +40,17 @@ Header end ti-comment-alt
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle" alt="">
                             <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
                                 class="fas fa-pencil-alt"></i></a>
                         </div>
                         <div class="profile-details">
                             <div class="profile-name px-3 pt-2">
-                                <h4 class="text-primary mb-0">Mitchell C. Shay</h4>
-                                <p>UX / UI Designer</p>
+                                <h4 class="text-primary mb-0">{{ $update_akun_kepalaP4mp->nama }}</h4>
+                                <p>{{ $update_akun_kepalaP4mp->user->levelRole->name }}</p>
                             </div>
                             <div class="profile-email px-2 pt-2">
-                                <h4 class="text-muted mb-0">info@example.com</h4>
+                                <h4 class="text-muted mb-0">{{ $update_akun_kepalaP4mp->email }}</h4>
                                 <p>Email</p>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ Header end ti-comment-alt
             <div class="card">
                 <div class="card-body">
                     <div class="form-validation">
-                        <form class="needs-validation" novalidate="" action="{{ url('/manage_user/kepalaP4mp/'. $kepalaP4mp->idKepalaP4mp) }}"
+                        <form class="needs-validation" novalidate="" action="{{ url('/manage_user/kepalaP4mp/'. $update_akun_kepalaP4mp->id) }}"
                         method="post">
                         @csrf
                             <div class="row">
@@ -80,23 +80,23 @@ Header end ti-comment-alt
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                name="email">
+                                                name="email" value="{{ $update_akun_kepalaP4mp->email }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom03">NIP
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="validationCustom03"
-                                                name="nip">
+                                            <input type="text" class="form-control" id="validationCustom03"
+                                                name="nip" value="{{ $update_akun_kepalaP4mp->user->nip }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom03">Nama
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="validationCustom03"
-                                                name="nama">
+                                            <input type="text" class="form-control" id="validationCustom03"
+                                                name="nama" value="{{ $update_akun_kepalaP4mp->nama }}">
                                         </div>
                                     </div>
                                 </div>

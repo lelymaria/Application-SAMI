@@ -7,14 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AkunOperator extends Model
+class TugasStandar extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
-    protected $table = 'akun_operator';
-    protected $fillable = ['email', 'nip', 'nama', 'foto_profile'];
+    protected $table = 'tugas_standar';
+    protected $fillable = ['id_user', 'id_standar'];
 
     public function user() {
-        return $this->hasOne(User::class,  'id', 'id_user');
+        return $this->hasOne(User::class, "id",  "id_user");
+    }
+
+    public function standar() {
+        return $this->hasOne(Standar::class, "id", "id_standar");
     }
 }

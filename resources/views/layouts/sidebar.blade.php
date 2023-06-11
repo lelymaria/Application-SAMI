@@ -57,7 +57,7 @@
                         <li><a href="{{ url('/manage_user/akun_operator') }}">Operator</a></li>
                         <li><a href="{{ url('/manage_user/kepalaP4mp') }}">Kepala P4MP</a></li>
                         <li><a href="{{ url('/manage_user/akun_jurusan') }}">Jurusan</a></li>
-                        <li><a href="{{ url('/manage_user/akun_auditor') }}">Auditor</a></li>
+                        <li><a href="{{ url('/manage_user/lead_auditor') }}">Auditor</a></li>
                         <li><a href="{{ url('/manage_user/akun_auditee') }}">Auditee</a></li>
                     </ul>
                 </li>
@@ -78,7 +78,7 @@
                         <span class="nav-text">Dokumentasi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="{{ url('/dokumentasiAmi') }}">AMI</a></li>
+                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
                         <li><a href="{{ url('/dokumentasiRtm') }}">RTM</a></li>
                     </ul>
                 </li>
@@ -104,7 +104,7 @@
                         <span class="nav-text">Audit Mutu Internal</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/pedomanAll">Pedoman AMI</a></li>
+                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
                         <li><a href="/monitoringamiP4mp">Monitoring AMI</a></li>
                         <li><a href="/verifikasitindakanP4mp">Verifikasi Tindakan Koreksi</a></li>
                         <li><a href="/laporanamiP4mp">Laporan Hasil AMI</a></li>
@@ -131,7 +131,7 @@
                 </li>
             @endcan
 
-            @can('timAuditor')
+            @can('lead')
                 <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
                         <i class="flaticon-025-dashboard"></i>
                         <span class="nav-text">Dashboard</span>
@@ -142,7 +142,45 @@
                         <span class="nav-text">Audit Mutu Internal</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/pedomanAll">Pedoman AMI</a></li>
+                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                        <li><a href="/checklistAmiAuditor">Checklist AMI</a></li>
+                        <li><a href="/draftAmiAuditor">Draft Temuan AMI</a></li>
+                        <li><a href="/laporanAmiAuditor">Laporan Hasil AMI</a></li>
+                        <li><a href="/historiAll">History AMI</a></li>
+                    </ul>
+                </li>
+                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                        <i class="flaticon-041-graph"></i>
+                        <span class="nav-text">Dokumentasi</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a href="/dokumentasiAmi">AMI</a></li>
+                        <li><a href="/dokumentasiRtm">RTM</a></li>
+                    </ul>
+                </li>
+                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                        <i class="flaticon-050-info"></i>
+                        <span class="nav-text">Account</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a href="/profile">Profile</a></li>
+                        <li><a href="/password/edit">Edit Password</a></li>
+                    </ul>
+                </li>
+            @endcan
+
+            @can('anggota')
+                <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
+                        <i class="flaticon-025-dashboard"></i>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                </li>
+                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                        <i class="flaticon-072-printer"></i>
+                        <span class="nav-text">Audit Mutu Internal</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
                         <li><a href="/checklistAmiAuditor">Checklist AMI</a></li>
                         <li><a href="/draftAmiAuditor">Draft Temuan AMI</a></li>
                         <li><a href="/laporanAmiAuditor">Laporan Hasil AMI</a></li>
@@ -180,7 +218,7 @@
                         <span class="nav-text">Audit Mutu Internal</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/pedomanAll">Pedoman AMI</a></li>
+                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
                         <li><a href="/datadukung">Data Dukung</a></li>
                         <li><a href="/ketersediaanDok">Ketersediaan Dokumen</a></li>
                         <li><a href="/hasilChecklistAmi">Checklist Hasil AMI</a></li>
@@ -219,7 +257,7 @@
                         <span class="nav-text">Audit Mutu Internal</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/pedomanAll">Pedoman AMI</a></li>
+                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
                         <li><a href="/monitoringamiP4mp">Monitoring</a></li>
                         <li><a href="/historiAll">History AMI</a></li>
                     </ul>

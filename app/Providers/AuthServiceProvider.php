@@ -30,8 +30,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define("ketuaP4mp", function($user){
             return $user->levelRole->name === "Ketua P4MP";
         });
-        Gate::define("timAuditor", function($user){
-            return $user->levelRole->name === "Tim Auditor";
+        Gate::define("lead", function($user){
+            return $user->levelRole->name === "Lead Auditor";
+        });
+        Gate::define("anggota", function($user){
+            return $user->levelRole->name === "Anggota Auditor";
         });
         Gate::define("auditee", function($user){
             return $user->levelRole->name === "Auditee";

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-Header start
-***********************************-->
+    Header start
+    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -15,13 +15,13 @@ Header start
             </nav>
         </div>
     </div>
-<!--**********************************
-Header end ti-comment-alt
-***********************************-->
+    <!--**********************************
+    Header end ti-comment-alt
+    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
-@include('layouts.navbar')
+    @include('layouts.navbar')
 
     <div class="row page-titles">
         <ol class="breadcrumb">
@@ -30,6 +30,15 @@ Header end ti-comment-alt
             <li class="breadcrumb-item"><a href="javascript:void(0)">Update Jurusan</a></li>
         </ol>
     </div>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     <div class="row">
         <div class="col-lg-12">
@@ -40,17 +49,18 @@ Header end ti-comment-alt
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle"
+                                alt="">
                             <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                class="fas fa-pencil-alt"></i></a>
+                                    class="fas fa-pencil-alt"></i></a>
                         </div>
                         <div class="profile-details">
                             <div class="profile-name px-3 pt-2">
-                                <h4 class="text-primary mb-0">Mitchell C. Shay</h4>
-                                <p>UX / UI Designer</p>
+                                <h4 class="text-primary mb-0">{{ $update_akun_jurusan->nama }}</h4>
+                                <p>{{ $update_akun_jurusan->user->levelRole->name }}</p>
                             </div>
                             <div class="profile-email px-2 pt-2">
-                                <h4 class="text-muted mb-0">info@example.com</h4>
+                                <h4 class="text-muted mb-0">{{ $update_akun_jurusan->email }}</h4>
                                 <p>Email</p>
                             </div>
                         </div>
@@ -62,23 +72,23 @@ Header end ti-comment-alt
             <div class="card">
                 <div class="card-body">
                     <div class="form-validation">
-                        <form class="needs-validation" novalidate="">
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/manage_user/akun_jurusan/' . $update_akun_jurusan->id) }}" method="post">
+                            @csrf
                             <div class="row">
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <select class="default-select wide form-control" id="validationCustom05">
+                                            <select class="default-select wide form-control" id="validationCustom05" name="unit_kerja">
                                                 <option data-display="Select">Please select</option>
-                                                <option value="html">HTML</option>
-                                                <option value="css">CSS</option>
-                                                <option value="javascript">JavaScript</option>
+                                                @foreach ($dataJurusan as $dataJurusan)
+                                                    <option value="{{ $dataJurusan->id }}"
+                                                        {{ $dataJurusan->id == $update_akun_jurusan->id_jurusan ? 'selected' : '' }}>
+                                                        {{ $dataJurusan->nama_jurusan }}</option>
+                                                @endforeach
                                             </select>
-                                            <div class="invalid-feedback">
-                                                Please select a one.
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -87,48 +97,33 @@ Header end ti-comment-alt
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                placeholder="Your valid email.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a Email.
-                                            </div>
+                                                name="email" value="{{ $update_akun_jurusan->email }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom03">NIP
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="validationCustom03"
-                                                placeholder="Choose a safe one.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a password.
-                                            </div>
+                                            <input type="text" class="form-control" id="validationCustom03"
+                                                name="nip" value="{{ $update_akun_jurusan->user->nip }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom03">Nama
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="validationCustom03"
-                                                placeholder="Choose a safe one.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a password.
-                                            </div>
+                                            <input type="text" class="form-control" id="validationCustom03"
+                                                name="nama" value="{{ $update_akun_jurusan->nama }}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom07">Password Baru
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom07"
-                                                placeholder="http://example.com" required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a url.
-                                            </div>
+                                                name="password">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -137,10 +132,7 @@ Header end ti-comment-alt
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom08"
-                                                placeholder="212-999-0000" required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a phone no.
-                                            </div>
+                                                name="confimation_password">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

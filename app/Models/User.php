@@ -56,4 +56,24 @@ class User extends Authenticatable
     public function kepalaP4mp() {
         return $this->hasOne(KepalaP4mp::class, 'id_user', 'id');
     }
+
+    public function akunOperator() {
+        return $this->hasOne(AkunOperator::class, 'id_user', 'id');
+    }
+
+    public function akunJurusan() {
+        return $this->hasOne(AkunJurusan::class, 'id_user', 'id');
+    }
+
+    public function akunAuditee() {
+        return $this->hasOne(AkunAuditee::class, 'id_user', 'id');
+    }
+
+    public function akunAuditor() {
+        return $this->hasOne(AkunAuditor::class, 'id_user', 'id');
+    }
+
+    public function tugasStandar() {
+        return $this->hasMany(TugasStandar::class, 'id_user', 'id');
+    }
 }

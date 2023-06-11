@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('akun_auditees', function (Blueprint $table) {
-            $table->id();
+        Schema::create('akun_auditee', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('id_user');
+            $table->uuid('id_prodi');
+            $table->string('email');
+            $table->string('nama');
+            $table->string('foto_profile');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('akun_auditees');
+        Schema::dropIfExists('akun_auditee');
     }
 };

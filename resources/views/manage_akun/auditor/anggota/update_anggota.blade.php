@@ -31,6 +31,16 @@ Header end ti-comment-alt
         </ol>
     </div>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div class="row">
         <div class="col-lg-12">
             <div class="profile card card-body px-3 pt-3 pb-0">
@@ -40,17 +50,17 @@ Header end ti-comment-alt
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle" alt="">
                             <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
                                     class="fas fa-pencil-alt"></i></a>
                         </div>
                         <div class="profile-details">
                             <div class="profile-name px-3 pt-2">
-                                <h4 class="text-primary mb-0">Mitchell C. Shay</h4>
-                                <p>UX / UI Designer</p>
+                                <h4 class="text-primary mb-0">{{ $update_akun_auditor->akunAuditor?->nama }}</h4>
+                                <p>{{ $update_akun_auditor->levelRole->name }}</p>
                             </div>
                             <div class="profile-email px-2 pt-2">
-                                <h4 class="text-muted mb-0">info@example.com</h4>
+                                <h4 class="text-muted mb-0">{{ $update_akun_auditor->akunAuditor?->email }}</h4>
                                 <p>Email</p>
                             </div>
                         </div>
@@ -62,102 +72,65 @@ Header end ti-comment-alt
             <div class="card">
                 <div class="card-body">
                     <div class="form-validation">
-                        <form class="needs-validation" novalidate="">
+                        <form class="needs-validation" novalidate="" action="{{ url('/manage_user/lead_auditor/' . $update_akun_auditor->id) }}" method="post">
+                            @csrf
                             <div class="row">
                                 <div class="col-xl-6">
-                                    <div class="mb-3 row">
-                                        <label class="col-lg-4 col-form-label" for="validationCustom05">Status
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <select class="default-select wide form-control" id="validationCustom05">
-                                                <option data-display="Select">Please select</option>
-                                                <option value="html">HTML</option>
-                                                <option value="css">CSS</option>
-                                                <option value="javascript">JavaScript</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Please select a one.
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <select class="default-select wide form-control" id="validationCustom05">
-                                                <option data-display="Select">Please select</option>
-                                                <option value="html">HTML</option>
-                                                <option value="css">CSS</option>
-                                                <option value="javascript">JavaScript</option>
+                                            <select class="default-select wide form-control" id="validationCustom05" name="unit_kerja">
+                                                @foreach ($dataProdi as $dataProdi)
+                                                    <option value="{{ $dataProdi->id }}"
+                                                        {{ $dataProdi->id == $update_akun_auditor->id_prodi ? 'selected' : '' }}>
+                                                        {{ $dataProdi->nama_prodi }}</option>
+                                                @endforeach
                                             </select>
-                                            <div class="invalid-feedback">
-                                                Please select a one.
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-lg-4 col-form-label" for="validationCustom02">NIP<span
-                                                class="text-danger">*</span>
+                                        <label class="col-lg-4 col-form-label" for="validationCustom02">NIP
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                placeholder="Your valid email.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a Email.
-                                            </div>
+                                                name="nip" value="{{ $update_akun_auditor->nip }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom03">Nama
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="validationCustom03"
-                                                placeholder="Choose a safe one.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a password.
-                                            </div>
+                                            <input type="text" class="form-control" id="validationCustom03"
+                                                name="nama" value="{{ $update_akun_auditor->akunAuditor?->nama }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom03">Email
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="validationCustom03"
-                                                placeholder="Choose a safe one.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a password.
-                                            </div>
+                                            <input type="text" class="form-control" id="validationCustom03"
+                                                name="email" value="{{ $update_akun_auditor->akunAuditor?->email }}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom07">Password Baru
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="validationCustom07"
-                                                placeholder="http://example.com" required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a url.
-                                            </div>
+                                            <input type="password" class="form-control" id="validationCustom07"
+                                                name="password">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom08">Konfirmasi
-                                            Password
-                                            <span class="text-danger">*</span>
+                                            Password <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="validationCustom08"
-                                                placeholder="212-999-0000" required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a phone no.
-                                            </div>
+                                            <input type="password" class="form-control" id="validationCustom08"
+                                                name="confirmation_password">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

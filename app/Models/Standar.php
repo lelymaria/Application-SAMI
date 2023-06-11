@@ -17,4 +17,8 @@ class Standar extends Model
     public function pertanyaanStandar() {
         return $this->hasOne(PertanyaanStandar::class,  "id_standar", "id");
     }
+
+    public function tugasStandar() {
+        return $this->hasOne(TugasStandar::class,  "id_standar", "id");
+    }
 }

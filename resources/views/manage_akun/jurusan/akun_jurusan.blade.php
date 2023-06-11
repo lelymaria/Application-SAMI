@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-Header start
-***********************************-->
+        Header start
+        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -33,9 +33,9 @@ Header start
             </div>
         @endif
     </div>
-<!--**********************************
-Header end ti-comment-alt
-***********************************-->
+    <!--**********************************
+        Header end ti-comment-alt
+        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -47,6 +47,16 @@ Header end ti-comment-alt
             <li class="breadcrumb-item"><a href="javascript:void(0)">Jurusan</a></li>
         </ol>
     </div>
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     <div class="col-12">
         <div class="card">
@@ -65,24 +75,24 @@ Header end ti-comment-alt
                                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-validate">
-                                    <form class="needs-validation" novalidate="">
+                            <form class="needs-validation" novalidate="" action="{{ url('/manage_user/akun_jurusan') }}"
+                                method="post">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-validate">
                                         <div class="row">
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <select class="default-select wide form-control" id="validationCustom05">
+                                                    <select class="default-select wide form-control" id="validationCustom05"
+                                                        name="unit_kerja">
                                                         <option data-display="Select">Please select</option>
-                                                        <option value="html">HTML</option>
-                                                        <option value="css">CSS</option>
-                                                        <option value="javascript">JavaScript</option>
+                                                        @foreach ($dataJurusan as $dataJurusan)
+                                                        <option value="{{ $dataJurusan->id }}">{{ $dataJurusan->nama_jurusan }}</option>
+                                                        @endforeach
                                                     </select>
-                                                    <div class="invalid-feedback">
-                                                        Please select a one.
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -91,10 +101,7 @@ Header end ti-comment-alt
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        placeholder="http://example.com" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter a url.
-                                                    </div>
+                                                        name="email">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -103,32 +110,27 @@ Header end ti-comment-alt
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom08"
-                                                        placeholder="212-999-0000" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter a phone no.
-                                                    </div>
+                                                        name="nip">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom09">Nama<span
+                                                <label class="col-lg-4 col-form-label" for="validationCustom09">Nama <span
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom09"
-                                                        placeholder="5" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter a digits.
-                                                    </div>
+                                                        name="nama">
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger light"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -148,22 +150,32 @@ Header end ti-comment-alt
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($akun_jurusan as $akun_jurusan)
                             <tr>
-                                <td>1</td>
-                                <td>Tiger Nixon</td>
-                                <td>2003073</td>
-                                <td>tiger@gmail.com</td>
-                                <td><a href="javascript:void(0);"><strong>jurusan</strong></a></td>
-                                <td>Jurusan TI</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $akun_jurusan->nama }}</td>
+                                <td>{{ $akun_jurusan->user->nip }}</td>
+                                <td>{{ $akun_jurusan->email }}</td>
+                                <td><strong>{{ $akun_jurusan->user->levelRole->name }}</strong></td>
+                                <td>{{ $akun_jurusan->dataJurusan->nama_jurusan }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="/updateakunjurusan" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        <a href="#" class="btn btn-danger shadow btn-xs sharp"><i
-                                                class="fa fa-trash"></i></a>
+                                        <div class="d-flex">
+                                            <a href="{{ url('/manage_user/akun_jurusan_edit/' . $akun_jurusan->id) }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
+                                                    class="fas fa-pencil-alt"></i></a>
+                                            <form action="{{ url('/manage_user/akun_jurusan/' . $akun_jurusan->id) }}"
+                                                method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="btn btn-danger shadow btn-xs sharp"><i
+                                                        class="fa fa-trash"></i></button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

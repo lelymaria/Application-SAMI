@@ -2,25 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KepalaP4mp;
+use App\Models\AkunAuditor;
 use App\Models\Level;
+use App\Models\ProgramStudi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class KepalaP4mpController extends Controller
+class AnggotaAuditorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $level = Level::where('name', 'Anggota Auditor')->first();
         $data = [
-            'kepala_p4mp' => KepalaP4mp::all()
+            'akun_auditor' => User::where('level_id', $level->id)->get(),
+            'dataProdi' => ProgramStudi::all()
         ];
-        return view('manage_akun.p4mp.akun_kepalap4mp', $data);
+        return view('manage_akun.auditor.anggota.anggota_auditor', $data);
     }
 
     /**
@@ -37,34 +40,34 @@ class KepalaP4mpController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "periode_jabatan" => "required",
             "email" => "required",
             "nip" => "required|unique:users,nip",
             "nama" => "required",
+            "unit_kerja" => "required",
             // "foto_profile" => "required",
         ]);
 
         DB::transaction(function () use ($request) {
-            $level = Level::where('name', 'Ketua P4MP')->first();
+            $level = Level::where('name', 'Anggota Auditor')->first();
             $user = User::create([
                 'nip' => $request->nip,
                 'password' => Hash::make('password'),
                 'level_id' => $level->id
             ]);
-            $user->kepalaP4mp()->create([
-                'periode_jabatan' => $request->periode_jabatan,
+            $user->akunAuditor()->create([
                 'email' => $request->email,
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
+                'id_prodi' => $request->unit_kerja,
             ]);
         });
-        return redirect('/manage_user/kepalaP4mp')->with('message', 'Data Berhasil Tersimpan!');
+        return redirect('/manage_user/anggota_auditor/')->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(KepalaP4mp $kepalaP4mp)
+    public function show(AkunAuditor $akunAuditor)
     {
         //
     }
@@ -74,11 +77,12 @@ class KepalaP4mpController extends Controller
      */
     public function edit(string $id)
     {
-        $kepalaP4mp = KepalaP4mp::find($id);
+        $akunAuditor = User::find($id);
         $data = [
-            'update_akun_kepalaP4mp' => $kepalaP4mp
+            'update_akun_auditor' => $akunAuditor,
+            'dataProdi' => ProgramStudi::all()
         ];
-        return view('manage_akun.p4mp.update_kepalap4mp', $data);
+        return view('manage_akun.auditor.anggota.update_anggota', $data);
     }
 
     /**
@@ -86,12 +90,12 @@ class KepalaP4mpController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $kepalaP4mp = KepalaP4mp::find($id);
+        $akunAuditor = User::find($id);
         $request->validate([
-            "periode_jabatan" => "required",
+            "unit_kerja" => "required",
             "email" => "required",
             "nip" => [
-                'required', Rule::unique('users')->ignore($kepalaP4mp->id_user)
+                'required', Rule::unique('users')->ignore($akunAuditor)
             ],
             "nama" => "required",
             // "foto_profile" => "required",
@@ -99,19 +103,19 @@ class KepalaP4mpController extends Controller
             // "confirmations_password" => "required",
         ]);
 
-        DB::transaction(function () use ($request, $kepalaP4mp) {
-            $kepalaP4mp->update([
-                'periode_jabatan' => $request->periode_jabatan,
+        DB::transaction(function () use ($request, $akunAuditor) {
+            $akunAuditor->update([
                 'email' => $request->email,
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
+                'id_prodi' => $request->unit_kerja,
             ]);
-            $kepalaP4mp->user()->update([
+            $akunAuditor->akunAuditor()->update([
                 'nip' => $request->nip,
                 'password' => Hash::make($request->password),
             ]);
         });
-        return redirect('/manage_user/kepalaP4mp/')->with('message', 'Data Berhasil Tersimpan!');
+        return redirect('/manage_user/anggota_auditor/')->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**
@@ -119,8 +123,9 @@ class KepalaP4mpController extends Controller
      */
     public function destroy(string $id)
     {
-        $kepalaP4mp = KepalaP4mp::findOrFail($id);
-        $kepalaP4mp->delete();
-        return redirect('/manage_user/kepalaP4mp/')->with('message', 'Data Berhasil Terhapus!');
+        $akunAuditor = User::findOrFail($id);
+        $akunAuditor->akunAuditor()->delete();
+        $akunAuditor->delete();
+        return redirect('/manage_user/lead_auditor/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

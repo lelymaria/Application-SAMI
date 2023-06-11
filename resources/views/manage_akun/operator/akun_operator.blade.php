@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-    Header start
-    ***********************************-->
+            Header start
+            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-    Header end ti-comment-alt
-    ***********************************-->
+            Header end ti-comment-alt
+            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -61,41 +61,23 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Tambah Akun Auditee</h5>
+                                <h5 class="modal-title">Tambah Akun Operator</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-validate">
-                                    <form class="needs-validation" novalidate="">
+                            <form class="needs-validation" novalidate="" action="{{ url('/manage_user/akun_operator') }}"
+                                method="post">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-validate">
                                         <div class="row">
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <select class="default-select wide form-control"
-                                                        id="validationCustom05">
-                                                        <option data-display="Select">Please select</option>
-                                                        <option value="html">HTML</option>
-                                                        <option value="css">CSS</option>
-                                                        <option value="javascript">JavaScript</option>
-                                                    </select>
-                                                    <div class="invalid-feedback">
-                                                        Please select a one.
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom07">Email
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        placeholder="http://example.com" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter a url.
-                                                    </div>
+                                                        name="email">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -104,10 +86,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom08"
-                                                        placeholder="212-999-0000" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter a phone no.
-                                                    </div>
+                                                        name="nip">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -116,20 +95,18 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom09"
-                                                        placeholder="5" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter a digits.
-                                                    </div>
+                                                        name="nama">
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger light"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -144,27 +121,33 @@
                                 <th>NIP</th>
                                 <th>Email</th>
                                 <th>Type</th>
-                                <th>Unit Kerja</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Tiger Nixon</td>
-                                <td>2003073</td>
-                                <td>tiger@gmail.com</td>
-                                <td><a href="javascript:void(0);"><strong>auditee</strong></a></td>
-                                <td>Prodi KP</td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="/updateakunauditee" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        <a href="#" class="btn btn-danger shadow btn-xs sharp"><i
-                                                class="fa fa-trash"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
+                            @foreach ($akun_operator as $akun_operator)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $akun_operator->nama }}</td>
+                                    <td>{{ $akun_operator->user->nip }}</td>
+                                    <td>{{ $akun_operator->email }}</td>
+                                    <td><strong>{{ $akun_operator->user->levelRole->name }}</strong></td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="{{ url('/manage_user/akun_operator_edit/' . $akun_operator->id) }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
+                                                    class="fas fa-pencil-alt"></i></a>
+                                            <form action="{{ url('/manage_user/akun_operator/' . $akun_operator->id) }}"
+                                                method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="btn btn-danger shadow btn-xs sharp"><i
+                                                        class="fa fa-trash"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
