@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\AkunAuditeeController;
-use App\Http\Controllers\AkunAuditorController;
 use App\Http\Controllers\AkunJurusanController;
 use App\Http\Controllers\AkunOperatorController;
+use App\Http\Controllers\AnggotaAuditorController;
+use App\Http\Controllers\LeadAuditorController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\JadwalAmiController;
@@ -14,6 +15,8 @@ use App\Http\Controllers\PedomanAmiController;
 use App\Http\Controllers\PertanyaanStandarController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\StandarController;
+use App\Http\Controllers\TugasStandarController;
+use App\Http\Controllers\UndanganAmiController;
 use App\Http\Controllers\UpdatePasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,11 +39,11 @@ Route::get('/logout', [AuthenticationController::class, "logout"])->name("login"
 Route::get('/password/edit', [UpdatePasswordController::class, "edit"]);
 Route::put('/password/edit', [UpdatePasswordController::class, "update"]);
 // AkunOperator
-Route::get('/manage_user/akun_auditee', [AkunOperatorController::class, "index"]);
-Route::post('/manage_user/akun_auditee', [AkunOperatorController::class, "store"]);
-// Route::get('/manage_user/akun_auditee_edit/{id}', [AkunOperatorController::class, "edit"]);
-// Route::post('/manage_user/akun_auditee/{id}', [AkunOperatorController::class, "update"]);
-// Route::delete('/manage_user/akun_auditee/{id}', [AkunOperatorController::class, "destroy"]);
+Route::get('/manage_user/akun_operator', [AkunOperatorController::class, "index"]);
+Route::post('/manage_user/akun_operator', [AkunOperatorController::class, "store"]);
+Route::get('/manage_user/akun_operator_edit/{id}', [AkunOperatorController::class, "edit"]);
+Route::post('/manage_user/akun_operator/{id}', [AkunOperatorController::class, "update"]);
+Route::delete('/manage_user/akun_operator/{id}', [AkunOperatorController::class, "destroy"]);
 // KepalaP4mp
 Route::get('/manage_user/kepalaP4mp', [KepalaP4mpController::class, "index"]);
 Route::post('/manage_user/kepalaP4mp', [KepalaP4mpController::class, "store"]);
@@ -50,21 +53,32 @@ Route::delete('/manage_user/kepalaP4mp/{id}', [KepalaP4mpController::class, "des
 // AkunJurusan
 Route::get('/manage_user/akun_jurusan', [AkunJurusanController::class, "index"]);
 Route::post('/manage_user/akun_jurusan', [AkunJurusanController::class, "store"]);
-// Route::get('/manage_user/akun_jurusan_edit/{id}', [AkunJurusanController::class, "edit"]);
-// Route::post('/manage_user/akun_jurusan/{id}', [AkunJurusanController::class, "update"]);
-// Route::delete('/manage_user/akun_jurusan/{id}', [AkunJurusanController::class, "destroy"]);
-// AkunAuditor
-Route::get('/manage_user/akun_auditor', [AkunAuditorController::class, "index"]);
-Route::post('/manage_user/akun_auditor', [AkunAuditorController::class, "store"]);
-// Route::get('/manage_user/akun_auditor_edit/{id}', [AkunAuditorController::class, "edit"]);
-// Route::post('/manage_user/akun_auditor/{id}', [AkunAuditorController::class, "update"]);
-// Route::delete('/manage_user/akun_auditor/{id}', [AkunAuditorController::class, "destroy"]);
-// AkunAuditee
+Route::get('/manage_user/akun_jurusan_edit/{id}', [AkunJurusanController::class, "edit"]);
+Route::post('/manage_user/akun_jurusan/{id}', [AkunJurusanController::class, "update"]);
+Route::delete('/manage_user/akun_jurusan/{id}', [AkunJurusanController::class, "destroy"]);
+// AkunLeadAuditor
+Route::get('/manage_user/lead_auditor', [LeadAuditorController::class, "index"]);
+Route::post('/manage_user/lead_auditor', [LeadAuditorController::class, "store"]);
+Route::get('/manage_user/lead_auditor_edit/{id}', [LeadAuditorController::class, "edit"]);
+Route::post('/manage_user/lead_auditor/{id}', [LeadAuditorController::class, "update"]);
+Route::delete('/manage_user/lead_auditor/{id}', [LeadAuditorController::class, "destroy"]);
+// TugasStandar
+Route::post('/manage_user', [TugasStandarController::class, "store"]);
+Route::get('/manage_user/{id}', [TugasStandarController::class, "edit"]);
+Route::post('/manage_user/{id}', [TugasStandarController::class, "update"]);
+Route::delete('/manage_user/{id}', [TugasStandarController::class, "destroy"]);
+// AkunAnggotaAuditor
+Route::get('/manage_user/anggota_auditor', [AnggotaAuditorController::class, "index"]);
+Route::post('/manage_user/anggota_auditor', [AnggotaAuditorController::class, "store"]);
+Route::get('/manage_user/anggota_auditor_edit/{id}', [AnggotaAuditorController::class, "edit"]);
+Route::post('/manage_user/anggota_auditor/{id}', [AnggotaAuditorController::class, "update"]);
+Route::delete('/manage_user/anggota_auditor/{id}', [AnggotaAuditorController::class, "destroy"]);
+// // AkunAuditee
 Route::get('/manage_user/akun_auditee', [AkunAuditeeController::class, "index"]);
 Route::post('/manage_user/akun_auditee', [AkunAuditeeController::class, "store"]);
-// Route::get('/manage_user/akun_auditee_edit/{id}', [AkunAuditeeController::class, "edit"]);
-// Route::post('/manage_user/akun_auditee/{id}', [AkunAuditeeController::class, "update"]);
-// Route::delete('/manage_user/akun_auditee/{id}', [AkunAuditeeController::class, "destroy"]);
+Route::get('/manage_user/akun_auditee_edit/{id}', [AkunAuditeeController::class, "edit"]);
+Route::post('/manage_user/akun_auditee/{id}', [AkunAuditeeController::class, "update"]);
+Route::delete('/manage_user/akun_auditee/{id}', [AkunAuditeeController::class, "destroy"]);
 
 
 // JurusanController
@@ -103,6 +117,13 @@ Route::get('/ami/data_standar/tambah_pertanyaan/{id}', [PertanyaanStandarControl
 Route::post('/ami/data_standar/pertanyaan/{id}', [PertanyaanStandarController::class, "store"]);
 Route::get('/ami/data_standar/update_pertanyaan/{id}', [PertanyaanStandarController::class, "edit"]);
 Route::post('/ami/data_standar/update_pertanyaan/{id}', [PertanyaanStandarController::class, "update"]);
+// DokumentasiAMI
+Route::get('/dokumentasiAmi/undangan', [UndanganAmiController::class, "index"]);
+Route::post('/dokumentasiAmi/undangan', [UndanganAmiController::class, "store"]);
+Route::get('/dokumentasiAmi/undangan/{id}', [UndanganAmiController::class, "edit"]);
+Route::post('/dokumentasiAmi/undangan/{id}', [UndanganAmiController::class, "update"]);
+Route::delete('/dokumentasiAmi/undangan/{id}', [UndanganAmiController::class, "destroy"]);
+
 
 /* ============================================================= */
 
@@ -112,7 +133,14 @@ Route::get('/pedomanami', [Controller::class, "pedomanAmi"]);
 Route::get('/historiami', [Controller::class, "historiAmi"]);
 // (Dokumentasi Ami)
 Route::get('/dokumentasiAmi', [Controller::class, "dokAmi"]);
+Route::get('/dokumentasiAmi/absensi', [Controller::class, "dokAmiAbsensi"]);
+Route::get('/dokumentasiAmi/fotoKegiatan', [Controller::class, "dokAmiFotoKegiatan"]);
+Route::get('/dokumentasiAmi/notulensi', [Controller::class, "dokAmiNotulensi"]);
 Route::get('/dokumentasiRtm', [Controller::class, "dokRtm"]);
+Route::get('/dokumentasiRtm/undangan', [Controller::class, "dokRtmUndangan"]);
+Route::get('/dokumentasiRtm/absensi', [Controller::class, "dokRtmAbsensi"]);
+Route::get('/dokumentasiRtm/fotoKegiatan', [Controller::class, "dokRtmFotoKegiatan"]);
+Route::get('/dokumentasiRtm/notulensi', [Controller::class, "dokRtmNotulensi"]);
 
 
 //FOLDER MENU->AKUN
