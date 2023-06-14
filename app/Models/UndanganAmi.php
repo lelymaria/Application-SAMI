@@ -13,4 +13,8 @@ class UndanganAmi extends Model
 
     protected $table = 'Undangan_ami';
     protected $fillable = ['file_nama', 'file_undangan_ami'];
+
+    public function fotoKegiatanAmi() {
+        return $this->hasMany(User::class,  'id_undangan', 'id');
+    }
 }

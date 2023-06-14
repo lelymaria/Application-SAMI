@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                        Header start
-                        ***********************************-->
+                            Header start
+                            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                        Header end ti-comment-alt
-                        ***********************************-->
+                            Header end ti-comment-alt
+                            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -117,11 +117,14 @@
                                     <td>{{ $undangan->file_nama }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ asset('storage/' . $undangan->file_undangan_ami) }}" target="_blank" class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                            <a href="{{ asset('storage/' . $undangan->file_undangan_ami) }}" target="_blank"
+                                                class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                     class="fa fa-file-invoice"></i></a>
-                                            <a href="{{ url('/dokumentasiAmi') }}" class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
+                                            <a href="{{ url('dokumentasiAmi/'.$undanganAmi->id.'/foto_kegiatan') }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                     class="fas fa-plus"></i></a>
-                                            <a href="#" data-url="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"
+                                            <a href="#"
+                                                data-url="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateUndangan"><i
                                                     class="fas fa-pencil-alt"></i></a>

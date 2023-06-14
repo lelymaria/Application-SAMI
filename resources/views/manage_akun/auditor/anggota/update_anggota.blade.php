@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-Header start
-***********************************-->
+        Header start
+        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -15,9 +15,9 @@ Header start
             </nav>
         </div>
     </div>
-<!--**********************************
-Header end ti-comment-alt
-***********************************-->
+    <!--**********************************
+        Header end ti-comment-alt
+        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -32,14 +32,14 @@ Header end ti-comment-alt
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-lg-12">
@@ -50,7 +50,8 @@ Header end ti-comment-alt
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle" alt="">
+                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle"
+                                alt="">
                             <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
                                     class="fas fa-pencil-alt"></i></a>
                         </div>
@@ -72,7 +73,8 @@ Header end ti-comment-alt
             <div class="card">
                 <div class="card-body">
                     <div class="form-validation">
-                        <form class="needs-validation" novalidate="" action="{{ url('/manage_user/lead_auditor/' . $update_akun_auditor->id) }}" method="post">
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/manage_user/lead_auditor/' . $update_akun_auditor->id) }}" method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-6">
@@ -81,7 +83,8 @@ Header end ti-comment-alt
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <select class="default-select wide form-control" id="validationCustom05" name="unit_kerja">
+                                            <select class="default-select wide form-control" id="validationCustom05"
+                                                name="unit_kerja">
                                                 @foreach ($dataProdi as $dataProdi)
                                                     <option value="{{ $dataProdi->id }}"
                                                         {{ $dataProdi->id == $update_akun_auditor->id_prodi ? 'selected' : '' }}>
@@ -209,22 +212,73 @@ Header end ti-comment-alt
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Standar Sarana dan Prasarana</td>
+                            @foreach ($update_akun_auditor->tugasStandar as $standar)
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $standar->standar->nama_standar }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                        <a href="#" data-url="{{ url('/manage_user/' . $standar->id) }}"
+                                            class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                            data-bs-toggle="modal" data-bs-target="#updateTugas"><i
                                                 class="fas fa-pencil-alt"></i></a>
-                                        <a href="#" class="btn btn-danger shadow btn-xs sharp"><i
-                                                class="fa fa-trash"></i></a>
+                                        <form action="{{ url('/manage_user/' . $standar->id) }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger shadow btn-xs sharp"><i
+                                                    class="fa fa-trash"></i></button>
+                                        </form>
                                     </div>
                                 </td>
-                            </tr>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+
+            {{-- update --}}
+            <div class="modal fade" id="updateTugas">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Update Tugas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal">
+                            </button>
+                        </div>
+                        <div class="modal-body" id="editModalBody">
+                            <div class="form-validate">
+                                <form class="needs-validation" novalidate="" action="{{ url('/manage_user' . $update_akun_auditor->id) }}"
+                                    method="post">
+                                    @csrf
+                                    <div class="row" id="formBodyEdit">
+
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 @endsection
+
+@push('js')
+    <script>
+        $('body').on('click', '.btn-edit', function() {
+            let url = $(this).data('url');
+            $('#editModalBody form').attr('action', url)
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    $('#editModalBody .row').html(data);
+                }
+            })
+        })
+    </script>
+@endpush

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AkunAuditor;
 use App\Models\Level;
 use App\Models\ProgramStudi;
+use App\Models\Standar;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -80,7 +81,8 @@ class AnggotaAuditorController extends Controller
         $akunAuditor = User::find($id);
         $data = [
             'update_akun_auditor' => $akunAuditor,
-            'dataProdi' => ProgramStudi::all()
+            'dataProdi' => ProgramStudi::all(),
+            'standar' => Standar::all()
         ];
         return view('manage_akun.auditor.anggota.update_anggota', $data);
     }
@@ -105,14 +107,14 @@ class AnggotaAuditorController extends Controller
 
         DB::transaction(function () use ($request, $akunAuditor) {
             $akunAuditor->update([
+                'nip' => $request->nip,
+                'password' => Hash::make($request->password),
+            ]);
+            $akunAuditor->akunAuditor()->update([
                 'email' => $request->email,
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
                 'id_prodi' => $request->unit_kerja,
-            ]);
-            $akunAuditor->akunAuditor()->update([
-                'nip' => $request->nip,
-                'password' => Hash::make($request->password),
             ]);
         });
         return redirect('/manage_user/anggota_auditor/')->with('message', 'Data Berhasil Tersimpan!');

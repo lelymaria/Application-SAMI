@@ -7,6 +7,7 @@ use App\Http\Controllers\AnggotaAuditorController;
 use App\Http\Controllers\LeadAuditorController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FotoKegiatanAmiController;
 use App\Http\Controllers\JadwalAmiController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KepalaP4mpController;
@@ -62,11 +63,6 @@ Route::post('/manage_user/lead_auditor', [LeadAuditorController::class, "store"]
 Route::get('/manage_user/lead_auditor_edit/{id}', [LeadAuditorController::class, "edit"]);
 Route::post('/manage_user/lead_auditor/{id}', [LeadAuditorController::class, "update"]);
 Route::delete('/manage_user/lead_auditor/{id}', [LeadAuditorController::class, "destroy"]);
-// TugasStandar
-Route::post('/manage_user', [TugasStandarController::class, "store"]);
-Route::get('/manage_user/{id}', [TugasStandarController::class, "edit"]);
-Route::post('/manage_user/{id}', [TugasStandarController::class, "update"]);
-Route::delete('/manage_user/{id}', [TugasStandarController::class, "destroy"]);
 // AkunAnggotaAuditor
 Route::get('/manage_user/anggota_auditor', [AnggotaAuditorController::class, "index"]);
 Route::post('/manage_user/anggota_auditor', [AnggotaAuditorController::class, "store"]);
@@ -79,8 +75,11 @@ Route::post('/manage_user/akun_auditee', [AkunAuditeeController::class, "store"]
 Route::get('/manage_user/akun_auditee_edit/{id}', [AkunAuditeeController::class, "edit"]);
 Route::post('/manage_user/akun_auditee/{id}', [AkunAuditeeController::class, "update"]);
 Route::delete('/manage_user/akun_auditee/{id}', [AkunAuditeeController::class, "destroy"]);
-
-
+// TugasStandar
+Route::post('/manage_user', [TugasStandarController::class, "store"]);
+Route::get('/manage_user/{id}', [TugasStandarController::class, "edit"]);
+Route::post('/manage_user/{id}', [TugasStandarController::class, "update"]);
+Route::delete('/manage_user/{id}', [TugasStandarController::class, "destroy"]);
 // JurusanController
 Route::get('/data/datajurusan', [JurusanController::class, "index"]);
 Route::post('/data/datajurusan', [JurusanController::class, "store"]);
@@ -117,13 +116,18 @@ Route::get('/ami/data_standar/tambah_pertanyaan/{id}', [PertanyaanStandarControl
 Route::post('/ami/data_standar/pertanyaan/{id}', [PertanyaanStandarController::class, "store"]);
 Route::get('/ami/data_standar/update_pertanyaan/{id}', [PertanyaanStandarController::class, "edit"]);
 Route::post('/ami/data_standar/update_pertanyaan/{id}', [PertanyaanStandarController::class, "update"]);
-// DokumentasiAMI
+// DokumentasiAMI_FotoKegiatan
+Route::get('/dokumentasiAmi/{id}/foto_kegiatan', [FotoKegiatanAmiController::class, "index"]);
+Route::post('/dokumentasiAmi/{id}/foto_kegiatan', [FotoKegiatanAmiController::class, "store"]);
+// Route::get('/dokumentasiAmi/undangan/{id}', [FotoKegiatanAmiController::class, "edit"]);
+// Route::post('/dokumentasiAmi/undangan/{id}', [FotoKegiatanAmiController::class, "update"]);
+// Route::delete('/dokumentasiAmi/undangan/{id}', [FotoKegiatanAmiController::class, "destroy"]);
+// DokumentasiAMI_Undangan
 Route::get('/dokumentasiAmi/undangan', [UndanganAmiController::class, "index"]);
 Route::post('/dokumentasiAmi/undangan', [UndanganAmiController::class, "store"]);
 Route::get('/dokumentasiAmi/undangan/{id}', [UndanganAmiController::class, "edit"]);
 Route::post('/dokumentasiAmi/undangan/{id}', [UndanganAmiController::class, "update"]);
 Route::delete('/dokumentasiAmi/undangan/{id}', [UndanganAmiController::class, "destroy"]);
-
 
 /* ============================================================= */
 
@@ -132,10 +136,6 @@ Route::delete('/dokumentasiAmi/undangan/{id}', [UndanganAmiController::class, "d
 Route::get('/pedomanami', [Controller::class, "pedomanAmi"]);
 Route::get('/historiami', [Controller::class, "historiAmi"]);
 // (Dokumentasi Ami)
-Route::get('/dokumentasiAmi', [Controller::class, "dokAmi"]);
-Route::get('/dokumentasiAmi/absensi', [Controller::class, "dokAmiAbsensi"]);
-Route::get('/dokumentasiAmi/fotoKegiatan', [Controller::class, "dokAmiFotoKegiatan"]);
-Route::get('/dokumentasiAmi/notulensi', [Controller::class, "dokAmiNotulensi"]);
 Route::get('/dokumentasiRtm', [Controller::class, "dokRtm"]);
 Route::get('/dokumentasiRtm/undangan', [Controller::class, "dokRtmUndangan"]);
 Route::get('/dokumentasiRtm/absensi', [Controller::class, "dokRtmAbsensi"]);
