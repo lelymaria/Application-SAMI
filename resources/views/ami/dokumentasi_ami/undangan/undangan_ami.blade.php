@@ -120,7 +120,7 @@
                                             <a href="{{ asset('storage/' . $undangan->file_undangan_ami) }}" target="_blank"
                                                 class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                     class="fa fa-file-invoice"></i></a>
-                                            <a href="{{ url('dokumentasiAmi/'.$undanganAmi->id.'/foto_kegiatan') }}"
+                                            <a href="{{ url('dokumentasiAmi/'.$undangan->id.'/daftar_hadir_ami') }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                     class="fas fa-plus"></i></a>
                                             <a href="#"

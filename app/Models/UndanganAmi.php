@@ -15,6 +15,14 @@ class UndanganAmi extends Model
     protected $fillable = ['file_nama', 'file_undangan_ami'];
 
     public function fotoKegiatanAmi() {
-        return $this->hasMany(User::class,  'id_undangan', 'id');
+        return $this->hasMany(FotoKegiatanAmi::class,  'id_undangan', 'id');
+    }
+
+    public function daftarHadirAmi() {
+        return $this->hasMany(DaftarHadirAmi::class,  'id_undangan', 'id');
+    }
+
+    public function notulensiAmi() {
+        return $this->hasMany(NotulensiAmi::class,  'id_undangan', 'id');
     }
 }

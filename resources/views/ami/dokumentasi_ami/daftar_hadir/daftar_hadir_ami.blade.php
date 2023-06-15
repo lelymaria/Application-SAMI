@@ -66,7 +66,7 @@
                         <ul class="nav nav-tabs">
                             <li class="nav-item"><a
                                     href="{{ url('/dokumentasiAmi/' . $undanganAmi->id . '/daftar_hadir_ami') }}"
-                                    class="nav-link">Daftar Hadir</a>
+                                    class="nav-link active show">Daftar Hadir</a>
                             </li>
                             <li class="nav-item"><a
                                     href="{{ url('/dokumentasiAmi/' . $undanganAmi->id . '/foto_kegiatan_ami') }}"
@@ -75,7 +75,7 @@
                             </li>
                             <li class="nav-item"><a
                                     href="{{ url('/dokumentasiAmi/' . $undanganAmi->id . '/notulensi_ami') }}"
-                                    class="nav-link active show">Notulensi</a>
+                                    class="nav-link">Notulensi</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -96,7 +96,7 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">Upload Notulensi</h5>
+                                                            <h5 class="modal-title">Upload Daftar Hadir</h5>
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal">
                                                             </button>
@@ -104,7 +104,7 @@
                                                         <div class="modal-body">
                                                             <div class="form-validate">
                                                                 <form class="needs-validation" novalidate=""
-                                                                    action="{{ url('/dokumentasiAmi/' . $undanganAmi->id . '/notulensi_ami') }}"
+                                                                    action="{{ url('/dokumentasiAmi/' . $undanganAmi->id . '/daftar_hadir_ami') }}"
                                                                     method="post" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <div class="row">
@@ -112,7 +112,7 @@
                                                                             <div class="form-file">
                                                                                 <input type="file"
                                                                                     class="form-file-input form-control"
-                                                                                    name="file_notulensi_ami">
+                                                                                    name="file_daftar_hadir_ami">
                                                                             </div>
                                                                             <span class="input-group-text">Upload</span>
                                                                         </div>
@@ -142,22 +142,22 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            @foreach ($notulensiAmi as $notulensi)
+                                                            @foreach ($daftar_hadir_ami as $kehadiran)
                                                                 <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $notulensi->file_notulensi_ami }}</td>
+                                                                <td>{{ $kehadiran->file_daftar_hadir_ami }}</td>
                                                                 <td>
                                                                     <div class="d-flex">
                                                                         <a href="#"
-                                                                            data-url="{{ url('/dokumentasiAmi/notulensi_ami/' . $notulensi->id) }}"
+                                                                            data-url="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"
                                                                             class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                                             data-bs-toggle="modal"
-                                                                            data-bs-target="#updateNotulensi"><i
+                                                                            data-bs-target="#updateKehadiran"><i
                                                                                 class="fas fa-pencil-alt"></i></a>
                                                                         <a href="#"
                                                                             class="btn btn-info shadow btn-xs sharp me-1"><i
                                                                                 class="las la-download"></i></a>
                                                                         <form
-                                                                            action="{{ url('/dokumentasiAmi/notulensi_ami/' . $notulensi->id) }}"
+                                                                            action="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"
                                                                             method="post">
                                                                             @method('delete')
                                                                             @csrf
@@ -186,7 +186,7 @@
     </div>
 
     {{-- update --}}
-    <div class="modal fade" id="updateNotulensi">
+    <div class="modal fade" id="updateKehadiran">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

@@ -37,27 +37,31 @@ class FotoKegiatanAmiController extends Controller
     {
         $request->validate([
             "caption_foto_kegiatan_ami" => 'required',
-            "foto_kegiatan_ami" => 'required',
+            "foto_kegiatan_ami.*" => 'required|image',
         ]);
 
         $undanganAmi = UndanganAmi::findOrFail($id);
+        $foto_kegiatan = [];
 
-        DB::transaction(function () use ($request, $undanganAmi) {
+        DB::transaction(function () use ($request, $undanganAmi, &$foto_kegiatan) {
             foreach ($request->file('foto_kegiatan_ami') as $value) {
-                FotoKegiatanAmi::create([
-                    "caption_foto_kegiatan_ami" => $request->caption_foto_kegiatan_ami,
-                    "file_foto_kegiatan_ami" => $value->store('foto_kegiatan_ami'),
-                    "id_undangan" => $undanganAmi->id
-                ]);
+                $filename = str_replace("\\", "/", $value->store('foto_kegiatan_ami'));
+                $foto_kegiatan[] = $filename;
             }
+            FotoKegiatanAmi::create([
+                "caption_foto_kegiatan_ami" => $request->caption_foto_kegiatan_ami,
+                "file_foto_kegiatan_ami" => json_encode($foto_kegiatan),
+                "id_undangan" => $undanganAmi->id
+            ]);
         });
+
         return back()->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(FotoKegiatanAmi $fotoKegiatanAmi)
+    public function show(string $id)
     {
         //
     }
@@ -65,24 +69,50 @@ class FotoKegiatanAmiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FotoKegiatanAmi $fotoKegiatanAmi)
+    public function edit($id)
     {
-        //
+        $fotoKegiatanAmi = FotoKegiatanAmi::find($id);
+        $data = [
+            "update_foto_kegiatan_ami" => $fotoKegiatanAmi
+        ];
+
+        return view('ami.dokumentasi_ami.foto_kegiatan.update_foto_ami', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FotoKegiatanAmi $fotoKegiatanAmi)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            "caption_foto_kegiatan_ami" => 'required',
+            "foto_kegiatan_ami" => 'required',
+        ]);
+
+        $fotoKegiatanAmi = FotoKegiatanAmi::findOrFail($id);
+        $foto_kegiatan = [];
+
+        DB::transaction(function () use ($request, $fotoKegiatanAmi, &$foto_kegiatan) {
+            foreach ($request->file('foto_kegiatan_ami') as $value) {
+                $filename = str_replace("\\", "/", $value->store('foto_kegiatan_ami'));
+                $foto_kegiatan[] = $filename;
+            }
+            $fotoKegiatanAmi->update([
+                'caption_foto_kegiatan_ami' => $request->caption_foto_kegiatan_ami,
+                'file_foto_kegiatan_ami' => json_encode($foto_kegiatan),
+            ]);
+        });
+
+        return back()->with('message', 'Data Berhasil Diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FotoKegiatanAmi $fotoKegiatanAmi)
+    public function destroy(string $id)
     {
-        //
+        $fotoKegiatanAmi = FotoKegiatanAmi::findOrFail($id);
+        $fotoKegiatanAmi->delete();
+        return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }
