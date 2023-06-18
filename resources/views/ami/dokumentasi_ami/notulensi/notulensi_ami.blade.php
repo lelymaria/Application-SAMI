@@ -144,7 +144,7 @@
                                                         <tr>
                                                             @foreach ($notulensiAmi as $notulensi)
                                                                 <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $notulensi->file_notulensi_ami }}</td>
+                                                                <td>{{ $notulensi->file_nama }}</td>
                                                                 <td>
                                                                     <div class="d-flex">
                                                                         <a href="#"
@@ -153,9 +153,6 @@
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#updateNotulensi"><i
                                                                                 class="fas fa-pencil-alt"></i></a>
-                                                                        <a href="#"
-                                                                            class="btn btn-info shadow btn-xs sharp me-1"><i
-                                                                                class="las la-download"></i></a>
                                                                         <form
                                                                             action="{{ url('/dokumentasiAmi/notulensi_ami/' . $notulensi->id) }}"
                                                                             method="post">

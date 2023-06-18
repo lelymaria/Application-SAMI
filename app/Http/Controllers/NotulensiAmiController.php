@@ -42,8 +42,14 @@ class NotulensiAmiController extends Controller
         $undanganAmi = UndanganAmi::findOrFail($id);
 
         DB::transaction(function () use ($request, $undanganAmi) {
+            $fileNotulensiAmi = $request->file('file_notulensi_ami');
+            $extensionOriginal = $fileNotulensiAmi->getClientOriginalExtension();
             NotulensiAmi::create([
-                'file_notulensi_ami' => $request->file('file_notulensi_ami')->store('notulensi_ami'),
+                'file_nama' => 'Notulensi Ami ' . $undanganAmi->file_nama,
+                'file_notulensi_ami' => $fileNotulensiAmi->storeAs(
+                    'file_notulensi_ami',
+                    $undanganAmi->file_nama . '.' . $extensionOriginal
+                ),
                 'id_undangan' => $undanganAmi->id,
             ]);
         });
@@ -83,10 +89,16 @@ class NotulensiAmiController extends Controller
         ]);
 
         DB::transaction(function () use ($request, $notulensi_ami) {
+            $fileNotulensiAmi = $request->file('file_notulensi_ami');
+            $extensionOriginal = $fileNotulensiAmi->getClientOriginalExtension();
             $notulensi_ami->update([
-                'file_notulensi_ami' => $request->file('file_notulensi_ami')->store('notulensi_ami'),
+                'file_notulensi_ami' => $fileNotulensiAmi->storeAs(
+                    'notulensi_ami',
+                    $undanganAmi->file_nama . '.' . $extensionOriginal
+                ),
             ]);
         });
+
         return back()->with('message', 'Data Berhasil Tersimpan!');
     }
 

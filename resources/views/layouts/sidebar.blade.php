@@ -87,7 +87,7 @@
                         <span class="nav-text">Account</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="{{ url('/profile') }}">Profile</a></li>
+                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
                         <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
                     </ul>
                 </li>
@@ -125,8 +125,8 @@
                         <span class="nav-text">Account</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/profile">Profile</a></li>
-                        <li><a href="/password/edit">Edit Password</a></li>
+                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan
@@ -163,8 +163,8 @@
                         <span class="nav-text">Account</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/profile">Profile</a></li>
-                        <li><a href="/password/edit">Edit Password</a></li>
+                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan
@@ -201,8 +201,8 @@
                         <span class="nav-text">Account</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/profile">Profile</a></li>
-                        <li><a href="/password/edit">Edit Password</a></li>
+                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan
@@ -240,8 +240,8 @@
                         <span class="nav-text">Account</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/profile">Profile</a></li>
-                        <li><a href="/password/edit">Edit Password</a></li>
+                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan
@@ -276,8 +276,8 @@
                         <span class="nav-text">Account</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/profile">Profile</a></li>
-                        <li><a href="/password/edit">Edit Password</a></li>
+                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
                     </ul>
                 </li>
             @endcan

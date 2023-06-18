@@ -21,6 +21,7 @@ use App\Http\Controllers\StandarController;
 use App\Http\Controllers\TugasStandarController;
 use App\Http\Controllers\UndanganAmiController;
 use App\Http\Controllers\UpdatePasswordController;
+use App\Http\Controllers\UpdateProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
     Route::get('/password/edit', [UpdatePasswordController::class, 'edit'])->name('password.edit');
     Route::put('/password/edit', [UpdatePasswordController::class, 'update'])->name('password.update');
+
+    Route::group(['prefix' => '/profile'], function () {
+        Route::get('/edit', [UpdateProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/edit', [UpdateProfileController::class, 'update'])->name('profile.update');
+    });
 });
 
 Route::prefix('/manage_user')->group(function () {
@@ -170,9 +176,6 @@ Route::get('/dokumentasiRtm/absensi', [Controller::class, "dokRtmAbsensi"]);
 Route::get('/dokumentasiRtm/fotoKegiatan', [Controller::class, "dokRtmFotoKegiatan"]);
 Route::get('/dokumentasiRtm/notulensi', [Controller::class, "dokRtmNotulensi"]);
 
-
-//FOLDER MENU->AKUN
-Route::get('/profile', [Controller::class, "profile"]);
 //FOLDER MENU->DOKUMENTASI
 Route::get('/dokAMI', [Controller::class, "dokAmiAll"]);
 Route::get('/dokRTM', [Controller::class, "dokRtmAll"]);

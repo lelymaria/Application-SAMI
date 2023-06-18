@@ -37,11 +37,6 @@ class Controller extends BaseController
         return view('ami.dokumentasi_rtm.notulensi.notulensi_rtm');
     }
 
-    //FOLDER MENU->AKUN
-    public function profile()
-    {
-        return view('manage_akun.setting_akun.profile.profile');
-    }
 
     //FOLDER MENU->DOKUMENTASI
     public function dokAmiAll()

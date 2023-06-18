@@ -171,9 +171,6 @@
                                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                                 data-bs-toggle="modal" data-bs-target="#updateFotoAmi"><i
                                                                     class="fas fa-pencil-alt"></i></a>
-                                                            <a href="#"
-                                                                class="btn btn-info shadow btn-xs sharp me-1"><i
-                                                                    class="las la-download"></i></a>
                                                             <form
                                                                 action="{{ url('/dokumentasiAmi/foto_kegiatan_ami/' . $kegiatan->id) }}"
                                                                 method="post">
@@ -208,7 +205,7 @@
                 </div>
                 <div class="modal-body" id="editModalBody">
                     <div class="form-validate">
-                        <form class="needs-validation" novalidate="" action="{{ url('/dokumentasiAmi/foto_kegiatan_ami/'.$kegiatan->id) }}" method="post"
+                        <form class="needs-validation" novalidate="" action="{{ url('/dokumentasiAmi/foto_kegiatan_ami/'.$undanganAmi->id) }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row" id="formBodyEdit">

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-Header start
-***********************************-->
+        Header start
+        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -33,9 +33,9 @@ Header start
             </div>
         @endif
     </div>
-<!--**********************************
-Header end ti-comment-alt
-***********************************-->
+    <!--**********************************
+        Header end ti-comment-alt
+        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -57,17 +57,17 @@ Header end ti-comment-alt
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle" alt="">
                             <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
                                     class="fas fa-pencil-alt"></i></a>
                         </div>
                         <div class="profile-details">
                             <div class="profile-name px-3 pt-2">
-                                <h4 class="text-primary mb-0">Mitchell C. Shay</h4>
-                                <p>UX / UI Designer</p>
+                                <h4 class="text-primary mb-0">{{ $profile->nama }}</h4>
+                                <p>{{ $profile->user->levelRole->name }}</p>
                             </div>
                             <div class="profile-email px-2 pt-2">
-                                <h4 class="text-muted mb-0">info@example.com</h4>
+                                <h4 class="text-muted mb-0">{{ $profile->email }}</h4>
                                 <p>Email</p>
                             </div>
                         </div>
@@ -79,43 +79,34 @@ Header end ti-comment-alt
             <div class="card">
                 <div class="card-body">
                     <div class="form-validation">
-                        <form class="needs-validation" novalidate="">
+                        <form class="form-valide-with-icon needs-validation" novalidate=""
+                            action="{{ url('/profile/edit') }}" method="post">
+                            @method('put')
+                            @csrf
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="mb-3 row">
-                                        <label class="col-lg-2 col-form-label" for="validationCustom02">Email<span
-                                                class="text-danger">*</span>
+                                        <label class="col-lg-2 col-form-label" for="validationCustom02">Email
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                placeholder="Your valid email.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a Email.
-                                            </div>
+                                                name="email" value="{{ $profile->email }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-2 col-form-label" for="validationCustom03">NIP
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="validationCustom03"
-                                                placeholder="Choose a safe one.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a password.
-                                            </div>
+                                            <input type="text" class="form-control" id="validationCustom03"
+                                                name="nip" value="{{ $profile->user->nip }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label class="col-lg-2 col-form-label" for="validationCustom03">Nama
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="validationCustom03"
-                                                placeholder="Choose a safe one.." required="">
-                                            <div class="invalid-feedback">
-                                                Please enter a password.
-                                            </div>
+                                            <input type="text" class="form-control" id="validationCustom03"
+                                                name="nama" value="{{ $profile->nama }}">
                                         </div>
                                     </div>
                                 </div>

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('id_undangan');
             $table->string('file_daftar_hadir_ami');
+            $table->string('file_nama');
             $table->timestamps();
             $table->softDeletes();
         });
