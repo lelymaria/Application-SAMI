@@ -79,7 +79,7 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
-                        <li><a href="{{ url('/dokumentasiRtm') }}">RTM</a></li>
+                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -116,8 +116,8 @@
                         <span class="nav-text">Dokumentasi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/dokAMI">AMI</a></li>
-                        <li><a href="/dokRTM">RTM</a></li>
+                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -154,8 +154,8 @@
                         <span class="nav-text">Dokumentasi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/dokumentasiAmi">AMI</a></li>
-                        <li><a href="/dokumentasiRtm">RTM</a></li>
+                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -192,8 +192,8 @@
                         <span class="nav-text">Dokumentasi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/dokumentasiAmi">AMI</a></li>
-                        <li><a href="/dokumentasiRtm">RTM</a></li>
+                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -231,8 +231,8 @@
                         <span class="nav-text">Dokumentasi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/dokumentasiAmi">AMI</a></li>
-                        <li><a href="/dokumentasiRtm">RTM</a></li>
+                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -267,8 +267,8 @@
                         <span class="nav-text">Dokumentasi</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/dokumentasiAmi">AMI</a></li>
-                        <li><a href="/dokumentasiRtm">RTM</a></li>
+                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

@@ -8,18 +8,22 @@ use App\Http\Controllers\LeadAuditorController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DaftarHadirAmiController;
+use App\Http\Controllers\DaftarHadirRtmController;
 use App\Http\Controllers\FotoKegiatanAmiController;
+use App\Http\Controllers\FotoKegiatanRtmController;
 use App\Http\Controllers\JadwalAmiController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KepalaP4mpController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\NotulensiAmiController;
+use App\Http\Controllers\NotulensiRtmController;
 use App\Http\Controllers\PedomanAmiController;
 use App\Http\Controllers\PertanyaanStandarController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\StandarController;
 use App\Http\Controllers\TugasStandarController;
 use App\Http\Controllers\UndanganAmiController;
+use App\Http\Controllers\UndanganRtmController;
 use App\Http\Controllers\UpdatePasswordController;
 use App\Http\Controllers\UpdateProfileController;
 use Illuminate\Support\Facades\Route;
@@ -163,18 +167,39 @@ Route::prefix('/dokumentasiAmi')->group(function () {
     Route::delete('/notulensi_ami/{id}', [NotulensiAmiController::class, "destroy"]);
 });
 
+Route::prefix('/dokumentasiRtm')->group(function () {
+    // UndanganRtm
+    Route::get('/undangan', [UndanganRtmController::class, "index"]);
+    Route::post('/undangan', [UndanganRtmController::class, "store"]);
+    Route::get('/undangan/{id}', [UndanganRtmController::class, "edit"]);
+    Route::post('/undangan/{id}', [UndanganRtmController::class, "update"]);
+    Route::delete('/undangan/{id}', [UndanganRtmController::class, "destroy"]);
+    // DaftarHadirRtm
+    Route::get('/{id}/daftar_hadir_rtm', [DaftarHadirRtmController::class, "index"]);
+    Route::post('/{id}/daftar_hadir_rtm', [DaftarHadirRtmController::class, "store"]);
+    Route::get('/daftar_hadir_rtm/{id}', [DaftarHadirRtmController::class, "edit"]);
+    Route::post('/daftar_hadir_rtm/{id}', [DaftarHadirRtmController::class, "update"]);
+    Route::delete('/daftar_hadir_rtm/{id}', [DaftarHadirRtmController::class, "destroy"]);
+    // FotoKegiatanRtm
+    Route::get('/{id}/foto_kegiatan_rtm', [FotoKegiatanRtmController::class, "index"]);
+    Route::post('/{id}/foto_kegiatan_rtm', [FotoKegiatanRtmController::class, "store"]);
+    Route::get('/foto_kegiatan_rtm/{id}', [FotoKegiatanRtmController::class, "edit"]);
+    Route::post('/foto_kegiatan_rtm/{id}', [FotoKegiatanRtmController::class, "update"]);
+    Route::delete('/foto_kegiatan_rtm/{id}', [FotoKegiatanRtmController::class, "destroy"]);
+    // NotulensiRtm
+    Route::get('/{id}/notulensi_rtm', [NotulensiRtmController::class, "index"]);
+    Route::post('/{id}/notulensi_rtm', [NotulensiRtmController::class, "store"]);
+    Route::get('/notulensi_rtm/{id}', [NotulensiRtmController::class, "edit"]);
+    Route::post('/notulensi_rtm/{id}', [NotulensiRtmController::class, "update"]);
+    Route::delete('/notulensi_rtm/{id}', [NotulensiRtmController::class, "destroy"]);
+});
+
 /* ============================================================= */
 
 //FOLDER OPERATOR
 // (Ami)
 Route::get('/pedomanami', [Controller::class, "pedomanAmi"]);
 Route::get('/historiami', [Controller::class, "historiAmi"]);
-// (Dokumentasi Ami)
-Route::get('/dokumentasiRtm', [Controller::class, "dokRtm"]);
-Route::get('/dokumentasiRtm/undangan', [Controller::class, "dokRtmUndangan"]);
-Route::get('/dokumentasiRtm/absensi', [Controller::class, "dokRtmAbsensi"]);
-Route::get('/dokumentasiRtm/fotoKegiatan', [Controller::class, "dokRtmFotoKegiatan"]);
-Route::get('/dokumentasiRtm/notulensi', [Controller::class, "dokRtmNotulensi"]);
 
 //FOLDER MENU->DOKUMENTASI
 Route::get('/dokAMI', [Controller::class, "dokAmiAll"]);
