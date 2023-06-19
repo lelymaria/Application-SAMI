@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_user');
             $table->uuid('id_jurusan');
+            $table->uuid('id_jadwal');
             $table->string('email');
             $table->string('nama');
             $table->string('foto_profile');

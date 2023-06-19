@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nama_jadwal');
             $table->dateTime('jadwal_mulai');
             $table->dateTime('jadwal_selesai');
-            $table->string('status');
             $table->string('tahun_ami');
+            $table->integer('status');
             $table->timestamps();
             $table->softDeletes();
         });

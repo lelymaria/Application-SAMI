@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AkunAuditor;
+use App\Models\JadwalAmi;
 use App\Models\Level;
 use App\Models\ProgramStudi;
 use App\Models\Standar;
@@ -49,6 +50,7 @@ class LeadAuditorController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
+            $jadwal_ami = JadwalAmi::where('status', 1)->first();
             $level = Level::where('name', 'Lead Auditor')->first();
             $user = User::create([
                 'nip' => $request->nip,
@@ -60,6 +62,7 @@ class LeadAuditorController extends Controller
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
                 'id_prodi' => $request->unit_kerja,
+                'id_jadwal' => $jadwal_ami->id,
             ]);
         });
         return redirect('/manage_user/lead_auditor/')->with('message', 'Data Berhasil Tersimpan!');

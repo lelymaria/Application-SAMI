@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAmi;
 use App\Models\UndanganAmi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +40,7 @@ class UndanganAmiController extends Controller
         if ($request->hasFile('file_undangan')) {
             $fileUndangan = $request->file('file_undangan');
             $filename = $fileUndangan->getClientOriginalName();
+            $jadwal_ami = JadwalAmi::where('status', 1)->first();
 
             if ($request->file_nama) {
                 $filename = $request->file_nama;
@@ -46,7 +48,8 @@ class UndanganAmiController extends Controller
 
             $filePath = $fileUndangan->storeAs("file_undangan", $filename);
             $request->merge([
-                "file_undangan_ami" => $filePath
+                "file_undangan_ami" => $filePath,
+                "id_jadwal" => $jadwal_ami->id
             ]);
 
             if ($request->file_nama == "") {

@@ -12,7 +12,7 @@ class AkunAuditee extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'akun_auditee';
-    protected $fillable = ['id_prodi', 'email', 'nip', 'nama', 'foto_profile'];
+    protected $fillable = ['id_prodi', 'email', 'nip', 'nama', 'foto_profile', 'id_jadwal'];
 
     public function user() {
         return $this->hasOne(User::class,  'id', 'id_user');
@@ -20,5 +20,9 @@ class AkunAuditee extends Model
 
     public function dataProdi() {
         return $this->belongsTo(ProgramStudi::class, 'id_prodi', 'id');
+    }
+
+    public function jadwal() {
+        return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
     }
 }

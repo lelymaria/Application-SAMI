@@ -12,7 +12,7 @@ class UndanganAmi extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'Undangan_ami';
-    protected $fillable = ['file_nama', 'file_undangan_ami'];
+    protected $fillable = ['file_nama', 'file_undangan_ami', 'id_jadwal'];
 
     public function fotoKegiatanAmi() {
         return $this->hasMany(FotoKegiatanAmi::class,  'id_undangan', 'id');
@@ -24,5 +24,9 @@ class UndanganAmi extends Model
 
     public function notulensiAmi() {
         return $this->hasMany(NotulensiAmi::class,  'id_undangan', 'id');
+    }
+
+    public function jadwal() {
+        return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
     }
 }

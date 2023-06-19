@@ -12,9 +12,13 @@ class NotulensiAmi extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'notulensi_ami';
-    protected $fillable = ['id_undangan', 'file_notulensi_ami', 'file_nama'];
+    protected $fillable = ['id_undangan', 'file_notulensi_ami', 'file_nama', 'id_jadwal'];
 
     public function undanganAmi() {
-        return $this->belongsTo(UndanganAmi::class,  'id', 'id_undangan');
+        return $this->belongsTo(UndanganAmi::class, 'id_undangan', 'id');
+    }
+
+    public function jadwal() {
+        return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
     }
 }

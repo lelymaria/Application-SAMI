@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAmi;
 use App\Models\Jurusan;
 use App\Models\ProgramStudi;
 use Illuminate\Http\Request;
@@ -82,7 +83,7 @@ class ProgramStudiController extends Controller
         ]);
 
         $request->merge([
-            "id_jurusan" => $request->nama_jurusan,
+            "id_jurusan" => $request->nama_jurusan
         ]);
 
         DB::transaction(function () use ($request, $prodi) {

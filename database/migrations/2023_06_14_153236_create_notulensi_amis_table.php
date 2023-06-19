@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('notulensi_ami', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('id_undangan');
+            $table->uuid('id_jadwal');
             $table->string('file_notulensi_ami');
             $table->string('file_nama');
             $table->timestamps();

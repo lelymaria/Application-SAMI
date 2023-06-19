@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AkunAuditee;
+use App\Models\JadwalAmi;
 use App\Models\Level;
 use App\Models\ProgramStudi;
 use App\Models\User;
@@ -47,6 +48,7 @@ class AkunAuditeeController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
+            $jadwal_ami = JadwalAmi::where('status', 1)->first();
             $level = Level::where('name', 'Auditee')->first();
             $user = User::create([
                 'nip' => $request->nip,
@@ -58,6 +60,7 @@ class AkunAuditeeController extends Controller
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
                 'id_prodi' => $request->unit_kerja,
+                'id_jadwal' =>$jadwal_ami->id
             ]);
         });
         return redirect('/manage_user/akun_auditee/')->with('message', 'Data Berhasil Tersimpan!');

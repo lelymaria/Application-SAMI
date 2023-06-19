@@ -16,27 +16,6 @@ class Controller extends BaseController
         return view('ami.histori.histori_ami');
     }
 
-    public function dokRtm()
-    {
-        return view('ami.dokumentasi_rtm.dokumentasi_rtm');
-    }
-    public function dokRtmUndangan()
-    {
-        return view('ami.dokumentasi_rtm.undangan.undangan_rtm');
-    }
-    public function dokRtmAbsensi()
-    {
-        return view('ami.dokumentasi_rtm.absensi.absensi_rtm');
-    }
-    public function dokRtmFotoKegiatan()
-    {
-        return view('ami.dokumentasi_rtm.foto_kegiatan.foto_kegiatan_rtm');
-    }
-    public function dokRtmNotulensi()
-    {
-        return view('ami.dokumentasi_rtm.notulensi.notulensi_rtm');
-    }
-
 
     //FOLDER MENU->DOKUMENTASI
     public function dokAmiAll()

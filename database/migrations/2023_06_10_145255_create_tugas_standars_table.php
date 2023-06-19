@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('id_user');
             $table->string('id_standar');
+            $table->uuid('id_jadwal');
             $table->timestamps();
             $table->softDeletes();
         });

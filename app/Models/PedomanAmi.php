@@ -12,5 +12,9 @@ class PedomanAmi extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'pedoman_ami';
-    protected $fillable = ['deskripsi', 'file_pedoman_ami'];
+    protected $fillable = ['deskripsi', 'file_pedoman_ami', 'id_jadwal'];
+
+    public function jadwal() {
+        return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
+    }
 }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('kepala_p4mp', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('id_jadwal');
             $table->uuid('id_user');
             $table->string('periode_jabatan');
             $table->string('email');
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kepala_p4mps');
+        Schema::dropIfExists('kepala_p4mp');
     }
 };

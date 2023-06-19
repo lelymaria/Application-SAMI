@@ -194,7 +194,7 @@
                 <div class="modal-body" id="editModalBody">
                     <div class="form-validate">
                         <form class="needs-validation" novalidate=""
-                            action="{{ url('/dokumentasiAmi/daftar_hadir_ami/') }}" method="post"
+                            action="{{ url('/dokumentasiAmi/notulensi_ami/') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row" id="formBodyEdit">

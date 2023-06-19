@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAmi;
 use App\Models\Standar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,8 +33,13 @@ class StandarController extends Controller
      */
     public function store(Request $request)
     {
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
         $request->validate([
             "nama_standar" => "required",
+        ]);
+
+        $request->merge([
+            "id_jadwal" => $jadwal_ami->id
         ]);
 
         DB::transaction(function()use ($request){

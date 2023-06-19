@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAmi;
 use App\Models\NotulensiAmi;
 use App\Models\UndanganAmi;
 use Illuminate\Http\Request;
@@ -42,6 +43,7 @@ class NotulensiAmiController extends Controller
         $undanganAmi = UndanganAmi::findOrFail($id);
 
         DB::transaction(function () use ($request, $undanganAmi) {
+            $jadwal_ami = JadwalAmi::where('status', 1)->first();
             $fileNotulensiAmi = $request->file('file_notulensi_ami');
             $extensionOriginal = $fileNotulensiAmi->getClientOriginalExtension();
             NotulensiAmi::create([
@@ -51,6 +53,7 @@ class NotulensiAmiController extends Controller
                     $undanganAmi->file_nama . '.' . $extensionOriginal
                 ),
                 'id_undangan' => $undanganAmi->id,
+                'id_jadwal' => $jadwal_ami->id
             ]);
         });
 
@@ -92,9 +95,10 @@ class NotulensiAmiController extends Controller
             $fileNotulensiAmi = $request->file('file_notulensi_ami');
             $extensionOriginal = $fileNotulensiAmi->getClientOriginalExtension();
             $notulensi_ami->update([
+                'file_nama' => 'Notulensi Ami ' . $notulensi_ami->undanganAmi->file_nama,
                 'file_notulensi_ami' => $fileNotulensiAmi->storeAs(
-                    'notulensi_ami',
-                    $undanganAmi->file_nama . '.' . $extensionOriginal
+                    'file_notulensi_ami',
+                    $notulensi_ami->undanganAmi->file_nama . '.' . $extensionOriginal
                 ),
             ]);
         });

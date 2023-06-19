@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FotoKegiatanAmi;
+use App\Models\JadwalAmi;
 use App\Models\UndanganAmi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,6 +45,7 @@ class FotoKegiatanAmiController extends Controller
         $foto_kegiatan = [];
 
         DB::transaction(function () use ($request, $undanganAmi, &$foto_kegiatan) {
+            $jadwal_ami = JadwalAmi::where('status', 1)->first();
             foreach ($request->file('foto_kegiatan_ami') as $value) {
                 $filename = str_replace("\\", "/", $value->store('foto_kegiatan_ami'));
                 $foto_kegiatan[] = $filename;
@@ -51,7 +53,8 @@ class FotoKegiatanAmiController extends Controller
             FotoKegiatanAmi::create([
                 "caption_foto_kegiatan_ami" => $request->caption_foto_kegiatan_ami,
                 "file_foto_kegiatan_ami" => json_encode($foto_kegiatan),
-                "id_undangan" => $undanganAmi->id
+                "id_undangan" => $undanganAmi->id,
+                "id_jadwal" => $jadwal_ami->id
             ]);
         });
 

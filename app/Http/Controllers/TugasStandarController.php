@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAmi;
 use App\Models\Standar;
 use App\Models\TugasStandar;
 use App\Models\User;
@@ -36,9 +37,11 @@ class TugasStandarController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
+            $jadwal_ami = JadwalAmi::where('status', 1)->first();
             TugasStandar::create([
-                "id_user" => $request->user,
-                'id_standar' => $request->standar
+                'id_user' => $request->user,
+                'id_standar' => $request->standar,
+                'id_jadwal' => $jadwal_ami->id
             ]);
         });
         return back()->with('message', 'Data Berhasil Tersimpan!');

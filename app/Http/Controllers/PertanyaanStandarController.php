@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAmi;
 use App\Models\PertanyaanStandar;
 use App\Models\Standar;
 use Illuminate\Http\Request;
@@ -51,11 +52,15 @@ class PertanyaanStandarController extends Controller
      */
     public function store(Request $request, $id)
     {
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        $standar = Standar::findOrFail($id);
         $request->validate([
             "list_pertanyaan_standar" => "required",
         ]);
 
-        $standar = Standar::findOrFail($id);
+        $request->merge([
+            "id_jadwal" => $jadwal_ami->id
+        ]);
 
         DB::transaction(function () use ($request, $standar) {
             $standar->pertanyaanStandar()->create($request->all());

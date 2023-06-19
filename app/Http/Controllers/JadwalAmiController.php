@@ -36,8 +36,11 @@ class JadwalAmiController extends Controller
             "nama_jadwal" => "required",
             "jadwal_mulai" => "required",
             "jadwal_selesai" => "required",
-            "status" => "required",
             "tahun_ami" => "required",
+        ]);
+
+        $request->merge([
+            "status" => 1,
         ]);
 
         DB::transaction(function () use ($request) {
@@ -76,7 +79,6 @@ class JadwalAmiController extends Controller
             "nama_jadwal" => "required",
             "jadwal_mulai" => "required",
             "jadwal_selesai" => "required",
-            "status" => "required",
             "tahun_ami" => "required",
         ]);
 

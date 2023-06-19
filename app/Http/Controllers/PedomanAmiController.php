@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAmi;
 use App\Models\PedomanAmi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -34,6 +35,7 @@ class PedomanAmiController extends Controller
      */
     public function store(Request $request)
     {
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
         $request->validate([
             "deskripsi" => "required",
             "file_pedoman" => "required|mimes:doc,docx,pdf",
@@ -41,6 +43,7 @@ class PedomanAmiController extends Controller
 
         $request->merge([
             "file_pedoman_ami" => $request->file('file_pedoman')->store('file_pedoman'),
+            "id_jadwal" => $jadwal_ami->id
         ]);
         DB::transaction(function () use ($request) {
             PedomanAmi::create($request->all());

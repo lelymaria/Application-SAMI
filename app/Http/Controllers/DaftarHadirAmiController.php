@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DaftarHadirAmi;
+use App\Models\JadwalAmi;
 use App\Models\UndanganAmi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +44,7 @@ class DaftarHadirAmiController extends Controller
         $undanganAmi = UndanganAmi::findOrFail($id);
 
         DB::transaction(function () use ($request, $undanganAmi) {
+            $jadwal_ami = JadwalAmi::where('status', 1)->first();
             $fileDaftarHadirAmi = $request->file('file_daftar_hadir_ami');
             $extensionOriginal = $fileDaftarHadirAmi->getClientOriginalExtension();
             DaftarHadirAmi::create([
@@ -52,6 +54,7 @@ class DaftarHadirAmiController extends Controller
                     $undanganAmi->file_nama . '.' . $extensionOriginal
                 ),
                 'id_undangan' => $undanganAmi->id,
+                'id_jadwal' => $jadwal_ami->id
             ]);
         });
 

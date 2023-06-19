@@ -12,7 +12,7 @@ class Standar extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'standar';
-    protected $fillable = ['nama_standar'];
+    protected $fillable = ['nama_standar', 'id_jadwal'];
 
     public function pertanyaanStandar() {
         return $this->hasOne(PertanyaanStandar::class,  "id_standar", "id");
@@ -20,5 +20,9 @@ class Standar extends Model
 
     public function tugasStandar() {
         return $this->hasOne(TugasStandar::class,  "id_standar", "id");
+    }
+
+    public function jadwal() {
+        return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
     }
 }

@@ -3,8 +3,8 @@
 @endphp
 @push('header')
     <!--**********************************
-                                Header start
-                                ***********************************-->
+                                        Header start
+                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -37,12 +37,12 @@
         @endif
     </div>
     <!--**********************************
-                                Header end ti-comment-alt
-                                ***********************************-->
+                                        Header end ti-comment-alt
+                                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
-@include('layouts.navbar')
+    @include('layouts.navbar')
 
     <div class="row page-titles">
         <ol class="breadcrumb">
@@ -111,31 +111,6 @@
                                                         name="tahun_ami" required>
                                                 </div>
                                             </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Status
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-8">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" role="switch"
-                                                            id="flexSwitchCheckDefault" name="status" value="proses">
-                                                        <label class="form-check-label"
-                                                            for="flexSwitchCheckDefault">Proses</label>
-                                                    </div>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" role="switch"
-                                                            id="flexSwitchCheckChecked" name="status" value="pending">
-                                                        <label class="form-check-label"
-                                                            for="flexSwitchCheckChecked">Pending</label>
-                                                    </div>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" role="switch"
-                                                            id="flexSwitchCheckChecked" name="status" value="selesai">
-                                                        <label class="form-check-label"
-                                                            for="flexSwitchCheckChecked">Selesai</label>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger light"
@@ -168,8 +143,24 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $jadwal->nama_jadwal }}</td>
                                     <td>{{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_mulai)->isoFormat('DD/MM/Y') }}
-                                        - {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_selesai)->isoFormat('DD/MM/Y') }}</td>
-                                    <td><a href="javascript:void(0);"><strong>{{ $jadwal->status }}</strong></a></td>
+                                        -
+                                        {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_selesai)->isoFormat('DD/MM/Y') }}
+                                    </td>
+                                    <td><a href="#"><strong>
+                                                @php
+                                                    if (
+                                                        Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_mulai)
+                                                            ->startOfDay()
+                                                            ->gte(Carbon::now())
+                                                    ) {
+                                                        echo 'Pending';
+                                                    } else if (Carbon::now()->between($jadwal->jadwal_mulai, $jadwal->jadwal_selesai)) {
+                                                        echo 'Proses';
+                                                    } else {
+                                                        echo 'Selesai';
+                                                    }
+                                                @endphp
+                                            </strong></a></td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="#" data-url="{{ url('/ami/jadwalAmi/' . $jadwal->id) }}"
@@ -204,7 +195,8 @@
                 </div>
                 <div class="modal-body" id="editModalBody">
                     <div class="form-validate">
-                        <form class="needs-validation" novalidate="" action="{{ url('/ami/JadwalAmi/') }}" method="post">
+                        <form class="needs-validation" novalidate="" action="{{ url('/ami/JadwalAmi/') }}"
+                            method="post">
                             @csrf
                             <div class="row" id="formBodyEdit">
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalAmi;
 use App\Models\KepalaP4mp;
 use App\Models\Level;
 use App\Models\User;
@@ -45,6 +46,7 @@ class KepalaP4mpController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
+            $jadwal_ami = JadwalAmi::where('status', 1)->first();
             $level = Level::where('name', 'Ketua P4MP')->first();
             $user = User::create([
                 'nip' => $request->nip,
@@ -56,6 +58,7 @@ class KepalaP4mpController extends Controller
                 'email' => $request->email,
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
+                'id_jadwal' => $jadwal_ami->id
             ]);
         });
         return redirect('/manage_user/kepalaP4mp')->with('message', 'Data Berhasil Tersimpan!');
