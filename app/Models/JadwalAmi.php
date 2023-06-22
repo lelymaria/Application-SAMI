@@ -57,4 +57,8 @@ class JadwalAmi extends Model
     public function notulensiAmi() {
         return $this->hasMany(NotulensiAmi::class, 'id_jadwal', 'id');
     }
+
+    public function kopSurat() {
+        return $this->hasMany(KopSurat::class, 'id_jadwal', 'id');
+    }
 }

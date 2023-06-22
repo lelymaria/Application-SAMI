@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JadwalAmi;
+use App\Models\KopSurat;
 use App\Models\Standar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,8 @@ class StandarController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all()
+            'standar' => Standar::all(),
+            'kop_surat' => KopSurat::all()
         ];
         return view('ami.standar.standar', $data);
     }
@@ -36,14 +38,16 @@ class StandarController extends Controller
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
         $request->validate([
             "nama_standar" => "required",
+            "nama_formulir" => "required"
         ]);
 
         $request->merge([
-            "id_jadwal" => $jadwal_ami->id
+            "id_jadwal" => $jadwal_ami->id,
+            "id_kop_surat" => $request->nama_formulir
         ]);
 
         DB::transaction(function()use ($request){
-            Standar::create($request->all());
+            return Standar::create($request->all());
         });
         return redirect('/ami/standar')->with('message', 'Data Berhasil Tersimpan!');
     }
@@ -63,7 +67,8 @@ class StandarController extends Controller
     {
         $standar = Standar::findOrFail($idStandar);
         $data = [
-            "update_standar" => $standar
+            "update_standar" => $standar,
+            "kop_surat" => KopSurat::all()
         ];
         return view('ami.standar.update_standar', $data);
     }
@@ -76,6 +81,11 @@ class StandarController extends Controller
         $standar = Standar::findOrFail($idStandar);
         $request->validate([
             "nama_standar" => "required",
+            "nama_formulir" => "required"
+        ]);
+
+        $request->merge([
+            "id_kop_surat" => $request->nama_formulir
         ]);
 
         DB::transaction(function()use ($request, $standar){

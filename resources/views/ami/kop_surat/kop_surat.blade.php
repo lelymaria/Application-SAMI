@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-            Header start
-            ***********************************-->
+                    Header start
+                    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-            Header end ti-comment-alt
-            ***********************************-->
+                    Header end ti-comment-alt
+                    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -44,14 +44,14 @@
     <div class="row page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Audit Mutu Internal</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Standar</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Kop Surat</a></li>
         </ol>
     </div>
 
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Data Standar</h4>
+                <h4 class="card-title">Data Kop Surat</h4>
                 <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
                     data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
                             class="fa fa-plus color-secondary"></i>
@@ -61,36 +61,61 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Tambah Standar</h5>
+                                <h5 class="modal-title">Tambah Kop Surat</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-validate">
-                                    <form class="needs-validation" novalidate="" action="{{ url('/ami/standar') }}"
+                                    <form class="needs-validation" novalidate="" action="{{ url('/ami/kop_surat') }}"
                                         method="post">
                                         @csrf
                                         <div class="row">
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Pilih Kop Surat
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-8">
-                                                    <select class="default-select wide form-control" id="validationCustom05" name="nama_formulir">
-                                                        <option data-display="Select">Please select</option>
-                                                        @foreach ($kop_surat as $kop)
-                                                        <option value="{{ $kop->id }}">{{ $kop->nama_formulir }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Standar
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Nama
+                                                    Formulir
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="nama_standar" required>
+                                                        name="nama_formulir" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">No. Dokumen
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="validationCustom07"
+                                                        name="no_dokumen" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">No. Revisi
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="validationCustom07"
+                                                        name="no_revisi" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Tanggal
+                                                    Berlaku
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <input type="date" class="form-control" id="validationCustom07"
+                                                        name="tanggal_berlaku" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Halaman
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="validationCustom07"
+                                                        name="halaman" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,22 +136,22 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Standar</th>
+                                <th>Nama Formulir</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($standar as $standar)
+                            @foreach ($kop_surat as $kop)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $standar->nama_standar }}</td>
+                                    <td>{{ $kop->nama_formulir }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="#" data-url="{{ url('/ami/standar/' . $standar->id) }}"
+                                            <a href="#" data-url="{{ url('/ami/kop_surat/' . $kop->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
-                                                data-bs-toggle="modal" data-bs-target="#updateStandar"><i
+                                                data-bs-toggle="modal" data-bs-target="#updateKopSurat"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/ami/standar/' . $standar->id) }}" method="post">
+                                            <form action="{{ url('/ami/kop_surat/' . $kop->id) }}" method="post">
                                                 @method('delete')
                                                 @csrf
                                                 <button class="btn btn-danger shadow btn-xs sharp"><i
@@ -144,7 +169,7 @@
     </div>
 
     {{-- update --}}
-    <div class="modal fade" id="updateStandar">
+    <div class="modal fade" id="updateKopSurat">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

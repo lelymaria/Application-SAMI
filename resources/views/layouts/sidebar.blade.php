@@ -20,7 +20,7 @@
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
-                        <span class="ms-2">Profile </span>
+                        <span class="ms-2">Profile</span>
                     </a>
                     <a href="{{ url('logout') }}" class="dropdown-item ai-icon">
                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18"
@@ -67,6 +67,7 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                        <li><a href="{{ url('/ami/kop_surat') }}">KOP Surat</a></li>
                         <li><a href="{{ url('/ami/standar') }}">Standar</a></li>
                         <li><a href="{{ url('/ami/jadwalAmi') }}">Jadwal AMI</a></li>
                         <li><a href="{{ url('/ami/data_standar') }}">Pertanyaan Standar</a></li>
