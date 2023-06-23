@@ -29,4 +29,8 @@ class Standar extends Model
     public function kopSurat() {
         return $this->hasOne(KopSurat::class, 'id', 'id_standar');
     }
+
+    public function dataDukungAuditee() {
+        return $this->hasMany(DataDukungAuditee::class, 'id', 'id_standar');
+    }
 }

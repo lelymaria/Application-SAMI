@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('standar', function (Blueprint $table) {
+        Schema::create('data_dukung_auditee', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('id_standar');
             $table->uuid('id_jadwal');
-            $table->uuid('id_kop_surat');
-            $table->string('nama_standar');
+            $table->text('nama_data');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('standar');
+        Schema::dropIfExists('data_dukung_auditee');
     }
 };

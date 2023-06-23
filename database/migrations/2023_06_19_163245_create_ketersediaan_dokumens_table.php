@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('standar', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('id_jadwal');
-            $table->uuid('id_kop_surat');
-            $table->string('nama_standar');
+        Schema::create('ketersediaan_dokumens', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('standar');
+        Schema::dropIfExists('ketersediaan_dokumens');
     }
 };

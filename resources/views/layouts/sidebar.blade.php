@@ -220,7 +220,7 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        <li><a href="/datadukung">Data Dukung</a></li>
+                        <li><a href="{{ url('/ami/auditee/data_dukung') }}">Data Dukung</a></li>
                         <li><a href="/ketersediaanDok">Ketersediaan Dokumen</a></li>
                         <li><a href="/hasilChecklistAmi">Checklist Hasil AMI</a></li>
                         <li><a href="/drafttemuanAuditee">Draft Temuan AMI</a></li>

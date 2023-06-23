@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-    Header start
-    ***********************************-->
+        Header start
+        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -16,8 +16,8 @@
         </div>
     </div>
     <!--**********************************
-    Header end ti-comment-alt
-    ***********************************-->
+        Header end ti-comment-alt
+        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -48,20 +48,16 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $standar->nama_standar }}</td>
                                     <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-secondary shadow btn-xs sharp me-1"><i
-                                                    class="fa fa-file-invoice"></i></a>
-                                            <a href="{{ url('/ami/data_standar/pertanyaan/' . $standar->id) }}"
-                                                class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fa fa-plus"></i></a>
-                                        </div>
-                                    </td>
-                            @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
+                                        <a href="{{ url('/ami/auditee/data_dukung/' . $dataDukung->id) }}"
+                                            class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a>
                 </div>
+                </td>
+                @endforeach
+                </tr>
+                </tbody>
+                </table>
             </div>
         </div>
+    </div>
     </div>
 @endsection

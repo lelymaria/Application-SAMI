@@ -9,11 +9,13 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DaftarHadirAmiController;
 use App\Http\Controllers\DaftarHadirRtmController;
+use App\Http\Controllers\DataDukungAuditeeController;
 use App\Http\Controllers\FotoKegiatanAmiController;
 use App\Http\Controllers\FotoKegiatanRtmController;
 use App\Http\Controllers\JadwalAmiController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KepalaP4mpController;
+use App\Http\Controllers\KopSuratController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\NotulensiAmiController;
 use App\Http\Controllers\NotulensiRtmController;
@@ -26,6 +28,7 @@ use App\Http\Controllers\UndanganAmiController;
 use App\Http\Controllers\UndanganRtmController;
 use App\Http\Controllers\UpdatePasswordController;
 use App\Http\Controllers\UpdateProfileController;
+use App\Models\DataDukungAuditee;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -138,6 +141,13 @@ Route::prefix('/ami')->group(function () {
     Route::post('/data_standar/pertanyaan/{id}', [PertanyaanStandarController::class, "store"]);
     Route::get('/data_standar/update_pertanyaan/{id}', [PertanyaanStandarController::class, "edit"]);
     Route::post('/data_standar/update_pertanyaan/{id}', [PertanyaanStandarController::class, "update"]);
+    Route::delete('/data_standar/pertanyaan/{id}', [PertanyaanStandarController::class, "destroy"]);
+    // KopSurat
+    Route::get('/kop_surat', [KopSuratController::class, "index"]);
+    Route::post('/kop_surat', [KopSuratController::class, "store"]);
+    Route::get('/kop_surat/{id}', [KopSuratController::class, "edit"]);
+    Route::post('/kop_surat/{id}', [KopSuratController::class, "update"]);
+    Route::delete('/kop_surat/{id}', [KopSuratController::class, "destroy"]);
 });
 
 Route::prefix('/dokumentasiAmi')->group(function () {
@@ -194,6 +204,13 @@ Route::prefix('/dokumentasiRtm')->group(function () {
     Route::delete('/notulensi_rtm/{id}', [NotulensiRtmController::class, "destroy"]);
 });
 
+Route::get('/ami/auditee/data_dukung', [DataDukungAuditeeController::class, "index"]);
+Route::get('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "create"]);
+Route::post('/ami/auditee/data_dukung', [DataDukungAuditeeController::class, "store"]);
+Route::get('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "edit"]);
+Route::post('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "update"]);
+Route::delete('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "destroy"]);
+
 /* ============================================================= */
 
 //FOLDER OPERATOR
@@ -220,7 +237,6 @@ Route::get('/draftAmiAuditor', [Controller::class, "drafttemuanAmi"]);
 Route::get('/laporanAmiAuditor', [Controller::class, "laporanHasilAmi"]);
 
 // FOLDER AUDITEE->AMI
-Route::get('/datadukung', [Controller::class, "dataDukung"]);
 Route::get('/drafttemuanAuditee', [Controller::class, "drafttemuanAuditee"]);
 Route::get('/hasilChecklistAmi', [Controller::class, "hasilChecklistAmi"]);
 Route::get('/ketersediaanDok', [Controller::class, "ketersediaanDok"]);

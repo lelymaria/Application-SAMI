@@ -8,7 +8,7 @@
                 <div class="collapse navbar-collapse justify-content-between">
                     <div class="header-left">
                         <div class="dashboard_bar">
-                            Dokumentasi
+                            Manage User
                         </div>
                     </div>
                 </div>
@@ -43,8 +43,8 @@
 
     <div class="row page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Dokumentasi</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Dokumentasi AMI</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Manage User</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Auditor</a></li>
         </ol>
     </div>
 

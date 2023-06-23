@@ -81,7 +81,7 @@ class PertanyaanStandarController extends Controller
      */
     public function edit(string $idPertanyaan)
     {
-        $pertanyaan = PertanyaanStandar::where('id_standar', $idPertanyaan)->first();
+        $pertanyaan = PertanyaanStandar::where('id', $idPertanyaan)->first();
         $data = [
             'update_pertanyaan' => $pertanyaan
         ];
@@ -93,7 +93,7 @@ class PertanyaanStandarController extends Controller
      */
     public function update(Request $request, string $idPertanyaan)
     {
-        $pertanyaan = PertanyaanStandar::where('id_standar', $idPertanyaan)->first();
+        $pertanyaan = PertanyaanStandar::where('id', $idPertanyaan)->first();
         $request->validate([
             "list_pertanyaan_standar" => "required",
         ]);
@@ -107,8 +107,10 @@ class PertanyaanStandarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PertanyaanStandar $pertanyaanStandar)
+    public function destroy(string $id)
     {
-        //
+        $pertanyaan = PertanyaanStandar::findOrFail($id);
+        $pertanyaan->delete();
+        return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }
