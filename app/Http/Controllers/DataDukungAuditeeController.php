@@ -37,7 +37,7 @@ class DataDukungAuditeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $id)
+    public function store(Request $request, string $id)
     {
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
         $standar = Standar::findOrFail($id);
@@ -46,13 +46,19 @@ class DataDukungAuditeeController extends Controller
         ]);
 
         $request->merge([
+            "id_standar" => $standar->id,
             "id_jadwal" => $jadwal_ami->id
         ]);
 
         DB::transaction(function () use ($request, $standar) {
-            $standar->dataDukungAuditee()->create($request->all());
+            $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            $dataDukung = $request->file('data_dukung_auditee');
+            $standar->dataDukungAuditee()->create([
+                'nama_data' => $dataDukung->store('data_dukung_auditee'),
+                'id_jadwal' => $jadwal_ami->id
+            ]);
         });
-        return redirect('/ami/auditee/data_dukung/' . $id)->with('message', 'Data Berhasil Tersimpan!');
+        return redirect('/ami/auditee/data_dukung/create/' . $id)->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**
@@ -72,7 +78,7 @@ class DataDukungAuditeeController extends Controller
         $data = [
             'update_data_dukung' => $dataDukung
         ];
-        return view('/ami/auditee/data_dukung/', $data);
+        return view('ami.data_dukung.update_data_dukung', $data);
     }
 
     /**
@@ -86,9 +92,12 @@ class DataDukungAuditeeController extends Controller
         ]);
 
         DB::transaction(function () use ($request, $dataDukung) {
-            $dataDukung->update($request->all());
+            $dataDukung = $request->file('file_notulensi_ami');
+            $dataDukung->update([
+                'nama_data' => $dataDukung->store('data_dukung_auditee')
+            ]);
         });
-        return redirect('/ami/auditee/data_dukung/' . $dataDukung->id_standar)->with('message', 'Data Berhasil Tersimpan!');
+        return back()->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-Header start
-***********************************-->
+    Header start
+    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -33,9 +33,9 @@ Header start
             </div>
         @endif
     </div>
-<!--**********************************
-Header end ti-comment-alt
-***********************************-->
+    <!--**********************************
+    Header end ti-comment-alt
+    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,38 +49,58 @@ Header end ti-comment-alt
     </div>
 
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Standar</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Standar Sarana dan Prasarana</td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" class="btn btn-secondary shadow btn-xs sharp me-1"><i
-                                                class="fa fa-file-invoice"></i></a>
-                                        <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                class="fa fa-plus"></i></a>
-                                        <a href="#" class="btn btn-success shadow btn-xs sharp me-1"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        <a href="#" class="btn btn-info shadow btn-xs sharp me-1"><i
-                                                class="las la-download"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <form action="{{ url('#') }}" method="post">
+            @csrf
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Ketersediaan Dokumen</h4>
+                    <button type="submit" class="btn btn-rounded btn-primary btn-xs">Simpan</button>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Pertanyaan Standar
+                        </label>
+                        <textarea class="form-control" rows="10" name="list_pertanyaan_standar"></textarea>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Email
+                        </label>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" id="validationCustom02"
+                                name="email" value="">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Ketersediaan Dokumen
+                        </label>
+                        <div class="col-lg-6">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="" checked="">Ya
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="">Tidak
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">PIC
+                        </label>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" id="validationCustom02"
+                                name="email" value="">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Catatan
+                        </label>
+                        <textarea id="ckeditor" name="list_pertanyaan_standar"></textarea>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 @endsection

@@ -205,9 +205,9 @@ Route::prefix('/dokumentasiRtm')->group(function () {
 });
 
 Route::get('/ami/auditee/data_dukung', [DataDukungAuditeeController::class, "index"]);
-Route::get('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "create"]);
-Route::post('/ami/auditee/data_dukung', [DataDukungAuditeeController::class, "store"]);
-Route::get('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "edit"]);
+Route::get('/ami/auditee/data_dukung/create/{id}', [DataDukungAuditeeController::class, "create"]);
+Route::post('/ami/auditee/data_dukung/create/{id}', [DataDukungAuditeeController::class, "store"]);
+Route::get('/ami/auditee/data_dukung/edit/{id}', [DataDukungAuditeeController::class, "edit"]);
 Route::post('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "update"]);
 Route::delete('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "destroy"]);
 

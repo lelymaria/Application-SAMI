@@ -48,7 +48,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $standar->nama_standar }}</td>
                                     <td>
-                                        <a href="{{ url('/ami/auditee/data_dukung/' . $dataDukung->id) }}"
+                                        <a href="{{ url('/ami/auditee/data_dukung/create/' . $standar->id) }}"
                                             class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a>
                 </div>
                 </td>
