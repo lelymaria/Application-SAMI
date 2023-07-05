@@ -15,7 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_standar');
             $table->uuid('id_jadwal');
-            $table->text('nama_data');
+            $table->text('nama_file');
+            $table->string('data_file');
             $table->timestamps();
             $table->softDeletes();
         });

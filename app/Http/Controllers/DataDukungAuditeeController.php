@@ -39,24 +39,26 @@ class DataDukungAuditeeController extends Controller
      */
     public function store(Request $request, string $id)
     {
-        $jadwal_ami = JadwalAmi::where('status', 1)->first();
         $standar = Standar::findOrFail($id);
         $request->validate([
-            "nama_data" => "required",
+            "data_dukung_auditee" => "required",
         ]);
 
         $request->merge([
-            "id_standar" => $standar->id,
-            "id_jadwal" => $jadwal_ami->id
+            "id_standar" => $standar->id
         ]);
 
         DB::transaction(function () use ($request, $standar) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
-            $dataDukung = $request->file('data_dukung_auditee');
-            $standar->dataDukungAuditee()->create([
-                'nama_data' => $dataDukung->store('data_dukung_auditee'),
-                'id_jadwal' => $jadwal_ami->id
-            ]);
+            foreach ($request->data_dukung_auditee as $document) {
+                $filename = $document->getClientOriginalName();
+                $path = $document->storeAs('data_dukung_auditee', $filename);
+                $standar->dataDukungAuditee()->create([
+                    'data_file' => $path,
+                    'nama_file' => $filename,
+                    'id_jadwal' => $jadwal_ami->id
+                ]);
+            }
         });
         return redirect('/ami/auditee/data_dukung/create/' . $id)->with('message', 'Data Berhasil Tersimpan!');
     }
@@ -86,18 +88,19 @@ class DataDukungAuditeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $dataDukung = DataDukungAuditee::where('id', $id)->first();
+        $dataDukungAuditee = DataDukungAuditee::findOrFail($id);
         $request->validate([
-            "nama_data" => "required",
+            "data_dukung_auditee" => "required",
         ]);
 
-        DB::transaction(function () use ($request, $dataDukung) {
-            $dataDukung = $request->file('file_notulensi_ami');
-            $dataDukung->update([
-                'nama_data' => $dataDukung->store('data_dukung_auditee')
-            ]);
-        });
-        return back()->with('message', 'Data Berhasil Tersimpan!');
+        $filename = $request->file('data_dukung_auditee')->getClientOriginalName();
+
+        $dataDukungAuditee->update([
+            'data_file' => $request->file('data_dukung_auditee')->storeAs('data_dukung_auditee', $filename),
+            'nama_file' => $filename
+        ]);
+
+        return back()->with('message', 'Data Berhasil Diperbarui!');
     }
 
     /**

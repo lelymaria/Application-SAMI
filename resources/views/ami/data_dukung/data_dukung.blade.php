@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-Header start
-***********************************-->
+                            Header start
+                            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -33,9 +33,9 @@ Header start
             </div>
         @endif
     </div>
-<!--**********************************
-Header end ti-comment-alt
-***********************************-->
+    <!--**********************************
+                            Header end ti-comment-alt
+                            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -68,14 +68,14 @@ Header end ti-comment-alt
                             <div class="modal-body">
                                 <div class="form-validate">
                                     <form class="needs-validation" novalidate=""
-                                        action="{{ url('/ami/auditee/data_dukung/create/'. $standar->id) }}" method="post"
+                                        action="{{ url('/ami/auditee/data_dukung/create/' . $standar->id) }}" method="post"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
                                             <div class="input-group mb-3">
                                                 <div class="form-file">
                                                     <input type="file" class="form-file-input form-control"
-                                                        name="nama_data" multiple>
+                                                        name="data_dukung_auditee[]" multiple>
                                                 </div>
                                                 <span class="input-group-text">Upload</span>
                                             </div>
@@ -102,24 +102,17 @@ Header end ti-comment-alt
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($undanganAmi as $undangan)
+                            @forelse ($dataDukung as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $undangan->file_nama }}</td>
+                                    <td>{{ $data->nama_file }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ asset('storage/' . $undangan->file_undangan_ami) }}" target="_blank"
-                                                class="btn btn-secondary shadow btn-xs sharp me-1"><i
-                                                    class="fa fa-file-invoice"></i></a>
-                                            <a href="{{ url('dokumentasiAmi/'.$undangan->id.'/daftar_hadir_ami') }}"
-                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
-                                                    class="fas fa-plus"></i></a>
-                                            <a href="#"
-                                                data-url="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"
+                                            <a href="#" data-url="{{ url('/ami/auditee/data_dukung/' . $data->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
-                                                data-bs-toggle="modal" data-bs-target="#updateUndangan"><i
+                                                data-bs-toggle="modal" data-bs-target="#updateDataDukung"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"
+                                            <form action="{{ url('/ami/auditee/data_dukung/' . $data->id) }}"
                                                 method="post">
                                                 @method('delete')
                                                 @csrf
@@ -129,7 +122,8 @@ Header end ti-comment-alt
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach --}}
+                            @empty
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -138,17 +132,17 @@ Header end ti-comment-alt
     </div>
 
     {{-- update --}}
-    <div class="modal fade" id="updateUndangan">
+    <div class="modal fade" id="updateDataDukung">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Undangan AMI</h5>
+                    <h5 class="modal-title">Update Data Dukung</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal">
                     </button>
                 </div>
                 <div class="modal-body" id="editModalBody">
                     <div class="form-validate">
-                        <form class="needs-validation" novalidate="" action="{{ url('#') }}"
+                        <form class="needs-validation" novalidate="" action="{{ url('/ami/auditee/data_dukung/') }}"
                             method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row" id="formBodyEdit">
