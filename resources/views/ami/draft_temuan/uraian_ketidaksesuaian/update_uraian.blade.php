@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-Header start
-***********************************-->
+        Header start
+        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -33,9 +33,9 @@ Header start
             </div>
         @endif
     </div>
-<!--**********************************
-Header end ti-comment-alt
-***********************************-->
+    <!--**********************************
+        Header end ti-comment-alt
+        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,38 +49,21 @@ Header end ti-comment-alt
     </div>
 
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Standar</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Standar Sarana dan Prasarana</td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" class="btn btn-secondary shadow btn-xs sharp me-1"><i
-                                                class="fa fa-file-invoice"></i></a>
-                                        <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                class="fa fa-plus"></i></a>
-                                        <a href="#" class="btn btn-success shadow btn-xs sharp me-1"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        <a href="#" class="btn btn-info shadow btn-xs sharp me-1"><i
-                                                class="las la-download"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <form action="{{ url('/ami/uraian_ami/update/'.$uraianKetidaksesuaian->id) }}" method="post">
+            @csrf
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Uraian Ketidaksesuaian</h4>
+                    <button type="submit" class="btn btn-rounded btn-primary btn-xs">Simpan</button>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Uraian Ketidaksesuaian
+                        </label>
+                        <textarea class="form-control" rows="5" name="uraian_ketidaksesuaian">{{ $uraianKetidaksesuaian->uraian_ketidaksesuaian }}</textarea>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 @endsection

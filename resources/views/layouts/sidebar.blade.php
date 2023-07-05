@@ -107,8 +107,8 @@
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
                         <li><a href="/monitoringamiP4mp">Monitoring AMI</a></li>
-                        <li><a href="/verifikasitindakanP4mp">Verifikasi Tindakan Koreksi</a></li>
-                        <li><a href="/laporanamiP4mp">Laporan Hasil AMI</a></li>
+                        <li><a href="{{ url('/ami/verifikasi_ami') }}">Draft Temuan AMI</a></li>
+                        <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
                         <li><a href="/historiAll">History AMI</a></li>
                     </ul>
                 </li>
@@ -144,9 +144,9 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        <li><a href="/checklistAmiAuditor">Checklist AMI</a></li>
-                        <li><a href="/draftAmiAuditor">Draft Temuan AMI</a></li>
-                        <li><a href="/laporanAmiAuditor">Laporan Hasil AMI</a></li>
+                        <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
+                        <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
+                        <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
                         <li><a href="/historiAll">History AMI</a></li>
                     </ul>
                 </li>
@@ -182,9 +182,9 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        <li><a href="/checklistAmiAuditor">Checklist AMI</a></li>
-                        <li><a href="/draftAmiAuditor">Draft Temuan AMI</a></li>
-                        <li><a href="/laporanAmiAuditor">Laporan Hasil AMI</a></li>
+                        <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
+                        <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
+                        <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
                         <li><a href="/historiAll">History AMI</a></li>
                     </ul>
                 </li>
@@ -221,9 +221,10 @@
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
                         <li><a href="{{ url('/ami/auditee/data_dukung') }}">Data Dukung</a></li>
-                        <li><a href="/ketersediaanDok">Ketersediaan Dokumen</a></li>
-                        <li><a href="/hasilChecklistAmi">Checklist Hasil AMI</a></li>
-                        <li><a href="/drafttemuanAuditee">Draft Temuan AMI</a></li>
+                        <li><a href="{{ url('/ami/ketersediaan_dokumen') }}">Ketersediaan Dokumen</a></li>
+                        <li><a href="{{ url('/ami/tanggapan_audit') }}">Checklist Hasil AMI</a></li>
+                        <li><a href="{{ url('/ami/analisa_tindakan_ami') }}">Draft Temuan AMI</a></li>
+                        <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
                         <li><a href="/historiAll">History AMI</a></li>
                     </ul>
                 </li>
@@ -285,7 +286,7 @@
         </ul>
         <div class="copyright">
             <p><strong>Sistem Audit Mutu Internal POLINDRA</strong> © 2023 </p>
-            <p class="fs-12">Made with <span class="heart"></span> by DexignLab</p>
+            <p class="fs-12">Made with <span class="heart"></span> by POLINDRA</p>
         </div>
     </div>
 </div>
