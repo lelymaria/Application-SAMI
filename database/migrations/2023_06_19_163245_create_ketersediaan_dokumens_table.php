@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ketersediaan_dokumens', function (Blueprint $table) {
-            $table->id();
+        Schema::create('ketersediaan_dokumen', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('id_pertanyaan');
+            $table->uuid('id_jadwal');
+            $table->string('nama_dokumen');
+            $table->string('ketersediaan_dokumen');
+            $table->string('pic');
+            $table->string('catatan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ketersediaan_dokumens');
+        Schema::dropIfExists('ketersediaan_dokumen');
     }
 };

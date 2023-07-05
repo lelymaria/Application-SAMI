@@ -49,7 +49,8 @@
     </div>
 
     <div class="col-12">
-        <form action="{{ url('/ami/ketersediaan_dokumen/create/'.$pertanyaan->id) }}" method="post">
+
+        <form action="{{ url('/ami/ketersediaan_dokumen/update/'.$ketersediaan->id) }}" method="post">
             @csrf
             <div class="card">
                 <div class="card-header">
@@ -60,14 +61,14 @@
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Pertanyaan Standar
                         </label>
-                        <textarea class="form-control" rows="10" name="list_pertanyaan_standar" disabled>{{ $pertanyaan->list_pertanyaan_standar }}</textarea>
+                        <textarea class="form-control" rows="10" name="list_pertanyaan_standar" disabled>{{ $ketersediaan->pertanyaanStandar->list_pertanyaan_standar }}</textarea>
                     </div>
                     <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Nama Dokumen
                         </label>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" id="validationCustom02"
-                                name="nama_dokumen" value="">
+                                name="nama_dokumen" value="{{ $ketersediaan->nama_dokumen }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -76,12 +77,12 @@
                         <div class="col-lg-6">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="ketersediaan_dokumen" value="ya">Ya
+                                    <input type="radio" class="form-check-input" name="ketersediaan_dokumen" value="ya" {{ $ketersediaan->ketersediaan_dokumen == 'ya' ? 'checked' : '' }}>Ya
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="ketersediaan_dokumen" value="tidak">Tidak
+                                    <input type="radio" class="form-check-input" name="ketersediaan_dokumen" value="tidak" {{ $ketersediaan->ketersediaan_dokumen == 'tidak' ? 'checked' : '' }}>Tidak
                                 </label>
                             </div>
                         </div>
@@ -91,13 +92,13 @@
                         </label>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" id="validationCustom02"
-                                name="pic" value="">
+                                name="pic" value="{{ $ketersediaan->pic }}">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Catatan
                         </label>
-                        <textarea id="ckeditor" name="catatan"></textarea>
+                        <textarea id="ckeditor" name="catatan">{{ $ketersediaan->catatan }}</textarea>
                     </div>
                 </div>
             </div>
