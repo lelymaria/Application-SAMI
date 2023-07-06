@@ -16,8 +16,8 @@ return new class extends Migration
             $table->uuid('id_pertanyaan');
             $table->uuid('id_jadwal');
             $table->string('kesesuaian');
-            $table->string('catatan_khusus')->nullable();
-            $table->string('hasil_observasi');
+            $table->text('catatan_khusus')->nullable();
+            $table->text('hasil_observasi');
             $table->timestamps();
             $table->softDeletes();
         });

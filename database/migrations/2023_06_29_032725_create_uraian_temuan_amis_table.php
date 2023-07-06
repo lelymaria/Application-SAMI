@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_standar');
             $table->uuid('id_jadwal');
-            $table->string('uraian_ketidaksesuaian');
+            $table->text('uraian_ketidaksesuaian');
             $table->timestamps();
             $table->softDeletes();
         });

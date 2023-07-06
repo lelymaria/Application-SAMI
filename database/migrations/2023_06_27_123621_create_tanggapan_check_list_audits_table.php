@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id_pertanyaan');
             $table->uuid('id_jadwal');
             $table->uuid('id_check_list_audit');
-            $table->string('tanggapan_auditee')->nullable();
+            $table->text('tanggapan_auditee')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

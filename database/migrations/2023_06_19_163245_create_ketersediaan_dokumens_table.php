@@ -15,10 +15,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_pertanyaan');
             $table->uuid('id_jadwal');
-            $table->string('nama_dokumen');
+            $table->text('nama_dokumen');
             $table->string('ketersediaan_dokumen');
             $table->string('pic');
-            $table->string('catatan')->nullable();
+            $table->text('catatan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

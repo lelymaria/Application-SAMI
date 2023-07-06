@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_standar');
             $table->uuid('id_jadwal');
-            $table->string('verifikasi_kp4mp')->nullable();
+            $table->text('verifikasi_kp4mp')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

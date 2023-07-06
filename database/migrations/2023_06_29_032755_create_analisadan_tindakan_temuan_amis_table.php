@@ -15,8 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_standar');
             $table->uuid('id_jadwal');
-            $table->string('analisa_masalah');
-            $table->string('tindakan_koreksi');
+            $table->text('analisa_masalah');
+            $table->text('tindakan_koreksi');
             $table->timestamps();
             $table->softDeletes();
         });
