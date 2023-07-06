@@ -1,6 +1,5 @@
 <div class="mb-3 row">
     <label class="col-lg-4 col-form-label" for="validationCustom07">Deskripsi
-        <span class="text-danger">*</span>
     </label>
     <div class="col-lg-8">
         <textarea rows="8" class="form-control" name="deskripsi">{{ $update_pedoman->deskripsi }}</textarea>

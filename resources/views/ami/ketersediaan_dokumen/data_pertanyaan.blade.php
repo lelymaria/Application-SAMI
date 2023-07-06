@@ -3,8 +3,8 @@
 @endphp
 @push('header')
     <!--**********************************
-                                        Header start
-                                        ***********************************-->
+                                            Header start
+                                            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -19,8 +19,8 @@
         </div>
     </div>
     <!--**********************************
-                                        Header end ti-comment-alt
-                                        ***********************************-->
+                                            Header end ti-comment-alt
+                                            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -37,7 +37,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
+                    <table id="example3" class="table table-responsive-md" style="min-width: 845px">
                         <thead>
                             <tr>
                                 <th>No</th>

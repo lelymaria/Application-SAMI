@@ -58,12 +58,12 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Analisa Penyebab Masalah
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Analisa Penyebab Masalah <span class="text-danger">*</span>
                         </label>
                         <textarea class="form-control" rows="5" name="analisa_masalah"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Tindakan Koreksi
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Tindakan Koreksi <span class="text-danger">*</span>
                         </label>
                         <textarea class="form-control" rows="5" name="tindakan_koreksi"></textarea>
                     </div>

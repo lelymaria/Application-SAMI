@@ -31,6 +31,18 @@ class Standar extends Model
     }
 
     public function dataDukungAuditee() {
-        return $this->hasMany(DataDukungAuditee::class, 'id', 'id_standar');
+        return $this->hasMany(DataDukungAuditee::class, 'id_standar', 'id');
+    }
+
+    public function uraianTemuanAmi() {
+        return $this->hasOne(uraianTemuanAmi::class, 'id_standar', 'id');
+    }
+
+    public function verifikasiKp4mp() {
+        return $this->hasOne(VerifikasiTemuanAmi::class, 'id_standar', 'id');
+    }
+
+    public function analisaTindakanAmi() {
+        return $this->hasOne(AnalisadanTindakanTemuanAmi::class, 'id_standar', 'id');
     }
 }

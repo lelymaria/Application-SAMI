@@ -63,15 +63,7 @@
                         <textarea class="form-control" rows="10" name="list_pertanyaan_standar" disabled>{{ $pertanyaan->list_pertanyaan_standar }}</textarea>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Nama Dokumen
-                        </label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" id="validationCustom02"
-                                name="nama_dokumen" value="">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Ketersediaan Dokumen
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Ketersediaan Dokumen <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-6">
                             <div class="form-check form-check-inline">
@@ -87,7 +79,7 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">PIC
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">PIC <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" id="validationCustom02"
@@ -95,9 +87,14 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Catatan
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Nama Dokumen <span class="text-danger">*</span>
                         </label>
-                        <textarea id="ckeditor" name="catatan"></textarea>
+                        <textarea class="form-control" rows="5" name="nama_dokumen"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Catatan <span class="text-danger">*</span>
+                        </label>
+                        <textarea class="form-control" rows="5" name="catatan"></textarea>
                     </div>
                 </div>
             </div>

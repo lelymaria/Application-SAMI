@@ -3,8 +3,8 @@
 @endphp
 @push('header')
     <!--**********************************
-                                        Header start
-                                        ***********************************-->
+                                                Header start
+                                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -37,8 +37,8 @@
         @endif
     </div>
     <!--**********************************
-                                        Header end ti-comment-alt
-                                        ***********************************-->
+                                                Header end ti-comment-alt
+                                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -126,7 +126,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
+                    <table id="example3" class="table table-responsive-md" style="min-width: 845px">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -154,7 +154,7 @@
                                                             ->gte(Carbon::now())
                                                     ) {
                                                         echo 'Pending';
-                                                    } else if (Carbon::now()->between($jadwal->jadwal_mulai, $jadwal->jadwal_selesai)) {
+                                                    } elseif (Carbon::now()->between($jadwal->jadwal_mulai, $jadwal->jadwal_selesai)) {
                                                         echo 'Proses';
                                                     } else {
                                                         echo 'Selesai';

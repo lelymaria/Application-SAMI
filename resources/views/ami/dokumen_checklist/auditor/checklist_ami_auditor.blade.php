@@ -70,7 +70,7 @@
                         </div>
                     @endif
                     <div class="mb-3 row">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Kesesuaian
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Kesesuaian <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-6">
                             <div class="form-check form-check-inline">
@@ -86,14 +86,14 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Catatan Khusus
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Catatan Khusus <span class="text-danger">*</span>
                         </label>
                         <textarea class="form-control" rows="5" name="catatan_khusus"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Hasil Observasi
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Hasil Observasi <span class="text-danger">*</span>
                         </label>
-                        <textarea id="ckeditor" name="hasil_observasi"></textarea>
+                        <textarea class="form-control" rows="5" name="hasil_observasi"></textarea>
                     </div>
                 </div>
             </div>

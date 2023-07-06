@@ -101,11 +101,11 @@ class LeadAuditorController extends Controller
             "email" => "required",
             "nip" => [
                 'required', Rule::unique('users')->ignore($akunAuditor)
-        ],
+            ],
             "nama" => "required",
             // "foto_profile" => "required",
             // "new_password" => "required",
-            // "confirmations_password" => "required",
+            // "confirmation_password" => "required",
         ]);
 
         DB::transaction(function () use ($request, $akunAuditor) {
@@ -113,7 +113,17 @@ class LeadAuditorController extends Controller
                 'nip' => $request->nip,
                 'password' => Hash::make($request->password),
             ]);
-            $akunAuditor->akunAuditor()->update([
+            if (!$akunAuditor->akunAuditor) {
+                $jadwal_ami = JadwalAmi::where('status', 1)->first();
+                return $akunAuditor->akunAuditor()->create([
+                    'email' => $request->email,
+                    'nama' => $request->nama,
+                    'foto_profile' => Hash::make('foto_profile'),
+                    'id_prodi' => $request->unit_kerja,
+                    'id_jadwal' => $jadwal_ami->id
+                ]);
+            }
+            return $akunAuditor->akunAuditor()->update([
                 'email' => $request->email,
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),

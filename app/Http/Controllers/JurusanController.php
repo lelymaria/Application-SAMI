@@ -14,10 +14,8 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        $data = [
-            'jurusan' => Jurusan::all()
-        ];
-        return view('data.jurusan.view_jurusan', $data);
+        $jurusan = Jurusan::paginate(10);
+        return view('data.jurusan.view_jurusan', compact('jurusan'));
     }
 
     /**

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                            Header start
-                            ***********************************-->
+                                Header start
+                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                            Header end ti-comment-alt
-                            ***********************************-->
+                                Header end ti-comment-alt
+                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -73,7 +73,6 @@
                                         @csrf
                                         <div class="mb-3 row">
                                             <label class="col-lg-4 col-form-label" for="validationCustom07">Save As
-                                                <span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-8">
                                                 <input type="text" class="form-control" id="validationCustom07"
@@ -102,7 +101,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
+                    <table id="example3" class="table table-responsive-md" style="min-width: 845px">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -120,7 +119,7 @@
                                             <a href="{{ asset('storage/' . $undangan->file_undangan_rtm) }}" target="_blank"
                                                 class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                     class="fa fa-file-invoice"></i></a>
-                                            <a href="{{ url('dokumentasiRtm/'.$undangan->id.'/daftar_hadir_rtm') }}"
+                                            <a href="{{ url('dokumentasiRtm/' . $undangan->id . '/daftar_hadir_rtm') }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                     class="fas fa-plus"></i></a>
                                             <a href="#"

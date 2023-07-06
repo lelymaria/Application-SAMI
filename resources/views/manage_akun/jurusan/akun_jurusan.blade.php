@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+            Header start
+            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+            Header end ti-comment-alt
+            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,14 +49,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-12">
         <div class="card">
@@ -90,7 +90,8 @@
                                                         name="unit_kerja">
                                                         <option data-display="Select">Please select</option>
                                                         @foreach ($dataJurusan as $dataJurusan)
-                                                        <option value="{{ $dataJurusan->id }}">{{ $dataJurusan->nama_jurusan }}</option>
+                                                            <option value="{{ $dataJurusan->id }}">
+                                                                {{ $dataJurusan->nama_jurusan }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -137,7 +138,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
+                    <table id="example3" class="table table-responsive-md" style="min-width: 845px">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -151,30 +152,30 @@
                         </thead>
                         <tbody>
                             @foreach ($akun_jurusan as $akun_jurusan)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $akun_jurusan->nama }}</td>
-                                <td>{{ $akun_jurusan->user->nip }}</td>
-                                <td>{{ $akun_jurusan->email }}</td>
-                                <td><strong>{{ $akun_jurusan->user->levelRole->name }}</strong></td>
-                                <td>{{ $akun_jurusan->dataJurusan->nama_jurusan }}</td>
-                                <td>
-                                    <div class="d-flex">
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $akun_jurusan->nama }}</td>
+                                    <td>{{ $akun_jurusan->user->nip }}</td>
+                                    <td>{{ $akun_jurusan->email }}</td>
+                                    <td><strong>{{ $akun_jurusan->user->levelRole->name }}</strong></td>
+                                    <td>{{ $akun_jurusan->dataJurusan->nama_jurusan }}</td>
+                                    <td>
                                         <div class="d-flex">
-                                            <a href="{{ url('/manage_user/akun_jurusan_edit/' . $akun_jurusan->id) }}"
-                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/manage_user/akun_jurusan/' . $akun_jurusan->id) }}"
-                                                method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </form>
+                                            <div class="d-flex">
+                                                <a href="{{ url('/manage_user/akun_jurusan_edit/' . $akun_jurusan->id) }}"
+                                                    class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
+                                                        class="fas fa-pencil-alt"></i></a>
+                                                <form action="{{ url('/manage_user/akun_jurusan/' . $akun_jurusan->id) }}"
+                                                    method="post">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-danger shadow btn-xs sharp"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

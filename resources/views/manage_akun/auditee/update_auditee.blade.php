@@ -73,7 +73,7 @@
                 <div class="card-body">
                     <div class="form-validation">
                         <form class="needs-validation" novalidate=""
-                            action="{{ url('/manage_user/akun_jurusan/' . $update_akun_auditee->id) }}" method="post">
+                            action="{{ url('/manage_user/akun_auditee/' . $update_akun_auditee->id) }}" method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-xl-6">
@@ -92,8 +92,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-lg-4 col-form-label" for="validationCustom02">Email<span
-                                                class="text-danger">*</span>
+                                        <label class="col-lg-4 col-form-label" for="validationCustom02">Email
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
@@ -122,7 +121,7 @@
                                         <label class="col-lg-4 col-form-label" for="validationCustom07">Password Baru
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="validationCustom07"
+                                            <input type="password" class="form-control" id="validationCustom07"
                                                 name="password">
                                         </div>
                                     </div>
@@ -131,7 +130,7 @@
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="validationCustom08"
+                                            <input type="password" class="form-control" id="validationCustom08"
                                                 name="confirmation_password">
                                         </div>
                                     </div>

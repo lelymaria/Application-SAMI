@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+            Header start
+            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+            Header end ti-comment-alt
+            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -98,7 +98,6 @@
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
                                             <select class="default-select wide form-control" id="validationCustom05"
@@ -142,7 +141,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom07"
-                                                name="password">
+                                                name="new_password">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -222,7 +221,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
+                    <table id="example3" class="table table-responsive-md" style="min-width: 845px">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -241,19 +240,16 @@
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateTugas"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form
-                                                action="{{ url('/manage_user/' . $standar->id) }}"
-                                                method="post">
+                                            <form action="{{ url('/manage_user/' . $standar->id) }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button
-                                                    class="btn btn-danger shadow btn-xs sharp"><i
+                                                <button class="btn btn-danger shadow btn-xs sharp"><i
                                                         class="fa fa-trash"></i></button>
                                             </form>
                                         </div>
                                     </td>
+                                @endforeach
                             </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -261,33 +257,33 @@
         </div>
     </div>
 
-        {{-- update --}}
-        <div class="modal fade" id="updateTugas">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Tugas</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal">
-                        </button>
-                    </div>
-                    <div class="modal-body" id="editModalBody">
-                        <div class="form-validate">
-                            <form class="needs-validation" novalidate="" action="{{ url('/manage_user' . $update_akun_auditor->id) }}"
-                                method="post">
-                                @csrf
-                                <div class="row" id="formBodyEdit">
-
-                                </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                    </form>
+    {{-- update --}}
+    <div class="modal fade" id="updateTugas">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Tugas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
                 </div>
+                <div class="modal-body" id="editModalBody">
+                    <div class="form-validate">
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/manage_user' . $update_akun_auditor->id) }}" method="post">
+                            @csrf
+                            <div class="row" id="formBodyEdit">
+
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
         </div>
+    </div>
 @endsection
 
 @push('js')

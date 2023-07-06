@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                            Header start
-                            ***********************************-->
+                                Header start
+                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                            Header end ti-comment-alt
-                            ***********************************-->
+                                Header end ti-comment-alt
+                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -134,7 +134,7 @@
                                                                         </div>
                                                                         <div class="mb-3 row">
                                                                             <label class="col-lg-4 col-form-label"
-                                                                                for="validationCustom09">Nama<span
+                                                                                for="validationCustom09">Nama <span
                                                                                     class="text-danger">*</span>
                                                                             </label>
                                                                             <div class="col-lg-8">
@@ -159,7 +159,8 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
-                                                <table id="example3" class="display" style="min-width: 845px">
+                                                <table id="example3" class="table table-responsive-md"
+                                                    style="min-width: 845px">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
@@ -178,8 +179,10 @@
                                                                 <td>{{ $akun_auditor->akunAuditor?->nama }}</td>
                                                                 <td>{{ $akun_auditor->nip }}</td>
                                                                 <td>{{ $akun_auditor->akunAuditor?->email }}</td>
-                                                                <td><strong>{{ $akun_auditor->levelRole->name }}</strong></td>
-                                                                <td>{{ $akun_auditor->akunAuditor?->dataProdi->nama_prodi }}</td>
+                                                                <td><strong>{{ $akun_auditor->levelRole->name }}</strong>
+                                                                </td>
+                                                                <td>{{ $akun_auditor->akunAuditor?->dataProdi->nama_prodi }}
+                                                                </td>
                                                                 <td>
                                                                     <div class="d-flex">
                                                                         <div class="d-flex">

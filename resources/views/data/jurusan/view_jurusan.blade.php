@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+                Header start
+                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+                Header end ti-comment-alt
+                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -94,7 +94,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
+                    <table id="example3" class="table table-responsive-md" style="min-width: 845px">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -103,17 +103,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($jurusan as $jurusan)
+                            @foreach ($jurusan as $index => $j)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $jurusan->nama_jurusan }}</td>
+                                    <td>{{ $jurusan->firstItem() + $index }}</td>
+                                    <td>{{ $j->nama_jurusan }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="#" data-url="{{ url('/data/datajurusan/' . $jurusan->id) }}"
+                                            <a href="#" data-url="{{ url('/data/datajurusan/' . $j->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateJurusan"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/data/datajurusan/' . $jurusan->id) }}" method="post">
+                                            <form action="{{ url('/data/datajurusan/' . $j->id) }}" method="post">
                                                 @method('delete')
                                                 @csrf
                                                 <button class="btn btn-danger shadow btn-xs sharp"><i
@@ -125,6 +125,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-end">
+                    {{ $jurusan->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

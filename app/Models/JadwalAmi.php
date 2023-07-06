@@ -61,4 +61,36 @@ class JadwalAmi extends Model
     public function kopSurat() {
         return $this->hasMany(KopSurat::class, 'id_jadwal', 'id');
     }
+
+    public function dataDukungAuditee() {
+        return $this->hasMany(DataDukungAuditee::class, 'id_jadwal', 'id');
+    }
+
+    public function ketersediaanDokumen() {
+        return $this->hasMany(KetersediaanDokumen::class, 'id_jadwal', 'id');
+    }
+
+    public function checklistAudit() {
+        return $this->hasMany(CheckListAudit::class, 'id_jadwal', 'id');
+    }
+
+    public function tanggapanChecklist() {
+        return $this->hasMany(TanggapanCheckListAudit::class, 'id_jadwal', 'id');
+    }
+
+    public function verifikasiKp4mp() {
+        return $this->hasMany(VerifikasiTemuanAmi::class, 'id_jadwal', 'id');
+    }
+
+    public function analisaTindakanAmi() {
+        return $this->hasMany(AnalisadanTindakanTemuanAmi::class, 'id_jadwal', 'id');
+    }
+
+    public function uraianTemuanAmi() {
+        return $this->hasMany(UraianTemuanAmi::class, 'id_jadwal', 'id');
+    }
+
+    public function laporanAmi() {
+        return $this->hasMany(LaporanAmi::class, 'id_jadwal', 'id');
+    }
 }

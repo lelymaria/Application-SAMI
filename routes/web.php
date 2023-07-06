@@ -3,9 +3,11 @@
 use App\Http\Controllers\AkunAuditeeController;
 use App\Http\Controllers\AkunJurusanController;
 use App\Http\Controllers\AkunOperatorController;
+use App\Http\Controllers\AnalisadanTindakanTemuanAmiController;
 use App\Http\Controllers\AnggotaAuditorController;
 use App\Http\Controllers\LeadAuditorController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CheckListAuditController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DaftarHadirAmiController;
 use App\Http\Controllers\DaftarHadirRtmController;
@@ -15,7 +17,9 @@ use App\Http\Controllers\FotoKegiatanRtmController;
 use App\Http\Controllers\JadwalAmiController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KepalaP4mpController;
+use App\Http\Controllers\KetersediaanDokumenController;
 use App\Http\Controllers\KopSuratController;
+use App\Http\Controllers\LaporanAmiController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\NotulensiAmiController;
 use App\Http\Controllers\NotulensiRtmController;
@@ -23,11 +27,14 @@ use App\Http\Controllers\PedomanAmiController;
 use App\Http\Controllers\PertanyaanStandarController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\StandarController;
+use App\Http\Controllers\TanggapanCheckListAuditController;
 use App\Http\Controllers\TugasStandarController;
 use App\Http\Controllers\UndanganAmiController;
 use App\Http\Controllers\UndanganRtmController;
 use App\Http\Controllers\UpdatePasswordController;
 use App\Http\Controllers\UpdateProfileController;
+use App\Http\Controllers\UraianTemuanAmiController;
+use App\Http\Controllers\VerifikasiTemuanAmiController;
 use App\Models\DataDukungAuditee;
 use Illuminate\Support\Facades\Route;
 
@@ -207,9 +214,55 @@ Route::prefix('/dokumentasiRtm')->group(function () {
 Route::get('/ami/auditee/data_dukung', [DataDukungAuditeeController::class, "index"]);
 Route::get('/ami/auditee/data_dukung/create/{id}', [DataDukungAuditeeController::class, "create"]);
 Route::post('/ami/auditee/data_dukung/create/{id}', [DataDukungAuditeeController::class, "store"]);
-Route::get('/ami/auditee/data_dukung/edit/{id}', [DataDukungAuditeeController::class, "edit"]);
+Route::get('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "edit"]);
 Route::post('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "update"]);
 Route::delete('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "destroy"]);
+
+Route::get('/ami/ketersediaan_dokumen', [KetersediaanDokumenController::class, "index"]);
+Route::get('/ami/ketersediaan_dokumen/{id}', [KetersediaanDokumenController::class, "show"]);
+Route::get('/ami/ketersediaan_dokumen/create/{id}', [KetersediaanDokumenController::class, "create"]);
+Route::post('/ami/ketersediaan_dokumen/create/{id}', [KetersediaanDokumenController::class, "store"]);
+Route::get('/ami/ketersediaan_dokumen/update/{id}', [KetersediaanDokumenController::class, "edit"]);
+Route::post('/ami/ketersediaan_dokumen/update/{id}', [KetersediaanDokumenController::class, "update"]);
+
+Route::get('/ami/checklist_audit', [CheckListAuditController::class, "index"]);
+Route::get('/ami/checklist_audit/{id}', [CheckListAuditController::class, "show"]);
+Route::get('/ami/checklist_audit/create/{id}', [CheckListAuditController::class, "create"]);
+Route::post('/ami/checklist_audit/create/{id}', [CheckListAuditController::class, "store"]);
+Route::get('/ami/checklist_audit/update/{id}', [CheckListAuditController::class, "edit"]);
+Route::post('/ami/checklist_audit/update/{id}', [CheckListAuditController::class, "update"]);
+
+Route::get('/ami/tanggapan_audit', [TanggapanCheckListAuditController::class, "index"]);
+Route::get('/ami/tanggapan_audit/{id}', [TanggapanCheckListAuditController::class, "show"]);
+Route::get('/ami/tanggapan_audit/create/{id}', [TanggapanCheckListAuditController::class, "create"]);
+Route::post('/ami/tanggapan_audit/create/{id}', [TanggapanCheckListAuditController::class, "store"]);
+Route::get('/ami/tanggapan_audit/update/{id}', [TanggapanCheckListAuditController::class, "edit"]);
+Route::post('/ami/tanggapan_audit/update/{id}', [TanggapanCheckListAuditController::class, "update"]);
+
+Route::get('/ami/uraian_ami', [UraianTemuanAmiController::class, "index"]);
+Route::get('/ami/uraian_ami/create/{id}', [UraianTemuanAmiController::class, "create"]);
+Route::post('/ami/uraian_ami/create/{id}', [UraianTemuanAmiController::class, "store"]);
+Route::get('/ami/uraian_ami/update/{id}', [UraianTemuanAmiController::class, "edit"]);
+Route::post('/ami/uraian_ami/update/{id}', [UraianTemuanAmiController::class, "update"]);
+
+Route::get('/ami/analisa_tindakan_ami', [AnalisadanTindakanTemuanAmiController::class, "index"]);
+Route::get('/ami/analisa_tindakan_ami/{id}', [AnalisadanTindakanTemuanAmiController::class, "show"]);
+Route::get('/ami/analisa_tindakan_ami/create/{id}', [AnalisadanTindakanTemuanAmiController::class, "create"]);
+Route::post('/ami/analisa_tindakan_ami/create/{id}', [AnalisadanTindakanTemuanAmiController::class, "store"]);
+Route::get('/ami/analisa_tindakan_ami/update/{id}', [AnalisadanTindakanTemuanAmiController::class, "edit"]);
+Route::post('/ami/analisa_tindakan_ami/update/{id}', [AnalisadanTindakanTemuanAmiController::class, "update"]);
+
+Route::get('/ami/verifikasi_ami', [VerifikasiTemuanAmiController::class, "index"]);
+Route::get('/ami/verifikasi_ami/{id}', [VerifikasiTemuanAmiController::class, "show"]);
+Route::get('/ami/verifikasi_ami/create/{id}', [VerifikasiTemuanAmiController::class, "create"]);
+Route::post('/ami/verifikasi_ami/create/{id}', [VerifikasiTemuanAmiController::class, "store"]);
+Route::get('/ami/verifikasi_ami/update/{id}', [VerifikasiTemuanAmiController::class, "edit"]);
+Route::post('/ami/verifikasi_ami/update/{id}', [VerifikasiTemuanAmiController::class, "update"]);
+
+Route::get('/ami/laporan_ami', [LaporanAmiController::class, "index"]);
+Route::post('/ami/laporan_ami', [LaporanAmiController::class, "store"]);
+Route::get('/ami/laporan_ami/{id}', [LaporanAmiController::class, "edit"]);
+Route::post('/ami/laporan_ami/{id}', [LaporanAmiController::class, "update"]);
 
 /* ============================================================= */
 
@@ -239,4 +292,3 @@ Route::get('/laporanAmiAuditor', [Controller::class, "laporanHasilAmi"]);
 // FOLDER AUDITEE->AMI
 Route::get('/drafttemuanAuditee', [Controller::class, "drafttemuanAuditee"]);
 Route::get('/hasilChecklistAmi', [Controller::class, "hasilChecklistAmi"]);
-Route::get('/ketersediaanDok', [Controller::class, "ketersediaanDok"]);

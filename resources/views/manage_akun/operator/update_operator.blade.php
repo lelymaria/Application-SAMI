@@ -108,7 +108,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom07"
-                                                name="password">
+                                                name="new_password">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

@@ -1,6 +1,5 @@
 <div class="mb-3 row">
     <label class="col-lg-4 col-form-label" for="validationCustom07">Pilih Standar
-        <span class="text-danger">*</span>
     </label>
     <div class="col-lg-8">
         <select class="default-select wide form-control" id="validationCustom05" name="standar">

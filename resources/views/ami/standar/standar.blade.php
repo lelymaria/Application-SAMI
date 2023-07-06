@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-            Header start
-            ***********************************-->
+                Header start
+                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-            Header end ti-comment-alt
-            ***********************************-->
+                Header end ti-comment-alt
+                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -72,14 +72,17 @@
                                         @csrf
                                         <div class="row">
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Pilih Kop Surat
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Pilih Kop
+                                                    Surat
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
-                                                    <select class="default-select wide form-control" id="validationCustom05" name="nama_formulir">
+                                                    <select class="default-select wide form-control" id="validationCustom05"
+                                                        name="nama_formulir">
                                                         <option data-display="Select">Please select</option>
                                                         @foreach ($kop_surat as $kop)
-                                                        <option value="{{ $kop->id }}">{{ $kop->nama_formulir }}</option>
+                                                            <option value="{{ $kop->id }}">{{ $kop->nama_formulir }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -107,10 +110,11 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
+                    <table id="example3" class="table table-responsive-md" style="min-width: 845px">
                         <thead>
                             <tr>
                                 <th>No</th>
+                                {{-- <th>Nama Formulir</th> --}}
                                 <th>Standar</th>
                                 <th>Action</th>
                             </tr>
@@ -119,6 +123,7 @@
                             @foreach ($standar as $standar)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    {{-- <td>{{ $standar->kopSurat->nama_formulir }}</td> --}}
                                     <td>{{ $standar->nama_standar }}</td>
                                     <td>
                                         <div class="d-flex">

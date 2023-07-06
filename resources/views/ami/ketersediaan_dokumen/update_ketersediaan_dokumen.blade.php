@@ -64,14 +64,6 @@
                         <textarea class="form-control" rows="10" name="list_pertanyaan_standar" disabled>{{ $ketersediaan->pertanyaanStandar->list_pertanyaan_standar }}</textarea>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Nama Dokumen
-                        </label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" id="validationCustom02"
-                                name="nama_dokumen" value="{{ $ketersediaan->nama_dokumen }}">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Ketersediaan Dokumen
                         </label>
                         <div class="col-lg-6">
@@ -96,9 +88,14 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Nama Dokumen
+                        </label>
+                        <textarea class="form-control" rows="5" name="nama_dokumen">{{ $ketersediaan->nama_dokumen }}</textarea>
+                    </div>
+                    <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Catatan
                         </label>
-                        <textarea id="ckeditor" name="catatan">{{ $ketersediaan->catatan }}</textarea>
+                        <textarea class="form-control" rows="5" name="catatan">{{ $ketersediaan->catatan }}</textarea>
                     </div>
                 </div>
             </div>

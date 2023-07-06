@@ -105,7 +105,7 @@ class AnggotaAuditorController extends Controller
             "nama" => "required",
             // "foto_profile" => "required",
             // "new_password" => "required",
-            // "confirmations_password" => "required",
+            // "confirmation_password" => "required",
         ]);
 
         DB::transaction(function () use ($request, $akunAuditor) {

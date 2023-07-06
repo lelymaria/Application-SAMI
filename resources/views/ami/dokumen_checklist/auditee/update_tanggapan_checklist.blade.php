@@ -91,7 +91,7 @@
                         <div class="mb-3">
                             <label class="col-lg-2 col-form-label" for="validationCustom02">Hasil Observasi
                             </label>
-                            <textarea id="ckeditor" name="hasil_observasi" disabled>{{ $tanggapanAudit->checklistAudit?->hasil_observasi }}</textarea>
+                            <textarea class="form-control" rows="5" name="hasil_observasi" disabled>{{ $tanggapanAudit->checklistAudit?->hasil_observasi }}</textarea>
                         </div>
                     @endif
                     <div class="mb-3">

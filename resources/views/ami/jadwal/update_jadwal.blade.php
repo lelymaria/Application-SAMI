@@ -3,7 +3,6 @@
 @endphp
 <div class="mb-3 row">
     <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Jadwal
-        <span class="text-danger">*</span>
     </label>
     <div class="col-lg-8">
         <input type="text" class="form-control" id="validationCustom07" name="nama_jadwal" required
@@ -12,7 +11,6 @@
 </div>
 <div class="mb-3 row">
     <label class="col-lg-4 col-form-label" for="validationCustom07">Jadwal Mulai
-        <span class="text-danger">*</span>
     </label>
     <div class="col-lg-8">
         <input type="date" class="form-control" id="validationCustom07" name="jadwal_mulai" required
@@ -22,7 +20,6 @@
 <div class="mb-3 row">
     <label class="col-lg-4 col-form-label" for="validationCustom07">Jadwal
         Selesai
-        <span class="text-danger">*</span>
     </label>
     <div class="col-lg-8">
         <input type="date" class="form-control" id="validationCustom07" name="jadwal_selesai" required
@@ -31,7 +28,6 @@
 </div>
 <div class="mb-3 row">
     <label class="col-lg-4 col-form-label" for="validationCustom07">Tahun AMI
-        <span class="text-danger">*</span>
     </label>
     <div class="col-lg-8">
         <input type="text" class="form-control" id="validationCustom07" name="tahun_ami" required

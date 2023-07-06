@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+                Header start
+                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -14,10 +14,28 @@
                 </div>
             </nav>
         </div>
+        @if (session('message'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                            <span><i class="mdi mdi-check-circle-outline"></i></span>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Congratulations!</h5>
+                            <p class="mb-0">{{ session('message') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+                Header end ti-comment-alt
+                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -80,7 +98,6 @@
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
-                                            <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
                                             <select class="default-select wide form-control" id="validationCustom05"
@@ -124,7 +141,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom07"
-                                                name="password">
+                                                name="new_password">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -167,9 +184,12 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-validate">
-                                    <form class="needs-validation" novalidate="">
+                            <form class="needs-validation" novalidate="" action="{{ url('/manage_user') }}"
+                                method="post">
+                                @csrf
+                                <input type="hidden" name="user" value="{{ $update_akun_auditor->id }}">
+                                <div class="modal-body">
+                                    <div class="form-validate">
                                         <div class="row">
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom05">Standar
@@ -177,33 +197,31 @@
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <select class="default-select wide form-control"
-                                                        id="validationCustom05">
+                                                        id="validationCustom05" name="standar">
                                                         <option data-display="Select">Please select</option>
-                                                        <option value="html">HTML</option>
-                                                        <option value="css">CSS</option>
-                                                        <option value="javascript">JavaScript</option>
+                                                        @foreach ($standar as $standar)
+                                                            <option value="{{ $standar->id }}">
+                                                                {{ $standar->nama_standar }}</option>
+                                                        @endforeach
                                                     </select>
-                                                    <div class="invalid-feedback">
-                                                        Please select a one.
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger light"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger light"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
+                    <table id="example3" class="table table-responsive-md" style="min-width: 845px">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -212,25 +230,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($update_akun_auditor->tugasStandar as $standar)
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $standar->standar->nama_standar }}</td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" data-url="{{ url('/manage_user/' . $standar->id) }}"
-                                            class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
-                                            data-bs-toggle="modal" data-bs-target="#updateTugas"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        <form action="{{ url('/manage_user/' . $standar->id) }}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                    class="fa fa-trash"></i></button>
-                                        </form>
-                                    </div>
-                                </td>
-                                </tr>
-                            @endforeach
+                            <tr>
+                                @foreach ($update_akun_auditor->tugasStandar as $standar)
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $standar->standar->nama_standar }}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="#" data-url="{{ url('/manage_user/' . $standar->id) }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                                data-bs-toggle="modal" data-bs-target="#updateTugas"><i
+                                                    class="fas fa-pencil-alt"></i></a>
+                                            <form action="{{ url('/manage_user/' . $standar->id) }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="btn btn-danger shadow btn-xs sharp"><i
+                                                        class="fa fa-trash"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                @endforeach
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -238,33 +257,33 @@
         </div>
     </div>
 
-            {{-- update --}}
-            <div class="modal fade" id="updateTugas">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Update Tugas</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal">
-                            </button>
-                        </div>
-                        <div class="modal-body" id="editModalBody">
-                            <div class="form-validate">
-                                <form class="needs-validation" novalidate="" action="{{ url('/manage_user' . $update_akun_auditor->id) }}"
-                                    method="post">
-                                    @csrf
-                                    <div class="row" id="formBodyEdit">
+    {{-- update --}}
+    <div class="modal fade" id="updateTugas">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Tugas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body" id="editModalBody">
+                    <div class="form-validate">
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/manage_user' . $update_akun_auditor->id) }}" method="post">
+                            @csrf
+                            <div class="row" id="formBodyEdit">
 
-                                    </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                        </form>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')

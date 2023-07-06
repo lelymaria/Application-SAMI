@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+            Header start
+            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+            Header end ti-comment-alt
+            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -110,7 +110,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom09">Nama<span
+                                                <label class="col-lg-4 col-form-label" for="validationCustom09">Nama <span
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
@@ -133,7 +133,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example3" class="display" style="min-width: 845px">
+                    <table id="example3" class="table table-responsive-md" style="min-width: 845px">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -156,10 +156,11 @@
                                     <td><strong>{{ $kepala_p4mp->periode_jabatan }}</strong></td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ url('/manage_user/kepalaP4mp_edit/'.$kepala_p4mp->id) }}"
+                                            <a href="{{ url('/manage_user/kepalaP4mp_edit/' . $kepala_p4mp->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/manage_user/kepalaP4mp/'.$kepala_p4mp->id) }}" method="post">
+                                            <form action="{{ url('/manage_user/kepalaP4mp/' . $kepala_p4mp->id) }}"
+                                                method="post">
                                                 @method('delete')
                                                 @csrf
                                                 <button class="btn btn-danger shadow btn-xs sharp"><i

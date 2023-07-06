@@ -46,11 +46,11 @@
             <form action="{{ url('/ami/data_standar/pertanyaan/'.$standar->id) }}" method="post">
                 @csrf
                 <div class="card-header">
-                    <h4 class="card-title">Tambah Pertanyaan Standar</h4>
+                    <h4 class="card-title">Tambah Pertanyaan Standar <span class="text-danger">*</span></h4>
                     <button type="submit" class="btn btn-rounded btn-primary btn-xs">Simpan</button>
                 </div>
                 <div class="card-body">
-                    <textarea class="form-control" rows="15" name="list_pertanyaan_standar"></textarea>
+                    <textarea id="ckeditor" name="list_pertanyaan_standar"></textarea>
                 </div>
             </form>
         </div>

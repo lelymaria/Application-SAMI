@@ -57,10 +57,10 @@
                         @method('put')
                         @csrf
                         <div class="mb-3">
-                            <label class="text-label form-label" for="current_password">Current Password</label>
+                            <label class="text-label form-label" for="current_password">Current Password <span class="text-danger">*</span></label>
                             <div class="input-group transparent-append">
                                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                <input type="password" class="form-control" id="current_password" name="current_password">
+                                <input type="password" class="form-control" id="current_password" name="current_password" placeholder="Current Password...">
                                 <span class="input-group-text show-pass">
                                     <i class="fa fa-eye-slash"></i>
                                     <i class="fa fa-eye"></i>
@@ -71,10 +71,10 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="text-label form-label" for="password">New Password</label>
+                            <label class="text-label form-label" for="password">New Password <span class="text-danger">*</span></label>
                             <div class="input-group transparent-append">
                                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                <input type="password" class="form-control" id="password" name="password">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="New Password...">
                                 <span class="input-group-text show-pass">
                                     <i class="fa fa-eye-slash"></i>
                                     <i class="fa fa-eye"></i>
@@ -85,11 +85,11 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="text-label form-label" for="password_confirmation">Confirm Password</label>
+                            <label class="text-label form-label" for="password_confirmation">Confirm Password <span class="text-danger">*</span></label>
                             <div class="input-group transparent-append">
                                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 <input type="password" class="form-control" id="password_confirmation"
-                                    name="password_confirmation">
+                                    name="password_confirmation" placeholder="Confirm Password...">
                                 <span class="input-group-text show-pass">
                                     <i class="fa fa-eye-slash"></i>
                                     <i class="fa fa-eye"></i>
