@@ -92,8 +92,7 @@ class AkunOperatorController extends Controller
             ],
             "nama" => "required",
             // "foto_profile" => "required",
-            // "new_password" => "required",
-            // "confirmation_password" => "required",
+            "new_password" => "nullable|confirmed"
         ]);
 
         DB::transaction(function () use ($request, $akunOperator) {
@@ -104,7 +103,7 @@ class AkunOperatorController extends Controller
             ]);
             $akunOperator->user()->update([
                 'nip' => $request->nip,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($request->new_password),
             ]);
         });
         return redirect('/manage_user/akun_operator/')->with('message', 'Data Berhasil Tersimpan!');

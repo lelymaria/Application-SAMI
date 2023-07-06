@@ -98,8 +98,7 @@ class KepalaP4mpController extends Controller
             ],
             "nama" => "required",
             // "foto_profile" => "required",
-            // "new_password" => "required",
-            // "confirmations_password" => "required",
+            "new_password" => "nullable|confirmed"
         ]);
 
         DB::transaction(function () use ($request, $kepalaP4mp) {
@@ -111,7 +110,7 @@ class KepalaP4mpController extends Controller
             ]);
             $kepalaP4mp->user()->update([
                 'nip' => $request->nip,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($request->new_password),
             ]);
         });
         return redirect('/manage_user/kepalaP4mp/')->with('message', 'Data Berhasil Tersimpan!');

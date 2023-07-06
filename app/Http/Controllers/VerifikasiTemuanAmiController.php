@@ -46,7 +46,7 @@ class VerifikasiTemuanAmiController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $standar = PertanyaanStandar::findOrFail($id);
+        $standar = Standar::findOrFail($id);
         $request->validate([
             "verifikasi_kp4mp" => "required"
         ]);

@@ -101,8 +101,7 @@ class AkunAuditeeController extends Controller
         ],
             "nama" => "required",
             // "foto_profile" => "required",
-            // "new_password" => "required",
-            // "confirmations_password" => "required",
+            "new_password" => "nullable|confirmed"
         ]);
 
         DB::transaction(function () use ($request, $akunAuditee) {
@@ -114,7 +113,7 @@ class AkunAuditeeController extends Controller
             ]);
             $akunAuditee->user()->update([
                 'nip' => $request->nip,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($request->new_password),
             ]);
         });
         return redirect('/manage_user/akun_auditee/')->with('message', 'Data Berhasil Tersimpan!');

@@ -58,7 +58,7 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Uraian Ketidaksesuaian <span class="text-danger">*</span>
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Uraian Ketidaksesuaian<span class="text-danger">*</span>
                         </label>
                         <textarea class="form-control" rows="5" name="uraian_ketidaksesuaian"></textarea>
                     </div>

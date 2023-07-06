@@ -114,7 +114,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                {{-- <th>Nama Formulir</th> --}}
+                                <th>Nama Formulir</th>
                                 <th>Standar</th>
                                 <th>Action</th>
                             </tr>
@@ -123,7 +123,7 @@
                             @foreach ($standar as $standar)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    {{-- <td>{{ $standar->kopSurat->nama_formulir }}</td> --}}
+                                    <td>{{ $standar->kopSurat->nama_formulir }}</td>
                                     <td>{{ $standar->nama_standar }}</td>
                                     <td>
                                         <div class="d-flex">

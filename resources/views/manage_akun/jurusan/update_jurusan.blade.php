@@ -131,7 +131,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom08"
-                                                name="confimation_password">
+                                                name="new_password_confirmation">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

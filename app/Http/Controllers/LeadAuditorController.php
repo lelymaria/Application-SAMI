@@ -104,14 +104,13 @@ class LeadAuditorController extends Controller
             ],
             "nama" => "required",
             // "foto_profile" => "required",
-            // "new_password" => "required",
-            // "confirmation_password" => "required",
+            "new_password" => "nullable|confirmed"
         ]);
 
         DB::transaction(function () use ($request, $akunAuditor) {
             $akunAuditor->update([
                 'nip' => $request->nip,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($request->new_password),
             ]);
             if (!$akunAuditor->akunAuditor) {
                 $jadwal_ami = JadwalAmi::where('status', 1)->first();
