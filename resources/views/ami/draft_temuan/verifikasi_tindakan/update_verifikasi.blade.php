@@ -57,6 +57,26 @@
                     <button type="submit" class="btn btn-rounded btn-primary btn-xs">Simpan</button>
                 </div>
                 <div class="card-body">
+                    @if ($verifikasiTemuan->standar->analisaTindakanAmi)
+                        <div class="mb-3">
+                            <label class="col-lg-2 col-form-label" for="validationCustom02">Analisa Masalah
+                            </label>
+                            <textarea class="form-control" rows="5" name="analisa_masalah" disabled>{{ $verifikasiTemuan->standar->analisaTindakanAmi?->analisa_masalah }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-lg-2 col-form-label" for="validationCustom02">Tindakan Koreksi
+                            </label>
+                            <textarea class="form-control" rows="5" name="tindakan_koreksi" disabled>{{ $verifikasiTemuan->standar->analisaTindakanAmi?->tindakan_koreksi }}</textarea>
+                        </div>
+                    @endif
+                    @if ($verifikasiTemuan->standar->uraianTemuanAmi)
+                        <div class="mb-3">
+                            <label class="col-lg-2 col-form-label" for="validationCustom02">Uraian Ketidaksesuaian
+                                Koreksi
+                            </label>
+                            <textarea class="form-control" rows="5" name="uraian_ketidaksesuaian" disabled>{{ $verifikasiTemuan->standar->uraianTemuanAmi?->uraian_ketidaksesuaian }}</textarea>
+                        </div>
+                    @endif
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Verifikasi Keefektifan Tindakan Koreksi
                         </label>

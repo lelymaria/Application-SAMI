@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+                Header start
+                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+                Header end ti-comment-alt
+                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,7 +49,7 @@
     </div>
 
     <div class="col-12">
-        <form action="{{ url('/ami/uraian_ami/create/'.$standar->id) }}" method="post">
+        <form action="{{ url('/ami/uraian_ami/create/' . $standar->id) }}" method="post">
             @csrf
             <div class="card">
                 <div class="card-header">
@@ -57,8 +57,28 @@
                     <button type="submit" class="btn btn-rounded btn-primary btn-xs">Simpan</button>
                 </div>
                 <div class="card-body">
+                    @if ($standar->analisaTindakanAmi)
+                        <div class="mb-3">
+                            <label class="col-lg-2 col-form-label" for="validationCustom02">Analisa Masalah
+                            </label>
+                            <textarea class="form-control" rows="5" name="analisa_masalah" disabled>{{ $standar->analisaTindakanAmi?->analisa_masalah }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-lg-2 col-form-label" for="validationCustom02">Tindakan Koreksi
+                            </label>
+                            <textarea class="form-control" rows="5" name="tindakan_koreksi" disabled>{{ $standar->analisaTindakanAmi?->tindakan_koreksi }}</textarea>
+                        </div>
+                    @endif
+                    @if ($standar->verifikasiKp4mp)
+                        <div class="mb-3">
+                            <label class="col-lg-2 col-form-label" for="validationCustom02">Verifikasi Keefektifan Tindakan Koreksi
+                            </label>
+                            <textarea class="form-control" rows="5" name="verifikasi_kp4mp" disabled>{{ $standar->verifikasiKp4mp?->verifikasi_kp4mp }}</textarea>
+                        </div>
+                    @endif
                     <div class="mb-3">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Uraian Ketidaksesuaian<span class="text-danger">*</span>
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Uraian Ketidaksesuaian<span
+                                class="text-danger">*</span>
                         </label>
                         <textarea class="form-control" rows="5" name="uraian_ketidaksesuaian"></textarea>
                     </div>
