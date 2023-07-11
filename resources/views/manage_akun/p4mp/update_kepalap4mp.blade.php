@@ -31,6 +31,16 @@ Header end ti-comment-alt
         </ol>
     </div>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div class="row">
         <div class="col-lg-12">
             <div class="profile card card-body px-3 pt-3 pb-0">

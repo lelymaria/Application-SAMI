@@ -20,6 +20,7 @@ use App\Http\Controllers\KepalaP4mpController;
 use App\Http\Controllers\KetersediaanDokumenController;
 use App\Http\Controllers\KopSuratController;
 use App\Http\Controllers\LaporanAmiController;
+use App\Http\Controllers\LayananAkademikController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\NotulensiAmiController;
 use App\Http\Controllers\NotulensiRtmController;
@@ -121,6 +122,12 @@ Route::prefix('/data')->group(function () {
     Route::get('/dataprodi/{id}', [ProgramStudiController::class, "edit"]);
     Route::post('/dataprodi/{id}', [ProgramStudiController::class, "update"]);
     Route::delete('/dataprodi/{id}', [ProgramStudiController::class, "destroy"]);
+    // LayananAkademikController
+    Route::get('/layanan_akademik', [LayananAkademikController::class, "index"]);
+    Route::post('/layanan_akademik', [LayananAkademikController::class, "store"]);
+    Route::get('/layanan_akademik/{id}', [LayananAkademikController::class, "edit"]);
+    Route::post('/layanan_akademik/{id}', [LayananAkademikController::class, "update"]);
+    Route::delete('/layanan_akademik/{id}', [LayananAkademikController::class, "destroy"]);
 });
 
 Route::prefix('/ami')->group(function () {

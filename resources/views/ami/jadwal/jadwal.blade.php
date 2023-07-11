@@ -51,6 +51,16 @@
         </ol>
     </div>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -146,7 +156,7 @@
                                         -
                                         {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_selesai)->isoFormat('DD/MM/Y') }}
                                     </td>
-                                    <td><a href="#"><strong>
+                                    <td><strong>
                                                 @php
                                                     if (
                                                         Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_mulai)
@@ -160,7 +170,7 @@
                                                         echo 'Selesai';
                                                     }
                                                 @endphp
-                                            </strong></a></td>
+                                            </strong></td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="#" data-url="{{ url('/ami/jadwalAmi/' . $jadwal->id) }}"

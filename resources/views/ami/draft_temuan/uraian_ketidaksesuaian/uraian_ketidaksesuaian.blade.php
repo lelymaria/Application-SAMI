@@ -48,6 +48,16 @@
         </ol>
     </div>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div class="col-12">
         <form action="{{ url('/ami/uraian_ami/create/' . $standar->id) }}" method="post">
             @csrf

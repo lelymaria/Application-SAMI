@@ -30,6 +30,7 @@
             <li class="breadcrumb-item"><a href="javascript:void(0)">Update Jurusan</a></li>
         </ol>
     </div>
+
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

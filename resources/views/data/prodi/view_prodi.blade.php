@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-            Header start
-            ***********************************-->
+                Header start
+                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-            Header end ti-comment-alt
-            ***********************************-->
+                Header end ti-comment-alt
+                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -47,6 +47,16 @@
             <li class="breadcrumb-item"><a href="javascript:void(0)">Data Program Studi</a></li>
         </ol>
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-12">
         <div class="card">

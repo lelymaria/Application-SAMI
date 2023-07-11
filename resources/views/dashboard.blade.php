@@ -1,7 +1,10 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @push('header-dashboard')
     <!--**********************************
-    Header start
-    ***********************************-->
+                                Header start
+                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -16,8 +19,8 @@
         </div>
     </div>
     <!--**********************************
-    Header end ti-comment-alt
-    ***********************************-->
+                                Header end ti-comment-alt
+                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -106,7 +109,8 @@
                                     <img class="pattern-img" src="images/pattern/pattern6.png" alt="">
                                     <div class="card-info text-white">
                                         <img src="images/pattern/circle.png" class="mb-4" alt="">
-                                        <h2 class="text-white card-balance">23 d : 23 h : 57 m : 12 s</h2>
+                                        {{-- <h2 class="text-white card-balance">23 d : 23 h : 57 m : 12 s</h2> --}}
+                                        <h2 class="text-white card-balance" id="timer">23 d : 23 h : 57 m : 12 s</h2>
                                     </div>
                                 </div>
                             </div>
@@ -114,9 +118,14 @@
                                 <div class="row  mt-xl-0 mt-4">
                                     <div class="col-md-6">
                                         <ul class="card-list mt-4">
-                                            <li><span class="bg-blue circle"></span>Aktivitas<span>Visitasi</span></li>
-                                            <li><span class="bg-success circle"></span>Pelaksanaan<span>12 Mar - 14 Apr
-                                                    2023</span></li>
+                                            <li><span
+                                                    class="bg-blue circle"></span>Aktivitas<span>{{ $jadwalAmi->nama_jadwal }}</span>
+                                            </li>
+                                            <li><span class="bg-success circle"></span>Pelaksanaan<span>
+                                                    {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwalAmi->jadwal_mulai)->isoFormat('DD/MM/Y') }}
+                                                    -
+                                                    {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwalAmi->jadwal_selesai)->isoFormat('DD/MM/Y') }}
+                                                </span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -128,3 +137,31 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        let timer = document.getElementById("timer");
+        var endDate = new Date("{{ $jadwalAmi->jadwal_selesai }}");
+
+        function updateTimer() {
+            // Tanggal awal dan akhir (contoh)
+            var startDate = new Date();
+
+            // Menghitung selisih waktu dalam detik
+            var timeDiff = Math.abs(endDate - startDate) / 1000;
+
+            // Mengonversi detik menjadi hari, jam, menit, dan detik
+            var days = Math.floor(timeDiff / (24 * 60 * 60));
+            var hours = Math.floor((timeDiff % (24 * 60 * 60)) / (60 * 60));
+            var minutes = Math.floor((timeDiff % (60 * 60)) / 60);
+            var seconds = Math.floor(timeDiff % 60);
+
+            // Format waktu
+            var formattedTime = days + "d : " + hours + "h : " + minutes + "m : " + seconds + "s";
+
+            timer.textContent = formattedTime;
+        }
+
+        setInterval(updateTimer, 1000);
+    </script>
+@endpush
