@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AkunAuditor;
 use App\Models\JadwalAmi;
+use App\Models\LayananAkademik;
 use App\Models\Level;
 use App\Models\ProgramStudi;
 use App\Models\Standar;
@@ -23,7 +24,8 @@ class LeadAuditorController extends Controller
         $level = Level::where('name', 'Lead Auditor')->first();
         $data = [
             'akun_auditor' => User::where('level_id', $level->id)->get(),
-            'dataProdi' => ProgramStudi::all()
+            'dataProdi' => ProgramStudi::all(),
+            'layananAkademik' => LayananAkademik::all()
         ];
         return view('manage_akun.auditor.lead.lead_Auditor', $data);
     }
@@ -61,7 +63,7 @@ class LeadAuditorController extends Controller
                 'email' => $request->email,
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
-                'id_prodi' => $request->unit_kerja,
+                'id_unit_kerja' => $request->unit_kerja,
                 'id_jadwal' => $jadwal_ami->id,
             ]);
         });
@@ -85,7 +87,8 @@ class LeadAuditorController extends Controller
         $data = [
             'update_akun_auditor' => $akunAuditor,
             'dataProdi' => ProgramStudi::all(),
-            'standar' => Standar::all()
+            'standar' => Standar::all(),
+            'layananAkademik' => LayananAkademik::all()
         ];
         return view('manage_akun.auditor.lead.update_lead', $data);
     }
@@ -118,7 +121,7 @@ class LeadAuditorController extends Controller
                     'email' => $request->email,
                     'nama' => $request->nama,
                     'foto_profile' => Hash::make('foto_profile'),
-                    'id_prodi' => $request->unit_kerja,
+                    'id_unit_kerja' => $request->unit_kerja,
                     'id_jadwal' => $jadwal_ami->id
                 ]);
             }
@@ -126,7 +129,7 @@ class LeadAuditorController extends Controller
                 'email' => $request->email,
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
-                'id_prodi' => $request->unit_kerja,
+                'id_unit_kerja' => $request->unit_kerja,
             ]);
         });
         return redirect('/manage_user/lead_auditor/')->with('message', 'Data Berhasil Tersimpan!');

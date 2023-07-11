@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-    Header start
-    ***********************************-->
+        Header start
+        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -16,8 +16,8 @@
         </div>
     </div>
     <!--**********************************
-    Header end ti-comment-alt
-    ***********************************-->
+        Header end ti-comment-alt
+        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -31,14 +31,14 @@
         </ol>
     </div>
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-lg-12">
@@ -81,12 +81,18 @@
                                         <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
                                         </label>
                                         <div class="col-lg-6">
-                                            <select class="default-select wide form-control" id="validationCustom05" name="unit_kerja">
+                                            <select class="default-select wide form-control" id="validationCustom05"
+                                                name="unit_kerja">
                                                 <option data-display="Select">Please select</option>
                                                 @foreach ($dataProdi as $dataProdi)
                                                     <option value="{{ $dataProdi->id }}"
-                                                        {{ $dataProdi->id == $update_akun_auditee->id_prodi ? 'selected' : '' }}>
+                                                        {{ $dataProdi->id == $update_akun_auditee->id_unit_kerja ? 'selected' : '' }}>
                                                         {{ $dataProdi->nama_prodi }}</option>
+                                                @endforeach
+                                                @foreach ($layananAkademik as $layananAkademik)
+                                                    <option value="{{ $layananAkademik->id }}"
+                                                        {{ $layananAkademik->id == $update_akun_auditee->id_unit_kerja ? 'selected' : '' }}>
+                                                        {{ $layananAkademik->nama_layanan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

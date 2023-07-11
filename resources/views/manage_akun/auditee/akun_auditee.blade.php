@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-            Header start
-            ***********************************-->
+                Header start
+                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-            Header end ti-comment-alt
-            ***********************************-->
+                Header end ti-comment-alt
+                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -92,6 +92,10 @@
                                                         @foreach ($dataProdi as $dataProdi)
                                                             <option value="{{ $dataProdi->id }}">
                                                                 {{ $dataProdi->nama_prodi }}</option>
+                                                        @endforeach
+                                                        @foreach ($layananAkademik as $layananAkademik)
+                                                            <option value="{{ $layananAkademik->id }}">
+                                                                {{ $layananAkademik->nama_layanan }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -158,7 +162,13 @@
                                     <td>{{ $akun_auditee->user->nip }}</td>
                                     <td>{{ $akun_auditee->email }}</td>
                                     <td><strong>{{ $akun_auditee->user->levelRole->name }}</strong></td>
-                                    <td>{{ $akun_auditee->dataProdi->nama_prodi }}</td>
+                                    <td>
+                                        @if ($akun_auditee->dataProdi)
+                                            {{ $akun_auditee->dataProdi->nama_prodi }}
+                                        @else
+                                            {{ $akun_auditee->layananAkademik->nama_layanan }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="d-flex">
                                             <div class="d-flex">

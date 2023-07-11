@@ -21,4 +21,8 @@ class ProgramStudi extends Model
     public function akunAuditee() {
         return $this->hasOne(AkunAuditee::class, 'id_prodi', 'id');
     }
+
+    public function akunAuditor() {
+        return $this->hasOne(AkunAuditor::class, 'id_prodi', 'id');
+    }
 }

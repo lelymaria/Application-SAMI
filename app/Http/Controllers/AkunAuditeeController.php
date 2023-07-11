@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AkunAuditee;
 use App\Models\JadwalAmi;
+use App\Models\LayananAkademik;
 use App\Models\Level;
 use App\Models\ProgramStudi;
 use App\Models\User;
@@ -21,7 +22,8 @@ class AkunAuditeeController extends Controller
     {
         $data = [
             'akun_auditee' => AkunAuditee::all(),
-            'dataProdi' => ProgramStudi::all()
+            'dataProdi' => ProgramStudi::all(),
+            'layananAkademik' => LayananAkademik::all()
         ];
         return view('manage_akun.auditee.akun_auditee', $data);
     }
@@ -59,7 +61,7 @@ class AkunAuditeeController extends Controller
                 'email' => $request->email,
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
-                'id_prodi' => $request->unit_kerja,
+                'id_unit_kerja' => $request->unit_kerja,
                 'id_jadwal' =>$jadwal_ami->id
             ]);
         });
@@ -82,7 +84,8 @@ class AkunAuditeeController extends Controller
         $akunAuditee = AkunAuditee::find($id);
         $data = [
             'update_akun_auditee' => $akunAuditee,
-            'dataProdi' => ProgramStudi::all()
+            'dataProdi' => ProgramStudi::all(),
+            'layananAkademik' => LayananAkademik::all()
         ];
         return view('manage_akun.auditee.update_auditee', $data);
     }
@@ -109,7 +112,7 @@ class AkunAuditeeController extends Controller
                 'email' => $request->email,
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
-                'id_prodi' => $request->unit_kerja,
+                'id_unit_kerja' => $request->unit_kerja,
             ]);
             $akunAuditee->user()->update([
                 'nip' => $request->nip,

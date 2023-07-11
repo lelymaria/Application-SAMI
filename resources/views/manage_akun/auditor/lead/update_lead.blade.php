@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-            Header start
-            ***********************************-->
+                                Header start
+                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-            Header end ti-comment-alt
-            ***********************************-->
+                                Header end ti-comment-alt
+                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -104,8 +104,13 @@
                                                 name="unit_kerja">
                                                 @foreach ($dataProdi as $dataProdi)
                                                     <option value="{{ $dataProdi->id }}"
-                                                        {{ $dataProdi->id == $update_akun_auditor->id_prodi ? 'selected' : '' }}>
+                                                        {{ $dataProdi->id == $update_akun_auditor->akunAuditor->id_unit_kerja ? 'selected' : '' }}>
                                                         {{ $dataProdi->nama_prodi }}</option>
+                                                @endforeach
+                                                @foreach ($layananAkademik as $layananAkademik)
+                                                    <option value="{{ $layananAkademik->id }}"
+                                                        {{ $layananAkademik->id == $update_akun_auditor->akunAuditor->id_unit_kerja ? 'selected' : '' }}>
+                                                        {{ $layananAkademik->nama_layanan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

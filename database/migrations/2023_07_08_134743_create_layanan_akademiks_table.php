@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('akun_auditor', function (Blueprint $table) {
+        Schema::create('layanan_akademik', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_user');
-            $table->uuid('id_unit_kerja');
-            $table->uuid('id_jadwal');
-            $table->string('email');
-            $table->string('nama');
-            $table->string('foto_profile');
+            $table->string('nama_layanan');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('akun_auditor');
+        Schema::dropIfExists('layanan_akademik');
     }
 };
