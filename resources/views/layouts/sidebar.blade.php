@@ -1,5 +1,5 @@
 <!--**********************************
-                  Sidebar start
+                Sidebar start
               ***********************************-->
 <div class="dlabnav">
     <div class="dlabnav-scroll">
@@ -8,8 +8,18 @@
                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                     <img src="images/profile/pic1.jpg" width="20" alt="">
                     <div class="header-info ms-3">
-                        <span class="font-w600 ">Hi,<b>William</b></span>
-                        <small class="text-end font-w400">william@gmail.com</small>
+                        <span class="font-w600 ">Hallo,<b>@if (auth()->user()->akunOperator)
+                            {{ auth()->user()->akunOperator->nama }}
+                        @elseif (auth()->user()->kepalaP4mp)
+                            {{ auth()->user()->kepalaP4mp->nama }}
+                        @elseif (auth()->user()->akunJurusan)
+                            {{ auth()->user()->akunJurusan->nama }}
+                        @elseif (auth()->user()->akunAuditee)
+                            {{ auth()->user()->akunAuditee->nama }}
+                        @else
+                            {{ auth()->user()->akunAuditor->nama }}
+                        @endif</b></span>
+                        <small class="font-w400">{{ auth()->user()->levelRole->name }}</small>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
