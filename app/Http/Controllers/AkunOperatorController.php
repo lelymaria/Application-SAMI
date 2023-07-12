@@ -37,7 +37,7 @@ class AkunOperatorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "email" => "required",
+            "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric|max:20",
             "nama" => "required",
             // "foto_profile" => "required",
@@ -86,7 +86,7 @@ class AkunOperatorController extends Controller
     {
         $akunOperator = akunOperator::find($id);
         $request->validate([
-            "email" => "required",
+            "email" => "required|email",
             "nip" => [
                 "max:20",
                 "numeric",
