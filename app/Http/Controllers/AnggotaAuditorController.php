@@ -44,15 +44,19 @@ class AnggotaAuditorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "email" => "required",
-            "nip" => "required|unique:users,nip",
+            "email" => "required|email",
+            "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
             "unit_kerja" => "required",
             // "foto_profile" => "required",
         ]);
 
-        DB::transaction(function () use ($request) {
-            $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        if (!$jadwal_ami) {
+            return redirect('/manage_user/anggota_auditor/')->with('error', 'jadwal ami tidak tersedia!');
+        }
+
+        DB::transaction(function () use ($request, $jadwal_ami) {
             $level = Level::where('name', 'Anggota Auditor')->first();
             $user = User::create([
                 'nip' => $request->nip,
