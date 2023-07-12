@@ -37,7 +37,7 @@ class PedomanAmiController extends Controller
     {
         $request->validate([
             "deskripsi" => "required",
-            "file_pedoman" => "required|mimes:doc,docx,pdf|file",
+            "file_pedoman" => "required|mimes:doc,docx,pdf|file|max:3072",
         ]);
 
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
@@ -83,7 +83,7 @@ class PedomanAmiController extends Controller
         $pedomanAmi = PedomanAmi::findOrFail($idPedomanAmi);
         $request->validate([
             "deskripsi" => "required",
-            "file_pedoman" => "mimes:doc,docx,pdf|file"
+            "file_pedoman" => "mimes:doc,docx,pdf|file|max:3072"
         ]);
 
         if ($request->hasFile('file_pedoman')) {
