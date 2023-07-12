@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                                    Header start
-                                    ***********************************-->
+                                                        Header start
+                                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-                                    Header end ti-comment-alt
-                                    ***********************************-->
+                                                        Header end ti-comment-alt
+                                                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -111,12 +111,17 @@
                                                     <textarea rows="8" class="form-control" name="deskripsi" placeholder="Deskripsi"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <div class="form-file">
-                                                    <input type="file" class="form-file-input form-control"
-                                                        name="file_pedoman">
+                                            <div>
+                                                <div class="input-group mb-3">
+                                                    <div class="form-file">
+                                                        <input type="file" class="form-file-input form-control"
+                                                            name="file_pedoman">
+                                                    </div>
+                                                    <span class="input-group-text">Upload</span>
                                                 </div>
-                                                <span class="input-group-text">Upload</span>
+                                                <small class="text-danger">file wajib diisi!</small>
+                                                <br>
+                                                <small class="text-danger">maksimal size file: 3MB</small>
                                             </div>
                                         </div>
                                 </div>

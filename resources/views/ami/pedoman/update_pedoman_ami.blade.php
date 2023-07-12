@@ -5,11 +5,16 @@
         <textarea rows="8" class="form-control" name="deskripsi">{{ $update_pedoman->deskripsi }}</textarea>
     </div>
 </div>
-<div class="input-group mb-3">
-    <div class="form-file">
-        <input type="file" class="form-file-input form-control" name="file_pedoman">
+<div>
+    <div class="input-group mb-3">
+        <div class="form-file">
+            <input type="file" class="form-file-input form-control" name="file_pedoman">
+        </div>
+        <span class="input-group-text">Upload</span>
     </div>
-    <span class="input-group-text">Upload</span>
+    <small class="text-danger">file wajib diisi!</small>
+    <br>
+    <small class="text-danger">maksimal size file: 3MB</small>
 </div>
 <p>Dokumen sebelumnya <a href="{{ asset('storage/' . $update_pedoman->file_pedoman_ami) }}" target="_blank"
         class="text-primary">liat
