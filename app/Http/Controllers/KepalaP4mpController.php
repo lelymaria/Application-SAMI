@@ -39,8 +39,8 @@ class KepalaP4mpController extends Controller
     {
         $request->validate([
             "periode_jabatan" => "required",
-            "email" => "required",
-            "nip" => "required|unique:users,nip",
+            "email" => "required|email",
+            "nip" => "required|unique:users,nip|numeric|max:20",
             "nama" => "required",
             // "foto_profile" => "required",
         ]);
@@ -92,9 +92,12 @@ class KepalaP4mpController extends Controller
         $kepalaP4mp = KepalaP4mp::find($id);
         $request->validate([
             "periode_jabatan" => "required",
-            "email" => "required",
+            "email" => "required|email",
             "nip" => [
-                'required', Rule::unique('users')->ignore($kepalaP4mp->id_user)
+                "max:20",
+                "numeric",
+                'required',
+                Rule::unique('users')->ignore($kepalaP4mp->id_user),
             ],
             "nama" => "required",
             // "foto_profile" => "required",
