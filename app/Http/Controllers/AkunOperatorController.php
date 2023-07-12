@@ -38,7 +38,7 @@ class AkunOperatorController extends Controller
     {
         $request->validate([
             "email" => "required|email",
-            "nip" => "required|unique:users,nip|numeric|max:20",
+            "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
             // "foto_profile" => "required",
         ]);
@@ -88,7 +88,6 @@ class AkunOperatorController extends Controller
         $request->validate([
             "email" => "required|email",
             "nip" => [
-                "max:20",
                 "numeric",
                 'required',
                 Rule::unique('users')->ignore($akunOperator->id_user),

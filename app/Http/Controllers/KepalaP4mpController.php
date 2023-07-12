@@ -40,13 +40,17 @@ class KepalaP4mpController extends Controller
         $request->validate([
             "periode_jabatan" => "required",
             "email" => "required|email",
-            "nip" => "required|unique:users,nip|numeric|max:20",
+            "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
             // "foto_profile" => "required",
         ]);
 
-        DB::transaction(function () use ($request) {
-            $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        if (!$jadwal_ami) {
+            return redirect('/manage_user/kepalaP4mp')->with('error', 'jadwal ami tidak tersedia!');
+        }
+
+        DB::transaction(function () use ($request, $jadwal_ami) {
             $level = Level::where('name', 'Ketua P4MP')->first();
             $user = User::create([
                 'nip' => $request->nip,
