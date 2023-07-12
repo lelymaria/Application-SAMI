@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                Header start
-                ***********************************-->
+                                Header start
+                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                Header end ti-comment-alt
-                ***********************************-->
+                                Header end ti-comment-alt
+                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -89,7 +89,8 @@
                                                 <div class="col-lg-8">
                                                     <select class="default-select wide form-control" id="validationCustom05"
                                                         name="nama_jurusan">
-                                                        <option data-display="Select">Please select</option>
+                                                        <option data-display="Select" disabled selected>Please select
+                                                        </option>
                                                         @foreach ($jurusan as $jurusan)
                                                             <option value="{{ $jurusan->id }}">{{ $jurusan->nama_jurusan }}
                                                             </option>
@@ -134,7 +135,7 @@
                             @foreach ($prodi as $prodi)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $prodi->jurusan->nama_jurusan }}</td>
+                                    <td>{{ $prodi->jurusan->nama_jurusan ?? '-' }}</td>
                                     <td>{{ $prodi->nama_prodi }}</td>
                                     <td>
                                         <div class="d-flex">
