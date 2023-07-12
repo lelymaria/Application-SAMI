@@ -14,7 +14,7 @@ class JadwalAmiController extends Controller
     public function index()
     {
         $data = [
-            'jadwal_ami' => JadwalAmi::all()
+            'jadwal_ami' => JadwalAmi::latest()->get()
         ];
         return view('ami.jadwal.jadwal', $data);
     }
@@ -44,6 +44,10 @@ class JadwalAmiController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
+            JadwalAmi::latest()->update([
+                "status" => 0
+            ]);
+
             JadwalAmi::create($request->all());
         });
         return redirect('/ami/jadwalAmi')->with('message', 'Data Berhasil Tersimpan!');

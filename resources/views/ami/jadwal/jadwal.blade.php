@@ -3,8 +3,8 @@
 @endphp
 @push('header')
     <!--**********************************
-                                                Header start
-                                                ***********************************-->
+                                                                    Header start
+                                                                    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -37,8 +37,8 @@
         @endif
     </div>
     <!--**********************************
-                                                Header end ti-comment-alt
-                                                ***********************************-->
+                                                                    Header end ti-comment-alt
+                                                                    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -52,14 +52,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-12">
         <div class="card">
@@ -156,21 +156,25 @@
                                         -
                                         {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_selesai)->isoFormat('DD/MM/Y') }}
                                     </td>
-                                    <td><strong>
-                                                @php
-                                                    if (
-                                                        Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_mulai)
-                                                            ->startOfDay()
-                                                            ->gte(Carbon::now())
-                                                    ) {
-                                                        echo 'Pending';
-                                                    } elseif (Carbon::now()->between($jadwal->jadwal_mulai, $jadwal->jadwal_selesai)) {
-                                                        echo 'Proses';
-                                                    } else {
-                                                        echo 'Selesai';
-                                                    }
-                                                @endphp
-                                            </strong></td>
+                                    <td>
+                                        <strong>
+                                            @php
+                                                if (
+                                                    Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_mulai)
+                                                        ->startOfDay()
+                                                        ->gte(Carbon::now())
+                                                ) {
+                                                    echo 'Pending';
+                                                } elseif (Carbon::now()->between($jadwal->jadwal_mulai, $jadwal->jadwal_selesai)) {
+                                                    echo 'Proses';
+                                                } else {
+                                                    echo 'Selesai';
+                                                }
+                                            @endphp
+                                        </strong>
+                                        <span
+                                            class="badge bg-{{ $jadwal->status ? 'success' : 'danger' }}">{{ $jadwal->status ? 'Aktif' : 'Tidak Aktif' }}</span>
+                                    </td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="#" data-url="{{ url('/ami/jadwalAmi/' . $jadwal->id) }}"
