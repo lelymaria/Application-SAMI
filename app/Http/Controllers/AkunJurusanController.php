@@ -40,7 +40,7 @@ class AkunJurusanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "email" => "required",
+            "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
             "unit_kerja" => "required",
@@ -99,7 +99,7 @@ class AkunJurusanController extends Controller
         $akunJurusan = AkunJurusan::find($id);
         $request->validate([
             "unit_kerja" => "required",
-            "email" => "required",
+            "email" => "required|email",
             "nip" => [
                 'required', Rule::unique('users')->ignore($akunJurusan->id_user), "numeric"
             ],

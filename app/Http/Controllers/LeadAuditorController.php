@@ -44,15 +44,19 @@ class LeadAuditorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "email" => "required",
+            "email" => "required|email",
             "nip" => "required|unique:users,nip",
             "nama" => "required",
             "unit_kerja" => "required",
             // "foto_profile" => "required",
         ]);
 
-        DB::transaction(function () use ($request) {
-            $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        if (!$jadwal_ami) {
+            return redirect('/manage_user/lead_auditor/')->with('error', 'jadwal ami tidak tersedia!');
+        }
+
+        DB::transaction(function () use ($request, $jadwal_ami) {
             $level = Level::where('name', 'Lead Auditor')->first();
             $user = User::create([
                 'nip' => $request->nip,
@@ -101,22 +105,26 @@ class LeadAuditorController extends Controller
         $akunAuditor = User::find($id);
         $request->validate([
             "unit_kerja" => "required",
-            "email" => "required",
+            "email" => "required|email",
             "nip" => [
-                'required', Rule::unique('users')->ignore($akunAuditor)
+                'required', Rule::unique('users')->ignore($akunAuditor), 'numeric'
             ],
             "nama" => "required",
             // "foto_profile" => "required",
             "new_password" => "nullable|confirmed"
         ]);
 
-        DB::transaction(function () use ($request, $akunAuditor) {
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        if (!$jadwal_ami) {
+            return redirect('/manage_user/lead_auditor/')->with('error', 'jadwal ami tidak tersedia!');
+        }
+
+        DB::transaction(function () use ($request, $akunAuditor, $jadwal_ami) {
             $akunAuditor->update([
                 'nip' => $request->nip,
                 'password' => Hash::make($request->new_password),
             ]);
             if (!$akunAuditor->akunAuditor) {
-                $jadwal_ami = JadwalAmi::where('status', 1)->first();
                 return $akunAuditor->akunAuditor()->create([
                     'email' => $request->email,
                     'nama' => $request->nama,
