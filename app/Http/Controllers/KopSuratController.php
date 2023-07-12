@@ -34,6 +34,10 @@ class KopSuratController extends Controller
     public function store(Request $request)
     {
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        if (!$jadwal_ami) {
+            return back()->with('error', 'jadwal ami tidak tersedia!');
+        }
+
         $request->validate([
             "nama_formulir" => "required",
             "no_dokumen" => "required",
