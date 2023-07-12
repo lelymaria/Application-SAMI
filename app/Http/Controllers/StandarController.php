@@ -36,6 +36,10 @@ class StandarController extends Controller
     public function store(Request $request)
     {
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        if (!$jadwal_ami) {
+            return redirect('/ami/standar')->with('error', 'jadwal ami tidak tersedia!');
+        }
+
         $request->validate([
             "nama_standar" => "required",
             "nama_formulir" => "required"
