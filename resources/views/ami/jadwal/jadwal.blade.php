@@ -3,8 +3,8 @@
 @endphp
 @push('header')
     <!--**********************************
-                                                                    Header start
-                                                                    ***********************************-->
+                                                                                Header start
+                                                                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -37,8 +37,8 @@
         @endif
     </div>
     <!--**********************************
-                                                                    Header end ti-comment-alt
-                                                                    ***********************************-->
+                                                                                Header end ti-comment-alt
+                                                                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -147,8 +147,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            @foreach ($jadwal_ami as $jadwal)
+                            @forelse ($jadwal_ami as $jadwal)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $jadwal->nama_jadwal }}</td>
@@ -190,7 +189,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
