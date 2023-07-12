@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                Header start
-                ***********************************-->
+                        Header start
+                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -32,10 +32,27 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
-                Header end ti-comment-alt
-                ***********************************-->
+                        Header end ti-comment-alt
+                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -88,7 +105,8 @@
                                                 <div class="col-lg-8">
                                                     <select class="default-select wide form-control" id="validationCustom05"
                                                         name="unit_kerja">
-                                                        <option data-display="Select">Please select</option>
+                                                        <option data-display="Select" disabled selected>Please select
+                                                        </option>
                                                         @foreach ($dataProdi as $dataProdi)
                                                             <option value="{{ $dataProdi->id }}">
                                                                 {{ $dataProdi->nama_prodi }}</option>

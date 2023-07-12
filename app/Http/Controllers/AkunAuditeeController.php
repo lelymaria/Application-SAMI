@@ -42,15 +42,19 @@ class AkunAuditeeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "email" => "required",
-            "nip" => "required|unique:users,nip",
+            "email" => "required|email",
+            "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
             "unit_kerja" => "required",
             // "foto_profile" => "required",
         ]);
 
-        DB::transaction(function () use ($request) {
-            $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        if (!$jadwal_ami) {
+            return redirect('/manage_user/akun_auditee/')->with('error', 'jadwal ami tidak tersedia!');
+        }
+
+        DB::transaction(function () use ($request, $jadwal_ami) {
             $level = Level::where('name', 'Auditee')->first();
             $user = User::create([
                 'nip' => $request->nip,
@@ -62,7 +66,7 @@ class AkunAuditeeController extends Controller
                 'nama' => $request->nama,
                 'foto_profile' => Hash::make('foto_profile'),
                 'id_unit_kerja' => $request->unit_kerja,
-                'id_jadwal' =>$jadwal_ami->id
+                'id_jadwal' => $jadwal_ami->id
             ]);
         });
         return redirect('/manage_user/akun_auditee/')->with('message', 'Data Berhasil Tersimpan!');
@@ -98,10 +102,10 @@ class AkunAuditeeController extends Controller
         $akunAuditee = AkunAuditee::find($id);
         $request->validate([
             "unit_kerja" => "required",
-            "email" => "required",
+            "email" => "required|email",
             "nip" => [
-            'required', Rule::unique('users')->ignore($akunAuditee->id_user)
-        ],
+                'required', Rule::unique('users')->ignore($akunAuditee->id_user), "numeric"
+            ],
             "nama" => "required",
             // "foto_profile" => "required",
             "new_password" => "nullable|confirmed"
