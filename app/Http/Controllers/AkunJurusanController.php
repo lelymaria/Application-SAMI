@@ -41,14 +41,18 @@ class AkunJurusanController extends Controller
     {
         $request->validate([
             "email" => "required",
-            "nip" => "required|unique:users,nip",
+            "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
             "unit_kerja" => "required",
             // "foto_profile" => "required",
         ]);
 
-        DB::transaction(function () use ($request) {
-            $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        if (!$jadwal_ami) {
+            return redirect('/manage_user/akun_jurusan')->with('error', 'jadwal ami tidak tersedia!');
+        }
+
+        DB::transaction(function () use ($request, $jadwal_ami) {
             $level = Level::where('name', 'Jurusan')->first();
             $user = User::create([
                 'nip' => $request->nip,
@@ -97,8 +101,8 @@ class AkunJurusanController extends Controller
             "unit_kerja" => "required",
             "email" => "required",
             "nip" => [
-            'required', Rule::unique('users')->ignore($akunJurusan->id_user)
-        ],
+                'required', Rule::unique('users')->ignore($akunJurusan->id_user), "numeric"
+            ],
             "nama" => "required",
             // "foto_profile" => "required",
             "new_password" => "nullable|confirmed"

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-    Header start
-    ***********************************-->
+        Header start
+        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -16,8 +16,8 @@
         </div>
     </div>
     <!--**********************************
-    Header end ti-comment-alt
-    ***********************************-->
+        Header end ti-comment-alt
+        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -32,14 +32,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-lg-12">
@@ -82,8 +82,9 @@
                                         <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
                                         </label>
                                         <div class="col-lg-6">
-                                            <select class="default-select wide form-control" id="validationCustom05" name="unit_kerja">
-                                                <option data-display="Select">Please select</option>
+                                            <select class="default-select wide form-control" id="validationCustom05"
+                                                name="unit_kerja">
+                                                <option data-display="Select" disabled>Please select</option>
                                                 @foreach ($dataJurusan as $dataJurusan)
                                                     <option value="{{ $dataJurusan->id }}"
                                                         {{ $dataJurusan->id == $update_akun_jurusan->id_jurusan ? 'selected' : '' }}>
