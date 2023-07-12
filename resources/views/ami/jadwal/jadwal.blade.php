@@ -3,8 +3,8 @@
 @endphp
 @push('header')
     <!--**********************************
-                                                                                Header start
-                                                                                ***********************************-->
+                                                                                                        Header start
+                                                                                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -37,8 +37,8 @@
         @endif
     </div>
     <!--**********************************
-                                                                                Header end ti-comment-alt
-                                                                                ***********************************-->
+                                                                                                        Header end ti-comment-alt
+                                                                                                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -147,9 +147,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($jadwal_ami as $jadwal)
+                            @forelse ($jadwal_ami as $index => $jadwal)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ ($jadwal_ami->currentPage() - 1) * $jadwal_ami->perPage() + $index + 1 }}</td>
                                     <td>{{ $jadwal->nama_jadwal }}</td>
                                     <td>{{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwal->jadwal_mulai)->isoFormat('DD/MM/Y') }}
                                         -
@@ -196,6 +196,8 @@
                             @endforelse
                         </tbody>
                     </table>
+
+                    {{ $jadwal_ami->links() }}
                 </div>
             </div>
         </div>
