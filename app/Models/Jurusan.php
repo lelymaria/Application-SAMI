@@ -17,4 +17,8 @@ class Jurusan extends Model
     public function akunJurusan() {
         return $this->hasOne(AkunJurusan::class, 'id_jurusan', 'id');
     }
+
+    public function prodi() {
+        return $this->hasMany(ProgramStudi::class, 'id_jurusan', 'id');
+    }
 }

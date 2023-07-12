@@ -3,8 +3,8 @@
 @endphp
 @push('header-dashboard')
     <!--**********************************
-                                Header start
-                                ***********************************-->
+                                            Header start
+                                            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -19,8 +19,8 @@
         </div>
     </div>
     <!--**********************************
-                                Header end ti-comment-alt
-                                ***********************************-->
+                                            Header end ti-comment-alt
+                                            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -119,12 +119,12 @@
                                     <div class="col-md-6">
                                         <ul class="card-list mt-4">
                                             <li><span
-                                                    class="bg-blue circle"></span>Aktivitas<span>{{ $jadwalAmi->nama_jadwal }}</span>
+                                                    class="bg-blue circle"></span>Aktivitas<span>{{ $jadwalAmi->nama_jadwal ?? '-' }}</span>
                                             </li>
                                             <li><span class="bg-success circle"></span>Pelaksanaan<span>
-                                                    {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwalAmi->jadwal_mulai)->isoFormat('DD/MM/Y') }}
+                                                    {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwalAmi->jadwal_mulai ?? now())->isoFormat('DD/MM/Y') }}
                                                     -
-                                                    {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwalAmi->jadwal_selesai)->isoFormat('DD/MM/Y') }}
+                                                    {{ Carbon::createFromFormat('Y-m-d H:i:s', $jadwalAmi->jadwal_selesai ?? now())->isoFormat('DD/MM/Y') }}
                                                 </span></li>
                                         </ul>
                                     </div>
@@ -141,7 +141,7 @@
 @push('js')
     <script>
         let timer = document.getElementById("timer");
-        var endDate = new Date("{{ $jadwalAmi->jadwal_selesai }}");
+        var endDate = new Date("{{ $jadwalAmi->jadwal_selesai ?? now() }}");
 
         function updateTimer() {
             // Tanggal awal dan akhir (contoh)

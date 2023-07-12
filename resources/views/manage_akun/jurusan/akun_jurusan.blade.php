@@ -157,8 +157,8 @@
                                     <td>{{ $akun_jurusan->nama }}</td>
                                     <td>{{ $akun_jurusan->user->nip }}</td>
                                     <td>{{ $akun_jurusan->email }}</td>
-                                    <td><strong>{{ $akun_jurusan->user->levelRole->name }}</strong></td>
-                                    <td>{{ $akun_jurusan->dataJurusan->nama_jurusan }}</td>
+                                    <td><strong>{{ $akun_jurusan->user->levelRole->name}}</strong></td>
+                                    <td>{{ $akun_jurusan->dataJurusan->nama_jurusan ?? '-'}}</td>
                                     <td>
                                         <div class="d-flex">
                                             <div class="d-flex">

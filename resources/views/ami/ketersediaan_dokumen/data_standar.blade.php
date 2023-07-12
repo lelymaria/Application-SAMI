@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                    Header start
-                    ***********************************-->
+                        Header start
+                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -16,8 +16,8 @@
         </div>
     </div>
     <!--**********************************
-                    Header end ti-comment-alt
-                    ***********************************-->
+                        Header end ti-comment-alt
+                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -48,8 +48,13 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $standar->nama_standar }}</td>
                                     <td>
-                                        <a href="{{ url('/ami/ketersediaan_dokumen/' . $standar->id) }}"
-                                            class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a>
+                                        <div class="d-flex">
+                                            <a href="{{  url('/ami/ketersediaan_dokumen_preview/'.$standar->id) }}" class="btn btn-secondary shadow btn-xs sharp me-1" target="_blank"><i
+                                                    class="fa fa-file-invoice"></i></a>
+                                            <a href="{{ url('/ami/ketersediaan_dokumen/' . $standar->id) }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                                    class="fa fa-plus"></i></a>
+                                        </div>
                 </div>
                 </td>
                 @endforeach

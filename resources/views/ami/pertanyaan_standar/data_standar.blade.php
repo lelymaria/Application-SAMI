@@ -49,8 +49,6 @@
                                     <td>{{ $standar->nama_standar }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="#" class="btn btn-secondary shadow btn-xs sharp me-1"><i
-                                                    class="fa fa-file-invoice"></i></a>
                                             <a href="{{ url('/ami/data_standar/pertanyaan/' . $standar->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                     class="fa fa-plus"></i></a>

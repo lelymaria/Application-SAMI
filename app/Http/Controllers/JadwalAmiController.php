@@ -96,6 +96,26 @@ class JadwalAmiController extends Controller
         $jadwalAmi = JadwalAmi::where('id', $jadwalAmi)->first();
         DB::transaction(function () use ($jadwalAmi) {
             $jadwalAmi->delete();
+            $jadwalAmi->kepalaP4mp()->delete();
+            $jadwalAmi->akunAuditee()->delete();
+            $jadwalAmi->akunJurusan()->delete();
+            $jadwalAmi->pedoman()->delete();
+            $jadwalAmi->standar()->delete();
+            $jadwalAmi->pertanyaanStandar()->delete();
+            $jadwalAmi->tugasStandar()->delete();
+            $jadwalAmi->undanganAmi()->delete();
+            $jadwalAmi->daftarHadirAmi()->delete();
+            $jadwalAmi->fotoKegiatanAmi()->delete();
+            $jadwalAmi->notulensiAmi()->delete();
+            $jadwalAmi->kopSurat()->delete();
+            $jadwalAmi->dataDukungAuditee()->delete();
+            $jadwalAmi->ketersediaanDokumen()->delete();
+            $jadwalAmi->checklistAudit()->delete();
+            $jadwalAmi->tanggapanChecklist()->delete();
+            $jadwalAmi->verifikasiKp4mp()->delete();
+            $jadwalAmi->analisaTindakanAmi()->delete();
+            $jadwalAmi->uraianTemuanAmi()->delete();
+            $jadwalAmi->laporanAmi()->delete();
         });
         return redirect('/ami/jadwalAmi')->with('message', 'Data Berhasil Terhapus!');
     }

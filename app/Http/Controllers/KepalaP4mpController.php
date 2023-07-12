@@ -123,6 +123,7 @@ class KepalaP4mpController extends Controller
     {
         $kepalaP4mp = KepalaP4mp::findOrFail($id);
         $kepalaP4mp->delete();
+        $kepalaP4mp->user()->delete();
         return redirect('/manage_user/kepalaP4mp/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

@@ -116,6 +116,7 @@ class AkunOperatorController extends Controller
     {
         $akunOperator = AkunOperator::findOrFail($id);
         $akunOperator->delete();
+        $akunOperator->user()->delete();
         return redirect('/manage_user/akun_operator/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

@@ -126,6 +126,7 @@ class AkunJurusanController extends Controller
     {
         $akunJurusan = AkunJurusan::findOrFail($id);
         $akunJurusan->delete();
+        $akunJurusan->user()->delete();
         return redirect('/manage_user/akun_jurusan')->with('message', 'Data Berhasil Terhapus!');
     }
 }

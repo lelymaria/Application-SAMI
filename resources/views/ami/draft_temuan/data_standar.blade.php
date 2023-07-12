@@ -66,6 +66,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $standar->nama_standar }}</td>
                                     <td>
+                                        <a href="{{ url('/ami/draft_temuan_ami/{id}') }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                            class="fa fa-file-invoice"></i></a>
                                         @can('ketuaP4mp')
                                             @if ($standar->verifikasiKp4mp)
                                                 <a href="{{ url('/ami/verifikasi_ami/update/' . $standar->verifikasiKp4mp?->id) }}"

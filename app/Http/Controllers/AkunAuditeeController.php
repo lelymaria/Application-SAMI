@@ -129,6 +129,7 @@ class AkunAuditeeController extends Controller
     {
         $akunAuditee = AkunAuditee::findOrFail($id);
         $akunAuditee->delete();
+        $akunAuditee->user()->delete();
         return redirect('/manage_user/akun_auditee/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

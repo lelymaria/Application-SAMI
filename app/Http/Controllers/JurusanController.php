@@ -84,6 +84,8 @@ class JurusanController extends Controller
     {
         $jurusan = Jurusan::findOrFail($idJurusan);
         $jurusan->delete();
+        $jurusan->prodi()->delete();
+        $jurusan->akunJurusan()->delete();
         return redirect('/data/datajurusan')->with('message', 'Data Berhasil Terhapus!');
     }
 }
