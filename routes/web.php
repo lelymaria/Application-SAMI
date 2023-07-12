@@ -182,6 +182,7 @@ Route::prefix('/dokumentasiAmi')->group(function () {
     Route::post('/{id}/foto_kegiatan_ami', [FotoKegiatanAmiController::class, "store"]);
     Route::get('/foto_kegiatan_ami/{id}', [FotoKegiatanAmiController::class, "edit"]);
     Route::post('/foto_kegiatan_ami/{id}', [FotoKegiatanAmiController::class, "update"]);
+    Route::get('/download_foto_kegiatan_ami/{id}', [FotoKegiatanAmiController::class, "downloadFoto"]);
     Route::delete('/foto_kegiatan_ami/{id}', [FotoKegiatanAmiController::class, "destroy"]);
     // NotulensiAmi
     Route::get('/{id}/notulensi_ami', [NotulensiAmiController::class, "index"]);
@@ -209,6 +210,7 @@ Route::prefix('/dokumentasiRtm')->group(function () {
     Route::post('/{id}/foto_kegiatan_rtm', [FotoKegiatanRtmController::class, "store"]);
     Route::get('/foto_kegiatan_rtm/{id}', [FotoKegiatanRtmController::class, "edit"]);
     Route::post('/foto_kegiatan_rtm/{id}', [FotoKegiatanRtmController::class, "update"]);
+    Route::get('/download_foto_kegiatan_rtm/{id}', [FotoKegiatanRtmController::class, "downloadFoto"]);
     Route::delete('/foto_kegiatan_rtm/{id}', [FotoKegiatanRtmController::class, "destroy"]);
     // NotulensiRtm
     Route::get('/{id}/notulensi_rtm', [NotulensiRtmController::class, "index"]);
@@ -270,6 +272,10 @@ Route::get('/ami/laporan_ami', [LaporanAmiController::class, "index"]);
 Route::post('/ami/laporan_ami', [LaporanAmiController::class, "store"]);
 Route::get('/ami/laporan_ami/{id}', [LaporanAmiController::class, "edit"]);
 Route::post('/ami/laporan_ami/{id}', [LaporanAmiController::class, "update"]);
+
+Route::get('/ami/ketersediaan_dokumen_preview/{id}', [StandarController::class, "ketersediaanDokumen"]);
+Route::get('/ami/checklist_audit_preview/{id}', [StandarController::class, "checklistAudit"]);
+Route::get('/ami/draft_temuan_ami_preview/{id}', [StandarController::class, "draftTemuanAmi"]);
 
 /* ============================================================= */
 

@@ -166,6 +166,9 @@
                                                                 {{ $kegiatan->created_at->format('l, d F Y') }}</span>
                                                         </div>
                                                         <div class="d-flex justify-content-end">
+                                                            <a href="{{ url('/dokumentasiRtm/download_foto_kegiatan_rtm/'.$kegiatan->id) }}"
+                                                                class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                                                    class="las la-download"></i></a>
                                                             <a href="#"
                                                                 data-url="{{ url('/dokumentasiRtm/foto_kegiatan_rtm/' . $kegiatan->id) }}"
                                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"

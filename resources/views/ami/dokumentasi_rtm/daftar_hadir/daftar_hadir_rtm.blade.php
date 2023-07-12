@@ -148,6 +148,9 @@
                                                                 <td>{{ $kehadiran->file_nama }}</td>
                                                                 <td>
                                                                     <div class="d-flex">
+                                                                        <a href="{{ asset('storage/' . $kehadiran->file_daftar_hadir_rtm) }}" target="_blank"
+                                                                            class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                                                                class="fa fa-file-invoice"></i></a>
                                                                         <a href="#"
                                                                             data-url="{{ url('/dokumentasiRtm/daftar_hadir_rtm/' . $kehadiran->id) }}"
                                                                             class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"

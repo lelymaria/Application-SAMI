@@ -148,6 +148,9 @@
                                                                 <td>{{ $notulensi->file_nama }}</td>
                                                                 <td>
                                                                     <div class="d-flex">
+                                                                        <a href="{{ asset('storage/' . $notulensi->file_notulensi_ami) }}" target="_blank"
+                                                                            class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                                                                class="fa fa-file-invoice"></i></a>
                                                                         <a href="#"
                                                                             data-url="{{ url('/dokumentasiAmi/notulensi_ami/' . $notulensi->id) }}"
                                                                             class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"

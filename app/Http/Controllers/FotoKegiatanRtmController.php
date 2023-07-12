@@ -7,6 +7,8 @@ use App\Models\JadwalAmi;
 use App\Models\UndanganRtm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use ZipArchive;
 
 class FotoKegiatanRtmController extends Controller
 {
@@ -117,5 +119,25 @@ class FotoKegiatanRtmController extends Controller
         $fotoKegiatanRtm = FotoKegiatanRtm::findOrFail($id);
         $fotoKegiatanRtm->delete();
         return back()->with('message', 'Data Berhasil Terhapus!');
+    }
+
+    public function downloadFoto($id)
+    {
+        $zipArchive = new ZipArchive();
+
+        $fotoKegiatanRtm = FotoKegiatanRtm::findOrFail($id);
+        $fotoKegiatanRtm = json_decode($fotoKegiatanRtm->file_foto_kegiatan_rtm);
+
+        if ($zipArchive->open(public_path("Foto Kegiatan RTM.zip"), ZipArchive::CREATE) === TRUE) {
+            foreach ($fotoKegiatanRtm as $fotoKegiatan) {
+                $path = public_path('storage/' . $fotoKegiatan);
+                $relativeName = basename($path);
+                $zipArchive->addFile($path, $relativeName);
+            }
+
+            $zipArchive->close();
+        }
+
+        return Response::download(public_path('Foto Kegiatan RTM.zip'));
     }
 }

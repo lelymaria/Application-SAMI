@@ -7,6 +7,8 @@ use App\Models\JadwalAmi;
 use App\Models\UndanganAmi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use ZipArchive;
 
 class FotoKegiatanAmiController extends Controller
 {
@@ -117,5 +119,25 @@ class FotoKegiatanAmiController extends Controller
         $fotoKegiatanAmi = FotoKegiatanAmi::findOrFail($id);
         $fotoKegiatanAmi->delete();
         return back()->with('message', 'Data Berhasil Terhapus!');
+    }
+
+    public function downloadFoto($id)
+    {
+        $zipArchive = new ZipArchive();
+
+        $fotoKegiatanAmi = FotoKegiatanAmi::findOrFail($id);
+        $fotoKegiatanAmi = json_decode($fotoKegiatanAmi->file_foto_kegiatan_ami);
+
+        if ($zipArchive->open(public_path("Foto Kegiatan AMI.zip"), ZipArchive::CREATE) === TRUE) {
+            foreach ($fotoKegiatanAmi as $fotoKegiatan) {
+                $path = public_path('storage/' . $fotoKegiatan);
+                $relativeName = basename($path);
+                $zipArchive->addFile($path, $relativeName);
+            }
+
+            $zipArchive->close();
+        }
+
+        return Response::download(public_path('Foto Kegiatan AMI.zip'));
     }
 }

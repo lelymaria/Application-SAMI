@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                        Header start
-                        ***********************************-->
+                                Header start
+                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                        Header end ti-comment-alt
-                        ***********************************-->
+                                Header end ti-comment-alt
+                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -72,7 +72,9 @@
                                     href="{{ url('/dokumentasiAmi/' . $undanganAmi->id . '/foto_kegiatan_ami') }}"
                                     class="nav-link active show">Foto Kegiatan</a>
                             </li>
-                            <li class="nav-item"><a href="{{ url('/dokumentasiAmi/' . $undanganAmi->id . '/notulensi_ami') }}" class="nav-link">Notulensi</a>
+                            <li class="nav-item"><a
+                                    href="{{ url('/dokumentasiAmi/' . $undanganAmi->id . '/notulensi_ami') }}"
+                                    class="nav-link">Notulensi</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -166,6 +168,9 @@
                                                                 {{ $kegiatan->created_at->format('l, d F Y') }}</span>
                                                         </div>
                                                         <div class="d-flex justify-content-end">
+                                                            <a href="{{ url('/dokumentasiAmi/download_foto_kegiatan_ami/'.$kegiatan->id) }}"
+                                                                class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                                                    class="las la-download"></i></a>
                                                             <a href="#"
                                                                 data-url="{{ url('/dokumentasiAmi/foto_kegiatan_ami/' . $kegiatan->id) }}"
                                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
@@ -205,7 +210,8 @@
                 </div>
                 <div class="modal-body" id="editModalBody">
                     <div class="form-validate">
-                        <form class="needs-validation" novalidate="" action="{{ url('/dokumentasiAmi/foto_kegiatan_ami/'.$undanganAmi->id) }}" method="post"
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/dokumentasiAmi/foto_kegiatan_ami/' . $undanganAmi->id) }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row" id="formBodyEdit">

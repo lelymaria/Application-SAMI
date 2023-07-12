@@ -118,6 +118,9 @@
                                     <td>{{ $data->nama_file }}</td>
                                     <td>
                                         <div class="d-flex">
+                                            <a href="{{ url('ami/download_foto_kegiatan_ami/') }}" target="_blank"
+                                                class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                                    class="las la-download"></i></a>
                                             <a href="#" data-url="{{ url('/ami/auditee/data_dukung/' . $data->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateDataDukung"><i
