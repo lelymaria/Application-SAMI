@@ -17,6 +17,7 @@
 
     <!-- Style css -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 
 </head>
 
@@ -122,6 +123,42 @@
     <script src="{{ asset('js/custom.min.js') }}"></script>
     <script src="{{ asset('js/dlabnav-init.js') }}"></script>
     <script src="{{ asset('js/demo.js') }}"></script>
+    <script src="{{ asset('vendor/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <script>
+        $(function() {
+            $("body").on("click", ".btn-delete", function() {
+                swal({
+                    text: "Apakah anda yakin data ini dihapus ?",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Hapus",
+                    cancelButtonText: "Batal",
+                    closeOnConfirm: !1
+                }).then((response) => {
+                    if (response.value) {
+                        $.ajax({
+                            url: $(this).data("url"),
+                            type: "post",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                _method: "delete"
+                            },
+                            success: function(response) {
+                                swal({
+                                    title: "Selamat",
+                                    text: "Data berhasil dihapus !",
+                                    type: "success"
+                                }).then((result) => {
+                                    window.location.reload()
+                                });
+                            },
+                        })
+                    }
+                });
+            })
+        })
+    </script>
     @stack('js')
 </body>
 

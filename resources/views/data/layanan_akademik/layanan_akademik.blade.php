@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                        Header start
-                        ***********************************-->
+                                        Header start
+                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                        Header end ti-comment-alt
-                        ***********************************-->
+                                        Header end ti-comment-alt
+                                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,14 +49,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-12">
         <div class="card">
@@ -77,12 +77,13 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-validate">
-                                    <form class="needs-validation" novalidate="" action="{{ url('/data/layanan_akademik') }}"
-                                        method="post">
+                                    <form class="needs-validation" novalidate=""
+                                        action="{{ url('/data/layanan_akademik') }}" method="post">
                                         @csrf
                                         <div class="row">
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Layanan Akademik
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Layanan
+                                                    Akademik
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
@@ -123,12 +124,9 @@
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateLayanan"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/data/layanan_akademik/' . $lynan->id) }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </form>
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                data-url="{{ url('/data/layanan_akademik/' . $lynan->id) }}"><i
+                                                    class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
