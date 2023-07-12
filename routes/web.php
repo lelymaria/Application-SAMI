@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [AuthenticationController::class, 'index']);
+Route::get('/', [AuthenticationController::class, 'index'])->name('login');
 Route::post('/login', [AuthenticationController::class, 'login']);
 
 Route::middleware('auth')->group(function () {
