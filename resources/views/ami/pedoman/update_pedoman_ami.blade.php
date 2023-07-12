@@ -11,5 +11,6 @@
     </div>
     <span class="input-group-text">Upload</span>
 </div>
-<p>Dokumen sebelumnya <a href="{{ asset('storage/' . $update_pedoman->file_pedoman_ami) }}" target="_blank">liat
+<p>Dokumen sebelumnya <a href="{{ asset('storage/' . $update_pedoman->file_pedoman_ami) }}" target="_blank"
+        class="text-primary">liat
         disini</a></p>

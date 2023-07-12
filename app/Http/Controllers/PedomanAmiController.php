@@ -35,11 +35,15 @@ class PedomanAmiController extends Controller
      */
     public function store(Request $request)
     {
-        $jadwal_ami = JadwalAmi::where('status', 1)->first();
         $request->validate([
             "deskripsi" => "required",
-            "file_pedoman" => "required|mimes:doc,docx,pdf",
+            "file_pedoman" => "required|mimes:doc,docx,pdf|file",
         ]);
+
+        $jadwal_ami = JadwalAmi::where('status', 1)->first();
+        if (!$jadwal_ami) {
+            return redirect('/ami/pedomanAmi/')->with('error', 'jadwal ami tidak tersedia!');
+        }
 
         $request->merge([
             "file_pedoman_ami" => $request->file('file_pedoman')->store('file_pedoman'),
@@ -79,7 +83,7 @@ class PedomanAmiController extends Controller
         $pedomanAmi = PedomanAmi::findOrFail($idPedomanAmi);
         $request->validate([
             "deskripsi" => "required",
-            "file_pedoman" => "required|mimes:doc,docx,pdf"
+            "file_pedoman" => "required|mimes:doc,docx,pdf|file"
         ]);
 
         $request->merge([
