@@ -83,12 +83,15 @@ class PedomanAmiController extends Controller
         $pedomanAmi = PedomanAmi::findOrFail($idPedomanAmi);
         $request->validate([
             "deskripsi" => "required",
-            "file_pedoman" => "required|mimes:doc,docx,pdf|file"
+            "file_pedoman" => "mimes:doc,docx,pdf|file"
         ]);
 
-        $request->merge([
-            "file_pedoman_ami" => $request->file('file_pedoman')->store('file_pedoman'),
-        ]);
+        if ($request->hasFile('file_pedoman')) {
+            $request->merge([
+                "file_pedoman_ami" => $request->file('file_pedoman')->store('file_pedoman'),
+            ]);
+        }
+
         DB::transaction(function () use ($request, $pedomanAmi) {
             $pedomanAmi->update($request->all());
         });
