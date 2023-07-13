@@ -76,9 +76,6 @@
                                     <i class="fa fa-eye"></i>
                                 </span>
                             </div>
-                            @error('current_password')
-                                <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
-                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="text-label form-label" for="password">New Password <span class="text-danger">*</span></label>
@@ -90,9 +87,6 @@
                                     <i class="fa fa-eye"></i>
                                 </span>
                             </div>
-                            @error('password')
-                                <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
-                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="text-label form-label" for="password_confirmation">Confirm Password <span class="text-danger">*</span></label>
@@ -105,9 +99,6 @@
                                     <i class="fa fa-eye"></i>
                                 </span>
                             </div>
-                            @error('password_confirmation')
-                                <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
-                            @enderror
                         </div>
                         <div class="mb-3 row">
                             <div class="col-lg-3 ms-auto">
