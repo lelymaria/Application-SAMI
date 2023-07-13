@@ -123,7 +123,7 @@ class AkunAuditeeController extends Controller
                 'password' => Hash::make($request->new_password),
             ]);
         });
-        return redirect('/manage_user/akun_auditee/')->with('message', 'Data Berhasil Tersimpan!');
+        return back()->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**

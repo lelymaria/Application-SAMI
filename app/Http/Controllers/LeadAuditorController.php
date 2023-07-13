@@ -140,7 +140,7 @@ class LeadAuditorController extends Controller
                 'id_unit_kerja' => $request->unit_kerja,
             ]);
         });
-        return redirect('/manage_user/lead_auditor/')->with('message', 'Data Berhasil Tersimpan!');
+        return back()->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**

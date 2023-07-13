@@ -126,7 +126,7 @@ class AnggotaAuditorController extends Controller
                 'id_unit_kerja' => $request->unit_kerja,
             ]);
         });
-        return redirect('/manage_user/anggota_auditor/')->with('message', 'Data Berhasil Tersimpan!');
+        return back()->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**

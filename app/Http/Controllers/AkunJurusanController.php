@@ -120,7 +120,7 @@ class AkunJurusanController extends Controller
                 'password' => Hash::make($request->new_password),
             ]);
         });
-        return redirect('/manage_user/akun_jurusan')->with('message', 'Data Berhasil Tersimpan!');
+        return back()->with('message', 'Data Berhasil Tersimpan!');
     }
 
     /**
