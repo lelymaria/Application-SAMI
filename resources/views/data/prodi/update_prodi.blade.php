@@ -14,7 +14,7 @@
     <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Prodi
     </label>
     <div class="col-lg-8">
-        <input type="text" class="form-control" id="validationCustom07" name="nama_prodi" required
+        <input type="text" class="form-control" id="validationCustom07" name="nama_prodi" placeholder="Masukan Nama Prodi..." required
             value="{{ $update_prodi->nama_prodi }}">
     </div>
 </div>

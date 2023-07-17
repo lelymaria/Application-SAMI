@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                Header start
-                ***********************************-->
+                            Header start
+                            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -32,10 +32,27 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
-                Header end ti-comment-alt
-                ***********************************-->
+                            Header end ti-comment-alt
+                            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,14 +66,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-12">
         <div class="card">
@@ -75,11 +92,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-validate">
-                                    <form class="needs-validation" novalidate="" action="{{ url('/data/datajurusan') }}"
-                                        method="post">
-                                        @csrf
+                            <form class="needs-validation" novalidate="" action="{{ url('/data/datajurusan') }}"
+                                method="post">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-validate">
                                         <div class="row">
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Jurusan
@@ -87,16 +104,18 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="nama_jurusan" required>
+                                                        name="nama_jurusan" placeholder="Masukan Nama Jurusan..." required>
                                                 </div>
                                             </div>
+                                            <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                         </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger light"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -113,33 +132,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($jurusan as $index => $j)
+                            @forelse ($jurusan as $index => $jrusan)
                                 <tr>
-                                    <td>{{ $jurusan->firstItem() + $index }}</td>
-                                    <td>{{ $j->nama_jurusan }}</td>
+                                    <td>{{ ($jurusan->currentPage() - 1) * $jurusan->perPage() + $index + 1 }}</td>
+                                    <td>{{ $jrusan->nama_jurusan }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="#" data-url="{{ url('/data/datajurusan/' . $j->id) }}"
+                                            <a href="#" data-url="{{ url('/data/datajurusan/' . $jrusan->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateJurusan"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/data/datajurusan/' . $j->id) }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </form>
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                data-url="{{ url('/data/datajurusan/' . $jrusan->id) }}"><i
+                                                    class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="d-flex justify-content-end">
-                    {{ $jurusan->links('pagination::bootstrap-4') }}
+                    {{ $jurusan->links() }}
                 </div>
             </div>
         </div>

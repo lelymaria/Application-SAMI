@@ -3,6 +3,6 @@
     </label>
     <div class="col-lg-8">
         <input type="text" class="form-control" id="validationCustom07"
-            name="nama_jurusan" required value="{{ $update_jurusan->nama_jurusan }}">
+            name="nama_jurusan" placeholder="Masukan Nama Jurusan..." required value="{{ $update_jurusan->nama_jurusan }}">
     </div>
 </div>

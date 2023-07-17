@@ -13,8 +13,10 @@ class LayananAkademikController extends Controller
      */
     public function index()
     {
-        $layanan = LayananAkademik::paginate(10);
-        return view('data.layanan_akademik.layanan_akademik', compact('layanan'));
+        $data = [
+            'layanan' => LayananAkademik::latest()->paginate(10)
+        ];
+        return view('data.layanan_akademik.layanan_akademik', $data);
     }
 
     /**

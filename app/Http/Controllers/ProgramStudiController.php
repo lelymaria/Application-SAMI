@@ -16,7 +16,7 @@ class ProgramStudiController extends Controller
     public function index()
     {
         $data = [
-            'prodi' => ProgramStudi::all(),
+            'prodi' => ProgramStudi::latest()->paginate(10),
             'jurusan' => Jurusan::all()
         ];
         return view('data.prodi.view_prodi', $data);
