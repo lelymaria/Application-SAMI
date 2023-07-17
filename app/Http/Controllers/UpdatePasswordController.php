@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -24,7 +25,11 @@ class UpdatePasswordController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'current_password' => 'required',
+            'current_password' => ['required', function ($attribute, $value, $fail) {
+                if (!Hash::check($value, Auth::user()->password)) {
+                    $fail(__('Password saat ini salah.'));
+                }
+            }],
             'password' => 'required|min:8|confirmed',
         ]);
 
