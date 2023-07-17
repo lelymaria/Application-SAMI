@@ -14,7 +14,7 @@ class JadwalAmiController extends Controller
     public function index()
     {
         $data = [
-            'jadwal_ami' => JadwalAmi::latest()->paginate(1)
+            'jadwal_ami' => JadwalAmi::latest()->paginate(10)
         ];
         return view('ami.jadwal.jadwal', $data);
     }
