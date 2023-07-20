@@ -15,7 +15,7 @@ class NotulensiRtmController extends Controller
      */
     public function index($id)
     {
-        $notulensiRtm = NotulensiRtm::where('id_undangan', $id)->get();
+        $notulensiRtm = NotulensiRtm::where('id_undangan', $id)->latest()->paginate(10);
         $data = [
             'undanganRtm' => UndanganRtm::findOrFail($id),
             'notulensiRtm' => $notulensiRtm
@@ -37,13 +37,17 @@ class NotulensiRtmController extends Controller
     public function store(Request $request, $id)
     {
         $request->validate([
-            "file_notulensi_rtm" => 'required|mimes:doc,docx,pdf'
+            "file_notulensi_rtm" => 'required|mimes:doc,docx,pdf|file|max:3072'
         ]);
 
         $undanganRtm = UndanganRtm::findOrFail($id);
 
         DB::transaction(function () use ($request, $undanganRtm) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
+
             $fileNotulensiRtm = $request->file('file_notulensi_rtm');
             $extensionOriginal = $fileNotulensiRtm->getClientOriginalExtension();
             NotulensiRtm::create([
@@ -88,7 +92,7 @@ class NotulensiRtmController extends Controller
     {
         $notulensi_rtm = NotulensiRtm::findOrFail($id);
         $request->validate([
-            "file_notulensi_rtm" => "required|mimes:doc,docx,pdf",
+            "file_notulensi_rtm" => "required|mimes:doc,docx,pdf|file|max:3072",
         ]);
 
         DB::transaction(function () use ($request, $notulensi_rtm) {

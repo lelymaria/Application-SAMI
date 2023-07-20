@@ -15,7 +15,7 @@ class DaftarHadirRtmController extends Controller
      */
     public function index($id)
     {
-        $daftar_hadir_rtm = DaftarHadirRtm::where('id_undangan', $id)->get();
+        $daftar_hadir_rtm = DaftarHadirRtm::where('id_undangan', $id)->latest()->paginate(10);
         $data = [
             'undanganRtm' => UndanganRtm::findOrFail($id),
             'daftar_hadir_rtm' => $daftar_hadir_rtm
@@ -37,13 +37,17 @@ class DaftarHadirRtmController extends Controller
     public function store(Request $request, $id)
     {
         $request->validate([
-            "file_daftar_hadir_rtm" => 'required|mimes:doc,docx,pdf'
+            "file_daftar_hadir_rtm" => 'required|mimes:doc,docx,pdf|file|max:3072'
         ]);
 
         $undanganRtm = UndanganRtm::findOrFail($id);
 
         DB::transaction(function () use ($request, $undanganRtm) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
+
             $fileDaftarHadirRtm = $request->file('file_daftar_hadir_rtm');
             $extensionOriginal = $fileDaftarHadirRtm->getClientOriginalExtension();
             DaftarHadirRtm::create([
@@ -88,7 +92,7 @@ class DaftarHadirRtmController extends Controller
     {
         $daftar_hadir_rtm = DaftarHadirRtm::findOrFail($id);
         $request->validate([
-            "file_daftar_hadir_rtm" => "required|mimes:doc,docx,pdf",
+            "file_daftar_hadir_rtm" => "required|mimes:doc,docx,pdf|file|max:3072",
         ]);
 
         DB::transaction(function () use ($request, $daftar_hadir_rtm) {

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                                Header start
-                                ***********************************-->
+                                    Header start
+                                    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -32,10 +32,27 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
-                                Header end ti-comment-alt
-                                ***********************************-->
+                                    Header end ti-comment-alt
+                                    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,14 +66,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-12">
         <div class="card">
@@ -97,6 +114,7 @@
                                                 </div>
                                                 <span class="input-group-text">Upload</span>
                                             </div>
+                                            <small class="text-danger">Maksimal size file: 3MB</small>
                                         </div>
                                 </div>
                             </div>
@@ -120,9 +138,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($undanganRtm as $undangan)
+                            @forelse ($undanganRtm as $index => $undangan)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ ($undanganRtm->currentPage() - 1) * $undanganRtm->perPage() + $index + 1 }}</td>
                                     <td>{{ $undangan->file_nama }}</td>
                                     <td>
                                         <div class="d-flex">
@@ -137,67 +155,69 @@
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateUndangan"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/dokumentasiRtm/undangan/' . $undangan->id) }}"
-                                                method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </form>
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                data-url="{{ url('/dokumentasiRtm/undangan/' . $undangan->id) }}"><i
+                                                    class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- update --}}
-    <div class="modal fade" id="updateUndangan">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Update Undangan RTM</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal">
-                    </button>
-                </div>
-                <div class="modal-body" id="editModalBody">
-                    <div class="form-validate">
-                        <form class="needs-validation" novalidate="" action="{{ url('/dokumentasiRtm/undangan/') }}"
-                            method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row" id="formBodyEdit">
-
-                            </div>
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        {{ $undanganRtm->links() }}
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-                </form>
             </div>
         </div>
-    </div>
-@endsection
 
-@push('js')
-    <script>
-        $('body').on('click', '.btn-edit', function() {
-            let url = $(this).data('url');
-            console.log(url);
-            $('#editModalBody form').attr('action', url)
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(data) {
-                    console.log(data);
-                    $('#editModalBody .row').html(data);
-                }
+        {{-- update --}}
+        <div class="modal fade" id="updateUndangan">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Undangan RTM</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        </button>
+                    </div>
+                    <div class="modal-body" id="editModalBody">
+                        <div class="form-validate">
+                            <form class="needs-validation" novalidate="" action="{{ url('/dokumentasiRtm/undangan/') }}"
+                                method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row" id="formBodyEdit">
+
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endsection
+
+    @push('js')
+        <script>
+            $('body').on('click', '.btn-edit', function() {
+                let url = $(this).data('url');
+                console.log(url);
+                $('#editModalBody form').attr('action', url)
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(data) {
+                        console.log(data);
+                        $('#editModalBody .row').html(data);
+                    }
+                })
             })
-        })
-    </script>
-@endpush
+        </script>
+    @endpush

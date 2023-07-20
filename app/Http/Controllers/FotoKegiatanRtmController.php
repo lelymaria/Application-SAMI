@@ -40,7 +40,7 @@ class FotoKegiatanRtmController extends Controller
     {
         $request->validate([
             "caption_foto_kegiatan_rtm" => 'required',
-            "foto_kegiatan_rtm.*" => 'required|image',
+            "foto_kegiatan_rtm.*" => 'required|image|max:3072',
         ]);
 
         $undanganRtm = UndanganRtm::findOrFail($id);
@@ -48,6 +48,9 @@ class FotoKegiatanRtmController extends Controller
 
         DB::transaction(function () use ($request, $undanganRtm, &$foto_kegiatan) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
             foreach ($request->file('foto_kegiatan_rtm') as $value) {
                 $filename = str_replace("\\", "/", $value->store('foto_kegiatan_rtm'));
                 $foto_kegiatan[] = $filename;
@@ -91,7 +94,7 @@ class FotoKegiatanRtmController extends Controller
     {
         $request->validate([
             "caption_foto_kegiatan_rtm" => 'required',
-            "foto_kegiatan_rtm" => 'required',
+            "foto_kegiatan_rtm" => 'required|image|max:3072',
         ]);
 
         $fotoKegiatanRtm = FotoKegiatanRtm::findOrFail($id);

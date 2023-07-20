@@ -12,3 +12,4 @@
     </div>
     <span class="input-group-text">Upload</span>
 </div>
+<small class="text-danger">Maksimal size file: 3MB</small>

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                        Header start
-                        ***********************************-->
+                            Header start
+                            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -32,10 +32,27 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
-                        Header end ti-comment-alt
-                        ***********************************-->
+                            Header end ti-comment-alt
+                            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -72,7 +89,9 @@
                                     href="{{ url('/dokumentasiRtm/' . $undanganRtm->id . '/foto_kegiatan_rtm') }}"
                                     class="nav-link active show">Foto Kegiatan</a>
                             </li>
-                            <li class="nav-item"><a href="{{ url('/dokumentasiRtm/' . $undanganRtm->id . '/notulensi_rtm') }}" class="nav-link">Notulensi</a>
+                            <li class="nav-item"><a
+                                    href="{{ url('/dokumentasiRtm/' . $undanganRtm->id . '/notulensi_rtm') }}"
+                                    class="nav-link">Notulensi</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -102,6 +121,7 @@
                                                                     name="foto_kegiatan_rtm[]" multiple>
                                                             </div>
                                                         </div>
+                                                        <small class="text-danger">Maksimal size file: 3MB</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -166,7 +186,7 @@
                                                                 {{ $kegiatan->created_at->format('l, d F Y') }}</span>
                                                         </div>
                                                         <div class="d-flex justify-content-end">
-                                                            <a href="{{ url('/dokumentasiRtm/download_foto_kegiatan_rtm/'.$kegiatan->id) }}"
+                                                            <a href="{{ url('/dokumentasiRtm/download_foto_kegiatan_rtm/' . $kegiatan->id) }}"
                                                                 class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                                     class="las la-download"></i></a>
                                                             <a href="#"
@@ -174,14 +194,9 @@
                                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                                 data-bs-toggle="modal" data-bs-target="#updateFotoRtm"><i
                                                                     class="fas fa-pencil-alt"></i></a>
-                                                            <form
-                                                                action="{{ url('/dokumentasiRtm/foto_kegiatan_rtm/' . $kegiatan->id) }}"
-                                                                method="post">
-                                                                @method('delete')
-                                                                @csrf
-                                                                <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                                        class="fa fa-trash"></i></button>
-                                                            </form>
+                                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                                data-url="{{ url('/dokumentasiRtm/foto_kegiatan_rtm/' . $kegiatan->id) }}"><i
+                                                                    class="fa fa-trash"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -208,7 +223,8 @@
                 </div>
                 <div class="modal-body" id="editModalBody">
                     <div class="form-validate">
-                        <form class="needs-validation" novalidate="" action="{{ url('/dokumentasiRtm/foto_kegiatan_rtm/'.$undanganRtm->id) }}" method="post"
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/dokumentasiRtm/foto_kegiatan_rtm/' . $undanganRtm->id) }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row" id="formBodyEdit">
