@@ -98,6 +98,9 @@
                                         method="post">
                                         @csrf
                                         <div class="row">
+                                            <div class="mb-4">
+                                                <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                            </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom07">Nama
                                                     Formulir
@@ -105,7 +108,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="nama_formulir" required>
+                                                        name="nama_formulir" placeholder="Masukan Nama Formulir...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -114,7 +117,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="no_dokumen" required>
+                                                        name="no_dokumen" placeholder="Masukan No. Dokumen...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -123,7 +126,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="no_revisi" required>
+                                                        name="no_revisi" placeholder="Masukan No. Revisi...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -133,7 +136,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="validationCustom07"
-                                                        name="tanggal_berlaku" required>
+                                                        name="tanggal_berlaku">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -142,9 +145,10 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="halaman" required>
+                                                        name="halaman" placeholder="Masukan Jumlah Halaman...">
                                                 </div>
                                             </div>
+
                                         </div>
                                 </div>
                             </div>
@@ -169,9 +173,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kop_surat as $kop)
+                            @forelse ($kop_surat as $index => $kop)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ ($kop_surat->currentPage() - 1) * $kop_surat->perPage() + $index + 1 }}</td>
                                     <td>{{ $kop->nama_formulir }}</td>
                                     <td>
                                         <div class="d-flex">
@@ -179,18 +183,20 @@
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateKopSurat"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/ami/kop_surat/' . $kop->id) }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                    data-url="{{ url('/ami/kop_surat/' . $kop->id) }}"><i
                                                         class="fa fa-trash"></i></button>
-                                            </form>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+                    {{ $kop_surat->links() }}
                 </div>
             </div>
         </div>

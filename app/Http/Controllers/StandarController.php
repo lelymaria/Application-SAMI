@@ -16,7 +16,7 @@ class StandarController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all(),
+            'standar' => Standar::latest()->paginate(10),
             'kop_surat' => KopSurat::all()
         ];
         return view('ami.standar.standar', $data);

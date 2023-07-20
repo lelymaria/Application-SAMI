@@ -84,13 +84,16 @@
                                         method="post">
                                         @csrf
                                         <div class="row">
+                                            <div class="mb-4">
+                                                <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                            </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Jadwal
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="nama_jadwal" required>
+                                                        name="nama_jadwal" placeholder="Masukan Nama Jadwal...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -99,7 +102,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="validationCustom07"
-                                                        name="jadwal_mulai" required>
+                                                        name="jadwal_mulai" placeholder="Masukan Jadwal Mulai...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -118,7 +121,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="tahun_ami" required>
+                                                        name="tahun_ami" placeholder="Contoh: Tahun 2022/2023(Ganjil)">
                                                 </div>
                                             </div>
                                         </div>
@@ -180,23 +183,19 @@
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateJadwal"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/ami/jadwalAmi/' . $jadwal->id) }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                    data-url="{{ url('/ami/jadwalAmi/' . $jadwal->id) }}"><i
                                                         class="fa fa-trash"></i></button>
-                                            </form>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center">data tidak tersedia!</td>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
-
                     {{ $jadwal_ami->links() }}
                 </div>
             </div>

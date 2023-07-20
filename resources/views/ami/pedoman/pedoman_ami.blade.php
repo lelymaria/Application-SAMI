@@ -108,7 +108,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
-                                                    <textarea rows="8" class="form-control" name="deskripsi" placeholder="Deskripsi"></textarea>
+                                                    <textarea rows="8" class="form-control" name="deskripsi" placeholder="Deskripsi" placeholder="Masukan Deskripsi..."></textarea>
                                                 </div>
                                             </div>
                                             <div>
@@ -119,9 +119,9 @@
                                                     </div>
                                                     <span class="input-group-text">Upload</span>
                                                 </div>
-                                                <small class="text-danger">file wajib diisi!</small>
+                                                <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                                 <br>
-                                                <small class="text-danger">maksimal size file: 3MB</small>
+                                                <small class="text-danger">Maksimal size file: 3MB</small>
                                             </div>
                                         </div>
                                 </div>

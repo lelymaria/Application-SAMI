@@ -16,14 +16,14 @@ class PertanyaanStandarController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all()
+            'standar' => Standar::latest()->paginate(10)
         ];
         return view('ami.pertanyaan_standar.data_standar', $data);
     }
 
     public function tampilanPertanyaan($id)
     {
-        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->get();
+        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->latest()->paginate(10);
         $data = [
             'standar' => Standar::findOrFail($id),
             'pertanyaan' => $pertanyaan

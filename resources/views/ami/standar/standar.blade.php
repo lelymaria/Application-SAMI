@@ -98,6 +98,9 @@
                                         method="post">
                                         @csrf
                                         <div class="row">
+                                            <div class="mb-4">
+                                                <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                            </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom07">Pilih Kop
                                                     Surat
@@ -121,7 +124,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="nama_standar" required>
+                                                        name="nama_standar" placeholder="Masukan Nama Standar...">
                                                 </div>
                                             </div>
                                         </div>
@@ -148,29 +151,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($standar as $standar)
+                            @forelse ($standar as $index => $stndar)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $standar->kopSurat->nama_formulir }}</td>
-                                    <td>{{ $standar->nama_standar }}</td>
+                                    <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}</td>
+                                    <td>{{ $stndar->kopSurat->nama_formulir }}</td>
+                                    <td>{{ $stndar->nama_standar }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="#" data-url="{{ url('/ami/standar/' . $standar->id) }}"
+                                            <a href="#" data-url="{{ url('/ami/standar/' . $stndar->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateStandar"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/ami/standar/' . $standar->id) }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                    data-url="{{ url('/ami/standar/' . $stndar->id) }}"><i
                                                         class="fa fa-trash"></i></button>
-                                            </form>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+                    {{ $standar->links() }}
                 </div>
             </div>
         </div>

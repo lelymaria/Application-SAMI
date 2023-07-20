@@ -36,7 +36,6 @@ Header end ti-comment-alt
                 <div class="col-xl-12">
                     <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom05">Periode
-                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-6">
                             <select class="default-select wide form-control" id="validationCustom05">

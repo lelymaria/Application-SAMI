@@ -42,7 +42,7 @@ class PedomanAmiController extends Controller
 
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
         if (!$jadwal_ami) {
-            return redirect('/ami/pedomanAmi/')->with('error', 'jadwal ami tidak tersedia!');
+            return redirect('/ami/pedomanAmi/')->with('error', 'Jadwal AMI tidak tersedia!');
         }
 
         $request->merge([

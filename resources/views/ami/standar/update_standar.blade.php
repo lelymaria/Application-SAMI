@@ -16,6 +16,6 @@
     </label>
     <div class="col-lg-8">
         <input type="text" class="form-control" id="validationCustom07" name="nama_standar" required
-            value="{{ $update_standar->nama_standar }}">
+            value="{{ $update_standar->nama_standar }}" placeholder="Masukan Nama Standar...">
     </div>
 </div>

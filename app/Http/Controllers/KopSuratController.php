@@ -15,7 +15,7 @@ class KopSuratController extends Controller
     public function index()
     {
         $data = [
-            'kop_surat' => KopSurat::all()
+            'kop_surat' => KopSurat::latest()->paginate(10)
         ];
         return view('ami.kop_surat.kop_surat', $data);
     }
@@ -35,7 +35,7 @@ class KopSuratController extends Controller
     {
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
         if (!$jadwal_ami) {
-            return back()->with('error', 'jadwal ami tidak tersedia!');
+            return back()->with('error', 'Jadwal AMI tidak tersedia!');
         }
 
         $request->validate([

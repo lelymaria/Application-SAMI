@@ -35,6 +35,23 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
                                 Header end ti-comment-alt
@@ -47,7 +64,7 @@
     <div class="row page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Data</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Standar</a></li>
+            <li class="breadcrumb-item active"><a href="{{ url('ami/data_standar') }}">Standar</a></li>
             <li class="breadcrumb-item"><a href="javascript:void(0)">Pertanyaan Standar</a></li>
         </ol>
     </div>
@@ -72,30 +89,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pertanyaan as $pertanyaan)
+                            @forelse ($pertanyaan as $index => $data_pertanyaan)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{!! Str::limit($pertanyaan->list_pertanyaan_standar, 100, '...') !!}</td>
+                                    <td>{{ ($pertanyaan->currentPage() - 1) * $pertanyaan->perPage() + $index + 1 }}</td>
+                                    <td>{!! Str::limit($data_pertanyaan->list_pertanyaan_standar, 100, '...') !!}</td>
                                     <td>
                                         <div class="d-flex">
                                             <div class="d-flex">
-                                                <a href="{{ url('/ami/data_standar/update_pertanyaan/' . $pertanyaan->id) }}"
+                                                <a href="{{ url('/ami/data_standar/update_pertanyaan/' . $data_pertanyaan->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                         class="fas fa-pencil-alt"></i></a>
-                                                <form action="{{ url('/ami/data_standar/pertanyaan/' . $pertanyaan->id) }}"
-                                                    method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                            class="fa fa-trash"></i></button>
-                                                </form>
+                                                <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                    data-url="{{ url('/ami/data_standar/pertanyaan/' . $data_pertanyaan->id) }}"><i
+                                                        class="fa fa-trash"></i></button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+                    {{ $pertanyaan->links() }}
                 </div>
             </div>
         </div>

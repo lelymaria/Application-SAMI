@@ -43,21 +43,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($standar as $standar)
+                            @forelse ($standar as $index => $data_standar)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $standar->nama_standar }}</td>
+                                    <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}</td>
+                                    <td>{{ $data_standar->nama_standar }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ url('/ami/data_standar/pertanyaan/' . $standar->id) }}"
+                                            <a href="{{ url('/ami/data_standar/pertanyaan/' . $data_standar->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                     class="fa fa-plus"></i></a>
                                         </div>
                                     </td>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                             </tr>
                         </tbody>
                     </table>
+                    {{ $standar->links() }}
                 </div>
             </div>
         </div>
