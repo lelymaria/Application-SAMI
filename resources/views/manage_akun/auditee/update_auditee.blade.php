@@ -61,8 +61,8 @@
     <div class="row page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Manage User</a></li>
-            <li class="breadcrumb-item active"><a href="/akunjurusan">Jurusan</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Update Jurusan</a></li>
+            <li class="breadcrumb-item active"><a href="{{ url('/manage_user/akun_auditee') }}">Auditee</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Update Auditee</a></li>
         </ol>
     </div>
 

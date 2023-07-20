@@ -61,7 +61,7 @@
     <div class="row page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Manage User</a></li>
-            <li class="breadcrumb-item active"><a href="/akunauditor">Auditor</a></li>
+            <li class="breadcrumb-item active"><a href="{{ url('/manage_user/anggota_auditor') }}">Auditor</a></li>
             <li class="breadcrumb-item"><a href="javascript:void(0)">Update Auditor</a></li>
         </ol>
     </div>
@@ -259,7 +259,7 @@
                         <tbody>
                             <tr>
                                 @forelse ($update_akun_auditor->tugasStandar as $index => $update_akun_tugas)
-                                    <td>{{ ($update_akun_auditor->tugasStandar()->get()->currentPage() - 1) * $update_akun_auditor->tugasStandar()->get()->perPage() + $index + 1 }}
+                                    <td>{{ ($update_akun_auditor->tugasStandar()->paginate()->currentPage() - 1) * $update_akun_auditor->tugasStandar()->paginate()->perPage() + $index + 1 }}
                                     </td>
                                     <td>{{ $update_akun_tugas->standar->nama_standar }}</td>
                                     <td>
@@ -283,7 +283,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    {{ $update_akun_auditor->tugasStandar->links() }}
+                    {{ $update_akun_auditor->tugasStandar()->paginate()->links() }}
                 </div>
             </div>
         </div>

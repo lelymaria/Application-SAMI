@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                                    Header start
-                                    ***********************************-->
+                                        Header start
+                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                                    Header end ti-comment-alt
-                                    ***********************************-->
+                                        Header end ti-comment-alt
+                                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -44,7 +44,7 @@
     <div class="row page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Manage User</a></li>
-            <li class="breadcrumb-item active"><a href="/akunauditor">Auditor</a></li>
+            <li class="breadcrumb-item active"><a href="{{ url('/manage_user/lead_auditor') }}">Auditor</a></li>
             <li class="breadcrumb-item"><a href="javascript:void(0)">Update Auditor</a></li>
         </ol>
     </div>
@@ -123,7 +123,8 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                name="nip" value="{{ $update_akun_auditor->nip }}" placeholder="Masukan NIP...">
+                                                name="nip" value="{{ $update_akun_auditor->nip }}"
+                                                placeholder="Masukan NIP...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -131,7 +132,8 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nama" value="{{ $update_akun_auditor->akunAuditor?->nama }}" placeholder="Masukan Nama...">
+                                                name="nama" value="{{ $update_akun_auditor->akunAuditor?->nama }}"
+                                                placeholder="Masukan Nama...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -139,7 +141,8 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="email" value="{{ $update_akun_auditor->akunAuditor?->email }}" placeholder="Masukan Email...">
+                                                name="email" value="{{ $update_akun_auditor->akunAuditor?->email }}"
+                                                placeholder="Masukan Email...">
                                         </div>
                                     </div>
                                 </div>
@@ -242,7 +245,7 @@
                         <tbody>
                             <tr>
                                 @forelse ($update_akun_auditor->tugasStandar as $index => $update_akun_tugas)
-                                    <td>{{ ($update_akun_auditor->tugasStandar()->get()->currentPage() - 1) * $update_akun_auditor->tugasStandar()->get()->perPage() + $index + 1 }}
+                                    <td>{{ ($update_akun_auditor->tugasStandar()->paginate()->currentPage() -1) *$update_akun_auditor->tugasStandar()->paginate()->perPage() +$index +1 }}
                                     </td>
                                     <td>{{ $update_akun_tugas->standar->nama_standar }}</td>
                                     <td>
@@ -266,7 +269,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    {{ $update_akun_auditor->tugasStandar->links() }}
+                    {{ $update_akun_auditor->tugasStandar()->paginate()->links() }}
                 </div>
             </div>
         </div>
