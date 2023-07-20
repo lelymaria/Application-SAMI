@@ -98,10 +98,7 @@ class KepalaP4mpController extends Controller
             "periode_jabatan" => "required",
             "email" => "required|email",
             "nip" => [
-                "max:20",
-                "numeric",
-                'required',
-                Rule::unique('users')->ignore($kepalaP4mp->id_user),
+                'required', Rule::unique('users')->ignore($kepalaP4mp->id_user), "numeric",
             ],
             "nama" => "required",
             // "foto_profile" => "required",

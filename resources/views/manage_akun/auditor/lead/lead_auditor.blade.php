@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                        Header start
-                        ***********************************-->
+                                Header start
+                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-                        Header end ti-comment-alt
-                        ***********************************-->
+                                Header end ti-comment-alt
+                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -123,7 +123,7 @@
                                                                                 Kerja
                                                                                 <span class="text-danger">*</span>
                                                                             </label>
-                                                                            <div class="col-lg-6">
+                                                                            <div class="col-lg-8">
                                                                                 <select
                                                                                     class="default-select wide form-control"
                                                                                     id="validationCustom05"
@@ -153,7 +153,8 @@
                                                                             </label>
                                                                             <div class="col-lg-8">
                                                                                 <input type="text" class="form-control"
-                                                                                    id="validationCustom07" name="email">
+                                                                                    id="validationCustom07" name="email"
+                                                                                    placeholder="Masukan Email...">
                                                                             </div>
                                                                         </div>
                                                                         <div class="mb-3 row">
@@ -163,8 +164,8 @@
                                                                             </label>
                                                                             <div class="col-lg-8">
                                                                                 <input type="text" class="form-control"
-                                                                                    id="validationCustom08"
-                                                                                    name="nip">
+                                                                                    id="validationCustom08" name="nip"
+                                                                                    placeholder="Masukan NIP...">
                                                                             </div>
                                                                         </div>
                                                                         <div class="mb-3 row">
@@ -174,10 +175,12 @@
                                                                             </label>
                                                                             <div class="col-lg-8">
                                                                                 <input type="text" class="form-control"
-                                                                                    id="validationCustom09"
-                                                                                    name="nama">
+                                                                                    id="validationCustom09" name="nama"
+                                                                                    placeholder="Masukan Nama...">
                                                                             </div>
                                                                         </div>
+                                                                        <small class="text-danger">Field dengan tanda (*)
+                                                                            wajib diisi!</small>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -208,43 +211,45 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($akun_auditor as $akun_auditor)
+                                                        @forelse ($akun_auditor as $index => $lead_auditor)
                                                             <tr>
-                                                                <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $akun_auditor->akunAuditor?->nama }}</td>
-                                                                <td>{{ $akun_auditor->nip }}</td>
-                                                                <td>{{ $akun_auditor->akunAuditor?->email }}</td>
-                                                                <td><strong>{{ $akun_auditor->levelRole->name }}</strong>
+                                                                <td>{{ ($akun_auditor->currentPage() - 1) * $akun_auditor->perPage() + $index + 1 }}
+                                                                </td>
+                                                                <td>{{ $lead_auditor->akunAuditor?->nama }}</td>
+                                                                <td>{{ $lead_auditor->nip }}</td>
+                                                                <td>{{ $lead_auditor->akunAuditor?->email }}</td>
+                                                                <td><strong>{{ $lead_auditor->levelRole->name }}</strong>
                                                                 </td>
                                                                 <td>
-                                                                    @if ($akun_auditor->akunAuditor?->dataProdi)
-                                                                        {{ $akun_auditor->akunAuditor?->dataProdi->nama_prodi }}
+                                                                    @if ($lead_auditor->akunAuditor?->dataProdi)
+                                                                        {{ $lead_auditor->akunAuditor?->dataProdi->nama_prodi }}
                                                                     @else
-                                                                        {{ $akun_auditor->akunAuditor?->layananAkademik->nama_layanan }}
+                                                                        {{ $lead_auditor->akunAuditor?->layananAkademik->nama_layanan }}
                                                                     @endif
                                                                 </td>
                                                                 <td>
                                                                     <div class="d-flex">
                                                                         <div class="d-flex">
-                                                                            <a href="{{ url('/manage_user/lead_auditor_edit/' . $akun_auditor->id) }}"
+                                                                            <a href="{{ url('/manage_user/lead_auditor_edit/' . $lead_auditor->id) }}"
                                                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                                                     class="fas fa-pencil-alt"></i></a>
-                                                                            <form
-                                                                                action="{{ url('/manage_user/lead_auditor/' . $akun_auditor->id) }}"
-                                                                                method="post">
-                                                                                @method('delete')
-                                                                                @csrf
-                                                                                <button
-                                                                                    class="btn btn-danger shadow btn-xs sharp"><i
-                                                                                        class="fa fa-trash"></i></button>
-                                                                            </form>
+                                                                            <button
+                                                                                class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                                                data-url="{{ url('/manage_user/lead_auditor/' . $lead_auditor->id) }}"><i
+                                                                                    class="fa fa-trash"></i></button>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                        @endforeach
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="10" class="text-center">Data tidak
+                                                                    tersedia!</td>
+                                                            </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
+                                                {{ $akun_auditor->links() }}
                                             </div>
                                         </div>
                                     </div>

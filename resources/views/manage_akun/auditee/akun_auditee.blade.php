@@ -124,7 +124,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="email">
+                                                        name="email" placeholder="Masukan Email...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -133,7 +133,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom08"
-                                                        name="nip">
+                                                        name="nip" placeholder="Masukan NIP...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -142,9 +142,10 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom09"
-                                                        name="nama">
+                                                        name="nama" placeholder="Masukan Nama...">
                                                 </div>
                                             </div>
+                                            <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                         </div>
                                     </div>
                                 </div>
@@ -173,40 +174,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($akun_auditee as $akun_auditee)
+                            @forelse ($akun_auditee as $index => $auditee)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $akun_auditee->nama }}</td>
-                                    <td>{{ $akun_auditee->user->nip }}</td>
-                                    <td>{{ $akun_auditee->email }}</td>
-                                    <td><strong>{{ $akun_auditee->user->levelRole->name }}</strong></td>
+                                    <td>{{ ($akun_auditee->currentPage() - 1) * $akun_auditee->perPage() + $index + 1 }}</td>
+                                    <td>{{ $auditee->nama }}</td>
+                                    <td>{{ $auditee->user->nip }}</td>
+                                    <td>{{ $auditee->email }}</td>
+                                    <td><strong>{{ $auditee->user->levelRole->name }}</strong></td>
                                     <td>
-                                        @if ($akun_auditee->dataProdi)
-                                            {{ $akun_auditee->dataProdi->nama_prodi }}
+                                        @if ($auditee->dataProdi)
+                                            {{ $auditee->dataProdi->nama_prodi }}
                                         @else
-                                            {{ $akun_auditee->layananAkademik->nama_layanan }}
+                                            {{ $auditee->layananAkademik->nama_layanan }}
                                         @endif
                                     </td>
                                     <td>
                                         <div class="d-flex">
                                             <div class="d-flex">
-                                                <a href="{{ url('/manage_user/akun_auditee_edit/' . $akun_auditee->id) }}"
+                                                <a href="{{ url('/manage_user/akun_auditee_edit/' . $auditee->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                         class="fas fa-pencil-alt"></i></a>
-                                                <form action="{{ url('/manage_user/akun_auditee/' . $akun_auditee->id) }}"
-                                                    method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                            class="fa fa-trash"></i></button>
-                                                </form>
+                                                <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                    data-url="{{ url('/manage_user/akun_auditee/' . $auditee->id) }}"><i
+                                                        class="fa fa-trash"></i></button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+                    {{ $akun_auditee->links() }}
                 </div>
             </div>
         </div>

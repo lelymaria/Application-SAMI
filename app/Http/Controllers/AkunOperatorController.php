@@ -90,7 +90,7 @@ class AkunOperatorController extends Controller
             "nip" => [
                 "numeric",
                 'required',
-                Rule::unique('users')->ignore($akunOperator->id_user),
+                Rule::unique('users')->ignore($akunOperator->id_user), "numeric",
             ],
             "nama" => "required",
             // "foto_profile" => "required",

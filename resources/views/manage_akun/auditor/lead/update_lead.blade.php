@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                                Header start
-                                ***********************************-->
+                                    Header start
+                                    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                                Header end ti-comment-alt
-                                ***********************************-->
+                                    Header end ti-comment-alt
+                                    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -95,6 +95,9 @@
                             action="{{ url('/manage_user/lead_auditor/' . $update_akun_auditor->id) }}" method="post">
                             @csrf
                             <div class="row">
+                                <div class="mb-3">
+                                    <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                </div>
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
@@ -120,7 +123,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                name="nip" value="{{ $update_akun_auditor->nip }}">
+                                                name="nip" value="{{ $update_akun_auditor->nip }}" placeholder="Masukan NIP...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -128,7 +131,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nama" value="{{ $update_akun_auditor->akunAuditor?->nama }}">
+                                                name="nama" value="{{ $update_akun_auditor->akunAuditor?->nama }}" placeholder="Masukan Nama...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -136,7 +139,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="email" value="{{ $update_akun_auditor->akunAuditor?->email }}">
+                                                name="email" value="{{ $update_akun_auditor->akunAuditor?->email }}" placeholder="Masukan Email...">
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +149,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom07"
-                                                name="new_password">
+                                                name="new_password" placeholder="Masukan Password Baru...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -155,7 +158,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom08"
-                                                name="new_password_confirmation">
+                                                name="new_password_confirmation" placeholder="Konfirmasi Password...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -200,7 +203,7 @@
                                                 <label class="col-lg-4 col-form-label" for="validationCustom05">Standar
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-8">
                                                     <select class="default-select wide form-control"
                                                         id="validationCustom05" name="standar">
                                                         <option data-display="Select">Please select</option>
@@ -211,6 +214,8 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <small class="text-danger">Field dengan tanda (*)
+                                                wajib diisi!</small>
                                         </div>
                                     </div>
                                 </div>
@@ -236,27 +241,32 @@
                         </thead>
                         <tbody>
                             <tr>
-                                @foreach ($update_akun_auditor->tugasStandar as $standar)
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $standar->standar->nama_standar }}</td>
+                                @forelse ($update_akun_auditor->tugasStandar as $index => $update_akun_tugas)
+                                    <td>{{ ($update_akun_auditor->tugasStandar()->get()->currentPage() - 1) * $update_akun_auditor->tugasStandar()->get()->perPage() + $index + 1 }}
+                                    </td>
+                                    <td>{{ $update_akun_tugas->standar->nama_standar }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="#" data-url="{{ url('/manage_user/' . $standar->id) }}"
+                                            <a href="#"
+                                                data-url="{{ url('/manage_user/' . $update_akun_tugas->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateTugas"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/manage_user/' . $standar->id) }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </form>
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                data-url="{{ url('/manage_user/' . $update_akun_tugas->id) }}"><i
+                                                    class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
-                                @endforeach
+                                @empty
+                            <tr>
+                                <td colspan="10" class="text-center">Data tidak
+                                    tersedia!</td>
+                            </tr>
+                            @endforelse
                             </tr>
                         </tbody>
                     </table>
+                    {{ $update_akun_auditor->tugasStandar->links() }}
                 </div>
             </div>
         </div>

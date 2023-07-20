@@ -107,7 +107,7 @@ class AnggotaAuditorController extends Controller
             "unit_kerja" => "required",
             "email" => "required",
             "nip" => [
-                'required', Rule::unique('users')->ignore($akunAuditor)
+                'required', Rule::unique('users')->ignore($akunAuditor), "numeric",
             ],
             "nama" => "required",
             // "foto_profile" => "required",

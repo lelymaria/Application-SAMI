@@ -45,7 +45,7 @@ class LeadAuditorController extends Controller
     {
         $request->validate([
             "email" => "required|email",
-            "nip" => "required|unique:users,nip",
+            "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
             "unit_kerja" => "required",
             // "foto_profile" => "required",
@@ -91,7 +91,7 @@ class LeadAuditorController extends Controller
         $data = [
             'update_akun_auditor' => $akunAuditor,
             'dataProdi' => ProgramStudi::all(),
-            'standar' => Standar::all(),
+            'standar' => Standar::latest()->paginate(5),
             'layananAkademik' => LayananAkademik::all()
         ];
         return view('manage_akun.auditor.lead.update_lead', $data);
@@ -107,7 +107,7 @@ class LeadAuditorController extends Controller
             "unit_kerja" => "required",
             "email" => "required|email",
             "nip" => [
-                'required', Rule::unique('users')->ignore($akunAuditor), 'numeric'
+                'required', Rule::unique('users')->ignore($akunAuditor), 'numeric',
             ],
             "nama" => "required",
             // "foto_profile" => "required",

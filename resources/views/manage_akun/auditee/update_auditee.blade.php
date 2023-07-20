@@ -14,6 +14,41 @@
                 </div>
             </nav>
         </div>
+        @if (session('message'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                            <span><i class="mdi mdi-check-circle-outline"></i></span>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Congratulations!</h5>
+                            <p class="mb-0">{{ session('message') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
         Header end ti-comment-alt
@@ -77,6 +112,9 @@
                             action="{{ url('/manage_user/akun_auditee/' . $update_akun_auditee->id) }}" method="post">
                             @csrf
                             <div class="row">
+                                <div class="mb-3">
+                                    <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                </div>
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
@@ -103,7 +141,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                name="email" value="{{ $update_akun_auditee->email }}">
+                                                name="email" value="{{ $update_akun_auditee->email }}" placeholder="Masukan Email...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -111,7 +149,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nip" value="{{ $update_akun_auditee->user->nip }}">
+                                                name="nip" value="{{ $update_akun_auditee->user->nip }}" placeholder="Masukan NIP...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -119,7 +157,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nama" value="{{ $update_akun_auditee->nama }}">
+                                                name="nama" value="{{ $update_akun_auditee->nama }}" placeholder="Masukan Nama...">
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +167,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom07"
-                                                name="new_password">
+                                                name="new_password" placeholder="Masukan Password Baru...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -138,7 +176,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom08"
-                                                name="new_password_confirmation">
+                                                name="new_password_confirmation" placeholder="Konfirmasi Password...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
