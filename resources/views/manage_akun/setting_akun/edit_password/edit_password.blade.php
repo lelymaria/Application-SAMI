@@ -66,11 +66,14 @@
                         method="post">
                         @method('put')
                         @csrf
+                        <div class="mb-4">
+                            <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                        </div>
                         <div class="mb-3">
-                            <label class="text-label form-label" for="current_password">Current Password <span class="text-danger">*</span></label>
+                            <label class="text-label form-label" for="current_password">Password Sebelumnya <span class="text-danger">*</span></label>
                             <div class="input-group transparent-append">
                                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                <input type="password" class="form-control" id="current_password" name="current_password" placeholder="Current Password...">
+                                <input type="password" class="form-control" id="current_password" name="current_password" placeholder="Password Sebelumnya...">
                                 <span class="input-group-text show-pass">
                                     <i class="fa fa-eye-slash"></i>
                                     <i class="fa fa-eye"></i>
