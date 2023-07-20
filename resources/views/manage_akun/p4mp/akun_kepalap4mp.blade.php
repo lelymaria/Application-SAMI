@@ -98,6 +98,9 @@
                                 <div class="modal-body">
                                     <div class="form-validate">
                                         <div class="row">
+                                            <div class="mb-4">
+                                                <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                            </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom06">Periode
                                                     Jabatan
@@ -135,7 +138,6 @@
                                                         name="nama" placeholder="Masukan Nama...">
                                                 </div>
                                             </div>
-                                            <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                         </div>
                                     </div>
                                 </div>
