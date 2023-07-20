@@ -98,6 +98,9 @@
                                 <div class="modal-body">
                                     <div class="form-validate">
                                         <div class="row">
+                                            <div class="mb-4">
+                                                <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                            </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Layanan
                                                     Akademik
@@ -108,7 +111,6 @@
                                                         name="nama_layanan" placeholder="Masukan Nama Layanan..." required>
                                                 </div>
                                             </div>
-                                            <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                         </div>
                                     </div>
                                 </div>

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                            Header start
-                            ***********************************-->
+                                Header start
+                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-                            Header end ti-comment-alt
-                            ***********************************-->
+                                Header end ti-comment-alt
+                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -98,6 +98,9 @@
                                 <div class="modal-body">
                                     <div class="form-validate">
                                         <div class="row">
+                                            <div class="mb-4">
+                                                <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                            </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Jurusan
                                                     <span class="text-danger">*</span>
@@ -107,7 +110,6 @@
                                                         name="nama_jurusan" placeholder="Masukan Nama Jurusan..." required>
                                                 </div>
                                             </div>
-                                            <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                         </div>
                                     </div>
                                 </div>
