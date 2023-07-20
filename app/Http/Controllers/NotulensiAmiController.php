@@ -45,7 +45,7 @@ class NotulensiAmiController extends Controller
         DB::transaction(function () use ($request, $undanganAmi) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
             if (!$jadwal_ami) {
-                return redirect('/ami/data_standar/')->with('error', 'Jadwal AMI tidak tersedia!');
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
             }
             $fileNotulensiAmi = $request->file('file_notulensi_ami');
             $extensionOriginal = $fileNotulensiAmi->getClientOriginalExtension();
@@ -91,7 +91,7 @@ class NotulensiAmiController extends Controller
     {
         $notulensi_ami = NotulensiAmi::findOrFail($id);
         $request->validate([
-            "file_notulensi_ami" => "required|mimes:doc,docx,pdf",
+            "file_notulensi_ami" => "required|mimes:doc,docx,pdf|file|max:3072",
         ]);
 
         DB::transaction(function () use ($request, $notulensi_ami) {

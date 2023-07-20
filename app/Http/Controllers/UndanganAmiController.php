@@ -42,7 +42,7 @@ class UndanganAmiController extends Controller
             $filename = $fileUndangan->getClientOriginalName();
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
             if (!$jadwal_ami) {
-                return redirect('/dokumentasiAmi/undangan')->with('error', 'Jadwal AMI tidak tersedia!');
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
             }
 
             if ($request->file_nama) {
@@ -95,7 +95,7 @@ class UndanganAmiController extends Controller
     {
         $undanganAmi = UndanganAmi::findOrFail($id);
         $request->validate([
-            "file_undangan" => "required|mimes:doc,docx,pdf",
+            "file_undangan" => "required|mimes:doc,docx,pdf|file|max:3072",
         ]);
 
         if ($request->hasFile('file_undangan')) {

@@ -40,7 +40,7 @@ class FotoKegiatanAmiController extends Controller
     {
         $request->validate([
             "caption_foto_kegiatan_ami" => 'required',
-            "foto_kegiatan_ami.*" => 'required|image|file|max:3072',
+            "foto_kegiatan_ami.*" => 'required|image|max:3072',
         ]);
 
         $undanganAmi = UndanganAmi::findOrFail($id);
@@ -49,7 +49,7 @@ class FotoKegiatanAmiController extends Controller
         DB::transaction(function () use ($request, $undanganAmi, &$foto_kegiatan) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
             if (!$jadwal_ami) {
-                return redirect('/ami/data_standar/')->with('error', 'Jadwal AMI tidak tersedia!');
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
             }
             foreach ($request->file('foto_kegiatan_ami') as $value) {
                 $filename = str_replace("\\", "/", $value->store('foto_kegiatan_ami'));
@@ -94,7 +94,7 @@ class FotoKegiatanAmiController extends Controller
     {
         $request->validate([
             "caption_foto_kegiatan_ami" => 'required',
-            "foto_kegiatan_ami" => 'required',
+            "foto_kegiatan_ami" => 'required|image|max:3072',
         ]);
 
         $fotoKegiatanAmi = FotoKegiatanAmi::findOrFail($id);
