@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                                Header start
-                                ***********************************-->
+                                        Header start
+                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -32,10 +32,27 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
-                                Header end ti-comment-alt
-                                ***********************************-->
+                                        Header end ti-comment-alt
+                                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -116,6 +133,8 @@
                                                                             </div>
                                                                             <span class="input-group-text">Upload</span>
                                                                         </div>
+                                                                        <small class="text-danger">Maksimal size file:
+                                                                            3MB</small>
                                                                     </div>
                                                             </div>
                                                         </div>
@@ -143,35 +162,38 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            @foreach ($daftar_hadir_ami as $kehadiran)
-                                                                <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $kehadiran->file_nama }}</td>
-                                                                <td>
-                                                                    <div class="d-flex">
-                                                                        <a href="{{ asset('storage/' . $kehadiran->file_daftar_hadir_ami) }}" target="_blank"
-                                                                            class="btn btn-secondary shadow btn-xs sharp me-1"><i
-                                                                                class="fa fa-file-invoice"></i></a>
-                                                                        <a href="#"
-                                                                            data-url="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"
-                                                                            class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#updateKehadiran"><i
-                                                                                class="fas fa-pencil-alt"></i></a>
-                                                                        <form
-                                                                            action="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"
-                                                                            method="post">
-                                                                            @method('delete')
-                                                                            @csrf
+                                                            @forelse ($daftar_hadir_ami as $index => $kehadiran)
+                                                                    <td>{{ ($daftar_hadir_ami->currentPage() - 1) * $daftar_hadir_ami->perPage() + $index + 1 }}
+                                                                    </td>
+                                                                    <td>{{ $kehadiran->file_nama }}</td>
+                                                                    <td>
+                                                                        <div class="d-flex">
+                                                                            <a href="{{ asset('storage/' . $kehadiran->file_daftar_hadir_ami) }}"
+                                                                                target="_blank"
+                                                                                class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                                                                    class="fa fa-file-invoice"></i></a>
+                                                                            <a href="#"
+                                                                                data-url="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"
+                                                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#updateKehadiran"><i
+                                                                                    class="fas fa-pencil-alt"></i></a>
                                                                             <button
-                                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                                class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                                                data-url="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"><i
                                                                                     class="fa fa-trash"></i></button>
-                                                                        </form>
-                                                                    </div>
-                                                                </td>
+                                                                        </div>
+                                                                    </td>
                                                         </tr>
-                                                        @endforeach
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="10" class="text-center">Data tidak tersedia!
+                                                            </td>
+                                                        </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
+                                                {{ $daftar_hadir_ami->links() }}
                                             </div>
                                         </div>
                                     </div>

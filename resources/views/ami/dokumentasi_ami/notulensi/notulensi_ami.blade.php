@@ -32,6 +32,23 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
                                 Header end ti-comment-alt
@@ -116,6 +133,7 @@
                                                                             </div>
                                                                             <span class="input-group-text">Upload</span>
                                                                         </div>
+                                                                        <small class="text-danger">Maksimal size file: 3MB</small>
                                                                     </div>
                                                             </div>
                                                         </div>
@@ -143,8 +161,8 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            @foreach ($notulensiAmi as $notulensi)
-                                                                <td>{{ $loop->iteration }}</td>
+                                                            @forelse ($notulensiAmi as $index => $notulensi)
+                                                                <td>{{ ($notulensiAmi->currentPage() - 1) * $notulensiAmi->perPage() + $index + 1 }}</td>
                                                                 <td>{{ $notulensi->file_nama }}</td>
                                                                 <td>
                                                                     <div class="d-flex">
@@ -157,21 +175,22 @@
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#updateNotulensi"><i
                                                                                 class="fas fa-pencil-alt"></i></a>
-                                                                        <form
-                                                                            action="{{ url('/dokumentasiAmi/notulensi_ami/' . $notulensi->id) }}"
-                                                                            method="post">
-                                                                            @method('delete')
-                                                                            @csrf
-                                                                            <button
-                                                                                class="btn btn-danger shadow btn-xs sharp"><i
+                                                                        <button
+                                                                                class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                                                data-url="{{ url('/dokumentasiAmi/notulensi_ami/' . $notulensi->id) }}"><i
                                                                                     class="fa fa-trash"></i></button>
-                                                                        </form>
                                                                     </div>
                                                                 </td>
                                                         </tr>
-                                                        @endforeach
+                                                        @empty
+                                                        <tr>
+                                                            <td colspan="10" class="text-center">Data tidak tersedia!
+                                                            </td>
+                                                        </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
+                                                {{ $notulensiAmi->links() }}
                                             </div>
                                         </div>
                                     </div>

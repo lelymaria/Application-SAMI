@@ -16,7 +16,7 @@ class DaftarHadirAmiController extends Controller
      */
     public function index($id)
     {
-        $daftar_hadir_ami = DaftarHadirAmi::where('id_undangan', $id)->get();
+        $daftar_hadir_ami = DaftarHadirAmi::where('id_undangan', $id)->latest()->paginate(10);
         $data = [
             'undanganAmi' => UndanganAmi::findOrFail($id),
             'daftar_hadir_ami' => $daftar_hadir_ami
@@ -38,13 +38,16 @@ class DaftarHadirAmiController extends Controller
     public function store(Request $request, $id)
     {
         $request->validate([
-            "file_daftar_hadir_ami" => 'required|mimes:doc,docx,pdf'
+            "file_daftar_hadir_ami" => 'required|mimes:doc,docx,pdf|file|max:3072'
         ]);
 
         $undanganAmi = UndanganAmi::findOrFail($id);
 
         DB::transaction(function () use ($request, $undanganAmi) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return redirect('/ami/data_standar/')->with('error', 'Jadwal AMI tidak tersedia!');
+            }
             $fileDaftarHadirAmi = $request->file('file_daftar_hadir_ami');
             $extensionOriginal = $fileDaftarHadirAmi->getClientOriginalExtension();
             DaftarHadirAmi::create([

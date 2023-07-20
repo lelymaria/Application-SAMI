@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                                Header start
-                                ***********************************-->
+                                    Header start
+                                    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -32,10 +32,27 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
-                                Header end ti-comment-alt
-                                ***********************************-->
+                                    Header end ti-comment-alt
+                                    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,14 +66,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-12">
         <div class="card">
@@ -97,6 +114,7 @@
                                                 </div>
                                                 <span class="input-group-text">Upload</span>
                                             </div>
+                                            <small class="text-danger">Maksimal size file: 3MB</small>
                                         </div>
                                 </div>
                             </div>
@@ -120,9 +138,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($undanganAmi as $undangan)
+                            @forelse ($undanganAmi as $index => $undangan)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ ($undanganAmi->currentPage() - 1) * $undanganAmi->perPage() + $index + 1 }}</td>
                                     <td>{{ $undangan->file_nama }}</td>
                                     <td>
                                         <div class="d-flex">
@@ -137,19 +155,21 @@
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateUndangan"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"
-                                                method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </form>
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                data-url="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"><i
+                                                    class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+                    {{ $undanganAmi->links() }}
                 </div>
             </div>
         </div>
