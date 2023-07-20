@@ -19,7 +19,7 @@ class KepalaP4mpController extends Controller
     public function index()
     {
         $data = [
-            'kepala_p4mp' => KepalaP4mp::all()
+            'kepala_p4mp' => KepalaP4mp::latest()->paginate(10)
         ];
         return view('manage_akun.p4mp.akun_kepalap4mp', $data);
     }
@@ -47,7 +47,7 @@ class KepalaP4mpController extends Controller
 
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
         if (!$jadwal_ami) {
-            return redirect('/manage_user/kepalaP4mp')->with('error', 'jadwal ami tidak tersedia!');
+            return redirect('/manage_user/kepalaP4mp')->with('error', 'Jadwal AMI tidak tersedia!');
         }
 
         DB::transaction(function () use ($request, $jadwal_ami) {

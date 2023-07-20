@@ -23,7 +23,7 @@ class LeadAuditorController extends Controller
     {
         $level = Level::where('name', 'Lead Auditor')->first();
         $data = [
-            'akun_auditor' => User::where('level_id', $level->id)->get(),
+            'akun_auditor' => User::where('level_id', $level->id)->latest()->paginate(10),
             'dataProdi' => ProgramStudi::all(),
             'layananAkademik' => LayananAkademik::all()
         ];
@@ -116,7 +116,7 @@ class LeadAuditorController extends Controller
 
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
         if (!$jadwal_ami) {
-            return redirect('/manage_user/lead_auditor/')->with('error', 'jadwal ami tidak tersedia!');
+            return redirect('/manage_user/lead_auditor/')->with('error', 'Jadwal AMI tidak tersedia!');
         }
 
         DB::transaction(function () use ($request, $akunAuditor, $jadwal_ami) {

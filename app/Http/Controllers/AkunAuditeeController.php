@@ -21,7 +21,7 @@ class AkunAuditeeController extends Controller
     public function index()
     {
         $data = [
-            'akun_auditee' => AkunAuditee::all(),
+            'akun_auditee' => AkunAuditee::latest()->paginate(10),
             'dataProdi' => ProgramStudi::all(),
             'layananAkademik' => LayananAkademik::all()
         ];
@@ -51,7 +51,7 @@ class AkunAuditeeController extends Controller
 
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
         if (!$jadwal_ami) {
-            return redirect('/manage_user/akun_auditee/')->with('error', 'jadwal ami tidak tersedia!');
+            return redirect('/manage_user/akun_auditee/')->with('error', 'Jadwal AMI tidak tersedia!');
         }
 
         DB::transaction(function () use ($request, $jadwal_ami) {

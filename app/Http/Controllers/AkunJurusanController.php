@@ -20,7 +20,7 @@ class AkunJurusanController extends Controller
     public function index()
     {
         $data = [
-            'akun_jurusan' => AkunJurusan::all(),
+            'akun_jurusan' => AkunJurusan::latest()->paginate(10),
             'dataJurusan' => Jurusan::all()
         ];
         return view('manage_akun.jurusan.akun_jurusan', $data);
@@ -49,7 +49,7 @@ class AkunJurusanController extends Controller
 
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
         if (!$jadwal_ami) {
-            return redirect('/manage_user/akun_jurusan')->with('error', 'jadwal ami tidak tersedia!');
+            return redirect('/manage_user/akun_jurusan')->with('error', 'Jadwal AMI tidak tersedia!');
         }
 
         DB::transaction(function () use ($request, $jadwal_ami) {

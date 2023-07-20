@@ -18,7 +18,7 @@ class AkunOperatorController extends Controller
     public function index()
     {
         $data = [
-            'akun_operator' => AkunOperator::all()
+            'akun_operator' => AkunOperator::latest()->paginate(10)
         ];
         return view('manage_akun.operator.akun_operator', $data);
     }

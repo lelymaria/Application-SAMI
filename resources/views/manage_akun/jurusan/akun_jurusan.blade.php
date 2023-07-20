@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                    Header start
-                    ***********************************-->
+                        Header start
+                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-                    Header end ti-comment-alt
-                    ***********************************-->
+                        Header end ti-comment-alt
+                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -102,10 +102,11 @@
                                                 <label class="col-lg-4 col-form-label" for="validationCustom05">Unit Kerja
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-8">
                                                     <select class="default-select wide form-control" id="validationCustom05"
                                                         name="unit_kerja">
-                                                        <option data-display="Select" disabled selected>Please select</option>
+                                                        <option data-display="Select" disabled selected>Please select
+                                                        </option>
                                                         @foreach ($dataJurusan as $dataJurusan)
                                                             <option value="{{ $dataJurusan->id }}">
                                                                 {{ $dataJurusan->nama_jurusan }}</option>
@@ -119,7 +120,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="email">
+                                                        name="email" placeholder="Masukan Email...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -128,7 +129,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom08"
-                                                        name="nip">
+                                                        name="nip" placeholder="Masukan NIP...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -137,9 +138,10 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom09"
-                                                        name="nama">
+                                                        name="nama" placeholder="Masukan Nama...">
                                                 </div>
                                             </div>
+                                            <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                         </div>
                                     </div>
                                 </div>
@@ -168,34 +170,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($akun_jurusan as $akun_jurusan)
+                            @forelse ($akun_jurusan as $index => $akun_jrusan)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $akun_jurusan->nama }}</td>
-                                    <td>{{ $akun_jurusan->user->nip }}</td>
-                                    <td>{{ $akun_jurusan->email }}</td>
-                                    <td><strong>{{ $akun_jurusan->user->levelRole->name }}</strong></td>
-                                    <td>{{ $akun_jurusan->dataJurusan->nama_jurusan ?? '-' }}</td>
+                                    <td>{{ ($akun_jurusan->currentPage() - 1) * $akun_jurusan->perPage() + $index + 1 }}
+                                    </td>
+                                    <td>{{ $akun_jrusan->nama }}</td>
+                                    <td>{{ $akun_jrusan->user->nip }}</td>
+                                    <td>{{ $akun_jrusan->email }}</td>
+                                    <td><strong>{{ $akun_jrusan->user->levelRole->name }}</strong></td>
+                                    <td>{{ $akun_jrusan->dataJurusan->nama_jurusan ?? '-' }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <div class="d-flex">
-                                                <a href="{{ url('/manage_user/akun_jurusan_edit/' . $akun_jurusan->id) }}"
+                                                <a href="{{ url('/manage_user/akun_jurusan_edit/' . $akun_jrusan->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                         class="fas fa-pencil-alt"></i></a>
-                                                <form action="{{ url('/manage_user/akun_jurusan/' . $akun_jurusan->id) }}"
-                                                    method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                            class="fa fa-trash"></i></button>
-                                                </form>
+                                                <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                    data-url="{{ url('/manage_user/akun_jurusan/' . $akun_jrusan->id) }}"><i
+                                                        class="fa fa-trash"></i></button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+                    {{ $akun_jurusan->links() }}
                 </div>
             </div>
         </div>

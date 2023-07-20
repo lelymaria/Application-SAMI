@@ -14,6 +14,41 @@ Header start
                 </div>
             </nav>
         </div>
+        @if (session('message'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                            <span><i class="mdi mdi-check-circle-outline"></i></span>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Congratulations!</h5>
+                            <p class="mb-0">{{ session('message') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 <!--**********************************
 Header end ti-comment-alt
@@ -26,7 +61,7 @@ Header end ti-comment-alt
     <div class="row page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Manage User</a></li>
-            <li class="breadcrumb-item active"><a href="/akunkepalap4mp">Kepala P4MP</a></li>
+            <li class="breadcrumb-item active"><a href="{{ url('/manage_user/kepalaP4mp') }}">Kepala P4MP</a></li>
             <li class="breadcrumb-item"><a href="javascript:void(0)">Update Kepala P4MP</a></li>
         </ol>
     </div>
@@ -76,13 +111,16 @@ Header end ti-comment-alt
                         method="post">
                         @csrf
                             <div class="row">
+                                <div class="mb-3">
+                                    <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                </div>
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom01">Periode Jabatan
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom01"
-                                                name="periode_jabatan" value="{{ $update_akun_kepalaP4mp->periode_jabatan }}">
+                                                name="periode_jabatan" placeholder="Masukan Periode Jabatan..." value="{{ $update_akun_kepalaP4mp->periode_jabatan }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -90,7 +128,7 @@ Header end ti-comment-alt
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                name="email" value="{{ $update_akun_kepalaP4mp->email }}">
+                                                name="email" placeholder="Masukan Email..." value="{{ $update_akun_kepalaP4mp->email }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -98,7 +136,7 @@ Header end ti-comment-alt
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nip" value="{{ $update_akun_kepalaP4mp->user->nip }}">
+                                                name="nip" placeholder="Masukan NIP..." value="{{ $update_akun_kepalaP4mp->user->nip }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -106,7 +144,7 @@ Header end ti-comment-alt
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nama" value="{{ $update_akun_kepalaP4mp->nama }}">
+                                                name="nama" placeholder="Masukan Nama..." value="{{ $update_akun_kepalaP4mp->nama }}">
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +154,7 @@ Header end ti-comment-alt
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom07"
-                                                name="password">
+                                                name="password" placeholder="Masukan Password Baru...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -125,7 +163,7 @@ Header end ti-comment-alt
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom08"
-                                                name="new_password_confirmation">
+                                                name="new_password_confirmation" placeholder="Konfirmasi Password...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

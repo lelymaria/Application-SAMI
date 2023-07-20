@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                Header start
-                ***********************************-->
+                        Header start
+                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -32,10 +32,27 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
-                Header end ti-comment-alt
-                ***********************************-->
+                        Header end ti-comment-alt
+                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -49,14 +66,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-12">
         <div class="card">
@@ -87,7 +104,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="email">
+                                                        name="email" placeholder="Masukan Email..." required>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -96,7 +113,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom08"
-                                                        name="nip">
+                                                        name="nip" placeholder="Masukan NIP..." required>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -105,9 +122,10 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom09"
-                                                        name="nama">
+                                                        name="nama" placeholder="Masukan Nama..." required>
                                                 </div>
                                             </div>
+                                            <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                         </div>
                                     </div>
                                 </div>
@@ -135,31 +153,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($akun_operator as $akun_operator)
+                            @forelse ($akun_operator as $index => $akun_op)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $akun_operator->nama }}</td>
-                                    <td>{{ $akun_operator->user->nip }}</td>
-                                    <td>{{ $akun_operator->email }}</td>
-                                    <td><strong>{{ $akun_operator->user->levelRole->name }}</strong></td>
+                                    <td>{{ ($akun_operator->currentPage() - 1) * $akun_operator->perPage() + $index + 1 }}</td>
+                                    <td>{{ $akun_op->nama }}</td>
+                                    <td>{{ $akun_op->user->nip }}</td>
+                                    <td>{{ $akun_op->email }}</td>
+                                    <td><strong>{{ $akun_op->user->levelRole->name }}</strong></td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ url('/manage_user/akun_operator_edit/' . $akun_operator->id) }}"
+                                            <a href="{{ url('/manage_user/akun_operator_edit/' . $akun_op->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/manage_user/akun_operator/' . $akun_operator->id) }}"
-                                                method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </form>
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                data-url="{{ url('/manage_user/akun_operator/' . $akun_op->id) }}"><i
+                                                    class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
+                    {{ $akun_operator->links() }}
                 </div>
             </div>
         </div>

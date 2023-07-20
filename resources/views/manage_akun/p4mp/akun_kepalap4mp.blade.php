@@ -105,7 +105,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom06"
-                                                        name="periode_jabatan">
+                                                        name="periode_jabatan" placeholder="Masukan Periode Jabatan...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -114,7 +114,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="email">
+                                                        name="email" placeholder="Masukan Email...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -123,7 +123,7 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom08"
-                                                        name="nip">
+                                                        name="nip" placeholder="Masukan NIP...">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -132,9 +132,10 @@
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom09"
-                                                        name="nama">
+                                                        name="nama" placeholder="Masukan Nama...">
                                                 </div>
                                             </div>
+                                            <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                         </div>
                                     </div>
                                 </div>
@@ -163,32 +164,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kepala_p4mp as $kepala_p4mp)
+                            @forelse ($kepala_p4mp as $index => $akun_p4mp)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $kepala_p4mp->nama }}</td>
-                                    <td>{{ $kepala_p4mp->user->nip }}</td>
-                                    <td>{{ $kepala_p4mp->email }}</td>
-                                    <td><strong>{{ $kepala_p4mp->user->levelRole->name }}</strong></td>
-                                    <td><strong>{{ $kepala_p4mp->periode_jabatan }}</strong></td>
+                                    <td>{{ ($kepala_p4mp->currentPage() - 1) * $kepala_p4mp->perPage() + $index + 1 }}</td>
+                                    <td>{{ $akun_p4mp->nama }}</td>
+                                    <td>{{ $akun_p4mp->user->nip }}</td>
+                                    <td>{{ $akun_p4mp->email }}</td>
+                                    <td><strong>{{ $akun_p4mp->user->levelRole->name }}</strong></td>
+                                    <td><strong>{{ $akun_p4mp->periode_jabatan }}</strong></td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ url('/manage_user/kepalaP4mp_edit/' . $kepala_p4mp->id) }}"
+                                            <a href="{{ url('/manage_user/kepalaP4mp_edit/' . $akun_p4mp->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                     class="fas fa-pencil-alt"></i></a>
-                                            <form action="{{ url('/manage_user/kepalaP4mp/' . $kepala_p4mp->id) }}"
-                                                method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </form>
+                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                data-url="{{ url('/manage_user/kepalaP4mp/' . $akun_p4mp->id) }}"><i
+                                                    class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $kepala_p4mp->links() }}
                 </div>
             </div>
         </div>
