@@ -18,7 +18,7 @@ class VerifikasiTemuanAmiController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all()
+            'standar' => Standar::latest()->paginate(10)
         ];
         return view('ami.draft_temuan.data_standar', $data);
     }
@@ -48,12 +48,18 @@ class VerifikasiTemuanAmiController extends Controller
     {
         $standar = Standar::findOrFail($id);
         $request->validate([
+            "tanggal_verifikasi" => "required",
             "verifikasi_kp4mp" => "required"
         ]);
 
         DB::transaction(function () use ($request, $standar) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
+
             VerifikasiTemuanAmi::create([
+                'tanggal_verifikasi' => $request->tanggal_verifikasi,
                 'verifikasi_kp4mp' => $request->verifikasi_kp4mp,
                 "id_jadwal" => $jadwal_ami->id,
                 'id_standar' => $standar->id
@@ -81,11 +87,13 @@ class VerifikasiTemuanAmiController extends Controller
     {
         $verifikasiTemuan = VerifikasiTemuanAmi::findOrFail($id);
         $request->validate([
+            "tanggal_verifikasi" => "required",
             "verifikasi_kp4mp" => "required"
         ]);
 
         DB::transaction(function () use ($request, $verifikasiTemuan) {
             $verifikasiTemuan->update([
+                'tanggal_verifikasi' => $request->tanggal_verifikasi,
                 'verifikasi_kp4mp' => $request->verifikasi_kp4mp,
                 'catatan_khusus' => $request->catatan_khusus,
                 'hasil_observasi' => $request->hasil_observasi,

@@ -17,7 +17,7 @@ class UraianTemuanAmiController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all()
+            'standar' => Standar::latest()->paginate(10)
         ];
         return view('ami.draft_temuan.data_standar', $data);
     }
@@ -47,12 +47,20 @@ class UraianTemuanAmiController extends Controller
     {
         $standar = Standar::findOrFail($id);
         $request->validate([
+            "tanggal_pelaksanaan" => "required",
+            "checklist_uraian" => "required",
             "uraian_ketidaksesuaian" => "required"
         ]);
 
         DB::transaction(function () use ($request, $standar) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
+
             UraianTemuanAmi::create([
+                'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
+                'checklist_uraian' => $request->checklist_uraian,
                 'uraian_ketidaksesuaian' => $request->uraian_ketidaksesuaian,
                 "id_jadwal" => $jadwal_ami->id,
                 'id_standar' => $standar->id
@@ -80,11 +88,15 @@ class UraianTemuanAmiController extends Controller
     {
         $uraianKetidaksesuaian = UraianTemuanAmi::findOrFail($id);
         $request->validate([
+            "tanggal_pelaksanaan" => "required",
+            "checklist_uraian" => "required",
             "uraian_ketidaksesuaian" => "required"
         ]);
 
         DB::transaction(function () use ($request, $uraianKetidaksesuaian) {
             $uraianKetidaksesuaian->update([
+                'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
+                'checklist_uraian' => $request->checklist_uraian,
                 'uraian_ketidaksesuaian' => $request->uraian_ketidaksesuaian
             ]);
         });

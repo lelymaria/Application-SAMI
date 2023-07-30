@@ -32,6 +32,23 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
         Header end ti-comment-alt
@@ -67,6 +84,9 @@
                     <button type="submit" class="btn btn-rounded btn-primary btn-xs">Simpan</button>
                 </div>
                 <div class="card-body">
+                    <div class="mb-4">
+                        <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                    </div>
                     @if ($standar->uraianTemuanAmi)
                         <div class="mb-3">
                             <label class="col-lg-2 col-form-label" for="validationCustom02">Uraian Ketidaksesuaian
@@ -82,14 +102,20 @@
                         </div>
                     @endif
                     <div class="mb-3">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggal Penyelesaian <span
+                                class="text-danger">*</span>
+                        </label>
+                        <input type="date" class="form-control" id="validationCustom02" name="tanggal_penyelesaian">
+                    </div>
+                    <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Analisa Penyebab Masalah <span class="text-danger">*</span>
                         </label>
-                        <textarea class="form-control" rows="5" name="analisa_masalah"></textarea>
+                        <textarea class="form-control" rows="5" name="analisa_masalah" placeholder="Masukan Hasil Analisa..."></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Tindakan Koreksi <span class="text-danger">*</span>
                         </label>
-                        <textarea class="form-control" rows="5" name="tindakan_koreksi"></textarea>
+                        <textarea class="form-control" rows="5" name="tindakan_koreksi" placeholder="Masukan Tindakan Koreksi..."></textarea>
                     </div>
                 </div>
             </div>

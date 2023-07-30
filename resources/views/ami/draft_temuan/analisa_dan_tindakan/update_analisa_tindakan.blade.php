@@ -32,6 +32,23 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
         Header end ti-comment-alt
@@ -82,14 +99,19 @@
                         </div>
                     @endif
                     <div class="mb-3">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggal Penyelesaian
+                        </label>
+                        <input type="date" class="form-control" id="validationCustom02" name="tanggal_penyelesaian" value="{{ $analisaTindakan->tanggal_penyelesaian }}">
+                    </div>
+                    <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Analisa Penyebab Masalah
                         </label>
-                        <textarea class="form-control" rows="5" name="analisa_masalah">{{ $analisaTindakan->analisa_masalah }}</textarea>
+                        <textarea class="form-control" rows="5" name="analisa_masalah" placeholder="Masukan Hasil Analisa...">{{ $analisaTindakan->analisa_masalah }}</textarea>
                     </div>
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Tindakan Koreksi
                         </label>
-                        <textarea class="form-control" rows="5" name="tindakan_koreksi">{{ $analisaTindakan->tindakan_koreksi }}</textarea>
+                        <textarea class="form-control" rows="5" name="tindakan_koreksi" placeholder="Masukan Tindakan Koreksi">{{ $analisaTindakan->tindakan_koreksi }}</textarea>
                     </div>
                 </div>
             </div>

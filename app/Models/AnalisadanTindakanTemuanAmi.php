@@ -12,7 +12,7 @@ class AnalisadanTindakanTemuanAmi extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'analisa_tindakan_temuan_ami';
-    protected $fillable = ['id_jadwal', 'id_standar', 'analisa_masalah', 'tindakan_koreksi'];
+    protected $fillable = ['id_jadwal', 'id_standar', 'tanggal_penyelesaian', 'analisa_masalah', 'tindakan_koreksi'];
 
     public function jadwal()
     {
