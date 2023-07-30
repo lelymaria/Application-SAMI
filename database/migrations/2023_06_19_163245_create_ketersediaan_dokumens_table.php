@@ -15,6 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_pertanyaan');
             $table->uuid('id_jadwal');
+            $table->dateTime('tanggal_input_dokKetersediaan');
+            $table->string('no_audit');
             $table->text('nama_dokumen');
             $table->string('ketersediaan_dokumen');
             $table->string('pic');
