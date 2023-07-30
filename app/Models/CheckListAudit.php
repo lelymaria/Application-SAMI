@@ -12,7 +12,7 @@ class CheckListAudit extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'check_list_audit';
-    protected $fillable = ['id_jadwal', 'id_pertanyaan', 'kesesuaian', 'catatan_khusus', 'hasil_observasi'];
+    protected $fillable = ['id_jadwal', 'id_pertanyaan', 'tanggal_input_dokChecklist', 'kesesuaian', 'catatan_khusus', 'hasil_observasi'];
 
     public function jadwal()
     {
