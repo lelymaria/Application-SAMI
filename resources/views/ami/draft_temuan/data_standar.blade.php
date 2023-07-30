@@ -83,7 +83,7 @@
                                     <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}</td>
                                     <td>{{ $data_standar->nama_standar }}</td>
                                     <td>
-                                        <a href="{{ url('/ami/draft_temuan_ami/{id}') }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                        <a href="{{ url('/ami/draft_temuan_ami_preview/'. $data_standar->id) }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                             class="fa fa-file-invoice"></i></a>
                                         @can('ketuaP4mp')
                                             @if ($data_standar->verifikasiKp4mp)

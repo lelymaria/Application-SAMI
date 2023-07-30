@@ -83,7 +83,7 @@
                                     <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}</td>
                                     <td>{{ $data_standar->nama_standar }}</td>
                                     <td>
-                                        <a href="{{ url('/ami/checklist_audit/{id}') }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                        <a href="{{ url('/ami/checklist_audit_preview/'. $data_standar->id) }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                 class="fa fa-file-invoice"></i></a>
                                         @can('lead')
                                                 <a href="{{ url('/ami/checklist_audit/' . $data_standar->id) }}"

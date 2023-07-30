@@ -112,32 +112,16 @@ class StandarController extends Controller
     public function ketersediaanDokumen($id)
     {
         $standar = Standar::findOrFail($id);
-        // $template = new \PhpOffice\PhpWord\TemplateProcessor('./ketersediaan_dokumen/ketersediaan_dokumen.docx');
-        // $template->setValues([
-        //     "nama_formulir" => $standar->kopSurat->nama_formulir,
-        //     "no_dokumen" => $standar->kopSurat->no_dokumen,
-        //     "no_revisi" => $standar->kopSurat->no_revisi,
-        //     "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
-        //     "halaman" => $standar->kopSurat->halaman,
-        //     "akun_auditor" => $standar->kopSurat->nama_formulir,
-        //     "nip" => $standar->kopSurat->nama_formulir,
-        //     "nama_standar" => $standar->kopSurat->nama_formulir,
-        //     "list_pertanyaan_standar" => $standar->kopSurat->nama_formulir,
-        //     "nama_dokumen" => $standar->kopSurat->nama_formulir,
-        //     "ketersediaan_ya" => $standar->kopSurat->nama_formulir,
-        //     "ketersediaan_tidak" => $standar->kopSurat->nama_formulir,
-        //     "pic" => $standar->kopSurat->nama_formulir
-        // ]);
-        // $template->saveAs('arsip/coba.docx');
-        // return "OK";
-        dd($standar->pertanyaanStandar->ketersediaanDokumen);
-        dd([
+        $template = new \PhpOffice\PhpWord\TemplateProcessor('./ketersediaan_dokumen/ketersediaan_dokumen.docx');
+        $template->setValues([
             "nama_formulir" => $standar->kopSurat->nama_formulir,
             "no_dokumen" => $standar->kopSurat->no_dokumen,
             "no_revisi" => $standar->kopSurat->no_revisi,
             "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
             "halaman" => $standar->kopSurat->halaman,
-            "akun_auditor" => $standar->tugasStandar->user->akunAuditee->nama,
+            "no_audit" => $standar->pertanyaanStandar->ketersediaanDokumen->no_audit,
+            "tanggal_input_dokKetersediaan" => $standar->pertanyaanStandar->ketersediaanDokumen->tanggal_input_dokKetersediaan,
+            "akun_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
             "nip" => $standar->tugasStandar->user->nip,
             "nama_standar" => $standar->nama_standar,
             "list_pertanyaan_standar" => $standar->pertanyaanStandar->list_pertanyaan_standar,
@@ -146,13 +130,70 @@ class StandarController extends Controller
             "ketersediaan_tidak" => $standar->pertanyaanStandar->ketersediaanDokumen->ketersediaan_dokumen,
             "pic" => $standar->pertanyaanStandar->ketersediaanDokumen->pic
         ]);
+        $template->saveAs('arsip/dok_ketersediaan/ketersediaan.docx');
+        return "OK";
+        // dd($standar->pertanyaanStandar->ketersediaanDokumen);
+        // dd([
+        // ]);
     }
 
-    public function checklistAudit()
+    public function checklistAudit($id)
     {
+        $standar = Standar::findOrFail($id);
+        $template = new \PhpOffice\PhpWord\TemplateProcessor('./checklist_ami/dokumen_checklist.docx');
+        $template->setValues([
+            "nama_formulir" => $standar->kopSurat->nama_formulir,
+            "nama_standar" => $standar->nama_standar,
+            "no_dokumen" => $standar->kopSurat->no_dokumen,
+            "no_revisi" => $standar->kopSurat->no_revisi,
+            "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
+            "halaman" => $standar->kopSurat->halaman,
+            "unit_kerja" => $standar->pertanyaanStandar->cheklistAudit->unit_kerja,
+            "tanggal_input_dokChecklist" => $standar->pertanyaanStandar->cheklistAudit->tanggal_input_dokChecklist,
+            "akun_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
+            "nip" => $standar->tugasStandar->user->nip,
+            "list_pertanyaan_standar" => $standar->pertanyaanStandar->list_pertanyaan_standar,
+            "hasil_observasi" => $standar->pertanyaanStandar->cheklistAudit->hasil_observasi,
+            "kesesuaian_ya" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian,
+            "kesesuaian_tidak" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian,
+            "catatan_khusus," => $standar->pertanyaanStandar->cheklistAudit->catatan_khusus,
+            "tanggapan_auditee" => $standar->pertanyaanStandar->cheklistAudit->tanggapan_auditee
+        ]);
+        $template->saveAs('arsip/dok_checklist/checklist.docx');
+        return "OK";
+        // dd($standar->pertanyaanStandar->ketersediaanDokumen);
+        // dd([
+        // ]);
     }
 
-    public function draftTemuanAmi()
+    public function dokDraftTemuan($id)
     {
+        $standar = Standar::findOrFail($id);
+        $template = new \PhpOffice\PhpWord\TemplateProcessor('./draft_temuan_ami/draft_temuan_ami.docx');
+        $template->setValues([
+            "nama_formulir" => $standar->kopSurat->nama_formulir,
+            "no_dokumen" => $standar->kopSurat->no_dokumen,
+            "no_revisi" => $standar->kopSurat->no_revisi,
+            "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
+            "halaman" => $standar->kopSurat->halaman,
+            "nama_standar" => $standar->nama_standar,
+            "lead_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
+            "anggota_audior" => $standar->tugasStandar->user->akunAuditor->nama,
+            "akun_auditee" => $standar->tugasStandar->user->akunAuditee->nama,
+            // "unit_kerja" => ?,
+            "checklist_uraia_c" => $standar->uraianTemuanAmi->checklist_uraian,
+            "checklist_uraia_o" => $standar->uraianTemuanAmi->checklist_uraian,
+            "tanggal_pelaksanaan" => $standar->uraianTemuanAmi->tanggal_pelaksanaan,
+            "tanggal_penyelesaian" => $standar->analisaTindakanAmi->tanggal_penyelesaian,
+            "analisa_masalah" => $standar->analisaTindakanAmi->analisa_masalah,
+            "tindakan_koreksi" => $standar->analisaTindakanAmi->tindakan_koreksi,
+            "verifikasi_kp4mp" => $standar->verifikasiKp4mp->verifikasi_kp4mp,
+            "tanggal_verifikasi" => $standar->verifikasiKp4mp->tanggal_verifikasi
+        ]);
+        $template->saveAs('arsip/dok_temuan/temuan.docx');
+        return "OK";
+        // dd($standar->pertanyaanStandar->ketersediaanDokumen);
+        // dd([
+        // ]);
     }
 }

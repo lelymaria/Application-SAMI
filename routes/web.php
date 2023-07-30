@@ -275,7 +275,7 @@ Route::post('/ami/laporan_ami/{id}', [LaporanAmiController::class, "update"]);
 
 Route::get('/ami/ketersediaan_dokumen_preview/{id}', [StandarController::class, "ketersediaanDokumen"]);
 Route::get('/ami/checklist_audit_preview/{id}', [StandarController::class, "checklistAudit"]);
-Route::get('/ami/draft_temuan_ami_preview/{id}', [StandarController::class, "draftTemuanAmi"]);
+Route::get('/ami/draft_temuan_ami_preview/{id}', [StandarController::class, "dokDraftTemuan"]);
 
 /* ============================================================= */
 
