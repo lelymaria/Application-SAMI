@@ -124,7 +124,12 @@ class UndanganAmiController extends Controller
     public function destroy(string $id)
     {
         $undanganAmi = UndanganAmi::findOrFail($id);
-        $undanganAmi->delete();
+        DB::transaction(function () use ($undanganAmi) {
+            $undanganAmi->fotoKegiatanAmi()->delete();
+            $undanganAmi->daftarHadirAmi()->delete();
+            $undanganAmi->notulensiAmi()->delete();
+            $undanganAmi->delete();
+        });
         return redirect('/dokumentasiAmi/undangan/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

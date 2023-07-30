@@ -126,8 +126,10 @@ class KepalaP4mpController extends Controller
     public function destroy(string $id)
     {
         $kepalaP4mp = KepalaP4mp::findOrFail($id);
-        $kepalaP4mp->delete();
-        $kepalaP4mp->user()->delete();
+        DB::transaction(function () use ($kepalaP4mp) {
+            $kepalaP4mp->delete();
+            $kepalaP4mp->user()->delete();
+        });
         return redirect('/manage_user/kepalaP4mp/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

@@ -124,7 +124,12 @@ class UndanganRtmController extends Controller
     public function destroy(string $id)
     {
         $undanganRtm = UndanganRtm::findOrFail($id);
-        $undanganRtm->delete();
+        DB::transaction(function () use ($undanganRtm) {
+            $undanganRtm->fotoKegiatanRtm()->delete();
+            $undanganRtm->daftarHadirRtm()->delete();
+            $undanganRtm->notulensiRtm()->delete();
+            $undanganRtm->delete();
+        });
         return redirect('/dokumentasiRtm/undangan/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

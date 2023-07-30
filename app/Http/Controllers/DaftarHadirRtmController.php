@@ -7,6 +7,7 @@ use App\Models\JadwalAmi;
 use App\Models\UndanganRtm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DaftarHadirRtmController extends Controller
 {
@@ -116,7 +117,10 @@ class DaftarHadirRtmController extends Controller
     public function destroy(string $id)
     {
         $daftar_hadir_rtm = DaftarHadirRtm::findOrFail($id);
-        $daftar_hadir_rtm->delete();
+        DB::transaction(function () use ($daftar_hadir_rtm){
+            Storage::delete($daftar_hadir_rtm->file_daftar_hadir_rtm);
+            $daftar_hadir_rtm->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\NotulensiAmi;
 use App\Models\UndanganAmi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class NotulensiAmiController extends Controller
 {
@@ -115,7 +116,10 @@ class NotulensiAmiController extends Controller
     public function destroy(string $id)
     {
         $notulensi_ami = NotulensiAmi::findOrFail($id);
-        $notulensi_ami->delete();
+        DB::transaction(function () use ($notulensi_ami){
+            Storage::delete($notulensi_ami->file_notulensi_ami);
+            $notulensi_ami->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }

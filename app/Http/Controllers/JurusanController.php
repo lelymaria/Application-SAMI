@@ -85,9 +85,11 @@ class JurusanController extends Controller
     public function destroy(string $idJurusan)
     {
         $jurusan = Jurusan::findOrFail($idJurusan);
-        $jurusan->delete();
-        $jurusan->prodi()->delete();
-        $jurusan->akunJurusan()->delete();
+        DB::transaction(function () use ($jurusan) {
+            $jurusan->delete();
+            $jurusan->prodi()->delete();
+            $jurusan->akunJurusan()->delete();
+        });
         return redirect('/data/datajurusan')->with('message', 'Data Berhasil Terhapus!');
     }
 }

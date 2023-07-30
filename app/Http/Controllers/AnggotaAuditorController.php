@@ -135,8 +135,10 @@ class AnggotaAuditorController extends Controller
     public function destroy(string $id)
     {
         $akunAuditor = User::findOrFail($id);
-        $akunAuditor->akunAuditor()->delete();
-        $akunAuditor->delete();
+        DB::transaction(function ()  use ($akunAuditor) {
+            $akunAuditor->akunAuditor()->delete();
+            $akunAuditor->delete();
+        });
         return redirect('/manage_user/lead_auditor/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

@@ -104,8 +104,15 @@ class StandarController extends Controller
     public function destroy(string $idStandar)
     {
         $standar = Standar::findOrFail($idStandar);
-        $standar->tugasStandar()->delete();
-        $standar->delete();
+        DB::transaction(function () use ($standar) {
+            $standar->pertanyaanStandar()->delete();
+            $standar->tugasStandar()->delete();
+            $standar->dataDukungAuditee()->delete();
+            $standar->uraianTemuanAmi()->delete();
+            $standar->verifikasiKp4mp()->delete();
+            $standar->analisaTindakanAmi()->delete();
+            $standar->delete();
+        });
         return redirect('/ami/standar')->with('message', 'Data Berhasil Terhapus!');
     }
 

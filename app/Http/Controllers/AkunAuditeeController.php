@@ -132,8 +132,10 @@ class AkunAuditeeController extends Controller
     public function destroy(string $id)
     {
         $akunAuditee = AkunAuditee::findOrFail($id);
-        $akunAuditee->delete();
-        $akunAuditee->user()->delete();
+        DB::transaction(function () use ($akunAuditee) {
+            $akunAuditee->delete();
+            $akunAuditee->user()->delete();
+        });
         return redirect('/manage_user/akun_auditee/')->with('message', 'Data Berhasil Terhapus!');
     }
 }

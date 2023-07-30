@@ -129,8 +129,10 @@ class AkunJurusanController extends Controller
     public function destroy(string $id)
     {
         $akunJurusan = AkunJurusan::findOrFail($id);
-        $akunJurusan->delete();
-        $akunJurusan->user()->delete();
+        DB::transaction(function () use ($akunJurusan) {
+            $akunJurusan->delete();
+            $akunJurusan->user()->delete();
+        });
         return redirect('/manage_user/akun_jurusan')->with('message', 'Data Berhasil Terhapus!');
     }
 }

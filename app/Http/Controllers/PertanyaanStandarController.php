@@ -113,7 +113,12 @@ class PertanyaanStandarController extends Controller
     public function destroy(string $id)
     {
         $pertanyaan = PertanyaanStandar::findOrFail($id);
-        $pertanyaan->delete();
+        DB::transaction(function () use ($pertanyaan) {
+            $pertanyaan->ketersediaanDokumen()->delete();
+            $pertanyaan->cheklistAudit()->delete();
+            $pertanyaan->tanggapanChecklist()->delete();
+            $pertanyaan->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }

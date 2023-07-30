@@ -8,6 +8,7 @@ use App\Models\UndanganRtm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
 class FotoKegiatanRtmController extends Controller
@@ -120,7 +121,13 @@ class FotoKegiatanRtmController extends Controller
     public function destroy(string $id)
     {
         $fotoKegiatanRtm = FotoKegiatanRtm::findOrFail($id);
-        $fotoKegiatanRtm->delete();
+        DB::transaction(function () use ($fotoKegiatanRtm) {
+            $foto_kegiatan = json_decode($fotoKegiatanRtm->file_foto_kegiatan_rtm);
+            foreach ($foto_kegiatan as $file) {
+                Storage::delete($file);
+            }
+            $fotoKegiatanRtm->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 

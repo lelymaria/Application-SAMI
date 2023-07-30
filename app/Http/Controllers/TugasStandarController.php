@@ -91,8 +91,10 @@ class TugasStandarController extends Controller
      */
     public function destroy(string $id)
     {
-        $standar = TugasStandar::findOrFail($id);
-        $standar->delete();
+        $tugas = TugasStandar::findOrFail($id);
+        DB::transaction(function () use ($tugas) {
+            $tugas->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }

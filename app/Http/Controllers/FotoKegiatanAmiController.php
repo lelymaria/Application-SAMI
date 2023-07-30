@@ -8,6 +8,7 @@ use App\Models\UndanganAmi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
 class FotoKegiatanAmiController extends Controller
@@ -120,7 +121,13 @@ class FotoKegiatanAmiController extends Controller
     public function destroy(string $id)
     {
         $fotoKegiatanAmi = FotoKegiatanAmi::findOrFail($id);
-        $fotoKegiatanAmi->delete();
+        DB::transaction(function () use ($fotoKegiatanAmi){
+            $foto_kegiatan = json_decode($fotoKegiatanAmi->file_foto_kegiatan_ami);
+            foreach ($foto_kegiatan as $file) {
+                Storage::delete($file);
+            }
+            $fotoKegiatanAmi->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 

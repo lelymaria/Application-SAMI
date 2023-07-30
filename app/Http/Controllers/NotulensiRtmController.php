@@ -7,6 +7,7 @@ use App\Models\NotulensiRtm;
 use App\Models\UndanganRtm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class NotulensiRtmController extends Controller
 {
@@ -116,7 +117,10 @@ class NotulensiRtmController extends Controller
     public function destroy(string $id)
     {
         $notulensi_rtm = NotulensiRtm::findOrFail($id);
-        $notulensi_rtm->delete();
+        DB::transaction(function () use ($notulensi_rtm){
+            Storage::delete($notulensi_rtm->file_notulensi_rtm);
+            $notulensi_rtm->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }

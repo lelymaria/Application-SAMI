@@ -84,7 +84,11 @@ class LayananAkademikController extends Controller
     public function destroy(string $id)
     {
         $layanan = LayananAkademik::findOrFail($id);
-        $layanan->delete();
+        DB::transaction(function () use ($layanan) {
+            $layanan->delete();
+            $layanan->akunAuditee()->delete();
+            $layanan->akunAuditor()->delete();
+        });
         return redirect('/data/layanan_akademik')->with('message', 'Data Berhasil Terhapus!');
     }
 }

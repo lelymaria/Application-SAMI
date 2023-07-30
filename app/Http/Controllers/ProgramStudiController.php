@@ -98,7 +98,11 @@ class ProgramStudiController extends Controller
     public function destroy(string $idProdi)
     {
         $prodi = ProgramStudi::findOrFail($idProdi);
-        $prodi->delete();
+        DB::transaction(function () use ($prodi) {
+            $prodi->akunAuditee()->delete();
+            $prodi->akunAuditor()->delete();
+            $prodi->delete();
+        });
         return redirect('/data/dataprodi')->with('message', 'Data Berhasil Terhapus!');
     }
 }

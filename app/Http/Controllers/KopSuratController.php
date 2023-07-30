@@ -101,7 +101,9 @@ class KopSuratController extends Controller
     public function destroy(string $id)
     {
         $kop_surat = KopSurat::findOrFail($id);
-        $kop_surat->delete();
+        DB::transaction(function () use ($kop_surat){
+            $kop_surat->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }

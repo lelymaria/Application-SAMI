@@ -7,6 +7,7 @@ use App\Models\JadwalAmi;
 use App\Models\Standar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DataDukungAuditeeController extends Controller
 {
@@ -113,7 +114,10 @@ class DataDukungAuditeeController extends Controller
     public function destroy(string $id)
     {
         $dataDukung = DataDukungAuditee::findOrFail($id);
-        $dataDukung->delete();
+        DB::transaction(function () use ($dataDukung){
+            Storage::delete($dataDukung->data_file);
+            $dataDukung->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }

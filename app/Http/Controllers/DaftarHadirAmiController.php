@@ -116,7 +116,10 @@ class DaftarHadirAmiController extends Controller
     public function destroy(string $id)
     {
         $daftar_hadir_ami = DaftarHadirAmi::findOrFail($id);
-        $daftar_hadir_ami->delete();
+        DB::transaction(function () use ($daftar_hadir_ami) {
+            Storage::delete($daftar_hadir_ami->file_daftar_hadir_ami);
+            $daftar_hadir_ami->delete();
+        });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 }
