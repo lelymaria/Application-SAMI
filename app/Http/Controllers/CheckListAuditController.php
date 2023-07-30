@@ -18,14 +18,14 @@ class CheckListAuditController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all()
+            'standar' => Standar::latest()->paginate(10)
         ];
         return view('ami.dokumen_checklist.data_standar', $data);
     }
 
     public function show($id)
     {
-        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->get();
+        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->latest()->paginate(10);
         $data = [
             'standar' => Standar::findOrFail($id),
             'pertanyaan' => $pertanyaan
@@ -54,6 +54,7 @@ class CheckListAuditController extends Controller
         $pertanyaan = PertanyaanStandar::findOrFail($id);
         $tanggapanAudit = TanggapanCheckListAudit::where('id_pertanyaan', $id)->first();
         $request->validate([
+            "tanggal_input_dokChecklist" => "required",
             "kesesuaian" => "required",
             "catatan_khusus" => "required",
             "hasil_observasi" => "required"
@@ -61,7 +62,12 @@ class CheckListAuditController extends Controller
 
         DB::transaction(function () use ($request, $pertanyaan, $tanggapanAudit) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
+
             CheckListAudit::create([
+                'tanggal_input_dokChecklist' => $request->tanggal_input_dokChecklist,
                 'kesesuaian' => $request->kesesuaian,
                 'catatan_khusus' => $request->catatan_khusus,
                 'hasil_observasi' => $request->hasil_observasi,
@@ -91,6 +97,7 @@ class CheckListAuditController extends Controller
     {
         $checkListAudit = CheckListAudit::findOrFail($id);
         $request->validate([
+            "tanggal_input_dokChecklist" => "required",
             "kesesuaian" => "required",
             "catatan_khusus" => "required",
             "hasil_observasi" => "required"
@@ -98,6 +105,7 @@ class CheckListAuditController extends Controller
 
         DB::transaction(function () use ($request, $checkListAudit) {
             $checkListAudit->update([
+                'tanggal_input_dokChecklist' => $request->tanggal_input_dokChecklist,
                 'kesesuaian' => $request->kesesuaian,
                 'catatan_khusus' => $request->catatan_khusus,
                 'hasil_observasi' => $request->hasil_observasi,
