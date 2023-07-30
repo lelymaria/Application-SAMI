@@ -16,7 +16,7 @@ class DataDukungAuditeeController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all()
+            'standar' => Standar::latest()->paginate(10)
         ];
         return view('ami.data_dukung.data_standar', $data);
     }
@@ -26,7 +26,7 @@ class DataDukungAuditeeController extends Controller
      */
     public function create($id)
     {
-        $dataDukung = DataDukungAuditee::where('id_standar', $id)->get();
+        $dataDukung = DataDukungAuditee::where('id_standar', $id)->latest()->paginate(10);
         $data = [
             'standar' => Standar::findOrFail($id),
             'dataDukung' => $dataDukung
@@ -41,7 +41,7 @@ class DataDukungAuditeeController extends Controller
     {
         $standar = Standar::findOrFail($id);
         $request->validate([
-            "data_dukung_auditee" => "required",
+            "data_dukung_auditee" => "required|mimes:doc,docx,pdf,xlsx|file|max:3072",
         ]);
 
         $request->merge([
@@ -50,6 +50,10 @@ class DataDukungAuditeeController extends Controller
 
         DB::transaction(function () use ($request, $standar) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
+
             foreach ($request->data_dukung_auditee as $document) {
                 $filename = $document->getClientOriginalName();
                 $path = $document->storeAs('data_dukung_auditee', $filename);
@@ -90,7 +94,7 @@ class DataDukungAuditeeController extends Controller
     {
         $dataDukungAuditee = DataDukungAuditee::findOrFail($id);
         $request->validate([
-            "data_dukung_auditee" => "required",
+            "data_dukung_auditee" => "required|mimes:doc,docx,pdf,xlsx|file|max:3072",
         ]);
 
         $filename = $request->file('data_dukung_auditee')->getClientOriginalName();
