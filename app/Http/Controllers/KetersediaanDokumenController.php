@@ -17,14 +17,14 @@ class KetersediaanDokumenController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all()
+            'standar' => Standar::latest()->paginate(10)
         ];
         return view('ami.ketersediaan_dokumen.data_standar', $data);
     }
 
     public function show($id)
     {
-        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->get();
+        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->latest()->paginate(10);
         $data = [
             'standar' => Standar::findOrFail($id),
             'pertanyaan' => $pertanyaan
@@ -52,6 +52,8 @@ class KetersediaanDokumenController extends Controller
     {
         $pertanyaan = PertanyaanStandar::findOrFail($id);
         $request->validate([
+            "tanggal_input_dokKetersediaan" => "required",
+            "no_audit" => "required",
             "nama_dokumen" => "required",
             "ketersediaan_dokumen" => "required",
             "pic" => "required",
@@ -60,9 +62,13 @@ class KetersediaanDokumenController extends Controller
 
         DB::transaction(function () use ($request, $pertanyaan) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
-
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
 
             KetersediaanDokumen::create([
+                'tanggal_input_dokKetersediaan' => $request->tanggal_input_dokKetersediaan,
+                'no_audit' => $request->no_audit,
                 'nama_dokumen' => $request->nama_dokumen,
                 'ketersediaan_dokumen' => $request->ketersediaan_dokumen,
                 'pic' => $request->pic,
@@ -93,6 +99,8 @@ class KetersediaanDokumenController extends Controller
     {
         $ketersediaan = KetersediaanDokumen::findOrFail($id);
         $request->validate([
+            "tanggal_input_dokKetersediaan" => "required",
+            "no_audit" => "required",
             "nama_dokumen" => "required",
             "ketersediaan_dokumen" => "required",
             "pic" => "required",
@@ -101,6 +109,8 @@ class KetersediaanDokumenController extends Controller
 
         DB::transaction(function () use ($request, $ketersediaan) {
             $ketersediaan->update([
+                'tanggal_input_dokKetersediaan' => $request->tanggal_input_dokKetersediaan,
+                'no_audit' => $request->no_audit,
                 'nama_dokumen' => $request->nama_dokumen,
                 'ketersediaan_dokumen' => $request->ketersediaan_dokumen,
                 'pic' => $request->pic,

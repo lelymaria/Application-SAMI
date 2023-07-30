@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @push('header')
     <!--**********************************
     Header start
@@ -27,6 +30,23 @@
                         <div class="media-body">
                             <h5 class="mt-1 mb-2">Congratulations!</h5>
                             <p class="mb-0">{{ session('message') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
                         </div>
                     </div>
                 </div>
@@ -73,6 +93,22 @@
                         <textarea class="form-control" rows="10" name="list_pertanyaan_standar" disabled>{{ $ketersediaan->pertanyaanStandar->list_pertanyaan_standar }}</textarea>
                     </div>
                     <div class="mb-3 row">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggal Input Ketersediaan
+                        </label>
+                        <div class="col-lg-6">
+                            <input type="date" class="form-control" id="validationCustom02"
+                                name="tanggal_input_dokKetersediaan" value="{{ Carbon::createFromFormat('Y-m-d H:i:s', $ketersediaan->tanggal_input_dokKetersediaan)->isoFormat('YYYY-MM-DD') }}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">No. Audit <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" id="validationCustom02"
+                                name="no_audit" placeholder="Masukan No. Audit..." value="{{ $ketersediaan->no_audit }}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Ketersediaan Dokumen
                         </label>
                         <div class="col-lg-6">
@@ -93,18 +129,18 @@
                         </label>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" id="validationCustom02"
-                                name="pic" value="{{ $ketersediaan->pic }}">
+                                name="pic" value="{{ $ketersediaan->pic }}" placeholder="Masukan PIC...">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Nama Dokumen
                         </label>
-                        <textarea class="form-control" rows="5" name="nama_dokumen">{{ $ketersediaan->nama_dokumen }}</textarea>
+                        <textarea class="form-control" rows="5" name="nama_dokumen" placeholder="Masukan Nama Dokumen...">{{ $ketersediaan->nama_dokumen }}</textarea>
                     </div>
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Catatan
                         </label>
-                        <textarea class="form-control" rows="5" name="catatan">{{ $ketersediaan->catatan }}</textarea>
+                        <textarea class="form-control" rows="5" name="catatan" placeholder="Masukan Catatan...">{{ $ketersediaan->catatan }}</textarea>
                     </div>
                 </div>
             </div>
