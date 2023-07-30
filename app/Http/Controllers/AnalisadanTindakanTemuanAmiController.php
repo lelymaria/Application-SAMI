@@ -17,7 +17,7 @@ class AnalisadanTindakanTemuanAmiController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all()
+            'standar' => Standar::latest()->paginate(10)
         ];
         return view('ami.draft_temuan.data_standar', $data);
     }
@@ -47,13 +47,19 @@ class AnalisadanTindakanTemuanAmiController extends Controller
     {
         $standar = Standar::findOrFail($id);
         $request->validate([
+            "tanggal_penyelesaian" => "required",
             "analisa_masalah" => "required",
             "tindakan_koreksi" => "required"
         ]);
 
         DB::transaction(function () use ($request, $standar) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
+
             AnalisadanTindakanTemuanAmi::create([
+                'tanggal_penyelesaian' => $request->tanggal_penyelesaian,
                 'analisa_masalah' => $request->analisa_masalah,
                 'tindakan_koreksi' => $request->tindakan_koreksi,
                 "id_jadwal" => $jadwal_ami->id,
@@ -82,12 +88,14 @@ class AnalisadanTindakanTemuanAmiController extends Controller
     {
         $analisaTindakan = AnalisadanTindakanTemuanAmi::findOrFail($id);
         $request->validate([
+            "tanggal_penyelesaian" => "required",
             "analisa_masalah" => "required",
             "tindakan_koreksi" => "required"
         ]);
 
         DB::transaction(function () use ($request, $analisaTindakan) {
             $analisaTindakan->update([
+                'tanggal_penyelesaian' => $request->tanggal_penyelesaian,
                 'analisa_masalah' => $request->analisa_masalah,
                 'tindakan_koreksi' => $request->tindakan_koreksi
             ]);

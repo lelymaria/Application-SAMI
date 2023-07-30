@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_standar');
             $table->uuid('id_jadwal');
+            $table->dateTime('tanggal_penyelesaian');
             $table->text('analisa_masalah');
             $table->text('tindakan_koreksi');
             $table->timestamps();

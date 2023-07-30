@@ -13,7 +13,7 @@ class VerifikasiTemuanAmi extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'verifikasi_temuan_ami';
-    protected $fillable = ['id_jadwal', 'id_standar', 'verifikasi_kp4mp'];
+    protected $fillable = ['id_jadwal', 'id_standar', 'tanggal_verifikasi', 'verifikasi_kp4mp'];
 
     public function jadwal()
     {
