@@ -47,7 +47,7 @@ class LeadAuditorController extends Controller
             "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
-            "unit_kerja" => "required",
+            "unit_kerja" => "required|exists:prodi,layanan_akademik,id",
             // "foto_profile" => "required",
         ]);
 
@@ -104,7 +104,7 @@ class LeadAuditorController extends Controller
     {
         $akunAuditor = User::find($id);
         $request->validate([
-            "unit_kerja" => "required",
+            "unit_kerja" => "required|exists:prodi,layanan_akademik,id",
             "email" => "required|email",
             "nip" => [
                 'required', Rule::unique('users')->ignore($akunAuditor), 'numeric',

@@ -43,7 +43,7 @@ class AkunJurusanController extends Controller
             "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
-            "unit_kerja" => "required",
+            "unit_kerja" => "required|exists:jurusan,id",
             // "foto_profile" => "required",
         ]);
 
@@ -98,7 +98,7 @@ class AkunJurusanController extends Controller
     {
         $akunJurusan = AkunJurusan::find($id);
         $request->validate([
-            "unit_kerja" => "required",
+            "unit_kerja" => "required|exists:jurusan,id",
             "email" => "required|email",
             "nip" => [
                 'required', Rule::unique('users')->ignore($akunJurusan->id_user), "numeric"

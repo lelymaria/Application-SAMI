@@ -45,7 +45,7 @@ class AkunAuditeeController extends Controller
             "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
-            "unit_kerja" => "required",
+            "unit_kerja" => "required|exists:prodi,layanan_akademik,id",
             // "foto_profile" => "required",
         ]);
 
@@ -101,7 +101,7 @@ class AkunAuditeeController extends Controller
     {
         $akunAuditee = AkunAuditee::find($id);
         $request->validate([
-            "unit_kerja" => "required",
+            "unit_kerja" => "required|exists:prodi,layanan_akademik,id",
             "email" => "required|email",
             "nip" => [
                 'required', Rule::unique('users')->ignore($akunAuditee->id_user), "numeric"
