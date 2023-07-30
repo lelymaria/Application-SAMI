@@ -18,14 +18,14 @@ class TanggapanCheckListAuditController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::all()
+            'standar' => Standar::latest()->paginate(10)
         ];
         return view('ami.dokumen_checklist.data_standar', $data);
     }
 
     public function show($id)
     {
-        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->get();
+        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->latest()->paginate(10);
         $data = [
             'standar' => Standar::findOrFail($id),
             'pertanyaan' => $pertanyaan
@@ -59,6 +59,10 @@ class TanggapanCheckListAuditController extends Controller
 
         DB::transaction(function () use ($request, $pertanyaan, $checklistAudit) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
+
             TanggapanCheckListAudit::create([
                 'tanggapan_auditee' => $request->tanggapan_auditee,
                 "id_jadwal" => $jadwal_ami->id,

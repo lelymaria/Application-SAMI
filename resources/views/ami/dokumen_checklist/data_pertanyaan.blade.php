@@ -35,6 +35,23 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
                                                                     Header end ti-comment-alt
@@ -64,50 +81,54 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pertanyaan as $pertanyaan)
+                            @forelse ($pertanyaan as $index => $data_pertanyaan)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{!! Str::limit($pertanyaan->list_pertanyaan_standar, 100, '...') !!}</td>
+                                    <td>{{ ($pertanyaan->currentPage() - 1) * $pertanyaan->perPage() + $index + 1 }}</td>
+                                    <td>{!! Str::limit($data_pertanyaan->list_pertanyaan_standar, 100, '...') !!}</td>
                                     <td>
-
                                         @can('lead')
-                                            @if ($pertanyaan->cheklistAudit)
-                                                <a href="{{ url('/ami/checklist_audit/update/' . $pertanyaan->cheklistAudit?->id) }}"
+                                            @if ($data_pertanyaan->cheklistAudit)
+                                                <a href="{{ url('/ami/checklist_audit/update/' . $data_pertanyaan->cheklistAudit?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
                                             @else
-                                                <a href="{{ url('/ami/checklist_audit/create/' . $pertanyaan->id) }}"
+                                                <a href="{{ url('/ami/checklist_audit/create/' . $data_pertanyaan->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                             @endif
                                         @endcan
                                         @can('anggota')
-                                            @if ($pertanyaan->cheklistAudit)
-                                                <a href="{{ url('/ami/checklist_audit/update/' . $pertanyaan->cheklistAudit?->id) }}"
+                                            @if ($data_pertanyaan->cheklistAudit)
+                                                <a href="{{ url('/ami/checklist_audit/update/' . $data_pertanyaan->cheklistAudit?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
                                             @else
-                                                <a href="{{ url('/ami/checklist_audit/create/' . $pertanyaan->id) }}"
+                                                <a href="{{ url('/ami/checklist_audit/create/' . $data_pertanyaan->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                             @endif
                                         @endcan
                                         @can('auditee')
-                                            @if ($pertanyaan->tanggapanChecklist)
-                                                <a href="{{ url('/ami/tanggapan_audit/update/' . $pertanyaan->tanggapanChecklist?->id) }}"
+                                            @if ($data_pertanyaan->tanggapanChecklist)
+                                                <a href="{{ url('/ami/tanggapan_audit/update/' . $data_pertanyaan->tanggapanChecklist?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
                                             @else
-                                                <a href="{{ url('/ami/tanggapan_audit/create/' . $pertanyaan->id) }}"
+                                                <a href="{{ url('/ami/tanggapan_audit/create/' . $data_pertanyaan->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                             @endif
                                         @endcan
                                     </td>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                             </tr>
                         </tbody>
                     </table>
+                    {{ $pertanyaan->links() }}
                 </div>
             </div>
         </div>

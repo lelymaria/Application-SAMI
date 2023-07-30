@@ -32,6 +32,23 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
             Header end ti-comment-alt
@@ -107,7 +124,7 @@
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggapan Auditee
                         </label>
-                        <textarea class="form-control" rows="5" name="tanggapan_auditee">{{ $tanggapanAudit->tanggapan_auditee }}</textarea>
+                        <textarea class="form-control" rows="5" name="tanggapan_auditee" placeholder="Masukan Tanggapan...">{{ $tanggapanAudit->tanggapan_auditee }}</textarea>
                     </div>
                 </div>
             </div>

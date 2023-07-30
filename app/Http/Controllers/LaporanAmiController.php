@@ -34,13 +34,16 @@ class LaporanAmiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "upload_laporan" => "required|mimes:doc,docx,pdf",
+            "upload_laporan" => "required|mimes:doc,docx,pdf|file|max:3072",
         ]);
 
         if ($request->hasFile('upload_laporan')) {
             $fileLaporan = $request->file('upload_laporan');
             $filename = $fileLaporan->getClientOriginalName();
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
+            if (!$jadwal_ami) {
+                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+            }
 
             if ($request->file_nama) {
                 $filename = $request->file_nama;
@@ -95,7 +98,7 @@ class LaporanAmiController extends Controller
     {
         $laporanAmi = LaporanAmi::findOrFail($id);
         $request->validate([
-            "upload_laporan" => "required|mimes:doc,docx,pdf",
+            "upload_laporan" => "required|mimes:doc,docx,pdf|file|max:3072",
         ]);
 
         if ($request->hasFile('upload_laporan')) {

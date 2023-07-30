@@ -14,6 +14,41 @@
                 </div>
             </nav>
         </div>
+        @if (session('message'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                            <span><i class="mdi mdi-check-circle-outline"></i></span>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Congratulations!</h5>
+                            <p class="mb-0">{{ session('message') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
                                                     Header end ti-comment-alt
@@ -43,33 +78,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($standar as $standar)
+                            @forelse ($standar as $index => $data_standar)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $standar->nama_standar }}</td>
+                                    <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}</td>
+                                    <td>{{ $data_standar->nama_standar }}</td>
                                     <td>
                                         <a href="{{ url('/ami/checklist_audit/{id}') }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                 class="fa fa-file-invoice"></i></a>
                                         @can('lead')
-                                                <a href="{{ url('/ami/checklist_audit/' . $standar->id) }}"
+                                                <a href="{{ url('/ami/checklist_audit/' . $data_standar->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                         @endcan
                                         @can('anggota')
-                                                <a href="{{ url('/ami/checklist_audit/' . $standar->id) }}"
+                                                <a href="{{ url('/ami/checklist_audit/' . $data_standar->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                         @endcan
                                         @can('auditee')
-                                                <a href="{{ url('/ami/tanggapan_audit/' . $standar->id) }}"
+                                                <a href="{{ url('/ami/tanggapan_audit/' . $data_standar->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                         @endcan
                                     </td>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                             </tr>
                         </tbody>
                     </table>
+                    {{ $standar->links() }}
                 </div>
             </div>
         </div>

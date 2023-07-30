@@ -32,6 +32,23 @@
                 </div>
             </div>
         @endif
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
                                         Header end ti-comment-alt
@@ -61,62 +78,67 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($standar as $standar)
+                            @forelse ($standar as $index => $data_standar)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $standar->nama_standar }}</td>
+                                    <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}</td>
+                                    <td>{{ $data_standar->nama_standar }}</td>
                                     <td>
                                         <a href="{{ url('/ami/draft_temuan_ami/{id}') }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                             class="fa fa-file-invoice"></i></a>
                                         @can('ketuaP4mp')
-                                            @if ($standar->verifikasiKp4mp)
-                                                <a href="{{ url('/ami/verifikasi_ami/update/' . $standar->verifikasiKp4mp?->id) }}"
+                                            @if ($data_standar->verifikasiKp4mp)
+                                                <a href="{{ url('/ami/verifikasi_ami/update/' . $data_standar->verifikasiKp4mp?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
                                             @else
-                                                <a href="{{ url('/ami/verifikasi_ami/create/' . $standar->id) }}"
+                                                <a href="{{ url('/ami/verifikasi_ami/create/' . $data_standar->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                             @endif
                                         @endcan
                                         @can('lead')
-                                            @if ($standar->uraianTemuanAmi)
-                                                <a href="{{ url('/ami/uraian_ami/update/' . $standar->uraianTemuanAmi?->id) }}"
+                                            @if ($data_standar->uraianTemuanAmi)
+                                                <a href="{{ url('/ami/uraian_ami/update/' . $data_standar->uraianTemuanAmi?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
                                             @else
-                                                <a href="{{ url('/ami/uraian_ami/create/' . $standar->id) }}"
+                                                <a href="{{ url('/ami/uraian_ami/create/' . $data_standar->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                             @endif
                                         @endcan
                                         @can('anggota')
-                                            @if ($standar->uraianTemuanAmi)
-                                                <a href="{{ url('/ami/uraian_ami/update/' . $standar->uraianTemuanAmi?->id) }}"
+                                            @if ($data_standar->uraianTemuanAmi)
+                                                <a href="{{ url('/ami/uraian_ami/update/' . $data_standar->uraianTemuanAmi?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
                                             @else
-                                                <a href="{{ url('/ami/uraian_ami/create/' . $standar->id) }}"
+                                                <a href="{{ url('/ami/uraian_ami/create/' . $data_standar->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                             @endif
                                         @endcan
                                         @can('auditee')
-                                            @if ($standar->analisaTindakanAmi)
-                                                <a href="{{ url('/ami/analisa_tindakan_ami/update/' . $standar->analisaTindakanAmi?->id) }}"
+                                            @if ($data_standar->analisaTindakanAmi)
+                                                <a href="{{ url('/ami/analisa_tindakan_ami/update/' . $data_standar->analisaTindakanAmi?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
                                             @else
-                                                <a href="{{ url('/ami/analisa_tindakan_ami/create/' . $standar->id) }}"
+                                                <a href="{{ url('/ami/analisa_tindakan_ami/create/' . $data_standar->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-plus"></i></a>
                                             @endif
                                         @endcan
                                     </td>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak tersedia!</td>
+                                </tr>
+                            @endforelse
                             </tr>
                         </tbody>
                     </table>
+                    {{ $standar->links() }}
                 </div>
             </div>
         </div>
