@@ -28,4 +28,8 @@ class CheckListAudit extends Model
     {
         return $this->hasOne(TanggapanCheckListAudit::class, 'id_check_list_audit', 'id');
     }
+
+    public function kopSurat() {
+        return $this->belongsTo(KopSurat::class, 'id_kop_surat', 'id');
+    }
 }

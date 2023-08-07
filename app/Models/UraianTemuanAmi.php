@@ -16,11 +16,15 @@ class UraianTemuanAmi extends Model
 
     public function jadwal()
     {
-        return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal'); 
+        return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
     }
 
     public function standar()
     {
         return $this->hasOne(Standar::class, 'id', 'id_standar');
+    }
+
+    public function kopSurat() {
+        return $this->belongsTo(KopSurat::class, 'id_kop_surat', 'id');
     }
 }

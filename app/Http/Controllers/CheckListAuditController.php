@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CheckListAudit;
 use App\Models\JadwalAmi;
+use App\Models\KopSurat;
 use App\Models\PertanyaanStandar;
 use App\Models\Standar;
 use App\Models\TanggapanCheckListAudit;
@@ -41,6 +42,7 @@ class CheckListAuditController extends Controller
         $checkListAudit = CheckListAudit::where('id_pertanyaan', $id)->get();
         $data = [
             'pertanyaan' => PertanyaanStandar::findOrFail($id),
+            'kop_surat' => KopSurat::all(),
             'checkListAudit' => $checkListAudit
         ];
         return view('ami.dokumen_checklist.auditor.checklist_ami_auditor', $data);
@@ -54,6 +56,7 @@ class CheckListAuditController extends Controller
         $pertanyaan = PertanyaanStandar::findOrFail($id);
         $tanggapanAudit = TanggapanCheckListAudit::where('id_pertanyaan', $id)->first();
         $request->validate([
+            "nama_formulir" => "required",
             "tanggal_input_dokChecklist" => "required",
             "kesesuaian" => "required",
             "catatan_khusus" => "required",
@@ -67,6 +70,7 @@ class CheckListAuditController extends Controller
             }
 
             CheckListAudit::create([
+                "id_kop_surat" => $request->nama_formulir,
                 'tanggal_input_dokChecklist' => $request->tanggal_input_dokChecklist,
                 'kesesuaian' => $request->kesesuaian,
                 'catatan_khusus' => $request->catatan_khusus,
@@ -85,6 +89,7 @@ class CheckListAuditController extends Controller
     {
         $checkListAudit = CheckListAudit::findOrFail($id);
         $data = [
+            "kop_surat" => KopSurat::all(),
             'checkListAudit' => $checkListAudit
         ];
         return view('ami.dokumen_checklist.auditor.update_checklist_auditor', $data);
@@ -97,6 +102,7 @@ class CheckListAuditController extends Controller
     {
         $checkListAudit = CheckListAudit::findOrFail($id);
         $request->validate([
+            "nama_formulir" => "required",
             "tanggal_input_dokChecklist" => "required",
             "kesesuaian" => "required",
             "catatan_khusus" => "required",
@@ -105,6 +111,7 @@ class CheckListAuditController extends Controller
 
         DB::transaction(function () use ($request, $checkListAudit) {
             $checkListAudit->update([
+                "id_kop_surat" => $request->nama_formulir,
                 'tanggal_input_dokChecklist' => $request->tanggal_input_dokChecklist,
                 'kesesuaian' => $request->kesesuaian,
                 'catatan_khusus' => $request->catatan_khusus,

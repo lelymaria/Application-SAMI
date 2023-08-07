@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                Header start
-                ***********************************-->
+                    Header start
+                    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-                Header end ti-comment-alt
-                ***********************************-->
+                    Header end ti-comment-alt
+                    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -66,14 +66,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="col-12">
         <form action="{{ url('/ami/uraian_ami/create/' . $standar->id) }}" method="post">
@@ -101,11 +101,29 @@
                     @endif
                     @if ($standar->verifikasiKp4mp)
                         <div class="mb-3">
-                            <label class="col-lg-2 col-form-label" for="validationCustom02">Verifikasi Keefektifan Tindakan Koreksi
+                            <label class="col-lg-2 col-form-label" for="validationCustom02">Verifikasi Keefektifan Tindakan
+                                Koreksi
                             </label>
                             <textarea class="form-control" rows="5" name="verifikasi_kp4mp" disabled>{{ $standar->verifikasiKp4mp?->verifikasi_kp4mp }}</textarea>
                         </div>
                     @endif
+
+                    <div class="mb-3 row">
+                        <label class="col-lg-2 col-form-label" for="validationCustom07">Pilih Kop
+                            Surat
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-6">
+                            <select class="default-select wide form-control" id="validationCustom05" name="nama_formulir">
+                                <option data-display="Select" disabled selected>Please select
+                                </option>
+                                @foreach ($kop_surat as $kop)
+                                    <option value="{{ $kop->id }}">{{ $kop->nama_formulir }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggal Pelaksanaan <span
                                 class="text-danger">*</span>
@@ -113,17 +131,20 @@
                         <input type="date" class="form-control" id="validationCustom02" name="tanggal_pelaksanaan">
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Checklist Uraian <span class="text-danger">*</span>
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Checklist Uraian <span
+                                class="text-danger">*</span>
                         </label>
                         <div class="col-lg-6">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="non_confirmity">Non Confirmity
+                                    <input type="radio" class="form-check-input" name="checklist_uraian"
+                                        value="non_confirmity">Non Confirmity
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="observasi">Observasi
+                                    <input type="radio" class="form-check-input" name="checklist_uraian"
+                                        value="observasi">Observasi
                                 </label>
                             </div>
                         </div>

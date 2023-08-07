@@ -131,15 +131,16 @@
                         </thead>
                         <tbody>
                             @forelse ($dataDukung as $index => $data)
+                            {{-- {{ dd($data); }} --}}
                                 <tr>
                                     <td>{{ ($dataDukung->currentPage() - 1) * $dataDukung->perPage() + $index + 1 }}
                                     </td>
                                     <td>{{ $data->nama_file }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ url('ami/download_foto_kegiatan_ami/') }}" target="_blank"
+                                            <a href="{{ asset('storage/' . $data->data_file) }}" target="_blank"
                                                 class="btn btn-secondary shadow btn-xs sharp me-1"><i
-                                                    class="las la-download"></i></a>
+                                                    class="fa fa-file-invoice"></i></a>
                                             <a href="#" data-url="{{ url('/ami/auditee/data_dukung/' . $data->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
                                                 data-bs-toggle="modal" data-bs-target="#updateDataDukung"><i

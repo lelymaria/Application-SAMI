@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JadwalAmi;
+use App\Models\KopSurat;
 use App\Models\PertanyaanStandar;
 use App\Models\Standar;
 use App\Models\UraianTemuanAmi;
@@ -35,6 +36,7 @@ class UraianTemuanAmiController extends Controller
         $uraianKetidaksesuaian = UraianTemuanAmi::where('id_standar', $id)->get();
         $data = [
             'standar' => Standar::findOrFail($id),
+            'kop_surat' => KopSurat::all(),
             'uraianKetidaksesuaian' => $uraianKetidaksesuaian
         ];
         return view('ami.draft_temuan.uraian_ketidaksesuaian.uraian_ketidaksesuaian', $data);
@@ -47,6 +49,7 @@ class UraianTemuanAmiController extends Controller
     {
         $standar = Standar::findOrFail($id);
         $request->validate([
+            "nama_formulir" => "required",
             "tanggal_pelaksanaan" => "required",
             "checklist_uraian" => "required",
             "uraian_ketidaksesuaian" => "required"
@@ -59,6 +62,7 @@ class UraianTemuanAmiController extends Controller
             }
 
             UraianTemuanAmi::create([
+                "id_kop_surat" => $request->nama_formulir,
                 'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
                 'checklist_uraian' => $request->checklist_uraian,
                 'uraian_ketidaksesuaian' => $request->uraian_ketidaksesuaian,
@@ -76,6 +80,7 @@ class UraianTemuanAmiController extends Controller
     {
         $uraianKetidaksesuaian = UraianTemuanAmi::findOrFail($id);
         $data = [
+            "kop_surat" => KopSurat::all(),
             'uraianKetidaksesuaian' => $uraianKetidaksesuaian
         ];
         return view('ami.draft_temuan.uraian_ketidaksesuaian.update_uraian', $data);
@@ -88,6 +93,7 @@ class UraianTemuanAmiController extends Controller
     {
         $uraianKetidaksesuaian = UraianTemuanAmi::findOrFail($id);
         $request->validate([
+            "nama_formulir" => "required",
             "tanggal_pelaksanaan" => "required",
             "checklist_uraian" => "required",
             "uraian_ketidaksesuaian" => "required"
@@ -95,6 +101,7 @@ class UraianTemuanAmiController extends Controller
 
         DB::transaction(function () use ($request, $uraianKetidaksesuaian) {
             $uraianKetidaksesuaian->update([
+                "id_kop_surat" => $request->nama_formulir,
                 'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
                 'checklist_uraian' => $request->checklist_uraian,
                 'uraian_ketidaksesuaian' => $request->uraian_ketidaksesuaian

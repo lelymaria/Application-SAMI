@@ -97,6 +97,19 @@
                         </div>
                     @endif
                     <div class="mb-3 row">
+                        <label class="col-lg-2 col-form-label" for="validationCustom07">Pilih Kop Surat
+                        </label>
+                        <div class="col-lg-6">
+                            <select class="default-select wide form-control" id="validationCustom05" name="nama_formulir">
+                                <option data-display="Select" disabled>Please select</option>
+                                @foreach ($kop_surat as $kop)
+                                    <option value="{{ $kop->id }}" {{ $kop->id == $update_standar->id_kop_surat ? 'selected' : '' }}>
+                                        {{ $kop->nama_formulir }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggal Input Checklist
                         </label>
                         <div class="col-lg-6">

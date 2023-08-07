@@ -226,6 +226,7 @@ Route::post('/ami/auditee/data_dukung/create/{id}', [DataDukungAuditeeController
 Route::get('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "edit"]);
 Route::post('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "update"]);
 Route::delete('/ami/auditee/data_dukung/{id}', [DataDukungAuditeeController::class, "destroy"]);
+Route::get('/ami/download_zip_data_dukung/{id}', [DataDukungAuditeeController::class, "downloadZip"]);
 
 Route::get('/ami/ketersediaan_dokumen', [KetersediaanDokumenController::class, "index"]);
 Route::get('/ami/ketersediaan_dokumen/{id}', [KetersediaanDokumenController::class, "show"]);

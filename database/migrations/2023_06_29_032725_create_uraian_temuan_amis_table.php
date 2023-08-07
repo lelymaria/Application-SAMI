@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_standar');
             $table->uuid('id_jadwal');
+            $table->uuid('id_kop_surat');
             $table->dateTime('tanggal_pelaksanaan');
             $table->text('checklist_uraian');
             $table->text('uraian_ketidaksesuaian');

@@ -102,23 +102,6 @@
                                                 <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                             </div>
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Pilih Kop
-                                                    Surat
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-8">
-                                                    <select class="default-select wide form-control" id="validationCustom05"
-                                                        name="nama_formulir">
-                                                        <option data-display="Select" disabled selected>Please select
-                                                        </option>
-                                                        @foreach ($kop_surat as $kop)
-                                                            <option value="{{ $kop->id }}">{{ $kop->nama_formulir }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="validationCustom07">Standar
                                                     <span class="text-danger">*</span>
                                                 </label>
@@ -145,7 +128,6 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Formulir</th>
                                 <th>Standar</th>
                                 <th>Action</th>
                             </tr>
@@ -154,7 +136,6 @@
                             @forelse ($standar as $index => $stndar)
                                 <tr>
                                     <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}</td>
-                                    <td>{{ $stndar->kopSurat->nama_formulir }}</td>
                                     <td>{{ $stndar->nama_standar }}</td>
                                     <td>
                                         <div class="d-flex">

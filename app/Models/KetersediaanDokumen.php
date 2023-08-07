@@ -23,4 +23,8 @@ class KetersediaanDokumen extends Model
     {
         return $this->hasOne(PertanyaanStandar::class, 'id', 'id_pertanyaan');
     }
+
+    public function kopSurat() {
+        return $this->belongsTo(KopSurat::class, 'id_kop_surat', 'id');
+    }
 }

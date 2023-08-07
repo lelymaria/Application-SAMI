@@ -26,10 +26,6 @@ class Standar extends Model
         return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
     }
 
-    public function kopSurat() {
-        return $this->belongsTo(KopSurat::class, 'id_kop_surat', 'id');
-    }
-
     public function dataDukungAuditee() {
         return $this->hasMany(DataDukungAuditee::class, 'id_standar', 'id');
     }

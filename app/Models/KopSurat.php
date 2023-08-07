@@ -18,7 +18,15 @@ class KopSurat extends Model
         return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
     }
 
-    public function standar() {
-        return $this->hasMany(Standar::class, 'id', 'id_standar');
+    public function checklist() {
+        return $this->hasOne(CheckListAudit::class, 'id', 'id_kop_surat');
+    }
+
+    public function ketersediaan() {
+        return $this->hasOne(KetersediaanDokumen::class, 'id', 'id_kop_surat');
+    }
+
+    public function uraian() {
+        return $this->hasOne(UraianTemuanAmi::class, 'id', 'id_kop_surat');
     }
 }

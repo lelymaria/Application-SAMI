@@ -7,6 +7,10 @@ use App\Models\KopSurat;
 use App\Models\Standar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\Settings;
 
 class StandarController extends Controller
 {
@@ -16,8 +20,7 @@ class StandarController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10),
-            'kop_surat' => KopSurat::all()
+            'standar' => Standar::latest()->paginate(10)
         ];
         return view('ami.standar.standar', $data);
     }
@@ -42,12 +45,10 @@ class StandarController extends Controller
 
         $request->validate([
             "nama_standar" => "required",
-            "nama_formulir" => "required"
         ]);
 
         $request->merge([
-            "id_jadwal" => $jadwal_ami->id,
-            "id_kop_surat" => $request->nama_formulir
+            "id_jadwal" => $jadwal_ami->id
         ]);
 
         DB::transaction(function () use ($request) {
@@ -71,8 +72,7 @@ class StandarController extends Controller
     {
         $standar = Standar::findOrFail($idStandar);
         $data = [
-            "update_standar" => $standar,
-            "kop_surat" => KopSurat::all()
+            "update_standar" => $standar
         ];
         return view('ami.standar.update_standar', $data);
     }
@@ -84,12 +84,7 @@ class StandarController extends Controller
     {
         $standar = Standar::findOrFail($idStandar);
         $request->validate([
-            "nama_standar" => "required",
-            "nama_formulir" => "required"
-        ]);
-
-        $request->merge([
-            "id_kop_surat" => $request->nama_formulir
+            "nama_standar" => "required"
         ]);
 
         DB::transaction(function () use ($request, $standar) {
@@ -121,27 +116,25 @@ class StandarController extends Controller
         $standar = Standar::findOrFail($id);
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./ketersediaan_dokumen/ketersediaan_dokumen.docx');
         $template->setValues([
-            "nama_formulir" => $standar->kopSurat->nama_formulir,
-            "no_dokumen" => $standar->kopSurat->no_dokumen,
-            "no_revisi" => $standar->kopSurat->no_revisi,
-            "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
-            "halaman" => $standar->kopSurat->halaman,
+            "nama_formulir" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->nama_formulir,
+            "no_dokumen" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->no_dokumen,
+            "no_revisi" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->no_revisi,
+            "tanggal_berlaku" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->tanggal_berlaku,
+            "halaman" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->halaman,
             "no_audit" => $standar->pertanyaanStandar->ketersediaanDokumen->no_audit,
             "tanggal_input_dokKetersediaan" => $standar->pertanyaanStandar->ketersediaanDokumen->tanggal_input_dokKetersediaan,
             "akun_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
             "nip" => $standar->tugasStandar->user->nip,
             "nama_standar" => $standar->nama_standar,
-            "list_pertanyaan_standar" => $standar->pertanyaanStandar->list_pertanyaan_standar,
+            "list_pertanyaan_standar" => strip_tags($standar->pertanyaanStandar->list_pertanyaan_standar),
             "nama_dokumen" => $standar->pertanyaanStandar->ketersediaanDokumen->nama_dokumen,
-            "ketersediaan_ya" => $standar->pertanyaanStandar->ketersediaanDokumen->ketersediaan_dokumen,
-            "ketersediaan_tidak" => $standar->pertanyaanStandar->ketersediaanDokumen->ketersediaan_dokumen,
+            "ketersediaan_ya" => $standar->pertanyaanStandar->ketersediaanDokumen->ketersediaan_dokumen != 'ya' ? '' : 'ya',
+            "ketersediaan_tidak" => $standar->pertanyaanStandar->ketersediaanDokumen->ketersediaan_dokumen != 'tidak' ? '' : 'tidak',
             "pic" => $standar->pertanyaanStandar->ketersediaanDokumen->pic
         ]);
-        $template->saveAs('arsip/dok_ketersediaan/ketersediaan.docx');
-        return "OK";
-        // dd($standar->pertanyaanStandar->ketersediaanDokumen);
-        // dd([
-        // ]);
+
+        $template->saveAs('arsip/dok_ketersediaan/'.date('d-m-Y').' Ketersediaan Dokumen Auditee.docx');
+        return Response::download(public_path("arsip/dok_ketersediaan/".date('d-m-Y')." Ketersediaan Dokumen Auditee.docx"));
     }
 
     public function checklistAudit($id)
@@ -149,28 +142,26 @@ class StandarController extends Controller
         $standar = Standar::findOrFail($id);
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./checklist_ami/dokumen_checklist.docx');
         $template->setValues([
-            "nama_formulir" => $standar->kopSurat->nama_formulir,
-            "nama_standar" => $standar->nama_standar,
-            "no_dokumen" => $standar->kopSurat->no_dokumen,
-            "no_revisi" => $standar->kopSurat->no_revisi,
-            "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
-            "halaman" => $standar->kopSurat->halaman,
+            // "nama_formulir" => $standar->kopSurat->nama_formulir,
+            // "nama_standar" => $standar->nama_standar,
+            // "no_dokumen" => $standar->kopSurat->no_dokumen,
+            // "no_revisi" => $standar->kopSurat->no_revisi,
+            // "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
+            // "halaman" => $standar->kopSurat->halaman,
             "unit_kerja" => $standar->pertanyaanStandar->cheklistAudit->unit_kerja,
             "tanggal_input_dokChecklist" => $standar->pertanyaanStandar->cheklistAudit->tanggal_input_dokChecklist,
             "akun_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
             "nip" => $standar->tugasStandar->user->nip,
-            "list_pertanyaan_standar" => $standar->pertanyaanStandar->list_pertanyaan_standar,
+            "list_pertanyaan_standar" => strip_tags($standar->pertanyaanStandar->list_pertanyaan_standar),
             "hasil_observasi" => $standar->pertanyaanStandar->cheklistAudit->hasil_observasi,
             "kesesuaian_ya" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian,
             "kesesuaian_tidak" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian,
             "catatan_khusus," => $standar->pertanyaanStandar->cheklistAudit->catatan_khusus,
             "tanggapan_auditee" => $standar->pertanyaanStandar->cheklistAudit->tanggapan_auditee
         ]);
-        $template->saveAs('arsip/dok_checklist/checklist.docx');
-        return "OK";
-        // dd($standar->pertanyaanStandar->ketersediaanDokumen);
-        // dd([
-        // ]);
+
+        $template->saveAs('arsip/dok_checklist/'.date('d-m-Y').' Check List Audit.docx');
+        return Response::download(public_path("arsip/dok_checklist/".date('d-m-Y')." Check List Audit.docx"));
     }
 
     public function dokDraftTemuan($id)
@@ -178,11 +169,11 @@ class StandarController extends Controller
         $standar = Standar::findOrFail($id);
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./draft_temuan_ami/draft_temuan_ami.docx');
         $template->setValues([
-            "nama_formulir" => $standar->kopSurat->nama_formulir,
-            "no_dokumen" => $standar->kopSurat->no_dokumen,
-            "no_revisi" => $standar->kopSurat->no_revisi,
-            "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
-            "halaman" => $standar->kopSurat->halaman,
+            // "nama_formulir" => $standar->kopSurat->nama_formulir,
+            // "no_dokumen" => $standar->kopSurat->no_dokumen,
+            // "no_revisi" => $standar->kopSurat->no_revisi,
+            // "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
+            // "halaman" => $standar->kopSurat->halaman,
             "nama_standar" => $standar->nama_standar,
             "lead_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
             "anggota_audior" => $standar->tugasStandar->user->akunAuditor->nama,
@@ -199,8 +190,7 @@ class StandarController extends Controller
         ]);
         $template->saveAs('arsip/dok_temuan/temuan.docx');
         return "OK";
-        // dd($standar->pertanyaanStandar->ketersediaanDokumen);
-        // dd([
-        // ]);
+        $template->saveAs('arsip/dok_temuan/'.date('d-m-Y').' Temuan Audit Mutu Internal.docx');
+        return Response::download(public_path("arsip/dok_temuan/".date('d-m-Y')." Temuan Audit Mutu Internal.docx"));
     }
 }

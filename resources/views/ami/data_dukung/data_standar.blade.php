@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                        Header start
-                        ***********************************-->
+                            Header start
+                            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-                        Header end ti-comment-alt
-                        ***********************************-->
+                            Header end ti-comment-alt
+                            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -79,18 +79,19 @@
                         </thead>
                         <tbody>
                             @forelse ($standar as $index => $data_standar)
-                                    <tr>
-                                        <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}
-                                        </td>
-                                        <td>{{ $data_standar->nama_standar }}</td>
-                                        <td>
-                                            <a href="{{ url('/ami/auditee/data_dukung/create/' . $data_standar->id) }}"
-                                                class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fa fa-plus"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                @empty
+                                <tr>
+                                    <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}
+                                    </td>
+                                    <td>{{ $data_standar->nama_standar }}</td>
+                                    <td>
+                                        <a href="{{ url('/ami/auditee/data_dukung/create/' . $data_standar->id) }}"
+                                            class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a>
+                                        <a href="{{ url('/ami/download_zip_data_dukung/' . $data_standar->id) }}"
+                                            class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                                class="las la-download"></i></a>
+                                    </td>
+                                </tr>
+                            @empty
                                 <tr>
                                     <td colspan="10" class="text-center">Data tidak tersedia!</td>
                                 </tr>

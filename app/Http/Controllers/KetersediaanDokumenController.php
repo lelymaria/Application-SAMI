@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JadwalAmi;
 use App\Models\KetersediaanDokumen;
+use App\Models\KopSurat;
 use App\Models\PertanyaanStandar;
 use App\Models\Standar;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class KetersediaanDokumenController extends Controller
         $ketersediaan = KetersediaanDokumen::where('id_pertanyaan', $id)->get();
         $data = [
             'pertanyaan' => PertanyaanStandar::findOrFail($id),
+            'kop_surat' => KopSurat::all(),
             'ketersediaan' => $ketersediaan
         ];
         return view('ami.ketersediaan_dokumen.ketersediaan_dok', $data);
@@ -51,7 +53,9 @@ class KetersediaanDokumenController extends Controller
     public function store(Request $request, $id)
     {
         $pertanyaan = PertanyaanStandar::findOrFail($id);
+        $kop_surat = KopSurat::where('id_kop_surat', $id)->first();
         $request->validate([
+            "nama_formulir" => "required",
             "tanggal_input_dokKetersediaan" => "required",
             "no_audit" => "required",
             "nama_dokumen" => "required",
@@ -60,13 +64,14 @@ class KetersediaanDokumenController extends Controller
             "catatan" => "required"
         ]);
 
-        DB::transaction(function () use ($request, $pertanyaan) {
+        DB::transaction(function () use ($request, $pertanyaan, $kop_surat) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
             if (!$jadwal_ami) {
                 return back()->with('error', 'Jadwal AMI tidak tersedia!');
             }
 
             KetersediaanDokumen::create([
+                "id_kop_surat" => $kop_surat->nama_formulir,
                 'tanggal_input_dokKetersediaan' => $request->tanggal_input_dokKetersediaan,
                 'no_audit' => $request->no_audit,
                 'nama_dokumen' => $request->nama_dokumen,
@@ -87,6 +92,7 @@ class KetersediaanDokumenController extends Controller
     {
         $ketersediaan = KetersediaanDokumen::findOrFail($id);
         $data = [
+            "kop_surat" => KopSurat::all(),
             'ketersediaan' => $ketersediaan
         ];
         return view('ami.ketersediaan_dokumen.update_ketersediaan_dokumen', $data);
@@ -99,6 +105,7 @@ class KetersediaanDokumenController extends Controller
     {
         $ketersediaan = KetersediaanDokumen::findOrFail($id);
         $request->validate([
+            "nama_formulir" => "required",
             "tanggal_input_dokKetersediaan" => "required",
             "no_audit" => "required",
             "nama_dokumen" => "required",
@@ -109,6 +116,7 @@ class KetersediaanDokumenController extends Controller
 
         DB::transaction(function () use ($request, $ketersediaan) {
             $ketersediaan->update([
+                "id_kop_surat" => $request->nama_formulir,
                 'tanggal_input_dokKetersediaan' => $request->tanggal_input_dokKetersediaan,
                 'no_audit' => $request->no_audit,
                 'nama_dokumen' => $request->nama_dokumen,

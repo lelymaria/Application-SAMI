@@ -7,7 +7,9 @@ use App\Models\JadwalAmi;
 use App\Models\Standar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class DataDukungAuditeeController extends Controller
 {
@@ -42,7 +44,10 @@ class DataDukungAuditeeController extends Controller
     {
         $standar = Standar::findOrFail($id);
         $request->validate([
-            "data_dukung_auditee" => "required|mimes:doc,docx,pdf,xlsx|file|max:3072",
+            "data_dukung_auditee" => "array",
+            "data_dukung_auditee.*" => "required|mimes:doc,docx,pdf,xlsx|file|max:3072",
+        ], [
+            "data_dukung_auditee.*.max" => "File Data Dukung Maximal 3 MB"
         ]);
 
         $request->merge([
@@ -119,5 +124,25 @@ class DataDukungAuditeeController extends Controller
             $dataDukung->delete();
         });
         return back()->with('message', 'Data Berhasil Terhapus!');
+    }
+
+    public function downloadZip($id) {
+        $zipArchive = new ZipArchive();
+
+        $dataDukung = DataDukungAuditee::where('id_standar', $id)->get();
+
+        $standar = Standar::findOrFail($id);
+
+        if ($zipArchive->open(public_path($standar->nama_standar.".zip"), ZipArchive::CREATE) === TRUE) {
+            foreach ($dataDukung as $data) {
+                $path = public_path('storage/' . $data->data_file);
+                $relativeName = basename($path);
+                $zipArchive->addFile($path, $relativeName);
+            }
+
+            $zipArchive->close();
+        }
+
+        return Response::download(public_path($standar->nama_standar.".zip"));
     }
 }

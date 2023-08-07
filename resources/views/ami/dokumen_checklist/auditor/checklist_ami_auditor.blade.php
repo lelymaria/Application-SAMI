@@ -99,6 +99,24 @@
                             <textarea class="form-control" rows="5" name="tanggapan_auditee" disabled>{{ $pertanyaan->tanggapanChecklist?->tanggapan_auditee }}</textarea>
                         </div>
                     @endif
+
+                    <div class="mb-3 row">
+                        <label class="col-lg-2 col-form-label" for="validationCustom07">Pilih Kop
+                            Surat
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-6">
+                            <select class="default-select wide form-control" id="validationCustom05"
+                                name="nama_formulir">
+                                <option data-display="Select" disabled selected>Please select
+                                </option>
+                                @foreach ($kop_surat as $kop)
+                                    <option value="{{ $kop->id }}">{{ $kop->nama_formulir }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggal Input Checklist <span class="text-danger">*</span>
                         </label>
