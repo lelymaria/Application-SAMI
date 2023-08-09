@@ -115,9 +115,9 @@
                         <textarea class="form-control" rows="5" name="catatan_khusus" disabled>{{ $pertanyaan->cheklistAudit?->catatan_khusus }}</textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Hasil Observasi
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Catatan Khusus
                         </label>
-                        <textarea id="ckeditor" name="hasil_observasi" disabled>{{ $pertanyaan->cheklistAudit?->hasil_observasi }}</textarea>
+                        <textarea class="form-control" rows="5" name="catatan_khusus" disabled>{{ $pertanyaan->cheklistAudit?->hasil_observasi }}</textarea>
                     </div>
                     @endif
                     <div class="mb-3">

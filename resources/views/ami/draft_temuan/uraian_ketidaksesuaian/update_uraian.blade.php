@@ -111,7 +111,7 @@
                             <select class="default-select wide form-control" id="validationCustom05" name="nama_formulir">
                                 <option data-display="Select" disabled>Please select</option>
                                 @foreach ($kop_surat as $kop)
-                                    <option value="{{ $kop->id }}" {{ $kop->id == $update_standar->id_kop_surat ? 'selected' : '' }}>
+                                    <option value="{{ $kop->id }}" {{ $kop->id == $uraianKetidaksesuaian->id_kop_surat ? 'selected' : '' }}>
                                         {{ $kop->nama_formulir }}</option>
                                 @endforeach
                             </select>

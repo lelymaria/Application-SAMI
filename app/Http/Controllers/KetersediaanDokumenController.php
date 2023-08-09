@@ -53,7 +53,6 @@ class KetersediaanDokumenController extends Controller
     public function store(Request $request, $id)
     {
         $pertanyaan = PertanyaanStandar::findOrFail($id);
-        $kop_surat = KopSurat::where('id_kop_surat', $id)->first();
         $request->validate([
             "nama_formulir" => "required",
             "tanggal_input_dokKetersediaan" => "required",
@@ -64,14 +63,14 @@ class KetersediaanDokumenController extends Controller
             "catatan" => "required"
         ]);
 
-        DB::transaction(function () use ($request, $pertanyaan, $kop_surat) {
+        DB::transaction(function () use ($request, $pertanyaan) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
             if (!$jadwal_ami) {
                 return back()->with('error', 'Jadwal AMI tidak tersedia!');
             }
 
             KetersediaanDokumen::create([
-                "id_kop_surat" => $kop_surat->nama_formulir,
+                "id_kop_surat" => $request->nama_formulir,
                 'tanggal_input_dokKetersediaan' => $request->tanggal_input_dokKetersediaan,
                 'no_audit' => $request->no_audit,
                 'nama_dokumen' => $request->nama_dokumen,

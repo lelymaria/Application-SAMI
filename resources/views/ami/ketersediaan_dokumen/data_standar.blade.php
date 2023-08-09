@@ -85,7 +85,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ url('/ami/ketersediaan_dokumen_preview/' . $data_standar->id) }}"
-                                                class="btn btn-secondary shadow btn-xs sharp me-1" target="_blank"><i
+                                                class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                     class="fa fa-file-invoice"></i></a>
                                             <a href="{{ url('/ami/ketersediaan_dokumen/' . $data_standar->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1"><i

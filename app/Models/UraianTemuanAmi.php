@@ -12,7 +12,7 @@ class UraianTemuanAmi extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'uraian_temuan_ami';
-    protected $fillable = ['id_jadwal', 'id_standar', 'tanggal_pelaksanaan', 'checklist_uraian', 'uraian_ketidaksesuaian'];
+    protected $fillable = ['id_jadwal', 'id_standar', 'id_kop_surat', 'tanggal_pelaksanaan', 'checklist_uraian', 'uraian_ketidaksesuaian'];
 
     public function jadwal()
     {

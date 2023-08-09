@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JadwalAmi;
 use App\Models\KopSurat;
 use App\Models\Standar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
@@ -122,7 +123,7 @@ class StandarController extends Controller
             "tanggal_berlaku" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->tanggal_berlaku,
             "halaman" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->halaman,
             "no_audit" => $standar->pertanyaanStandar->ketersediaanDokumen->no_audit,
-            "tanggal_input_dokKetersediaan" => $standar->pertanyaanStandar->ketersediaanDokumen->tanggal_input_dokKetersediaan,
+            "tanggal_input_dokKetersediaan" => Carbon::parse($standar->pertanyaanStandar->ketersediaanDokumen->tanggal_input_dokKetersediaan)->toDateString(),
             "akun_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
             "nip" => $standar->tugasStandar->user->nip,
             "nama_standar" => $standar->nama_standar,
@@ -133,8 +134,8 @@ class StandarController extends Controller
             "pic" => $standar->pertanyaanStandar->ketersediaanDokumen->pic
         ]);
 
-        $template->saveAs('arsip/dok_ketersediaan/'.date('d-m-Y').' Ketersediaan Dokumen Auditee.docx');
-        return Response::download(public_path("arsip/dok_ketersediaan/".date('d-m-Y')." Ketersediaan Dokumen Auditee.docx"));
+        $template->saveAs('arsip/dok_ketersediaan/' . date('d-m-Y') . ' Ketersediaan Dokumen Auditee.docx');
+        return Response::download(public_path("arsip/dok_ketersediaan/" . date('d-m-Y') . " Ketersediaan Dokumen Auditee.docx"));
     }
 
     public function checklistAudit($id)
@@ -142,26 +143,26 @@ class StandarController extends Controller
         $standar = Standar::findOrFail($id);
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./checklist_ami/dokumen_checklist.docx');
         $template->setValues([
-            // "nama_formulir" => $standar->kopSurat->nama_formulir,
-            // "nama_standar" => $standar->nama_standar,
-            // "no_dokumen" => $standar->kopSurat->no_dokumen,
-            // "no_revisi" => $standar->kopSurat->no_revisi,
-            // "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
-            // "halaman" => $standar->kopSurat->halaman,
+            "nama_formulir" => $standar->pertanyaanStandar->checklistAudit->kopSurat->nama_formulir,
+            "nama_standar" => $standar->pertanyaanStandar->checklistAudit->kopSurat->nama_standar,
+            "no_dokumen" => $standar->pertanyaanStandar->checklistAudit->kopSurat->no_dokumen,
+            "no_revisi" => $standar->pertanyaanStandar->checklistAudit->kopSurat->no_revisi,
+            "tanggal_berlaku" => $standar->pertanyaanStandar->checklistAudit->kopSurat->tanggal_berlaku,
+            "halaman" => $standar->pertanyaanStandar->checklistAudit->kopSurat->halaman,
             "unit_kerja" => $standar->pertanyaanStandar->cheklistAudit->unit_kerja,
-            "tanggal_input_dokChecklist" => $standar->pertanyaanStandar->cheklistAudit->tanggal_input_dokChecklist,
+            "tanggal_input_dokChecklist" => Carbon::parse($standar->pertanyaanStandar->cheklistAudit->tanggal_input_dokChecklist)->toDateString(),
             "akun_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
             "nip" => $standar->tugasStandar->user->nip,
             "list_pertanyaan_standar" => strip_tags($standar->pertanyaanStandar->list_pertanyaan_standar),
             "hasil_observasi" => $standar->pertanyaanStandar->cheklistAudit->hasil_observasi,
-            "kesesuaian_ya" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian,
-            "kesesuaian_tidak" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian,
+            "kesesuaian_ya" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian != 'ya' ? '' : 'ya',
+            "kesesuaian_tidak" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian != 'tidak' ? '' : 'tidak',
             "catatan_khusus," => $standar->pertanyaanStandar->cheklistAudit->catatan_khusus,
             "tanggapan_auditee" => $standar->pertanyaanStandar->cheklistAudit->tanggapan_auditee
         ]);
 
-        $template->saveAs('arsip/dok_checklist/'.date('d-m-Y').' Check List Audit.docx');
-        return Response::download(public_path("arsip/dok_checklist/".date('d-m-Y')." Check List Audit.docx"));
+        $template->saveAs('arsip/dok_checklist/' . date('d-m-Y') . ' Check List Audit.docx');
+        return Response::download(public_path("arsip/dok_checklist/" . date('d-m-Y') . " Check List Audit.docx"));
     }
 
     public function dokDraftTemuan($id)
@@ -169,28 +170,27 @@ class StandarController extends Controller
         $standar = Standar::findOrFail($id);
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./draft_temuan_ami/draft_temuan_ami.docx');
         $template->setValues([
-            // "nama_formulir" => $standar->kopSurat->nama_formulir,
-            // "no_dokumen" => $standar->kopSurat->no_dokumen,
-            // "no_revisi" => $standar->kopSurat->no_revisi,
-            // "tanggal_berlaku" => $standar->kopSurat->tanggal_berlaku,
-            // "halaman" => $standar->kopSurat->halaman,
+            "nama_formulir" => $standar->uraianTemuanAmi->kopSurat->nama_formulir,
+            "no_dokumen" => $standar->uraianTemuanAmi->kopSurat->no_dokumen,
+            "no_revisi" => $standar->uraianTemuanAmi->kopSurat->no_revisi,
+            "tanggal_berlaku" => $standar->uraianTemuanAmi->kopSurat->tanggal_berlaku,
+            "halaman" => $standar->uraianTemuanAmi->kopSurat->halaman,
             "nama_standar" => $standar->nama_standar,
-            "lead_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
-            "anggota_audior" => $standar->tugasStandar->user->akunAuditor->nama,
-            "akun_auditee" => $standar->tugasStandar->user->akunAuditee->nama,
+            "lead_auditor" => $standar->tugasStandar->user->akunAuditor->nama, //?
+            "anggota_audior" => $standar->tugasStandar->user->akunAuditor->nama, //?
+            // "akun_auditee" => $standar->tugasStandar->user->akunAuditee->nama, //?
             // "unit_kerja" => ?,
-            "checklist_uraia_c" => $standar->uraianTemuanAmi->checklist_uraian,
-            "checklist_uraia_o" => $standar->uraianTemuanAmi->checklist_uraian,
-            "tanggal_pelaksanaan" => $standar->uraianTemuanAmi->tanggal_pelaksanaan,
-            "tanggal_penyelesaian" => $standar->analisaTindakanAmi->tanggal_penyelesaian,
+            "checklist_uraia_c" => $standar->uraianTemuanAmi->checklist_uraian, //?
+            "checklist_uraia_o" => $standar->uraianTemuanAmi->checklist_uraian, //?
+            "tanggal_pelaksanaan" => Carbon::parse($standar->uraianTemuanAmi->tanggal_pelaksanaan)->toDateString(),
+            "tanggal_penyelesaian" => Carbon::parse($standar->analisaTindakanAmi->tanggal_penyelesaian)->toDateString(),
             "analisa_masalah" => $standar->analisaTindakanAmi->analisa_masalah,
             "tindakan_koreksi" => $standar->analisaTindakanAmi->tindakan_koreksi,
             "verifikasi_kp4mp" => $standar->verifikasiKp4mp->verifikasi_kp4mp,
-            "tanggal_verifikasi" => $standar->verifikasiKp4mp->tanggal_verifikasi
+            "tanggal_verifikasi" => Carbon::parse($standar->verifikasiKp4mp->tanggal_verifikasi)->toDateString()
         ]);
-        $template->saveAs('arsip/dok_temuan/temuan.docx');
-        return "OK";
-        $template->saveAs('arsip/dok_temuan/'.date('d-m-Y').' Temuan Audit Mutu Internal.docx');
-        return Response::download(public_path("arsip/dok_temuan/".date('d-m-Y')." Temuan Audit Mutu Internal.docx"));
+
+        $template->saveAs('arsip/dok_temuan/' . date('d-m-Y') . ' Temuan Audit Mutu Internal.docx');
+        return Response::download(public_path("arsip/dok_temuan/" . date('d-m-Y') . " Temuan Audit Mutu Internal.docx"));
     }
 }
