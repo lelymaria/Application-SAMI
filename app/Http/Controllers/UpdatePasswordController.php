@@ -11,6 +11,22 @@ use Illuminate\Validation\ValidationException;
 
 class UpdatePasswordController extends Controller
 {
+    public function userEditPassword(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $request->validate([
+            'new_password' => 'required|min:8',
+            'new_password_confirmation' => 'required|min:8',
+        ]);
+
+        DB::transaction(function () use ($request, $user) {
+            return $user->update(['password' => Hash::make($request->new_password)]);
+        });
+
+        return back()->with('message', 'Password Berhasil diUbah');
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      */

@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('/manage_user')->group(function () {
+    Route::put('/edit_password/{id}', [UpdatePasswordController::class, "userEditPassword"]);
     // Akun Operator
     Route::get('/akun_operator', [AkunOperatorController::class, "index"]);
     Route::post('/akun_operator', [AkunOperatorController::class, "store"]);

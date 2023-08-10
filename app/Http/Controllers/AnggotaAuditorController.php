@@ -47,7 +47,7 @@ class AnggotaAuditorController extends Controller
             "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
-            "unit_kerja" => "required|exists:prodi,layanan_akademik,id",
+            "unit_kerja" => "required",
             // "foto_profile" => "required",
         ]);
 
@@ -104,7 +104,7 @@ class AnggotaAuditorController extends Controller
     {
         $akunAuditor = User::find($id);
         $request->validate([
-            "unit_kerja" => "required|exists:prodi,layanan_akademik,id",
+            "unit_kerja" => "required",
             "email" => "required",
             "nip" => [
                 'required', Rule::unique('users')->ignore($akunAuditor), "numeric",
@@ -136,8 +136,8 @@ class AnggotaAuditorController extends Controller
     {
         $akunAuditor = User::findOrFail($id);
         DB::transaction(function ()  use ($akunAuditor) {
-            $akunAuditor->akunAuditor()->delete();
-            $akunAuditor->delete();
+            $akunAuditor->akunAuditor()->forceDelete();
+            $akunAuditor->forceDelete();
         });
         return redirect('/manage_user/lead_auditor/')->with('message', 'Data Berhasil Terhapus!');
     }

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-    Header start
-    ***********************************-->
+            Header start
+            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-    Header end ti-comment-alt
-    ***********************************-->
+            Header end ti-comment-alt
+            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -67,14 +67,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-lg-12">
@@ -85,7 +85,8 @@
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle" alt="">
+                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle"
+                                alt="">
                             <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
                                     class="fas fa-pencil-alt"></i></a>
                         </div>
@@ -120,7 +121,8 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                name="email" placeholder="Masukan Email..." value="{{ $update_akun_operator->email }}">
+                                                name="email" placeholder="Masukan Email..."
+                                                value="{{ $update_akun_operator->email }}">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -128,18 +130,42 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nip" placeholder="Masukan NIP..." value="{{ $update_akun_operator->user->nip }}">
+                                                name="nip" placeholder="Masukan NIP..."
+                                                value="{{ $update_akun_operator->user->nip }}">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom03">Nama
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nama" placeholder="Masukan Nama..." value="{{ $update_akun_operator->nama }}">
+                                                name="nama" placeholder="Masukan Nama..."
+                                                value="{{ $update_akun_operator->nama }}">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <div class="col-lg-8 ms-auto">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-validation">
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/manage_user/edit_password/' . $update_akun_operator->user->id) }}" method="post">
+                            @csrf
+                            @method('put')
+                            <div class="row">
                                 <div class="col-xl-6">
                                     <div class="mb-3 row">
                                         <label class="col-lg-4 col-form-label" for="validationCustom07">Password Baru
@@ -149,13 +175,16 @@
                                                 name="new_password" placeholder="Masukan Password Baru...">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-xl-6">
                                     <div class="mb-3 row">
-                                        <label class="col-lg-4 col-form-label" for="validationCustom08">Konfirmasi Password
+                                        <label class="col-lg-4 col-form-label" for="validationCustom08">Konfirmasi
+                                            Password
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="password" class="form-control" id="validationCustom08"
-                                            name="new_password_confirmation" placeholder="Konfirmasi Password...">
+                                                name="new_password_confirmation" placeholder="Konfirmasi Password...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

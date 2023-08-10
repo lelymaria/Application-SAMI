@@ -45,7 +45,7 @@ class AkunAuditeeController extends Controller
             "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
-            "unit_kerja" => "required|exists:prodi,layanan_akademik,id",
+            "unit_kerja" => "required",
             // "foto_profile" => "required",
         ]);
 
@@ -101,7 +101,7 @@ class AkunAuditeeController extends Controller
     {
         $akunAuditee = AkunAuditee::find($id);
         $request->validate([
-            "unit_kerja" => "required|exists:prodi,layanan_akademik,id",
+            "unit_kerja" => "required",
             "email" => "required|email",
             "nip" => [
                 'required', Rule::unique('users')->ignore($akunAuditee->id_user), "numeric"
@@ -133,8 +133,8 @@ class AkunAuditeeController extends Controller
     {
         $akunAuditee = AkunAuditee::findOrFail($id);
         DB::transaction(function () use ($akunAuditee) {
-            $akunAuditee->delete();
-            $akunAuditee->user()->delete();
+            $akunAuditee->user()->forceDelete();
+            $akunAuditee->forceDelete();
         });
         return redirect('/manage_user/akun_auditee/')->with('message', 'Data Berhasil Terhapus!');
     }
