@@ -43,8 +43,7 @@ class AkunJurusanController extends Controller
             "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
-            "unit_kerja" => "required",
-            // "foto_profile" => "required",
+            "unit_kerja" => "required"
         ]);
 
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
@@ -57,12 +56,12 @@ class AkunJurusanController extends Controller
             $user = User::create([
                 'nip' => $request->nip,
                 'password' => Hash::make('password'),
-                'level_id' => $level->id
+                'level_id' => $level->id,
+                'foto_profile' => asset('images/profile/profile.png'),
             ]);
             $user->akunJurusan()->create([
                 'email' => $request->email,
                 'nama' => $request->nama,
-                'foto_profile' => Hash::make('foto_profile'),
                 'id_jurusan' => $request->unit_kerja,
                 'id_jadwal' => $jadwal_ami->id
             ]);
@@ -103,9 +102,7 @@ class AkunJurusanController extends Controller
             "nip" => [
                 'required', Rule::unique('users')->ignore($akunJurusan->id_user), "numeric"
             ],
-            "nama" => "required",
-            // "foto_profile" => "required",
-            "new_password" => "nullable|confirmed"
+            "nama" => "required"
         ]);
 
         DB::transaction(function () use ($request, $akunJurusan) {
@@ -116,8 +113,7 @@ class AkunJurusanController extends Controller
                 'id_jurusan' => $request->unit_kerja,
             ]);
             $akunJurusan->user()->update([
-                'nip' => $request->nip,
-                'password' => Hash::make($request->new_password),
+                'nip' => $request->nip
             ]);
         });
         return back()->with('message', 'Data Berhasil Tersimpan!');

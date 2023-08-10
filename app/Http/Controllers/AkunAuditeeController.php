@@ -46,7 +46,6 @@ class AkunAuditeeController extends Controller
             "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
             "unit_kerja" => "required",
-            // "foto_profile" => "required",
         ]);
 
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
@@ -59,12 +58,12 @@ class AkunAuditeeController extends Controller
             $user = User::create([
                 'nip' => $request->nip,
                 'password' => Hash::make('password'),
-                'level_id' => $level->id
+                'level_id' => $level->id,
+                'foto_profile' => asset('images/profile/profile.png'),
             ]);
             $user->akunAuditee()->create([
                 'email' => $request->email,
                 'nama' => $request->nama,
-                'foto_profile' => Hash::make('foto_profile'),
                 'id_unit_kerja' => $request->unit_kerja,
                 'id_jadwal' => $jadwal_ami->id
             ]);
@@ -106,21 +105,17 @@ class AkunAuditeeController extends Controller
             "nip" => [
                 'required', Rule::unique('users')->ignore($akunAuditee->id_user), "numeric"
             ],
-            "nama" => "required",
-            // "foto_profile" => "required",
-            "new_password" => "nullable|confirmed"
+            "nama" => "required"
         ]);
 
         DB::transaction(function () use ($request, $akunAuditee) {
             $akunAuditee->update([
                 'email' => $request->email,
                 'nama' => $request->nama,
-                'foto_profile' => Hash::make('foto_profile'),
                 'id_unit_kerja' => $request->unit_kerja,
             ]);
             $akunAuditee->user()->update([
-                'nip' => $request->nip,
-                'password' => Hash::make($request->new_password),
+                'nip' => $request->nip
             ]);
         });
         return back()->with('message', 'Data Berhasil Tersimpan!');

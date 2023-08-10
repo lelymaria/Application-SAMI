@@ -6,7 +6,7 @@
         <ul class="metismenu" id="menu">
             <li class="dropdown header-profile">
                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-                    <img src="images/profile/pic1.jpg" width="20" alt="">
+                    <img src="{{ asset(auth()->user()->foto_profile) }}" width="20" alt="">
                     <div class="header-info ms-3">
                         <span class="font-w600 ">Hallo,<b>@if (auth()->user()->akunOperator)
                             {{ auth()->user()->akunOperator->nama }}

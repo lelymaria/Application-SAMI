@@ -28,6 +28,7 @@ class User extends Authenticatable
         'nip',
         'password',
         'level_id',
+        'foto_profile'
     ];
 
     /**

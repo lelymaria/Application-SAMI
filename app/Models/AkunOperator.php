@@ -12,7 +12,7 @@ class AkunOperator extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'akun_operator';
-    protected $fillable = ['email', 'nip', 'nama', 'foto_profile'];
+    protected $fillable = ['email', 'nip', 'nama'];
 
     public function user() {
         return $this->hasOne(User::class,  'id', 'id_user');

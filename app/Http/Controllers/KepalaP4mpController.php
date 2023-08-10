@@ -41,8 +41,7 @@ class KepalaP4mpController extends Controller
             "periode_jabatan" => "required",
             "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric",
-            "nama" => "required",
-            // "foto_profile" => "required",
+            "nama" => "required"
         ]);
 
         $jadwal_ami = JadwalAmi::where('status', 1)->first();
@@ -55,13 +54,13 @@ class KepalaP4mpController extends Controller
             $user = User::create([
                 'nip' => $request->nip,
                 'password' => Hash::make('password'),
-                'level_id' => $level->id
+                'level_id' => $level->id,
+                'foto_profile' => asset('images/profile/profile.png'),
             ]);
             $user->kepalaP4mp()->create([
                 'periode_jabatan' => $request->periode_jabatan,
                 'email' => $request->email,
                 'nama' => $request->nama,
-                'foto_profile' => Hash::make('foto_profile'),
                 'id_jadwal' => $jadwal_ami->id
             ]);
         });
@@ -100,21 +99,17 @@ class KepalaP4mpController extends Controller
             "nip" => [
                 'required', Rule::unique('users')->ignore($kepalaP4mp->id_user), "numeric",
             ],
-            "nama" => "required",
-            // "foto_profile" => "required",
-            "new_password" => "nullable|confirmed"
+            "nama" => "required"
         ]);
 
         DB::transaction(function () use ($request, $kepalaP4mp) {
             $kepalaP4mp->update([
                 'periode_jabatan' => $request->periode_jabatan,
                 'email' => $request->email,
-                'nama' => $request->nama,
-                'foto_profile' => Hash::make('foto_profile'),
+                'nama' => $request->nama
             ]);
             $kepalaP4mp->user()->update([
-                'nip' => $request->nip,
-                'password' => Hash::make($request->new_password),
+                'nip' => $request->nip
             ]);
         });
         return back()->with('message', 'Data Berhasil Tersimpan!');

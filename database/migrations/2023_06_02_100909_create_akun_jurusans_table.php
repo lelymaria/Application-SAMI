@@ -18,7 +18,6 @@ return new class extends Migration
             $table->uuid('id_jadwal');
             $table->string('email');
             $table->string('nama');
-            $table->string('foto_profile');
             $table->timestamps();
             $table->softDeletes();
         });

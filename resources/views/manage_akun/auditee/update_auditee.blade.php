@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+            Header start
+            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+            Header end ti-comment-alt
+            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -85,10 +85,12 @@
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle"
-                                alt="">
-                            <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                    class="fas fa-pencil-alt"></i></a>
+                            <img src="{{ asset(auth()->user()->foto_profile) }}" class="img-fluid rounded-circle"
+                                alt="" style="width: 100px; height: 100px">
+                                <a href="#" data-url=""
+                                    class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                    data-bs-toggle="modal" data-bs-target="#updateProfile"><i
+                                        class="fas fa-pencil-alt"></i></a>
                         </div>
                         <div class="profile-details">
                             <div class="profile-name px-3 pt-2">
@@ -141,7 +143,8 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom02"
-                                                name="email" value="{{ $update_akun_auditee->email }}" placeholder="Masukan Email...">
+                                                name="email" value="{{ $update_akun_auditee->email }}"
+                                                placeholder="Masukan Email...">
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +154,8 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nip" value="{{ $update_akun_auditee->user->nip }}" placeholder="Masukan NIP...">
+                                                name="nip" value="{{ $update_akun_auditee->user->nip }}"
+                                                placeholder="Masukan NIP...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -159,7 +163,8 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="validationCustom03"
-                                                name="nama" value="{{ $update_akun_auditee->nama }}" placeholder="Masukan Nama...">
+                                                name="nama" value="{{ $update_akun_auditee->nama }}"
+                                                placeholder="Masukan Nama...">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -179,7 +184,8 @@
                 <div class="card-body">
                     <div class="form-validation">
                         <form class="needs-validation" novalidate=""
-                            action="{{ url('/manage_user/edit_password/' . $update_akun_auditee->user->id) }}" method="post">
+                            action="{{ url('/manage_user/edit_password/' . $update_akun_auditee->user->id) }}"
+                            method="post">
                             @csrf
                             @method('put')
                             <div class="row">
@@ -214,6 +220,41 @@
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Update Foto Profile --}}
+    <div class="modal fade" id="updateProfile">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Foto Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body" id="editModalBody">
+                    <div class="form-validate">
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/manage_user/edit_foto_profile') }}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="row" id="formBodyEdit">
+                                <div class="input-group mb-3">
+                                    <div class="form-file">
+                                        <input type="file" class="form-file-input form-control"
+                                            name="foto_profile_user">
+                                    </div>
+                                    <span class="input-group-text">Upload</span>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>

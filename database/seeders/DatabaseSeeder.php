@@ -41,11 +41,14 @@ class DatabaseSeeder extends Seeder
         // foreach ($users as $user) {
         //     User::create($user);
         // }
-        $akunOperator = User::create(["nip" => 2003071, "level_id" => Level::where("name", "Operator")->first()->id, "password" => bcrypt("password")]);
+        $akunOperator = User::create([
+            "nip" => 2003071,
+            "level_id" => Level::where("name", "Operator")->first()->id,
+            "password" => bcrypt("password"),
+            "foto_profile" => 'images/profile/profile.png']);
         $akunOperator->akunOperator()->create([
             "email" => "operator@gmail.com",
-            "nama" => "Lely Maria Kova",
-            "foto_profile" => asset('images/polindra1.png')
+            "nama" => "Lely Maria Kova"
         ]);
     }
 }

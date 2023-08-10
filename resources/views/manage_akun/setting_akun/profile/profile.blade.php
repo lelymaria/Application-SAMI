@@ -85,7 +85,7 @@
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="{{ asset('images/profile/profile.png') }}" class="img-fluid rounded-circle" alt="">
+                            <img src="{{ asset(auth()->user()->foto_profile) }}" class="img-fluid rounded-circle" alt="">
                             <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
                                     class="fas fa-pencil-alt"></i></a>
                         </div>

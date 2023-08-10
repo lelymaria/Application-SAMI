@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('nip')->unique();
             $table->string('password');
+            $table->string('foto_profile');
             $table->foreignIdFor(Level::class);
             $table->rememberToken();
             $table->timestamps();

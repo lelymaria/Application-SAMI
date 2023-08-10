@@ -40,7 +40,6 @@ class AkunOperatorController extends Controller
             "email" => "required|email",
             "nip" => "required|unique:users,nip|numeric",
             "nama" => "required",
-            // "foto_profile" => "required",
         ]);
 
         DB::transaction(function () use ($request) {
@@ -48,12 +47,12 @@ class AkunOperatorController extends Controller
             $user = User::create([
                 'nip' => $request->nip,
                 'password' => Hash::make('password'),
-                'level_id' => $level->id
+                'level_id' => $level->id,
+                'foto_profile' => asset('images/profile/profile.png'),
             ]);
             $user->akunOperator()->create([
                 'email' => $request->email,
                 'nama' => $request->nama,
-                'foto_profile' => Hash::make('foto_profile'),
             ]);
         });
         return redirect('/manage_user/akun_operator')->with('message', 'Data Berhasil Tersimpan!');
@@ -92,18 +91,16 @@ class AkunOperatorController extends Controller
                 'required',
                 Rule::unique('users')->ignore($akunOperator->id_user), "numeric",
             ],
-            "nama" => "required",
-            // "foto_profile" => "required",
+            "nama" => "required"
         ]);
 
         DB::transaction(function () use ($request, $akunOperator) {
             $akunOperator->update([
                 'email' => $request->email,
-                'nama' => $request->nama,
-                'foto_profile' => Hash::make('foto_profile'),
+                'nama' => $request->nama
             ]);
             $akunOperator->user()->update([
-                'nip' => $request->nip,
+                'nip' => $request->nip
             ]);
         });
         return back()->with('message', 'Data Berhasil Tersimpan!');

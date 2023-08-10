@@ -50,4 +50,23 @@ class AuthenticationController extends Controller
         request()->session()->regenerateToken();
         return redirect('/');
     }
+
+    public function updateFotoProfile(Request $request) {
+        $request->validate([
+            "foto_profile_user" => "required|image|max:3072"
+        ]);
+
+        if ($request->hasFile('foto_profile_user')) {
+            $url_foto_profile = $request->file('foto_profile_user')->store('foto_profile');
+            $user_login = Auth::user();
+
+            DB::transaction(function () use ($url_foto_profile, $user_login) {
+                $user_login->update([
+                    "foto_profile" => 'storage/'.$url_foto_profile,
+                ]);
+            });
+        }
+
+        return back()->with('message', 'Data Berhasil Tersimpan!');
+    }
 }
