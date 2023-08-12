@@ -12,7 +12,7 @@ class AkunJurusan extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'akun_jurusan';
-    protected $fillable = ['id_jurusan', 'email', 'nip', 'nama', 'foto_profile', 'id_jadwal'];
+    protected $fillable = ['id_jurusan', 'email', 'nip', 'nama', 'id_jadwal'];
 
     public function user() {
         return $this->hasOne(User::class,  'id', 'id_user');

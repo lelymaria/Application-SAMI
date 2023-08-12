@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+            Header start
+            ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -32,19 +32,18 @@
                 </div>
             </div>
         @endif
-        @if (session('message'))
+        @if (session('error'))
             <div class="d-flex justify-content-center">
-                <div class="alert alert-success left-icon-big alert-dismissible fade show">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
                                 class="mdi mdi-btn-close"></i></span>
                     </button>
                     <div class="media">
                         <div class="alert-left-icon-big">
-                            <span><i class="mdi mdi-check-circle-outline"></i></span>
                         </div>
                         <div class="media-body">
-                            <h5 class="mt-1 mb-2">Congratulations!</h5>
-                            <p class="mb-0">{{ session('message') }}</p>
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
                         </div>
                     </div>
                 </div>
@@ -52,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+            Header end ti-comment-alt
+            ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -67,14 +66,14 @@
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-lg-12">
@@ -85,9 +84,10 @@
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="{{ asset(auth()->user()->foto_profile) }}" class="img-fluid rounded-circle" alt="">
-                            <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                    class="fas fa-pencil-alt"></i></a>
+                            <img src="{{ asset(auth()->user()->foto_profile) }}" class="img-fluid rounded-circle"
+                                alt="" style="width: 100px; height: 100px">
+                            <a href="#" data-url="" class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                data-bs-toggle="modal" data-bs-target="#updateProfile"><i class="fas fa-pencil-alt"></i></a>
                         </div>
                         <div class="profile-details">
                             <div class="profile-name px-3 pt-2">
@@ -150,5 +150,40 @@
             </div>
         </div>
     </div>
+    </div>
+
+    {{-- Update Foto Profile --}}
+    <div class="modal fade" id="updateProfile">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Foto Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body" id="editModalBody">
+                    <div class="form-validate">
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/manage_user/edit_foto_profile') }}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="row" id="formBodyEdit">
+                                <div class="input-group mb-3">
+                                    <div class="form-file">
+                                        <input type="file" class="form-file-input form-control"
+                                            name="foto_profile_user">
+                                    </div>
+                                    <span class="input-group-text">Upload</span>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection

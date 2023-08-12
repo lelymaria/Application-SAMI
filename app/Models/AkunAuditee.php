@@ -12,7 +12,7 @@ class AkunAuditee extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'akun_auditee';
-    protected $fillable = ['id_unit_kerja', 'email', 'nip', 'nama', 'foto_profile', 'id_jadwal'];
+    protected $fillable = ['id_unit_kerja', 'email', 'nip', 'nama', 'id_jadwal'];
 
     public function user() {
         return $this->hasOne(User::class,  'id', 'id_user');
