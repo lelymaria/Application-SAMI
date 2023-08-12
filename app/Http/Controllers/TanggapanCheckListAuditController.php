@@ -57,12 +57,15 @@ class TanggapanCheckListAuditController extends Controller
             "tanggapan_auditee" => "required"
         ]);
 
+        if (!$checklistAudit) {
+            return back()->with('error', 'Hasil Check List Belum Tersedia!');
+        }
+
         DB::transaction(function () use ($request, $pertanyaan, $checklistAudit) {
             $jadwal_ami = JadwalAmi::where('status', 1)->first();
             if (!$jadwal_ami) {
-                return back()->with('error', 'Jadwal AMI tidak tersedia!');
+                return back()->with('error', 'Jadwal AMI Tidak Tersedia!');
             }
-
             TanggapanCheckListAudit::create([
                 'tanggapan_auditee' => $request->tanggapan_auditee,
                 "id_jadwal" => $jadwal_ami->id,
