@@ -24,7 +24,6 @@
 @endpush
 @extends('layouts.main')
 @section('content')
-    @include('layouts.navbar')
 
     @can('operator')
         <div class="container-fluid">

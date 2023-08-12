@@ -59,7 +59,6 @@
 @endpush
 @extends('layouts.main')
 @section('content')
-    @include('layouts.navbar')
 
     <div class="row page-titles">
         <ol class="breadcrumb">
