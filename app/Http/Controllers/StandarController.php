@@ -115,6 +115,9 @@ class StandarController extends Controller
     public function ketersediaanDokumen($id)
     {
         $standar = Standar::findOrFail($id);
+        if (!$standar->pertanyaanStandar || !$standar->pertanyaanStandar->ketersediaanDokumen || !$standar->tugasStandar) {
+            return back()->with('error', 'Data Belum Lengkap, Tidak Dapat Mengunduh Dokumen. Tolong Lengkapi Data Terlebih Dahulu!');
+        }
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./ketersediaan_dokumen/ketersediaan_dokumen.docx');
         $template->setValues([
             "nama_formulir" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->nama_formulir,
@@ -134,13 +137,22 @@ class StandarController extends Controller
             "pic" => $standar->pertanyaanStandar->ketersediaanDokumen->pic
         ]);
 
-        $template->saveAs('arsip/dok_ketersediaan/' . date('d-m-Y') . ' Ketersediaan Dokumen Auditee.docx');
-        return Response::download(public_path("arsip/dok_ketersediaan/" . date('d-m-Y') . " Ketersediaan Dokumen Auditee.docx"));
+        $fileName = 'arsip/dok_ketersediaan/' . date('d-m-Y') . ' Ketersediaan Dokumen Auditee.docx';
+        $template->saveAs($fileName);
+        return Response::download(public_path($fileName));
     }
 
     public function checklistAudit($id)
     {
         $standar = Standar::findOrFail($id);
+        if (
+            !$standar->pertanyaanStandar ||
+            !$standar->pertanyaanStandar->checklistAudit ||
+            !$standar->pertanyaanStandar->checklistAudit->kopSurat ||
+            !$standar->tugasStandar
+        ) {
+            return back()->with('error', 'Data Belum Lengkap, Tidak Dapat Mengunduh Dokumen. Tolong Lengkapi Data Terlebih Dahulu!');
+        }
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./checklist_ami/dokumen_checklist.docx');
         $template->setValues([
             "nama_formulir" => $standar->pertanyaanStandar->checklistAudit->kopSurat->nama_formulir,
@@ -161,13 +173,27 @@ class StandarController extends Controller
             "tanggapan_auditee" => $standar->pertanyaanStandar->cheklistAudit->tanggapan_auditee
         ]);
 
-        $template->saveAs('arsip/dok_checklist/' . date('d-m-Y') . ' Check List Audit.docx');
-        return Response::download(public_path("arsip/dok_checklist/" . date('d-m-Y') . " Check List Audit.docx"));
+        $fileName = 'arsip/dok_checklist/' . date('d-m-Y') . ' Check List Audit.docx';
+        $template->saveAs($fileName);
+        return Response::download(public_path($fileName));
     }
 
     public function dokDraftTemuan($id)
     {
         $standar = Standar::findOrFail($id);
+        if (
+            !$standar->uraianTemuanAmi ||
+            !$standar->uraianTemuanAmi->kopSurat ||
+            !$standar->tugasStandar ||
+            !$standar->uraianTemuanAmi->checklist_uraian ||
+            !$standar->analisaTindakanAmi ||
+            !$standar->analisaTindakanAmi->tanggal_penyelesaian ||
+            !$standar->verifikasiKp4mp ||
+            !$standar->verifikasiKp4mp->verifikasi_kp4mp ||
+            !$standar->verifikasiKp4mp->tanggal_verifikasi
+        ) {
+            return back()->with('error', 'Data Belum Lengkap, Tidak Dapat Mengunduh Dokumen. Tolong Lengkapi Data Terlebih Dahulu!');
+        }
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./draft_temuan_ami/draft_temuan_ami.docx');
         $template->setValues([
             "nama_formulir" => $standar->uraianTemuanAmi->kopSurat->nama_formulir,
@@ -190,7 +216,8 @@ class StandarController extends Controller
             "tanggal_verifikasi" => Carbon::parse($standar->verifikasiKp4mp->tanggal_verifikasi)->toDateString()
         ]);
 
-        $template->saveAs('arsip/dok_temuan/' . date('d-m-Y') . ' Temuan Audit Mutu Internal.docx');
-        return Response::download(public_path("arsip/dok_temuan/" . date('d-m-Y') . " Temuan Audit Mutu Internal.docx"));
+        $fileName = 'arsip/dok_temuan/' . date('d-m-Y') . ' Temuan Audit Mutu Internal.docx';
+        $template->saveAs($fileName);
+        return Response::download(public_path($fileName));
     }
 }
