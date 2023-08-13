@@ -86,7 +86,7 @@
                                     <td>{!! Str::limit($data_pertanyaan->list_pertanyaan_standar, 100, '...') !!}</td>
                                     <td>
                                         @can('lead')
-                                            @if ($data_pertanyaan->cheklistAudit)
+                                            @if ($data_pertanyaan->cheklistAudit()->where('id_user', auth()->user()->id)->first())
                                                 <a href="{{ url('/ami/checklist_audit/update/' . $data_pertanyaan->cheklistAudit?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
@@ -97,7 +97,7 @@
                                             @endif
                                         @endcan
                                         @can('anggota')
-                                            @if ($data_pertanyaan->cheklistAudit)
+                                            @if ($data_pertanyaan->cheklistAudit()->where('id_user', auth()->user()->id)->first())
                                                 <a href="{{ url('/ami/checklist_audit/update/' . $data_pertanyaan->cheklistAudit?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
@@ -108,7 +108,7 @@
                                             @endif
                                         @endcan
                                         @can('auditee')
-                                            @if ($data_pertanyaan->tanggapanChecklist)
+                                            @if ($data_pertanyaan->tanggapanChecklist()->where('id_user', auth()->user()->id)->first())
                                                 <a href="{{ url('/ami/tanggapan_audit/update/' . $data_pertanyaan->tanggapanChecklist?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>

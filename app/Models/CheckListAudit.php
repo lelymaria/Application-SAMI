@@ -12,7 +12,7 @@ class CheckListAudit extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'check_list_audit';
-    protected $fillable = ['id_jadwal', 'id_pertanyaan', 'id_kop_surat', 'tanggal_input_dokChecklist', 'kesesuaian', 'catatan_khusus', 'hasil_observasi'];
+    protected $fillable = ['id_jadwal', 'id_pertanyaan', 'id_kop_surat', 'id_user', 'tanggal_input_dokChecklist', 'kesesuaian', 'catatan_khusus', 'hasil_observasi'];
 
     public function jadwal()
     {
@@ -31,5 +31,9 @@ class CheckListAudit extends Model
 
     public function kopSurat() {
         return $this->belongsTo(KopSurat::class, 'id_kop_surat', 'id');
+    }
+
+    public function user() {
+        return $this->hasOne(User::class, 'id_user', 'id');
     }
 }

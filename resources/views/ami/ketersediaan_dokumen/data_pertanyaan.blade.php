@@ -95,7 +95,7 @@
                                     <td>{{ ($pertanyaan->currentPage() - 1) * $pertanyaan->perPage() + $index + 1 }}</td>
                                     <td>{!! Str::limit($data_pertanyaan->list_pertanyaan_standar, 100, '...') !!}</td>
                                     <td>
-                                        @if ($data_pertanyaan->ketersediaanDokumen)
+                                        @if ($data_pertanyaan->ketersediaanDokumen()->where('id_user', auth()->user()->id)->first())
                                             <a href="{{ url('/ami/ketersediaan_dokumen/update/' . $data_pertanyaan->ketersediaanDokumen?->id) }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                     class="fa fa-pencil-alt"></i></a>

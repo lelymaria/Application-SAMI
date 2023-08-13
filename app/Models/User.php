@@ -77,4 +77,32 @@ class User extends Authenticatable
     public function tugasStandar() {
         return $this->hasMany(TugasStandar::class, 'id_user', 'id');
     }
+
+    public function dataDukungAuditee() {
+        return $this->hasMany(DataDukungAuditee::class, 'id', 'id_user');
+    }
+
+    public function ketersediaanDokumen() {
+        return $this->hasOne(KetersediaanDokumen::class, 'id', 'id_user');
+    }
+
+    public function checklistAudit() {
+        return $this->hasOne(CheckListAudit::class, 'id', 'id_user');
+    }
+
+    public function tanggapanChecklist() {
+        return $this->hasOne(TanggapanCheckListAudit::class, 'id', 'id_user');
+    }
+
+    public function uraianTemuan() {
+        return $this->hasOne(UraianTemuanAmi::class, 'id', 'id_user');
+    }
+
+    public function analisadanTindakanTemuan() {
+        return $this->hasOne(AnalisadanTindakanTemuanAmi::class, 'id', 'id_user');
+    }
+
+    public function verifikasiTemuan() {
+        return $this->hasOne(VerifikasiTemuanAmi::class, 'id', 'id_user');
+    }
 }

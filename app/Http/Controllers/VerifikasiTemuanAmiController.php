@@ -18,7 +18,9 @@ class VerifikasiTemuanAmiController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10)
+            'standar' => Standar::whereHas('tugasStandar', function ($query) {
+                $query->where('id_user', auth()->user()->id);
+            })->latest()->paginate(10)
         ];
         return view('ami.draft_temuan.data_standar', $data);
     }
@@ -62,7 +64,8 @@ class VerifikasiTemuanAmiController extends Controller
                 'tanggal_verifikasi' => $request->tanggal_verifikasi,
                 'verifikasi_kp4mp' => $request->verifikasi_kp4mp,
                 "id_jadwal" => $jadwal_ami->id,
-                'id_standar' => $standar->id
+                'id_standar' => $standar->id,
+                'id_user' => auth()->user()->id
             ]);
         });
         return redirect('/ami/verifikasi_ami/' . $standar->id_standar)->with('message', 'Data Berhasil Tersimpan!');

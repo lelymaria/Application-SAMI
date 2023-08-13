@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_pertanyaan');
             $table->uuid('id_jadwal');
+            $table->uuid('id_user');
             $table->uuid('id_check_list_audit');
             $table->text('tanggapan_auditee')->nullable();
             $table->timestamps();

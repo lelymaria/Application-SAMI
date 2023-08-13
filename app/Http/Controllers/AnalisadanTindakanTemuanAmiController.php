@@ -17,7 +17,9 @@ class AnalisadanTindakanTemuanAmiController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10)
+            'standar' => Standar::whereHas('tugasStandar', function ($query) {
+                $query->where('id_user', auth()->user()->id);
+            })->latest()->paginate(10)
         ];
         return view('ami.draft_temuan.data_standar', $data);
     }
@@ -63,7 +65,8 @@ class AnalisadanTindakanTemuanAmiController extends Controller
                 'analisa_masalah' => $request->analisa_masalah,
                 'tindakan_koreksi' => $request->tindakan_koreksi,
                 "id_jadwal" => $jadwal_ami->id,
-                'id_standar' => $standar->id
+                'id_standar' => $standar->id,
+                'id_user' => auth()->user()->id
             ]);
         });
         return redirect('/ami/analisa_tindakan_ami/' . $standar->id_standar)->with('message', 'Data Berhasil Tersimpan!');

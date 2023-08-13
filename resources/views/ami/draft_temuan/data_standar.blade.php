@@ -85,7 +85,7 @@
                                         <a href="{{ url('/ami/draft_temuan_ami_preview/'. $data_standar->id) }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                             class="fa fa-file-invoice"></i></a>
                                         @can('ketuaP4mp')
-                                            @if ($data_standar->verifikasiKp4mp)
+                                            @if ($data_standar->verifikasiKp4mp()->where('id_user', auth()->user()->id)->first())
                                                 <a href="{{ url('/ami/verifikasi_ami/update/' . $data_standar->verifikasiKp4mp?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
@@ -96,7 +96,7 @@
                                             @endif
                                         @endcan
                                         @can('lead')
-                                            @if ($data_standar->uraianTemuanAmi)
+                                            @if ($data_standar->uraianTemuanAmi()->where('id_user', auth()->user()->id)->first())
                                                 <a href="{{ url('/ami/uraian_ami/update/' . $data_standar->uraianTemuanAmi?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
@@ -107,7 +107,7 @@
                                             @endif
                                         @endcan
                                         @can('anggota')
-                                            @if ($data_standar->uraianTemuanAmi)
+                                            @if ($data_standar->uraianTemuanAmi()->where('id_user', auth()->user()->id)->first())
                                                 <a href="{{ url('/ami/uraian_ami/update/' . $data_standar->uraianTemuanAmi?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>
@@ -118,7 +118,7 @@
                                             @endif
                                         @endcan
                                         @can('auditee')
-                                            @if ($data_standar->analisaTindakanAmi)
+                                            @if ($data_standar->analisaTindakanAmi()->where('id_user', auth()->user()->id)->first())
                                                 <a href="{{ url('/ami/analisa_tindakan_ami/update/' . $data_standar->analisaTindakanAmi?->id) }}"
                                                     class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil-alt"></i></a>

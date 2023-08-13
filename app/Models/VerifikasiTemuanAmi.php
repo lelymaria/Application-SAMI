@@ -13,7 +13,7 @@ class VerifikasiTemuanAmi extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'verifikasi_temuan_ami';
-    protected $fillable = ['id_jadwal', 'id_standar', 'tanggal_verifikasi', 'verifikasi_kp4mp'];
+    protected $fillable = ['id_jadwal', 'id_user', 'id_standar', 'tanggal_verifikasi', 'verifikasi_kp4mp'];
 
     public function jadwal()
     {
@@ -23,5 +23,9 @@ class VerifikasiTemuanAmi extends Model
     public function standar()
     {
         return $this->hasOne(Standar::class, 'id', 'id_standar');
+    }
+
+    public function user() {
+        return $this->hasOne(User::class, 'id_user', 'id');
     }
 }

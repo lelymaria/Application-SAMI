@@ -12,7 +12,7 @@ class DataDukungAuditee extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'data_dukung_auditee';
-    protected $fillable = ['nama_file', 'data_file', 'id_standar', 'id_jadwal'];
+    protected $fillable = ['nama_file', 'data_file', 'id_user', 'id_standar', 'id_jadwal'];
 
     public function standar()
     {
@@ -21,5 +21,9 @@ class DataDukungAuditee extends Model
 
     public function jadwal() {
         return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
+    }
+
+    public function user() {
+        return $this->hasOne(User::class, 'id_user', 'id');
     }
 }

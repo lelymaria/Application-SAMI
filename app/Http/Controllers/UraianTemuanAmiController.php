@@ -18,8 +18,11 @@ class UraianTemuanAmiController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10)
+            'standar' => Standar::whereHas('tugasStandar', function ($query) {
+                $query->where('id_user', auth()->user()->id);
+            })->latest()->paginate(10)
         ];
+
         return view('ami.draft_temuan.data_standar', $data);
     }
 
@@ -67,7 +70,8 @@ class UraianTemuanAmiController extends Controller
                 'checklist_uraian' => $request->checklist_uraian,
                 'uraian_ketidaksesuaian' => $request->uraian_ketidaksesuaian,
                 "id_jadwal" => $jadwal_ami->id,
-                'id_standar' => $standar->id
+                'id_standar' => $standar->id,
+                'id_user' => auth()->user()->id
             ]);
         });
         return redirect('/ami/uraian_ami/' . $standar->id_standar)->with('message', 'Data Berhasil Tersimpan!');

@@ -14,31 +14,38 @@ class Standar extends Model
     protected $table = 'standar';
     protected $fillable = ['nama_standar', 'id_jadwal'];
 
-    public function pertanyaanStandar() {
+    public function pertanyaanStandar()
+    {
         return $this->hasOne(PertanyaanStandar::class,  "id_standar", "id");
     }
 
-    public function tugasStandar() {
-        return $this->hasOne(TugasStandar::class,  "id_standar", "id");
+    public function tugasStandar()
+    {
+        return $this->hasMany(TugasStandar::class,  "id_standar", "id");
     }
 
-    public function jadwal() {
+    public function jadwal()
+    {
         return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
     }
 
-    public function dataDukungAuditee() {
+    public function dataDukungAuditee()
+    {
         return $this->hasMany(DataDukungAuditee::class, 'id_standar', 'id');
     }
 
-    public function uraianTemuanAmi() {
+    public function uraianTemuanAmi()
+    {
         return $this->hasOne(uraianTemuanAmi::class, 'id_standar', 'id');
     }
 
-    public function verifikasiKp4mp() {
+    public function verifikasiKp4mp()
+    {
         return $this->hasOne(VerifikasiTemuanAmi::class, 'id_standar', 'id');
     }
 
-    public function analisaTindakanAmi() {
+    public function analisaTindakanAmi()
+    {
         return $this->hasOne(AnalisadanTindakanTemuanAmi::class, 'id_standar', 'id');
     }
 }

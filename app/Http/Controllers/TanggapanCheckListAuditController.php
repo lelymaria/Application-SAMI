@@ -18,7 +18,9 @@ class TanggapanCheckListAuditController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10)
+            'standar' => Standar::whereHas('tugasStandar', function ($query) {
+                $query->where('id_user', auth()->user()->id);
+            })->latest()->paginate(10)
         ];
         return view('ami.dokumen_checklist.data_standar', $data);
     }
@@ -70,7 +72,8 @@ class TanggapanCheckListAuditController extends Controller
                 'tanggapan_auditee' => $request->tanggapan_auditee,
                 "id_jadwal" => $jadwal_ami->id,
                 'id_pertanyaan' => $pertanyaan->id,
-                'id_check_list_audit' => $checklistAudit->id
+                'id_check_list_audit' => $checklistAudit->id,
+                'id_user' => auth()->user()->id
             ]);
         });
         return redirect('/ami/tanggapan_audit/' . $pertanyaan->id_standar)->with('message', 'Data Berhasil Tersimpan!');

@@ -18,7 +18,9 @@ class KetersediaanDokumenController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10)
+            'standar' => Standar::whereHas('tugasStandar', function ($query) {
+                $query->where('id_user', auth()->user()->id);
+            })->latest()->paginate(10)
         ];
         return view('ami.ketersediaan_dokumen.data_standar', $data);
     }
@@ -78,7 +80,8 @@ class KetersediaanDokumenController extends Controller
                 'pic' => $request->pic,
                 'catatan' => $request->catatan,
                 "id_jadwal" => $jadwal_ami->id,
-                'id_pertanyaan' => $pertanyaan->id
+                'id_pertanyaan' => $pertanyaan->id,
+                'id_user' => auth()->user()->id
             ]);
         });
         return redirect('/ami/ketersediaan_dokumen/' . $pertanyaan->id_standar)->with('message', 'Data Berhasil Tersimpan!');

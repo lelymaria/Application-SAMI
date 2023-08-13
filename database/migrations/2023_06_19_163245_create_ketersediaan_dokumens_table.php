@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('id_pertanyaan');
             $table->uuid('id_jadwal');
             $table->uuid('id_kop_surat');
+            $table->uuid('id_user');
             $table->dateTime('tanggal_input_dokKetersediaan');
             $table->string('no_audit');
             $table->text('nama_dokumen');

@@ -19,7 +19,9 @@ class DataDukungAuditeeController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10)
+            'standar' => Standar::whereHas('tugasStandar', function ($query) {
+                $query->where('id_user', auth()->user()->id);
+            })->latest()->paginate(10)
         ];
         return view('ami.data_dukung.data_standar', $data);
     }
@@ -66,7 +68,8 @@ class DataDukungAuditeeController extends Controller
                 $standar->dataDukungAuditee()->create([
                     'data_file' => $path,
                     'nama_file' => $filename,
-                    'id_jadwal' => $jadwal_ami->id
+                    'id_jadwal' => $jadwal_ami->id,
+                    'id_user' => auth()->user()->id
                 ]);
             }
         });
