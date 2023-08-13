@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @push('header')
     <!--**********************************
             Header start
@@ -117,10 +120,9 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggal Pelaksanaan <span
-                                class="text-danger">*</span>
+                        <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggal Pelaksanaan
                         </label>
-                        <input type="date" class="form-control" id="validationCustom02" name="tanggal_pelaksanaan" value="{{ $uraianKetidaksesuaian->tanggal_pelaksanaan }}">
+                        <input type="date" class="form-control" id="validationCustom02" name="tanggal_pelaksanaan" value="{{ Carbon::createFromFormat('Y-m-d H:i:s', $uraianKetidaksesuaian->tanggal_pelaksanaan)->isoFormat('YYYY-MM-DD') }}">
                     </div>
                     <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Checklist Uraian
@@ -128,12 +130,12 @@
                         <div class="col-lg-6">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="{{ $uraianKetidaksesuaian->checklist_uraian == 'non_confirmity' ? 'checked' : ''  }}">Non Confirmity
+                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="non_confirmity" {{ $uraianKetidaksesuaian->checklist_uraian == 'non_confirmity' ? 'checked' : ''  }}>Non Confirmity
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="{{ $uraianKetidaksesuaian->checklist_uraian == 'observasi' ? 'checked' : ''  }}">Observasi
+                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="checked" {{ $uraianKetidaksesuaian->checklist_uraian == 'observasi' ? 'checked' : ''  }}>Observasi
                                 </label>
                             </div>
                         </div>

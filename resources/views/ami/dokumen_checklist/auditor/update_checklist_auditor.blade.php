@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @push('header')
     <!--**********************************
             Header start
@@ -113,7 +116,7 @@
                         </label>
                         <div class="col-lg-6">
                             <input type="date" class="form-control" id="validationCustom02"
-                                name="tanggal_input_dokChecklist" value="{{ $checkListAudit->tanggal_input_dokChecklist }}">
+                                name="tanggal_input_dokChecklist" value="{{ Carbon::createFromFormat('Y-m-d H:i:s', $checkListAudit->tanggal_input_dokChecklist)->isoFormat('YYYY-MM-DD') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">

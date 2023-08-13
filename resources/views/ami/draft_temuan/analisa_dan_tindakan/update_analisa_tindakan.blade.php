@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @push('header')
     <!--**********************************
         Header start
@@ -100,7 +103,7 @@
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Tanggal Penyelesaian
                         </label>
-                        <input type="date" class="form-control" id="validationCustom02" name="tanggal_penyelesaian" value="{{ $analisaTindakan->tanggal_penyelesaian }}">
+                        <input type="date" class="form-control" id="validationCustom02" name="tanggal_penyelesaian" value="{{ Carbon::createFromFormat('Y-m-d H:i:s', $analisaTindakan->tanggal_penyelesaian)->isoFormat('YYYY-MM-DD') }}">
                     </div>
                     <div class="mb-3">
                         <label class="col-lg-2 col-form-label" for="validationCustom02">Analisa Penyebab Masalah
