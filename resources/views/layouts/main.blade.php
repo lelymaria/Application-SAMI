@@ -162,7 +162,8 @@
     @stack('js')
 </body>
 
-</html> --}}
+</html>
+--}}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -187,11 +188,12 @@
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/polindra1.png') }}">
 
-
-    <link href="vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="{{ asset('vendor/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/nouislider/nouislider.min.css') }}">
+
     <!-- Style css -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 
 </head>
 
@@ -269,6 +271,8 @@
             Content body end
         ***********************************-->
 
+
+
         <!--**********************************
             Footer start
         ***********************************-->
@@ -276,6 +280,9 @@
         <!--**********************************
             Footer end
         ***********************************-->
+
+
+
 
     </div>
     <!--**********************************
