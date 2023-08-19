@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                                Header start
-                                ***********************************-->
+                                        Header start
+                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -34,8 +34,8 @@
         @endif
     </div>
     <!--**********************************
-                                Header end ti-comment-alt
-                                ***********************************-->
+                                        Header end ti-comment-alt
+                                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -137,8 +137,8 @@
                                 data-url="{{ url('/ami/laporan_ami/' . $laporan->id) }}" data-bs-toggle="modal"
                                 data-bs-target="#updateLaporan"><i class="fas fa-pencil-alt me-3 scale4"></i>Update Pedoman</a>
                         @endcan
-                        <a href="{{ asset('storage/' . $laporan->file_laporan_ami) }}" class="btn btn-primary" target="_blank"><i
-                                class="las la-download scale5 me-3"></i>Download Pedoman</a>
+                        <a href="{{ asset('storage/' . $laporan->file_laporan_ami) }}" class="btn btn-primary"
+                            target="_blank"><i class="las la-download scale5 me-3"></i>Download Pedoman</a>
                     </div>
                 @endforeach
             </div>

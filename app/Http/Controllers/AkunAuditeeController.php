@@ -7,6 +7,7 @@ use App\Models\JadwalAmi;
 use App\Models\LayananAkademik;
 use App\Models\Level;
 use App\Models\ProgramStudi;
+use App\Models\Standar;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,6 +65,7 @@ class AkunAuditeeController extends Controller
             $user->akunAuditee()->create([
                 'email' => $request->email,
                 'nama' => $request->nama,
+                
                 'id_unit_kerja' => $request->unit_kerja,
                 'id_jadwal' => $jadwal_ami->id
             ]);
@@ -88,6 +90,7 @@ class AkunAuditeeController extends Controller
         $data = [
             'update_akun_auditee' => $akunAuditee,
             'dataProdi' => ProgramStudi::all(),
+            'standar' => Standar::all(),
             'layananAkademik' => LayananAkademik::all()
         ];
         return view('manage_akun.auditee.update_auditee', $data);

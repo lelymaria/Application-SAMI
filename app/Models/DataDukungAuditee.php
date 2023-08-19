@@ -26,4 +26,8 @@ class DataDukungAuditee extends Model
     public function user() {
         return $this->hasOne(User::class, 'id_user', 'id');
     }
+
+    public function tugasStandar() {
+        return $this->hasOne(TugasStandar::class, 'id_standar', 'id');
+    }
 }

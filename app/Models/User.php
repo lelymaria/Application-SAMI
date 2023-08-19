@@ -25,6 +25,7 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     protected $fillable = [
+        'id',
         'nip',
         'password',
         'level_id',
@@ -50,59 +51,78 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function levelRole() {
+    public function levelRole()
+    {
         return $this->hasOne(Level::class, 'id', 'level_id');
     }
 
-    public function kepalaP4mp() {
+    public function kepalaP4mp()
+    {
         return $this->hasOne(KepalaP4mp::class, 'id_user', 'id');
     }
 
-    public function akunOperator() {
+    public function akunOperator()
+    {
         return $this->hasOne(AkunOperator::class, 'id_user', 'id');
     }
 
-    public function akunJurusan() {
+    public function akunJurusan()
+    {
         return $this->hasOne(AkunJurusan::class, 'id_user', 'id');
     }
 
-    public function akunAuditee() {
+    public function akunAuditee()
+    {
         return $this->hasOne(AkunAuditee::class, 'id_user', 'id');
     }
 
-    public function akunAuditor() {
+    public function akunAuditor()
+    {
         return $this->hasOne(AkunAuditor::class, 'id_user', 'id');
     }
 
-    public function tugasStandar() {
+    public function tugasStandar()
+    {
         return $this->hasMany(TugasStandar::class, 'id_user', 'id');
     }
 
-    public function dataDukungAuditee() {
+    public function dataDukungAuditee()
+    {
         return $this->hasMany(DataDukungAuditee::class, 'id', 'id_user');
     }
 
-    public function ketersediaanDokumen() {
+    public function ketersediaanDokumen()
+    {
         return $this->hasOne(KetersediaanDokumen::class, 'id', 'id_user');
     }
 
-    public function checklistAudit() {
+    public function checklistAudit()
+    {
         return $this->hasOne(CheckListAudit::class, 'id', 'id_user');
     }
 
-    public function tanggapanChecklist() {
+    public function tanggapanChecklist()
+    {
         return $this->hasOne(TanggapanCheckListAudit::class, 'id', 'id_user');
     }
 
-    public function uraianTemuan() {
+    public function uraianTemuan()
+    {
         return $this->hasOne(UraianTemuanAmi::class, 'id', 'id_user');
     }
 
-    public function analisadanTindakanTemuan() {
+    public function analisadanTindakanTemuan()
+    {
         return $this->hasOne(AnalisadanTindakanTemuanAmi::class, 'id', 'id_user');
     }
 
-    public function verifikasiTemuan() {
+    public function verifikasiTemuan()
+    {
         return $this->hasOne(VerifikasiTemuanAmi::class, 'id', 'id_user');
+    }
+
+    public function laporanAmi()
+    {
+        return $this->hasOne(LaporanAmi::class, 'id_user', 'id');
     }
 }

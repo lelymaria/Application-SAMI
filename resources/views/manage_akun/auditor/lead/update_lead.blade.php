@@ -265,8 +265,8 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse ($update_akun_auditor->tugasStandar as $index => $update_akun_tugas)
                             <tr>
-                                @forelse ($update_akun_auditor->tugasStandar as $index => $update_akun_tugas)
                                     <td>{{ ($update_akun_auditor->tugasStandar()->paginate()->currentPage() -1) *$update_akun_auditor->tugasStandar()->paginate()->perPage() +$index +1 }}
                                     </td>
                                     <td>{{ $update_akun_tugas->standar->nama_standar }}</td>
@@ -287,8 +287,8 @@
                                 <td colspan="10" class="text-center">Data tidak
                                     tersedia!</td>
                             </tr>
-                            @endforelse
-                            </tr>
+                        </tr>
+                        @endforelse
                         </tbody>
                     </table>
                     {{ $update_akun_auditor->tugasStandar()->paginate()->links() }}

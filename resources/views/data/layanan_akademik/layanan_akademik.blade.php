@@ -60,7 +60,7 @@
     <div class="row page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Data</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Data Layanan Akademik</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Data Unit Kerja</a></li>
         </ol>
     </div>
 
@@ -77,7 +77,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Data Layanan Akademik</h4>
+                <h4 class="card-title">Data Unit Kerja</h4>
                 <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
                     data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
                             class="fa fa-plus color-secondary"></i>
@@ -87,7 +87,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Tambah Layanan Akademik</h5>
+                                <h5 class="modal-title">Tambah Unit Kerja</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                                 </button>
                             </div>
@@ -101,13 +101,12 @@
                                                 <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                             </div>
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Layanan
-                                                    Akademik
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Nama Unit Kerja
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="validationCustom07"
-                                                        name="nama_layanan" placeholder="Masukan Nama Layanan..." required>
+                                                        name="nama_layanan" placeholder="Masukan Unit Kerja..." required>
                                                 </div>
                                             </div>
                                         </div>
@@ -129,7 +128,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Layanan Akademik</th>
+                                <th>Nama Unit Kerja</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -168,7 +167,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Layanan Akademik</h5>
+                    <h5 class="modal-title">Update Unit Kerja</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal">
                     </button>
                 </div>

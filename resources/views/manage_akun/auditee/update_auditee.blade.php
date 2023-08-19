@@ -217,5 +217,145 @@
                 </div>
             </div>
         </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Tugas Standar</h4>
+                    <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
+                        data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
+                                class="fa fa-plus color-secondary"></i>
+                        </span>Add</button>
+                    {{-- Modal --}}
+                    <div class="modal fade" id="basicModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Tambah Tugas</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                    </button>
+                                </div>
+                                <form class="needs-validation" novalidate="" action="{{ url('/manage_user') }}"
+                                    method="post">
+                                    @csrf
+                                    <input type="hidden" name="user" value="{{ $update_akun_auditee->user->id }}">
+                                    <div class="modal-body">
+                                        <div class="form-validate">
+                                            <div class="row">
+                                                <div class="mb-3 row">
+                                                    <label class="col-lg-4 col-form-label" for="validationCustom05">Standar
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-8">
+                                                        <select class="default-select wide form-control"
+                                                            id="validationCustom05" name="standar">
+                                                            <option data-display="Select">Please select</option>
+                                                            @foreach ($standar as $standar)
+                                                                <option value="{{ $standar->id }}">
+                                                                    {{ $standar->nama_standar }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <small class="text-danger">Field dengan tanda (*)
+                                                    wajib diisi!</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger light"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example3" class="table table-responsive-md" style="min-width: 845px">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Standar</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @forelse ($update_akun_auditee->user->tugasStandar as $index => $update_akun_tugas)
+                                        <td>{{ ($update_akun_auditee->user->tugasStandar()->paginate()->currentPage() -1) *$update_akun_auditee->user->tugasStandar()->paginate()->perPage() +$index +1 }}
+                                        </td>
+                                        <td>{{ $update_akun_tugas->standar->nama_standar }}</td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    data-url="{{ url('/manage_user/' . $update_akun_tugas->id) }}"
+                                                    class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                                    data-bs-toggle="modal" data-bs-target="#updateTugas"><i
+                                                        class="fas fa-pencil-alt"></i></a>
+                                                <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                    data-url="{{ url('/manage_user/' . $update_akun_tugas->id) }}"><i
+                                                        class="fa fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    @empty
+                                <tr>
+                                    <td colspan="10" class="text-center">Data tidak
+                                        tersedia!</td>
+                                </tr>
+                                @endforelse
+                                </tr>
+                            </tbody>
+                        </table>
+                        {{ $update_akun_auditee->user->tugasStandar()->paginate()->links() }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+        {{-- update --}}
+        <div class="modal fade" id="updateTugas">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Tugas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        </button>
+                    </div>
+                    <div class="modal-body" id="editModalBody">
+                        <div class="form-validate">
+                            <form class="needs-validation" novalidate=""
+                                action="{{ url('/manage_user' . $update_akun_auditee->user->id) }}" method="post">
+                                @csrf
+                                <div class="row" id="formBodyEdit">
+
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 @endsection
+
+@push('js')
+    <script>
+        $('body').on('click', '.btn-edit', function() {
+            let url = $(this).data('url');
+            $('#editModalBody form').attr('action', url)
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    $('#editModalBody .row').html(data);
+                }
+            })
+        })
+    </script>
+@endpush

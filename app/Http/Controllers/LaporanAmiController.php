@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AkunAuditee;
 use App\Models\JadwalAmi;
 use App\Models\LaporanAmi;
+use App\Models\Level;
+use App\Models\ProgramStudi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,8 +17,22 @@ class LaporanAmiController extends Controller
      */
     public function index()
     {
+        $laporan = LaporanAmi::where(function ($query) {
+            if (auth()->user()->akunAuditee) {
+                $query->whereHas("user.akunAuditee", function ($query) {
+                    $query->where("id_unit_kerja", auth()->user()->akunAuditee->id_unit_kerja);
+                });
+            }
+
+            if (auth()->user()->akunAuditor) {
+                $query->whereHas("user.akunAuditor", function ($query) {
+                    $query->where("id_unit_kerja", auth()->user()->akunAuditor->id_unit_kerja);
+                });
+            }
+        })->get();
+
         $data = [
-            'laporanAmi' => LaporanAmi::all()
+            'laporanAmi' => $laporan
         ];
         return view('ami.laporan_hasil_ami.laporan_hasil_ami', $data);
     }
@@ -53,7 +70,8 @@ class LaporanAmiController extends Controller
 
             $request->merge([
                 "file_laporan_ami" => $filePath,
-                "id_jadwal" => $jadwal_ami->id
+                "id_jadwal" => $jadwal_ami->id,
+                "id_user" => auth()->user()->id
             ]);
 
             if ($request->file_nama == "") {
@@ -66,7 +84,6 @@ class LaporanAmiController extends Controller
         DB::transaction(function () use ($request) {
             LaporanAmi::create($request->all());
         });
-
 
         return back()->with('message', 'Data Berhasil Tersimpan!');
     }

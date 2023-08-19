@@ -55,7 +55,7 @@
                         <span class="nav-text">Data</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="{{ url('/data/layanan_akademik') }}">Layanan Akademik</a></li>
+                        <li><a href="{{ url('/data/layanan_akademik') }}">Unit Kerja</a></li>
                         <li><a href="{{ url('/data/datajurusan') }}">Jurusan</a></li>
                         <li><a href="{{ url('/data/dataprodi') }}">Prodi</a></li>
                     </ul>

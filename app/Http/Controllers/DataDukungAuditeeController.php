@@ -31,7 +31,7 @@ class DataDukungAuditeeController extends Controller
      */
     public function create($id)
     {
-        $dataDukung = DataDukungAuditee::where('id_standar', $id)->latest()->paginate(10);
+        $dataDukung = DataDukungAuditee::where('id_standar', $id)->where('id_user', auth()->user()->id)->latest()->paginate(10);
         $data = [
             'standar' => Standar::findOrFail($id),
             'dataDukung' => $dataDukung

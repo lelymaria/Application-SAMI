@@ -11,7 +11,7 @@ class ProgramStudi extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
-    protected $table = 'prodi';
+    protected $table = 'prodi'; 
     protected $fillable = ['nama_prodi', 'id_jurusan'];
 
     public function jurusan() {

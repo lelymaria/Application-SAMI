@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                                                    Header start
-                                                    ***********************************-->
+                                                        Header start
+                                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-                                                    Header end ti-comment-alt
-                                                    ***********************************-->
+                                                        Header end ti-comment-alt
+                                                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -83,25 +83,23 @@
                                     <td>{{ ($standar->currentPage() - 1) * $standar->perPage() + $index + 1 }}</td>
                                     <td>{{ $data_standar->nama_standar }}</td>
                                     <td>
-                                        <a href="{{ url('/ami/checklist_audit_preview/'. $data_standar->id) }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                        <a href="{{ url('/ami/checklist_audit_preview/' . $data_standar->id) }}"
+                                            class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                 class="fa fa-file-invoice"></i></a>
                                         @can('lead')
-                                                <a href="{{ url('/ami/checklist_audit/' . $data_standar->id) }}"
-                                                    class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                        class="fa fa-plus"></i></a>
+                                            <a href="{{ url('/ami/checklist_audit/' . $data_standar->id) }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a>
                                         @endcan
                                         @can('anggota')
-                                                <a href="{{ url('/ami/checklist_audit/' . $data_standar->id) }}"
-                                                    class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                        class="fa fa-plus"></i></a>
+                                            <a href="{{ url('/ami/checklist_audit/' . $data_standar->id) }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a>
                                         @endcan
                                         @can('auditee')
-                                                <a href="{{ url('/ami/tanggapan_audit/' . $data_standar->id) }}"
-                                                    class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                        class="fa fa-plus"></i></a>
+                                            <a href="{{ url('/ami/tanggapan_audit/' . $data_standar->id) }}"
+                                                class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a>
                                         @endcan
                                     </td>
-                            @empty
+                                @empty
                                 <tr>
                                     <td colspan="10" class="text-center">Data tidak tersedia!</td>
                                 </tr>

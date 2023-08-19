@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AkunAuditor;
 use App\Models\JadwalAmi;
 use App\Models\KopSurat;
+use App\Models\LayananAkademik;
 use App\Models\Standar;
 use App\Models\Level;
+use App\Models\PertanyaanStandar;
+use App\Models\ProgramStudi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -123,6 +127,44 @@ class StandarController extends Controller
         ) {
             return back()->with('error', 'Data Belum Lengkap, Tidak Dapat Mengunduh Dokumen. Tolong Lengkapi Data Terlebih Dahulu!');
         }
+
+        $akunAuditor = AkunAuditor::where(function ($query) {
+            if (auth()->user()->akunAuditee) {
+                $query->where("id_unit_kerja", auth()->user()->akunAuditee->id_unit_kerja);
+            }
+
+            if (auth()->user()->akunAuditor) {
+                $query->where("id_unit_kerja", auth()->user()->akunAuditor->id_unit_kerja);
+            }
+        })->first();
+
+        $pertanyaanStandar = PertanyaanStandar::where('id_standar', $id)
+            ->get();
+        $listNamadokumen = [];
+        $listKetersediaanYa = [];
+        $listKeteresediaanTidak = [];
+        $listPic = [];
+
+        $listPertanyaan = [];
+        foreach ($pertanyaanStandar as $index => $pertanyaan) {
+            $ketersediaanDokumen = $pertanyaan->ketersediaanDokumen;
+            // If Ketersediaan Dokumen exists, retrieve its properties
+            if ($ketersediaanDokumen) {
+                $listNamadokumen[] = $ketersediaanDokumen->nama_dokumen;
+                $listKetersediaanYa[] = $ketersediaanDokumen->ketersediaan_dokumen === 'ya' ? 'Ya' : '';
+                $listKeteresediaanTidak[] = $ketersediaanDokumen->ketersediaan_dokumen === 'tidak' ? 'Tidak' : '';
+                $listPic[] = $ketersediaanDokumen->pic;
+            } else {
+                $listNamadokumen[] = '';
+                $listKetersediaanYa[] = '';
+                $listKeteresediaanTidak[] = '';
+                $listPic[] = '';
+            }
+            $pertanyaan = strip_tags($pertanyaan->list_pertanyaan_standar);
+            $listPertanyaan[] =  $index + 1 . '. ' . $pertanyaan;
+        }
+        $pertanyaanStandar = implode("\n", $listPertanyaan);
+
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./ketersediaan_dokumen/ketersediaan_dokumen.docx');
         $template->setValues([
             "nama_formulir" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->nama_formulir,
@@ -132,14 +174,14 @@ class StandarController extends Controller
             "halaman" => $standar->pertanyaanStandar->ketersediaanDokumen->kopSurat->halaman,
             "no_audit" => $standar->pertanyaanStandar->ketersediaanDokumen->no_audit,
             "tanggal_input_dokKetersediaan" => Carbon::parse($standar->pertanyaanStandar->ketersediaanDokumen->tanggal_input_dokKetersediaan)->toDateString(),
-            "akun_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
-            "nip" => $standar->tugasStandar->user->nip,
+            "akun_auditor" => $akunAuditor->nama,
+            "nip" => $akunAuditor->user->nip,
             "nama_standar" => $standar->nama_standar,
-            "list_pertanyaan_standar" => strip_tags($standar->pertanyaanStandar->list_pertanyaan_standar),
-            "nama_dokumen" => $standar->pertanyaanStandar->ketersediaanDokumen->nama_dokumen,
-            "ketersediaan_ya" => $standar->pertanyaanStandar->ketersediaanDokumen->ketersediaan_dokumen != 'ya' ? '' : 'ya',
-            "ketersediaan_tidak" => $standar->pertanyaanStandar->ketersediaanDokumen->ketersediaan_dokumen != 'tidak' ? '' : 'tidak',
-            "pic" => $standar->pertanyaanStandar->ketersediaanDokumen->pic
+            "list_pertanyaan_standar" =>  str_replace("\n", '<w:br/>', htmlspecialchars($pertanyaanStandar)),
+            "nama_dokumen" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listNamadokumen))),
+            "ketersediaan_ya" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listKetersediaanYa))),
+            "ketersediaan_tidak" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listKeteresediaanTidak))),
+            "pic" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listPic))),
         ]);
 
         $fileName = 'arsip/dok_ketersediaan/' . date('d-m-Y') . ' Ketersediaan Dokumen Auditee.docx';
@@ -150,15 +192,99 @@ class StandarController extends Controller
     public function checklistAudit($id)
     {
         $standar = Standar::findOrFail($id);
-        // if (
-        //     !$standar->pertanyaanStandar ||
-        //     !$standar->pertanyaanStandar->checklistAudit ||
-        //     !$standar->pertanyaanStandar->checklistAudit->kopSurat ||
-        //     !$standar->tugasStandar
-        // ) {
-        //     return back()->with('error', 'Data Belum Lengkap, Tidak Dapat Mengunduh Dokumen. Tolong Lengkapi Data Terlebih Dahulu!');
-        // }
-        dd($standar->pertanyaanStandar->cheklistAudit);
+        if (
+            !$standar->pertanyaanStandar ||
+            !$standar->pertanyaanStandar->cheklistAudit ||
+            !$standar->pertanyaanStandar->cheklistAudit->kopSurat ||
+            !$standar->tugasStandar
+        ) {
+            return back()->with('error', 'Data Belum Lengkap, Tidak Dapat Mengunduh Dokumen. Tolong Lengkapi Data Terlebih Dahulu!');
+        }
+
+        $user = auth()->user(); // Mengambil informasi user yang terotentikasi
+        $unitKerja = "";
+        $nama = "";
+        if ($user->akunAuditor) {
+            $this->$nama = $user->akunAuditor->nama;
+
+            // Jika user adalah akunAuditor, ambil informasi unit kerja dari akunAuditor
+            $unitKerjaId = $user->akunAuditor->id_unit_kerja;
+
+            // Cek apakah unitKerjaId sesuai dengan id_unit_kerja pada LayananAkademik
+            $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
+            $unitKerja = $layanan->nama_layanan;
+
+            if (!$layanan) {
+                // Jika tidak ditemukan di LayananAkademik, coba ambil dari ProgramStudi
+                $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
+                $unitKerja = $prodi->nama_prodi;
+                if (!$prodi) {
+                    return back()->with('error', 'Unit Kerja tidak ditemukan.');
+                }
+            }
+        } elseif ($user->akunAuditee) {
+            $nama = $user->akunAuditee->nama;
+
+            // Jika user adalah akunAuditee, ambil informasi unit kerja dari akunAuditee
+            $unitKerjaId = $user->akunAuditee->id_unit_kerja;
+
+            $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
+            $unitKerja = $layanan->nama_layanan;
+
+            if (!$layanan) {
+                // Jika tidak ditemukan di LayananAkademik, coba ambil dari ProgramStudi
+                $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
+                $unitKerja = $prodi->nama_prodi;
+                if (!$prodi) {
+                    return back()->with('error', 'Unit Kerja tidak ditemukan.');
+                }
+            }
+        } else {
+            // Jika user tidak memiliki peran yang sesuai, berikan pesan error
+            return back()->with('error', 'Anda tidak memiliki akses yang sesuai.');
+        }
+
+
+        // Ambil data dari tabel LayananAkademik dan ProgramStudi berdasarkan unit kerja yang didapatkan
+        // $layanan = LayananAkademik::findOrFail($unitKerjaId);
+        // $prodi = ProgramStudi::findOrFail($unitKerjaId);
+
+        // // Menggabungkan data dari 'layanan' dan 'prodi'
+        // $mergedData = $layanan->merge($prodi);
+
+        // // Mengambil atribut 'unit_kerja' dari data yang digabungkan
+        // $unitKerja = $mergedData->pluck('unit_kerja')->first();
+
+        $pertanyaanStandar = PertanyaanStandar::where('id_standar', $id)->get();
+        $listHasilObservasi = [];
+        $listKesesuaianYa = [];
+        $listKesesuaianTidak = [];
+        $listCatatanKhusus = [];
+        $listTanggapanAuditee = [];
+
+        $listPertanyaan = [];
+        foreach ($pertanyaanStandar as $index => $pertanyaan) {
+            $cheklistAudit = $pertanyaan->cheklistAudit;
+
+            if ($cheklistAudit) {
+                $listHasilObservasi[] = $cheklistAudit->hasil_observasi;
+                $listKesesuaianYa[] = $cheklistAudit->kesesuaian === 'ya' ? 'Ya' : '';
+                $listKesesuaianTidak[] = $cheklistAudit->kesesuaian === 'tidak' ? 'Tidak' : '';
+                $listCatatanKhusus[] = $cheklistAudit->catatan_khusus;
+                $listTanggapanAuditee[] = $cheklistAudit->tanggapanChecklist->tanggapan_auditee;
+            } else {
+                $listHasilObservasi[] = '';
+                $listKesesuaianYa[] = '';
+                $listKesesuaianTidak[] = '';
+                $listCatatanKhusus[] = '';
+                $listTanggapanAuditee[] = '';
+            }
+
+            $pertanyaan = strip_tags($pertanyaan->list_pertanyaan_standar);
+            $listPertanyaan[] =  ($index + 1) . '. ' . $pertanyaan;
+        }
+        $pertanyaanStandar = implode("\n", $listPertanyaan);
+
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./checklist_ami/dokumen_checklist.docx');
         $template->setValues([
             "nama_formulir" => $standar->pertanyaanStandar->cheklistAudit->kopSurat->nama_formulir,
@@ -167,22 +293,23 @@ class StandarController extends Controller
             "no_revisi" => $standar->pertanyaanStandar->cheklistAudit->kopSurat->no_revisi,
             "tanggal_berlaku" => $standar->pertanyaanStandar->cheklistAudit->kopSurat->tanggal_berlaku,
             "halaman" => $standar->pertanyaanStandar->cheklistAudit->kopSurat->halaman,
-            "unit_kerja" => $standar->pertanyaanStandar->cheklistAudit->unit_kerja,
+            "unit_kerja" => $unitKerja,
             "tanggal_input_dokChecklist" => Carbon::parse($standar->pertanyaanStandar->cheklistAudit->tanggal_input_dokChecklist)->toDateString(),
-            "akun_auditor" => $standar->tugasStandar->user->akunAuditor->nama,
-            "nip" => $standar->tugasStandar->user->nip,
-            "list_pertanyaan_standar" => strip_tags($standar->pertanyaanStandar->list_pertanyaan_standar),
-            "hasil_observasi" => $standar->pertanyaanStandar->cheklistAudit->hasil_observasi,
-            "kesesuaian_ya" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian != 'ya' ? '' : 'ya',
-            "kesesuaian_tidak" => $standar->pertanyaanStandar->cheklistAudit->kesesuaian != 'tidak' ? '' : 'tidak',
-            "catatan_khusus," => $standar->pertanyaanStandar->cheklistAudit->catatan_khusus,
-            "tanggapan_auditee" => $standar->pertanyaanStandar->cheklistAudit->tanggapan_auditee
+            "akun_auditor" => $nama,
+            "nip" => $user->nip,
+            "list_pertanyaan_standar" => str_replace("\n", '<w:br/>', htmlspecialchars($pertanyaanStandar)),
+            "hasil_observasi" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listHasilObservasi))),
+            "kesesuaian_ya" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listKesesuaianYa))),
+            "kesesuaian_tidak" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listKesesuaianTidak))),
+            "catatan_khusus" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listCatatanKhusus))),
+            "tanggapan_auditee" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listTanggapanAuditee))),
         ]);
 
         $fileName = 'arsip/dok_checklist/' . date('d-m-Y') . ' Check List Audit.docx';
         $template->saveAs($fileName);
         return Response::download(public_path($fileName));
     }
+
 
     public function dokDraftTemuan($id)
     {
@@ -204,53 +331,53 @@ class StandarController extends Controller
         $lead_auditor = Level::where("name", "Lead Auditor")->first();
         $anggota_auditor = Level::where("name", "Anggota Auditor")->first();
 
-        $tugasStandarLead = $standar->tugasStandar()->whereHas('user', function ($query) use ($lead_auditor) {
-            $query->where('level_id', $lead_auditor->id);
-        })->first()->user->akunAuditor;
+        // $tugasStandarLead = $standar->tugasStandar()->whereHas('user', function ($query) use ($lead_auditor) {
+        //     $query->where('level_id', $lead_auditor->id);
+        // })->first()->user->akunAuditor;
 
-        $tugasStandarAnggota = $standar->tugasStandar()->whereHas('user', function ($query) use ($anggota_auditor) {
-            $query->where('level_id', $anggota_auditor->id);
-        })->first()->user->akunAuditor;
+        // $tugasStandarAnggota = $standar->tugasStandar()->whereHas('user', function ($query) use ($anggota_auditor) {
+        //     $query->where('level_id', $anggota_auditor->id);
+        // })->first()->user->akunAuditor;
 
-        if (auth()->user()->levelRole->name == "Lead Auditor") {
-            $tugasStandarLead->where(function ($query) {
-                $query->whereHas('dataProdi', function ($query) {
-                    $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-                });
-                $query->orWhereHas('layananAkademik', function ($query) {
-                    $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-                });
-            });
+        // if (auth()->user()->levelRole->name == "Lead Auditor") {
+        //     $tugasStandarLead->where(function ($query) {
+        //         $query->whereHas('dataProdi', function ($query) {
+        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
+        //         });
+        //         $query->orWhereHas('layananAkademik', function ($query) {
+        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
+        //         });
+        //     });
 
-            $tugasStandarAnggota->where(function ($query) {
-                $query->whereHas('dataProdi', function ($query) {
-                    $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-                });
-                $query->orWhereHas('layananAkademik', function ($query) {
-                    $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-                });
-            });
-        }
+        //     $tugasStandarAnggota->where(function ($query) {
+        //         $query->whereHas('dataProdi', function ($query) {
+        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
+        //         });
+        //         $query->orWhereHas('layananAkademik', function ($query) {
+        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
+        //         });
+        //     });
+        // }
 
-        if (auth()->user()->levelRole->name == "Anggota Auditor") {
-            $tugasStandarLead->where(function ($query) {
-                $query->whereHas('dataProdi', function ($query) {
-                    $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-                });
-                $query->orWhereHas('layananAkademik', function ($query) {
-                    $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-                });
-            });
+        // if (auth()->user()->levelRole->name == "Anggota Auditor") {
+        //     $tugasStandarLead->where(function ($query) {
+        //         $query->whereHas('dataProdi', function ($query) {
+        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
+        //         });
+        //         $query->orWhereHas('layananAkademik', function ($query) {
+        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
+        //         });
+        //     });
 
-            $tugasStandarAnggota->where(function ($query) {
-                $query->whereHas('dataProdi', function ($query) {
-                    $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-                });
-                $query->orWhereHas('layananAkademik', function ($query) {
-                    $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-                });
-            });
-        }
+        //     $tugasStandarAnggota->where(function ($query) {
+        //         $query->whereHas('dataProdi', function ($query) {
+        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
+        //         });
+        //         $query->orWhereHas('layananAkademik', function ($query) {
+        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
+        //         });
+        //     });
+        // }
 
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./draft_temuan_ami/draft_temuan_ami.docx');
         $template->setValues([
@@ -260,8 +387,8 @@ class StandarController extends Controller
             "tanggal_berlaku" => $standar->uraianTemuanAmi->kopSurat->tanggal_berlaku,
             "halaman" => $standar->uraianTemuanAmi->kopSurat->halaman,
             "nama_standar" => $standar->nama_standar,
-            "lead_auditor" => $tugasStandarLead->nama, //?
-            "anggota_audior" => $tugasStandarAnggota->nama, //?
+            // "lead_auditor" => $tugasStandarLead->nama, //?
+            // "anggota_audior" => $tugasStandarAnggota->nama, //?
             // "akun_auditee" => $standar->tugasStandar->user->akunAuditee->nama, //?
             // "unit_kerja" => ?,
             "checklist_uraia_c" => $standar->uraianTemuanAmi->checklist_uraian, //?

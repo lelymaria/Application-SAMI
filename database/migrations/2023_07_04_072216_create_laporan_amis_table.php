@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('laporan_ami', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('id_jadwal');
+            $table->uuid('id_user');
             $table->string('file_nama');
             $table->string('file_laporan_ami');
             $table->timestamps();

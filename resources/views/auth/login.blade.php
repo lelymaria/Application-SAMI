@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="row d-flex justify-content-between mt-4 mb-2">
                                             <div class="mb-3">
-                                                <a href="">Forgot Password?</a>
+                                                {{-- <a href="">Forgot Password?</a> --}}
                                             </div>
                                         </div>
                                         <div class="text-center">
