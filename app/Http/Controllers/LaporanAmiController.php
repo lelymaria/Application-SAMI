@@ -19,15 +19,11 @@ class LaporanAmiController extends Controller
     {
         $laporan = LaporanAmi::where(function ($query) {
             if (auth()->user()->akunAuditee) {
-                $query->whereHas("user.akunAuditee", function ($query) {
-                    $query->where("id_unit_kerja", auth()->user()->akunAuditee->id_unit_kerja);
-                });
+                $query->where("id_unit_kerja", auth()->user()->akunAuditee->id_unit_kerja);
             }
 
             if (auth()->user()->akunAuditor) {
-                $query->whereHas("user.akunAuditor", function ($query) {
-                    $query->where("id_unit_kerja", auth()->user()->akunAuditor->id_unit_kerja);
-                });
+                $query->where("id_unit_kerja", auth()->user()->akunAuditor->id_unit_kerja);
             }
         })->get();
 
@@ -71,7 +67,8 @@ class LaporanAmiController extends Controller
             $request->merge([
                 "file_laporan_ami" => $filePath,
                 "id_jadwal" => $jadwal_ami->id,
-                "id_user" => auth()->user()->id
+                "id_user" => auth()->user()->id,
+                "id_unit_kerja" => auth()->user()->akunAuditor->id_unit_kerja
             ]);
 
             if ($request->file_nama == "") {

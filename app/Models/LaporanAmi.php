@@ -12,7 +12,7 @@ class LaporanAmi extends Model
     use HasFactory, SoftDeletes, HasUuids;
 
     protected $table = 'laporan_ami';
-    protected $fillable = ['file_nama', 'file_laporan_ami', 'id_jadwal', 'id_user'];
+    protected $fillable = ['file_nama', 'file_laporan_ami', 'id_jadwal', 'id_user', 'id_unit_kerja'];
 
     public function jadwal() {
         return $this->hasOne(JadwalAmi::class, 'id', 'id_jadwal');
@@ -24,5 +24,13 @@ class LaporanAmi extends Model
 
     public function tugasStandar() {
         return $this->hasOne(TugasStandar::class, 'id_standar', 'id');
+    }
+
+    public function layananAkademik() {
+        return $this->hasOne(LayananAkademik::class, 'id', 'id_unit_kerja');
+    }
+
+    public function dataProdi() {
+        return $this->hasOne(ProgramStudi::class, 'id', 'id_unit_kerja');
     }
 }

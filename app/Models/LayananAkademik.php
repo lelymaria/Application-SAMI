@@ -21,4 +21,8 @@ class LayananAkademik extends Model
     public function akunAuditor() {
         return $this->hasMany(AkunAuditor::class, 'id_unit_kerja', 'id');
     }
+
+    public function laporanAmi() {
+        return $this->hasOne(LaporanAmi::class, 'id_unit_kerja', 'id');
+    }
 }

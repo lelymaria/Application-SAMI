@@ -11,7 +11,7 @@ class ProgramStudi extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
-    protected $table = 'prodi'; 
+    protected $table = 'prodi';
     protected $fillable = ['nama_prodi', 'id_jurusan'];
 
     public function jurusan() {
@@ -24,5 +24,9 @@ class ProgramStudi extends Model
 
     public function akunAuditor() {
         return $this->hasOne(AkunAuditor::class, 'id_prodi', 'id');
+    }
+
+    public function laporanAmi() {
+        return $this->hasOne(LaporanAmi::class, 'id_unit_kerja', 'id');
     }
 }
