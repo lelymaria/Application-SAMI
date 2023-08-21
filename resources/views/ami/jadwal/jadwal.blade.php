@@ -3,8 +3,8 @@
 @endphp
 @push('header')
     <!--**********************************
-                                                                                                        Header start
-                                                                                                        ***********************************-->
+                                                                                                                    Header start
+                                                                                                                    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -37,8 +37,8 @@
         @endif
     </div>
     <!--**********************************
-                                                                                                        Header end ti-comment-alt
-                                                                                                        ***********************************-->
+                                                                                                                    Header end ti-comment-alt
+                                                                                                                    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -64,10 +64,15 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Jadwal</h4>
-                <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
-                    data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
-                            class="fa fa-plus color-secondary"></i>
-                    </span>Add</button>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
+                        data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
+                                class="fa fa-plus color-secondary"></i>
+                        </span>Add</button>
+                    {{-- <button type="button" class="btn btn-rounded btn-danger btn-xs" data-bs-toggle="modal"
+                        data-bs-target="#nonAktifJadwal">
+                        </span>Non Aktifkan Jadwal</button> --}}
+                </div>
                 {{-- Modal --}}
                 <div class="modal fade" id="basicModal">
                     <div class="modal-dialog" role="document">
@@ -173,8 +178,6 @@
                                                 }
                                             @endphp
                                         </strong>
-                                        <span
-                                            class="badge bg-{{ $jadwal->status ? 'success' : 'danger' }}">{{ $jadwal->status ? 'Aktif' : 'Tidak Aktif' }}</span>
                                     </td>
                                     <td>
                                         <div class="d-flex">
@@ -183,8 +186,8 @@
                                                 data-bs-toggle="modal" data-bs-target="#updateJadwal"><i
                                                     class="fas fa-pencil-alt"></i></a>
                                             <button class="btn btn-danger shadow btn-xs sharp btn-delete"
-                                                    data-url="{{ url('/ami/jadwalAmi/' . $jadwal->id) }}"><i
-                                                        class="fa fa-trash"></i></button>
+                                                data-url="{{ url('/ami/jadwalAmi/' . $jadwal->id) }}"><i
+                                                    class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -228,6 +231,46 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal Non Aktif Jadwal
+    <div class="modal fade" id="nonAktifJadwal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Non Aktifkan Jadwal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-validate">
+                        <form class="needs-validation" novalidate="" action="{{ url('/ami/jadwalAmi') }}"
+                            method="post">
+                            @csrf
+                            <div class="row">
+                                <div class="mb-4">
+                                    <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-lg-4 col-form-label" for="validationCustom07">Tahun AMI
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" id="validationCustom07"
+                                            name="tahun_ami" placeholder="Contoh: Tahun 2022/2023(Ganjil)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger light"
+                                    data-bs-dismiss="modal">Cansel</button>
+                                <button type="submit" class="btn btn-primary">Non Aktifkan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 @endsection
 
 @push('js')
