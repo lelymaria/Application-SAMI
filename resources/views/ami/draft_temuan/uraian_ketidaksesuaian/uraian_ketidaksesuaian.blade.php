@@ -137,13 +137,13 @@
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
                                     <input type="radio" class="form-check-input" name="checklist_uraian"
-                                        value="non_confirmity">Non Confirmity
+                                        value="NC">Non Confirmity
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
                                     <input type="radio" class="form-check-input" name="checklist_uraian"
-                                        value="observasi">Observasi
+                                        value="O">Observasi
                                 </label>
                             </div>
                         </div>

@@ -29,11 +29,13 @@ class CheckListAudit extends Model
         return $this->hasOne(TanggapanCheckListAudit::class, 'id_check_list_audit', 'id');
     }
 
-    public function kopSurat() {
+    public function kopSurat()
+    {
         return $this->belongsTo(KopSurat::class, 'id_kop_surat', 'id');
     }
 
-    public function user() {
-        return $this->hasOne(User::class, 'id_user', 'id');
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'id_user');
     }
 }

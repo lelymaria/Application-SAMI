@@ -205,7 +205,7 @@ class StandarController extends Controller
         $unitKerja = "";
         $nama = "";
         if ($user->akunAuditor) {
-            $this->$nama = $user->akunAuditor->nama;
+            $nama = $user->akunAuditor->nama;
 
             // Jika user adalah akunAuditor, ambil informasi unit kerja dari akunAuditor
             $unitKerjaId = $user->akunAuditor->id_unit_kerja;
@@ -243,17 +243,6 @@ class StandarController extends Controller
             // Jika user tidak memiliki peran yang sesuai, berikan pesan error
             return back()->with('error', 'Anda tidak memiliki akses yang sesuai.');
         }
-
-
-        // Ambil data dari tabel LayananAkademik dan ProgramStudi berdasarkan unit kerja yang didapatkan
-        // $layanan = LayananAkademik::findOrFail($unitKerjaId);
-        // $prodi = ProgramStudi::findOrFail($unitKerjaId);
-
-        // // Menggabungkan data dari 'layanan' dan 'prodi'
-        // $mergedData = $layanan->merge($prodi);
-
-        // // Mengambil atribut 'unit_kerja' dari data yang digabungkan
-        // $unitKerja = $mergedData->pluck('unit_kerja')->first();
 
         $pertanyaanStandar = PertanyaanStandar::where('id_standar', $id)->get();
         $listHasilObservasi = [];
@@ -295,7 +284,7 @@ class StandarController extends Controller
             "halaman" => $standar->pertanyaanStandar->cheklistAudit->kopSurat->halaman,
             "unit_kerja" => $unitKerja,
             "tanggal_input_dokChecklist" => Carbon::parse($standar->pertanyaanStandar->cheklistAudit->tanggal_input_dokChecklist)->toDateString(),
-            "akun_auditor" => $nama,
+            "akun_auditor" => $standar->pertanyaanStandar->cheklistAudit->user->akunAuditor->nama,
             "nip" => $user->nip,
             "list_pertanyaan_standar" => str_replace("\n", '<w:br/>', htmlspecialchars($pertanyaanStandar)),
             "hasil_observasi" => str_replace("\n", '<w:br/>', htmlspecialchars(implode("\n", $listHasilObservasi))),
@@ -378,6 +367,12 @@ class StandarController extends Controller
         //         });
         //     });
         // }
+        // $unit_kerja = "";
+        // if ($standar->tugasStandar()->user->akunAuditor->layananAkademik) {
+        //     $unit_kerja = $standar->tugasStandar->user->akunAuditor->layananAkademik->nama_layanan;
+        // } else {
+        //     $unit_kerja = $standar->tugasStandar->user->akunAuditor->dataProdi->nama_prodi;
+        // }
 
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./draft_temuan_ami/draft_temuan_ami.docx');
         $template->setValues([
@@ -390,9 +385,10 @@ class StandarController extends Controller
             // "lead_auditor" => $tugasStandarLead->nama, //?
             // "anggota_audior" => $tugasStandarAnggota->nama, //?
             // "akun_auditee" => $standar->tugasStandar->user->akunAuditee->nama, //?
-            // "unit_kerja" => ?,
-            "checklist_uraia_c" => $standar->uraianTemuanAmi->checklist_uraian, //?
-            "checklist_uraia_o" => $standar->uraianTemuanAmi->checklist_uraian, //?
+            // "unit_kerja" => $unit_kerja,
+            "uraian_ketidaksesuaian" => $standar->uraianTemuanAmi->uraian_ketidaksesuaian,
+            "checklist_uraia_c" => $standar->uraianTemuanAmi->checklist_uraian === 'NC' ? 'V' : '',
+            "checklist_uraia_o" => $standar->uraianTemuanAmi->checklist_uraian === 'O' ? 'V' : '',
             "tanggal_pelaksanaan" => Carbon::parse($standar->uraianTemuanAmi->tanggal_pelaksanaan)->toDateString(),
             "tanggal_penyelesaian" => Carbon::parse($standar->analisaTindakanAmi->tanggal_penyelesaian)->toDateString(),
             "analisa_masalah" => $standar->analisaTindakanAmi->analisa_masalah,

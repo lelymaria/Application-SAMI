@@ -130,12 +130,12 @@
                         <div class="col-lg-6">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="non_confirmity" {{ $uraianKetidaksesuaian->checklist_uraian == 'non_confirmity' ? 'checked' : ''  }}>Non Confirmity
+                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="NC" {{ $uraianKetidaksesuaian->checklist_uraian == 'NC' ? 'checked' : ''  }}>Non Confirmity
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="checked" {{ $uraianKetidaksesuaian->checklist_uraian == 'observasi' ? 'checked' : ''  }}>Observasi
+                                    <input type="radio" class="form-check-input" name="checklist_uraian" value="O" {{ $uraianKetidaksesuaian->checklist_uraian == 'O' ? 'checked' : ''  }}>Observasi
                                 </label>
                             </div>
                         </div>
