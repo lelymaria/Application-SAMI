@@ -10,6 +10,7 @@ use App\Models\Standar;
 use App\Models\Level;
 use App\Models\PertanyaanStandar;
 use App\Models\ProgramStudi;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -317,62 +318,63 @@ class StandarController extends Controller
             return back()->with('error', 'Data Belum Lengkap, Tidak Dapat Mengunduh Dokumen. Tolong Lengkapi Data Terlebih Dahulu!');
         }
 
-        $lead_auditor = Level::where("name", "Lead Auditor")->first();
-        $anggota_auditor = Level::where("name", "Anggota Auditor")->first();
+        // $lead_auditor = Level::where("name", "Lead Auditor")->first();
+        // $anggota_auditor = Level::where("name", "Anggota Auditor")->first();
+        $userId = []; // Use an array to store user IDs
+        foreach ($standar->tugasStandar as $stdr) {
+            $userId[] = $stdr->id_user; // Append user IDs to the array
+        }
 
-        // $tugasStandarLead = $standar->tugasStandar()->whereHas('user', function ($query) use ($lead_auditor) {
-        //     $query->where('level_id', $lead_auditor->id);
-        // })->first()->user->akunAuditor;
+        // Now you have an array of user IDs, let's retrieve the users
+        $akunAuditor = AkunAuditor::where('id_user', $userId)->first(); // Find users with the given IDs
 
-        // $tugasStandarAnggota = $standar->tugasStandar()->whereHas('user', function ($query) use ($anggota_auditor) {
-        //     $query->where('level_id', $anggota_auditor->id);
-        // })->first()->user->akunAuditor;
 
-        // if (auth()->user()->levelRole->name == "Lead Auditor") {
-        //     $tugasStandarLead->where(function ($query) {
-        //         $query->whereHas('dataProdi', function ($query) {
-        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-        //         });
-        //         $query->orWhereHas('layananAkademik', function ($query) {
-        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-        //         });
-        //     });
+        // Retrieve the lead auditor's unitkerja ID
+        $leadAuditor = AkunAuditor::where('id_user', $userId)->first();
+        $leadAuditorUnitKerjaId = $leadAuditor->id_unit_kerja;
 
-        //     $tugasStandarAnggota->where(function ($query) {
-        //         $query->whereHas('dataProdi', function ($query) {
-        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-        //         });
-        //         $query->orWhereHas('layananAkademik', function ($query) {
-        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-        //         });
-        //     });
-        // }
+        // Retrieve anggota_auditor users from the same unitkerja
+        $anggotaAuditors = User::whereHas('akunAuditor', function ($query) use ($leadAuditorUnitKerjaId) {
+            $query->where('id_unit_kerja', $leadAuditorUnitKerjaId);
+        })->whereHas('levelRole', function ($query) {
+            $query->where('name', 'Anggota Auditor');
+        })->get();
 
-        // if (auth()->user()->levelRole->name == "Anggota Auditor") {
-        //     $tugasStandarLead->where(function ($query) {
-        //         $query->whereHas('dataProdi', function ($query) {
-        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-        //         });
-        //         $query->orWhereHas('layananAkademik', function ($query) {
-        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-        //         });
-        //     });
 
-        //     $tugasStandarAnggota->where(function ($query) {
-        //         $query->whereHas('dataProdi', function ($query) {
-        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-        //         });
-        //         $query->orWhereHas('layananAkademik', function ($query) {
-        //             $query->where('id', auth()->user()->akunAuditor->id_unit_kerja);
-        //         });
-        //     });
-        // }
-        // $unit_kerja = "";
-        // if ($standar->tugasStandar()->user->akunAuditor->layananAkademik) {
-        //     $unit_kerja = $standar->tugasStandar->user->akunAuditor->layananAkademik->nama_layanan;
-        // } else {
-        //     $unit_kerja = $standar->tugasStandar->user->akunAuditor->dataProdi->nama_prodi;
-        // }
+        // Now you have a collection of users with akunAuditee from the same unitkerja
+
+        $anggotaAuditorsName = []; // Initialize an array to store anggota_auditor names
+
+        foreach ($anggotaAuditors as $index => $anggotaAuditor) {
+            $anggotaAuditorsName[] = htmlspecialchars(($index + 1) . ". " . $anggotaAuditor->akunAuditor->nama); // Add index and HTML-encode each anggota_auditor name
+        }
+
+        $anggotaAuditorsNamesString = implode('<w:br/>', $anggotaAuditorsName);
+        $unitKerjaId = $akunAuditor->id_unit_kerja;
+        $unitKerja = "";
+        $akunAuditee = User::whereHas('akunAuditee', function ($query) use ($unitKerjaId) {
+            $query->where('id_unit_kerja', $unitKerjaId);
+        })->first();
+
+
+        if ($akunAuditor) {
+
+            $unitKerjaId = $akunAuditor->id_unit_kerja;
+
+            $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
+            $unitKerja = $layanan->nama_layanan;
+
+            if (!$layanan) {
+                $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
+                $unitKerja = $prodi->nama_prodi;
+                if (!$prodi) {
+                    return back()->with('error', 'Unit Kerja tidak ditemukan.');
+                }
+            }
+        } else {
+            // Jika user tidak memiliki peran yang sesuai, berikan pesan error
+            return back()->with('error', 'Anda tidak memiliki akses yang sesuai.');
+        }
 
         $template = new \PhpOffice\PhpWord\TemplateProcessor('./draft_temuan_ami/draft_temuan_ami.docx');
         $template->setValues([
@@ -382,10 +384,10 @@ class StandarController extends Controller
             "tanggal_berlaku" => $standar->uraianTemuanAmi->kopSurat->tanggal_berlaku,
             "halaman" => $standar->uraianTemuanAmi->kopSurat->halaman,
             "nama_standar" => $standar->nama_standar,
-            // "lead_auditor" => $tugasStandarLead->nama, //?
-            // "anggota_audior" => $tugasStandarAnggota->nama, //?
-            // "akun_auditee" => $standar->tugasStandar->user->akunAuditee->nama, //?
-            // "unit_kerja" => $unit_kerja,
+            "lead_auditor" => $akunAuditor->nama,  //?
+            "unit_kerja" => $unitKerja,
+            "anggota_audior" => $anggotaAuditorsNamesString, //?
+            "akun_auditee" => $akunAuditee->akunAuditee->nama, //?
             "uraian_ketidaksesuaian" => $standar->uraianTemuanAmi->uraian_ketidaksesuaian,
             "checklist_uraia_c" => $standar->uraianTemuanAmi->checklist_uraian === 'NC' ? 'V' : '',
             "checklist_uraia_o" => $standar->uraianTemuanAmi->checklist_uraian === 'O' ? 'V' : '',
