@@ -80,6 +80,7 @@
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
                         <li><a href="{{ url('/ami/kop_surat') }}">KOP Surat</a></li>
                         <li><a href="{{ url('/ami/standar') }}">Standar</a></li>
+                        <li><a href="{{ url('/ami/jadwal_pelaksanaan') }}">Tahun Pelaksanaan AMI</a></li>
                         <li><a href="{{ url('/ami/jadwalAmi') }}">Jadwal AMI</a></li>
                         <li><a href="{{ url('/ami/data_standar') }}">Pertanyaan Standar</a></li>
                         <li><a href="{{ url('/historiami') }}">History AMI</a></li>

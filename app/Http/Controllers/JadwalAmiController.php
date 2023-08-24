@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoriAmi;
 use App\Models\JadwalAmi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,8 @@ class JadwalAmiController extends Controller
     public function index()
     {
         $data = [
-            'jadwal_ami' => JadwalAmi::latest()->paginate(10)
+            'jadwal_ami' => JadwalAmi::where('status', 1)->latest()->paginate(10),
+            'pelaksanaan_ami' => HistoriAmi::all()
         ];
         return view('ami.jadwal.jadwal', $data);
     }
@@ -36,18 +38,14 @@ class JadwalAmiController extends Controller
             "nama_jadwal" => "required",
             "jadwal_mulai" => "required",
             "jadwal_selesai" => "required",
-            "tahun_ami" => "required",
+            "id_tahun_ami" => "required"
         ]);
 
         $request->merge([
-            "status" => 1,
+            "status" => 1
         ]);
 
         DB::transaction(function () use ($request) {
-            JadwalAmi::latest()->update([
-                "status" => 0
-            ]);
-
             JadwalAmi::create($request->all());
         });
         return redirect('/ami/jadwalAmi')->with('message', 'Data Berhasil Tersimpan!');
@@ -83,11 +81,16 @@ class JadwalAmiController extends Controller
             "nama_jadwal" => "required",
             "jadwal_mulai" => "required",
             "jadwal_selesai" => "required",
-            "tahun_ami" => "required",
+            "id_jadwal_ami" => 'required'
         ]);
 
         DB::transaction(function () use ($request, $jadwalAmi) {
-            $jadwalAmi->update($request->all());
+            $jadwalAmi->update([
+                'nama_jadwal' => $request->nama_jadwal,
+                'jadwal_mulai' => $request->jadwal_mulai,
+                'jadwal_selesai' => $request->jadwal_selesai,
+                'id_jadwal_ami' => $request->id_jadwal_ami
+            ]);
         });
         return redirect('/ami/jadwalAmi/')->with('message', 'Data Berhasil Tersimpan!');
     }
@@ -122,5 +125,17 @@ class JadwalAmiController extends Controller
             $jadwalAmi->laporanAmi()->delete();
         });
         return redirect('/ami/jadwalAmi')->with('message', 'Data Berhasil Terhapus!');
+    }
+
+    public function jadwalNonAktif(Request $request)
+    {
+        $jadwal = JadwalAmi::findOrFail($request->id_jadwal);
+        DB::transaction(function () use ($request, $jadwal) {
+            $jadwal->update([
+                'status' => 0
+            ]);
+        });
+
+        return back()->with('message', 'Jadwal AMI Berhasi; di Non-Aktifkan!');
     }
 }

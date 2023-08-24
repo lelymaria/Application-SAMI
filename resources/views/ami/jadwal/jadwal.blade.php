@@ -3,8 +3,8 @@
 @endphp
 @push('header')
     <!--**********************************
-                                                                                                                    Header start
-                                                                                                                    ***********************************-->
+                                                                                                                                Header start
+                                                                                                                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -37,8 +37,8 @@
         @endif
     </div>
     <!--**********************************
-                                                                                                                    Header end ti-comment-alt
-                                                                                                                    ***********************************-->
+                                                                                                                                Header end ti-comment-alt
+                                                                                                                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -69,9 +69,9 @@
                         data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
                                 class="fa fa-plus color-secondary"></i>
                         </span>Add</button>
-                    {{-- <button type="button" class="btn btn-rounded btn-danger btn-xs" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-rounded btn-danger btn-xs" data-bs-toggle="modal"
                         data-bs-target="#nonAktifJadwal">
-                        </span>Non Aktifkan Jadwal</button> --}}
+                        </span>Non Aktifkan Jadwal</button>
                 </div>
                 {{-- Modal --}}
                 <div class="modal fade" id="basicModal">
@@ -120,12 +120,21 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Tahun AMI
+                                                <label class="col-lg-4 col-form-label" for="validationCustom07">Pilih
+                                                    Tahun Pelaksanaan
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="validationCustom07"
-                                                        name="tahun_ami" placeholder="Contoh: Tahun 2022/2023(Ganjil)">
+                                                    <select class="default-select wide form-control" id="validationCustom05"
+                                                        name="id_tahun_ami">
+                                                        <option data-display="Select" disabled selected>Please select
+                                                        </option>
+                                                        @foreach ($pelaksanaan_ami as $pelaksanaan)
+                                                            <option value="{{ $pelaksanaan->id }}">
+                                                                {{ $pelaksanaan->tahun_ami }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,7 +241,7 @@
         </div>
     </div>
 
-    {{-- Modal Non Aktif Jadwal
+    {{-- Modal Non Aktif Jadwal --}}
     <div class="modal fade" id="nonAktifJadwal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -243,7 +252,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-validate">
-                        <form class="needs-validation" novalidate="" action="{{ url('/ami/jadwalAmi') }}"
+                        <form class="needs-validation" novalidate="" action="{{ url('/ami/jadwal_non_aktif') }}"
                             method="post">
                             @csrf
                             <div class="row">
@@ -251,12 +260,20 @@
                                     <small class="text-danger">Field dengan tanda (*) wajib diisi!</small>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-lg-4 col-form-label" for="validationCustom07">Tahun AMI
+                                    <label class="col-lg-4 col-form-label" for="validationCustom07">Pilih
+                                        Jadwal
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-8">
-                                        <input type="text" class="form-control" id="validationCustom07"
-                                            name="tahun_ami" placeholder="Contoh: Tahun 2022/2023(Ganjil)">
+                                        <select class="default-select wide form-control" id="validationCustom05"
+                                            name="id_jadwal">
+                                            <option data-display="Select" disabled selected>Please select
+                                            </option>
+                                            @foreach ($jadwal_ami as $jadwal)
+                                                <option value="{{ $jadwal->id }}">{{ $jadwal->nama_jadwal }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -270,7 +287,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 @endsection
 
 @push('js')

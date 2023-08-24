@@ -27,7 +27,9 @@ class StandarController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10)
+            'standar' => Standar::whereHas('jadwal', function ($query) {
+                $query->where('id_jadwal', auth()->user()->id);
+            })->latest()->paginate(10)
         ];
         return view('ami.standar.standar', $data);
     }

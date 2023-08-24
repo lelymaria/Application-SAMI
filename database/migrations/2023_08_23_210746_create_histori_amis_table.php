@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jadwal_ami', function (Blueprint $table) {
+        Schema::create('histori_ami', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('id_tahun_ami');
-            $table->string('nama_jadwal');
-            $table->dateTime('jadwal_mulai');
-            $table->dateTime('jadwal_selesai');
-            $table->integer('status');
+            $table->string('tahun_ami');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jadwal_ami');
+        Schema::dropIfExists('histori_ami');
     }
 };

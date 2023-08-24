@@ -14,6 +14,7 @@ use App\Http\Controllers\DaftarHadirRtmController;
 use App\Http\Controllers\DataDukungAuditeeController;
 use App\Http\Controllers\FotoKegiatanAmiController;
 use App\Http\Controllers\FotoKegiatanRtmController;
+use App\Http\Controllers\HistoriAmiController;
 use App\Http\Controllers\JadwalAmiController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KepalaP4mpController;
@@ -279,6 +280,13 @@ Route::post('/ami/laporan_ami/{id}', [LaporanAmiController::class, "update"]);
 Route::get('/ami/ketersediaan_dokumen_preview/{id}', [StandarController::class, "ketersediaanDokumen"]);
 Route::get('/ami/checklist_audit_preview/{id}', [StandarController::class, "checklistAudit"]);
 Route::get('/ami/draft_temuan_ami_preview/{id}', [StandarController::class, "dokDraftTemuan"]);
+Route::post('/ami/jadwal_non_aktif', [JadwalAmiController::class, "jadwalNonAktif"]);
+
+Route::get('/ami/jadwal_pelaksanaan', [HistoriAmiController::class, "index"]);
+Route::post('/ami/jadwal_pelaksanaan', [HistoriAmiController::class, "store"]);
+Route::get('/ami/jadwal_pelaksanaan/{id}', [HistoriAmiController::class, "edit"]);
+Route::post('/ami/jadwal_pelaksanaan/{id}', [HistoriAmiController::class, "update"]);
+Route::delete('/ami/jadwal_pelaksanaan/{id}', [HistoriAmiController::class, "destroy"]);
 
 /* ============================================================= */
 
