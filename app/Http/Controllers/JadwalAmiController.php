@@ -15,8 +15,10 @@ class JadwalAmiController extends Controller
     public function index()
     {
         $data = [
-            'jadwal_ami' => JadwalAmi::where('status', 1)->latest()->paginate(10),
-            'pelaksanaan_ami' => HistoriAmi::all()
+            'jadwal_ami' => JadwalAmi::whereHas('historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->latest()->paginate(10),
+            'pelaksanaan_ami' => HistoriAmi::where('status', 1)->get()
         ];
         return view('ami.jadwal.jadwal', $data);
     }
@@ -66,7 +68,8 @@ class JadwalAmiController extends Controller
     {
         $jadwalAmi = JadwalAmi::where('id', $jadwalAmi)->first();
         $data = [
-            "update_jadwal" => $jadwalAmi
+            "update_jadwal" => $jadwalAmi,
+            'pelaksanaan_ami' => HistoriAmi::all()
         ];
         return view('ami.jadwal.update_jadwal', $data);
     }
@@ -81,7 +84,7 @@ class JadwalAmiController extends Controller
             "nama_jadwal" => "required",
             "jadwal_mulai" => "required",
             "jadwal_selesai" => "required",
-            "id_jadwal_ami" => 'required'
+            "id_tahun_ami" => 'required'
         ]);
 
         DB::transaction(function () use ($request, $jadwalAmi) {
@@ -89,7 +92,7 @@ class JadwalAmiController extends Controller
                 'nama_jadwal' => $request->nama_jadwal,
                 'jadwal_mulai' => $request->jadwal_mulai,
                 'jadwal_selesai' => $request->jadwal_selesai,
-                'id_jadwal_ami' => $request->id_jadwal_ami
+                'id_tahun_ami' => $request->id_tahun_ami
             ]);
         });
         return redirect('/ami/jadwalAmi/')->with('message', 'Data Berhasil Tersimpan!');
@@ -103,35 +106,15 @@ class JadwalAmiController extends Controller
         $jadwalAmi = JadwalAmi::where('id', $jadwalAmi)->first();
         DB::transaction(function () use ($jadwalAmi) {
             $jadwalAmi->delete();
-            $jadwalAmi->kepalaP4mp()->delete();
-            $jadwalAmi->akunAuditee()->delete();
-            $jadwalAmi->akunJurusan()->delete();
-            $jadwalAmi->pedoman()->delete();
-            $jadwalAmi->standar()->delete();
-            $jadwalAmi->pertanyaanStandar()->delete();
-            $jadwalAmi->tugasStandar()->delete();
-            $jadwalAmi->undanganAmi()->delete();
-            $jadwalAmi->daftarHadirAmi()->delete();
-            $jadwalAmi->fotoKegiatanAmi()->delete();
-            $jadwalAmi->notulensiAmi()->delete();
-            $jadwalAmi->kopSurat()->delete();
-            $jadwalAmi->dataDukungAuditee()->delete();
-            $jadwalAmi->ketersediaanDokumen()->delete();
-            $jadwalAmi->checklistAudit()->delete();
-            $jadwalAmi->tanggapanChecklist()->delete();
-            $jadwalAmi->verifikasiKp4mp()->delete();
-            $jadwalAmi->analisaTindakanAmi()->delete();
-            $jadwalAmi->uraianTemuanAmi()->delete();
-            $jadwalAmi->laporanAmi()->delete();
         });
         return redirect('/ami/jadwalAmi')->with('message', 'Data Berhasil Terhapus!');
     }
 
     public function jadwalNonAktif(Request $request)
     {
-        $jadwal = JadwalAmi::findOrFail($request->id_jadwal);
-        DB::transaction(function () use ($request, $jadwal) {
-            $jadwal->update([
+        $histori = HistoriAmi::findOrFail($request->id_tahun_ami);
+        DB::transaction(function () use ($request, $histori) {
+            $histori->update([
                 'status' => 0
             ]);
         });

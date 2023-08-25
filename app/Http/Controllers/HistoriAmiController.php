@@ -36,6 +36,10 @@ class HistoriAmiController extends Controller
             "tahun_ami" => "required"
         ]);
 
+        $request->merge([
+            "status" => 1
+        ]);
+
         DB::transaction(function () use ($request) {
             HistoriAmi::create($request->all());
         });

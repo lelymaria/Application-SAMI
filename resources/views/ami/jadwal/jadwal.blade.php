@@ -261,16 +261,17 @@
                                 </div>
                                 <div class="mb-3 row">
                                     <label class="col-lg-4 col-form-label" for="validationCustom07">Pilih
-                                        Jadwal
+                                        Tahun Pelaksanaan
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-8">
                                         <select class="default-select wide form-control" id="validationCustom05"
-                                            name="id_jadwal">
+                                            name="id_tahun_ami">
                                             <option data-display="Select" disabled selected>Please select
                                             </option>
-                                            @foreach ($jadwal_ami as $jadwal)
-                                                <option value="{{ $jadwal->id }}">{{ $jadwal->nama_jadwal }}
+                                            @foreach ($pelaksanaan_ami as $pelaksanaan)
+                                                <option value="{{ $pelaksanaan->id }}">
+                                                    {{ $pelaksanaan->tahun_ami }}
                                                 </option>
                                             @endforeach
                                         </select>
