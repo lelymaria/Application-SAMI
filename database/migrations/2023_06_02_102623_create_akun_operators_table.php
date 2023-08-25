@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('akun_operator', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_user');
+            $table->foreignUuid('id_user')->references('id')->on('users')->cascadeOnDelete();
             $table->string('email');
             $table->string('nama');
             $table->timestamps();

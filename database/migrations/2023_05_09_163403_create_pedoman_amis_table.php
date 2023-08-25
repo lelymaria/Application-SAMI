@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pedoman_ami', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_jadwal');
+            $table->foreignUuid('id_jadwal')->references('id')->on('jadwal_ami')->cascadeOnDelete();
             $table->text('deskripsi');
             $table->string('file_pedoman_ami');
             $table->timestamps();

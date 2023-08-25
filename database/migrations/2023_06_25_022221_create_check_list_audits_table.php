@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('check_list_audit', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_pertanyaan');
-            $table->uuid('id_jadwal');
-            $table->uuid('id_kop_surat');
-            $table->uuid('id_user');
+            $table->foreignUuid('id_pertanyaan')->references('id')->on('pertanyaan_standar')->cascadeOnDelete();
+            $table->foreignUuid('id_jadwal')->references('id')->on('jadwal_ami')->cascadeOnDelete();
+            $table->foreignUuid('id_kop_surat')->references('id')->on('kop_surat')->cascadeOnDelete();
+            $table->foreignUuid('id_user')->references('id')->on('users')->cascadeOnDelete();
             $table->dateTime('tanggal_input_dokChecklist');
             $table->string('kesesuaian');
             $table->text('catatan_khusus')->nullable();

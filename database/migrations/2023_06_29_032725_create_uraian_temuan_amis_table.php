@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('uraian_temuan_ami', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_standar');
-            $table->uuid('id_jadwal');
-            $table->uuid('id_kop_surat');
-            $table->uuid('id_user');
+            $table->foreignUuid('id_standar')->references('id')->on('standar')->cascadeOnDelete();
+            $table->foreignUuid('id_jadwal')->references('id')->on('jadwal_ami')->cascadeOnDelete();
+            $table->foreignUuid('id_kop_surat')->references('id')->on('kop_surat')->cascadeOnDelete();
+            $table->foreignUuid('id_user')->references('id')->on('users')->cascadeOnDelete();
             $table->dateTime('tanggal_pelaksanaan');
             $table->text('checklist_uraian');
             $table->text('uraian_ketidaksesuaian');

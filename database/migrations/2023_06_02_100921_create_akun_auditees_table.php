@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('akun_auditee', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_user');
+            $table->foreignUuid('id_user')->references('id')->on('users')->cascadeOnDelete();
             $table->uuid('id_unit_kerja');
-            $table->uuid('id_jadwal');
+            $table->foreignUuid('id_jadwal')->references('id')->on('jadwal_ami')->cascadeOnDelete();
             $table->string('email');
             $table->string('nama');
             $table->timestamps();

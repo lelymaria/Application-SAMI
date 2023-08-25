@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('foto_kegiatan_rtm', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('id_undangan');
-            $table->uuid('id_jadwal');
+            $table->foreignUuid('id_undangan')->references('id')->on('undangan_rtm')->cascadeOnDelete();
+            $table->foreignUuid('id_jadwal')->references('id')->on('jadwal_ami')->cascadeOnDelete();
             $table->string('caption_foto_kegiatan_rtm');
             $table->string('file_foto_kegiatan_rtm');
             $table->timestamps();

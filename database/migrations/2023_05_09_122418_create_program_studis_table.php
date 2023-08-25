@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('prodi', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_jurusan');
+            $table->foreignUuid('id_jurusan')->references('id')->on('jurusan')->cascadeOnDelete();
             $table->string('nama_prodi');
             $table->timestamps();
             $table->softDeletes();

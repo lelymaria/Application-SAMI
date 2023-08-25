@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('laporan_ami', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_jadwal');
-            $table->uuid('id_user');
+            $table->foreignUuid('id_jadwal')->references('id')->on('jadwal_ami')->cascadeOnDelete();
+            $table->foreignUuid('id_user')->references('id')->on('users')->cascadeOnDelete();
             $table->uuid('id_unit_kerja');
             $table->string('file_nama');
             $table->string('file_laporan_ami');

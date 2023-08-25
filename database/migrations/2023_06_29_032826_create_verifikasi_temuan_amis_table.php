@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('verifikasi_temuan_ami', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_standar');
-            $table->uuid('id_jadwal');
-            $table->uuid('id_user');
+            $table->foreignUuid('id_standar')->references('id')->on('standar')->cascadeOnDelete();
+            $table->foreignUuid('id_jadwal')->references('id')->on('jadwal_ami')->cascadeOnDelete();
+            $table->foreignUuid('id_user')->references('id')->on('users')->cascadeOnDelete();
             $table->dateTime('tanggal_verifikasi');
             $table->text('verifikasi_kp4mp')->nullable();
             $table->timestamps();

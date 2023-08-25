@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('tugas_standar', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('id_user');
-            $table->string('id_standar');
-            $table->uuid('id_jadwal');
+            $table->foreignUuid('id_user')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignUuid('id_standar')->references('id')->on('standar')->cascadeOnDelete();
+            $table->foreignUuid('id_jadwal')->references('id')->on('jadwal_ami')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

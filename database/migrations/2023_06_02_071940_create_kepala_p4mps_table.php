@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('kepala_p4mp', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('id_jadwal');
-            $table->uuid('id_user');
+            $table->foreignUuid('id_jadwal')->references('id')->on('jadwal_ami')->cascadeOnDelete();
+            $table->foreignUuid('id_user')->references('id')->on('users')->cascadeOnDelete();
             $table->string('periode_jabatan');
             $table->string('email');
             $table->string('nama');
