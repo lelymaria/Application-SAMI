@@ -16,7 +16,9 @@ class NotulensiRtmController extends Controller
      */
     public function index($id)
     {
-        $notulensiRtm = NotulensiRtm::where('id_undangan', $id)->latest()->paginate(10);
+        $notulensiRtm = NotulensiRtm::whereHas('jadwal.historiAmi', function ($query) {
+            $query->where('status', 1);
+        })->where('id_undangan', $id)->latest()->paginate(10);
         $data = [
             'undanganRtm' => UndanganRtm::findOrFail($id),
             'notulensiRtm' => $notulensiRtm

@@ -113,7 +113,6 @@ class AkunOperatorController extends Controller
     {
         $akunOperator = AkunOperator::findOrFail($id);
         DB::transaction(function () use ($akunOperator) {
-            $akunOperator->user()->forceDelete();
             $akunOperator->forceDelete();
         });
         return redirect('/manage_user/akun_operator/')->with('message', 'Data Berhasil Terhapus!');

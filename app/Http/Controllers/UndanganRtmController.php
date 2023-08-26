@@ -15,7 +15,9 @@ class UndanganRtmController extends Controller
     public function index()
     {
         $data = [
-            'undanganRtm' => UndanganRtm::latest()->paginate(10)
+            'undanganRtm' => UndanganRtm::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->latest()->paginate(10)
         ];
         return view('ami.dokumentasi_rtm.undangan.undangan_rtm', $data);
     }
@@ -125,9 +127,6 @@ class UndanganRtmController extends Controller
     {
         $undanganRtm = UndanganRtm::findOrFail($id);
         DB::transaction(function () use ($undanganRtm) {
-            $undanganRtm->fotoKegiatanRtm()->delete();
-            $undanganRtm->daftarHadirRtm()->delete();
-            $undanganRtm->notulensiRtm()->delete();
             $undanganRtm->delete();
         });
         return redirect('/dokumentasiRtm/undangan/')->with('message', 'Data Berhasil Terhapus!');

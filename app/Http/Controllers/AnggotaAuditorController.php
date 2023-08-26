@@ -23,7 +23,9 @@ class AnggotaAuditorController extends Controller
     {
         $level = Level::where('name', 'Anggota Auditor')->first();
         $data = [
-            'akun_auditor' => User::where('level_id', $level->id)->latest()->paginate(10),
+            'akun_auditor' => User::whereHas('akunAuditor.jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->where('level_id', $level->id)->latest()->paginate(10),
             'dataProdi' => ProgramStudi::all(),
             'layananAkademik' => LayananAkademik::all()
         ];

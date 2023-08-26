@@ -18,7 +18,9 @@ class FotoKegiatanRtmController extends Controller
      */
     public function index($id)
     {
-        $foto_kegiatan_rtm = FotoKegiatanRtm::where('id_undangan', $id)->get();
+        $foto_kegiatan_rtm = FotoKegiatanRtm::whereHas('jadwal.historiAmi', function ($query) {
+            $query->where('status', 1);
+        })->where('id_undangan', $id)->get();
         $data = [
             'undanganRtm' => UndanganRtm::findOrFail($id),
             'foto_kegiatan_rtm' => $foto_kegiatan_rtm

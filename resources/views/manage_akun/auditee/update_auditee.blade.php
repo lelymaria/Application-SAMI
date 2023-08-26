@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-            Header start
-            ***********************************-->
+                Header start
+                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-            Header end ti-comment-alt
-            ***********************************-->
+                Header end ti-comment-alt
+                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -84,8 +84,8 @@
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="{{ asset($update_akun_auditee->user->foto_profile) }}" class="img-fluid rounded-circle"
-                                alt="" style="width: 100px; height: 100px">
+                            <img src="{{ asset($update_akun_auditee->user->foto_profile) }}"
+                                class="img-fluid rounded-circle" alt="" style="width: 100px; height: 100px">
                         </div>
                         <div class="profile-details">
                             <div class="profile-name px-3 pt-2">
@@ -242,7 +242,8 @@
                                         <div class="form-validate">
                                             <div class="row">
                                                 <div class="mb-3 row">
-                                                    <label class="col-lg-4 col-form-label" for="validationCustom05">Standar
+                                                    <label class="col-lg-4 col-form-label"
+                                                        for="validationCustom05">Standar
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-lg-8">
@@ -315,33 +316,33 @@
         </div>
     </div>
 
-        {{-- update --}}
-        <div class="modal fade" id="updateTugas">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Tugas</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal">
-                        </button>
-                    </div>
-                    <div class="modal-body" id="editModalBody">
-                        <div class="form-validate">
-                            <form class="needs-validation" novalidate=""
-                                action="{{ url('/manage_user' . $update_akun_auditee->user->id) }}" method="post">
-                                @csrf
-                                <div class="row" id="formBodyEdit">
-
-                                </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                    </form>
+    {{-- update --}}
+    <div class="modal fade" id="updateTugas">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Tugas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
                 </div>
+                <div class="modal-body" id="editModalBody">
+                    <div class="form-validate">
+                        <form class="needs-validation" novalidate=""
+                            action="{{ url('/manage_user' . $update_akun_auditee->user->id) }}" method="post">
+                            @csrf
+                            <div class="row" id="formBodyEdit">
+
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
         </div>
+    </div>
 @endsection
 
 @push('js')

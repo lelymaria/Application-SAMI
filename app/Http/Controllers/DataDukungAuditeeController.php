@@ -19,7 +19,9 @@ class DataDukungAuditeeController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::whereHas('tugasStandar', function ($query) {
+            'standar' => Standar::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->whereHas('tugasStandar', function ($query) {
                 $query->where('id_user', auth()->user()->id);
             })->latest()->paginate(10)
         ];
@@ -47,7 +49,7 @@ class DataDukungAuditeeController extends Controller
         $standar = Standar::findOrFail($id);
         $request->validate([
             "data_dukung_auditee" => "array",
-            "data_dukung_auditee.*" => "required|mimes:doc,docx,pdf,xlsx|file|max:3072",
+            "data_dukung_auditee.*" => "required|mimes:doc,docx,pdf,xlsx,xls|file|max:3072",
         ], [
             "data_dukung_auditee.*.max" => "File Data Dukung Maximal 3 MB"
         ]);
@@ -103,7 +105,7 @@ class DataDukungAuditeeController extends Controller
     {
         $dataDukungAuditee = DataDukungAuditee::findOrFail($id);
         $request->validate([
-            "data_dukung_auditee" => "required|mimes:doc,docx,pdf,xlsx|file|max:3072",
+            "data_dukung_auditee" => "required|mimes:doc,docx,pdf,xlsx,xls|file|max:3072",
         ]);
 
         $filename = $request->file('data_dukung_auditee')->getClientOriginalName();

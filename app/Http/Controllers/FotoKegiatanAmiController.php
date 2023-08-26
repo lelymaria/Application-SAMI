@@ -18,7 +18,9 @@ class FotoKegiatanAmiController extends Controller
      */
     public function index($id)
     {
-        $foto_kegiatan_ami = FotoKegiatanAmi::where('id_undangan', $id)->get();
+        $foto_kegiatan_ami = FotoKegiatanAmi::whereHas('jadwal.historiAmi', function ($query) {
+            $query->where('status', 1);
+        })->where('id_undangan', $id)->get();
         $data = [
             'undanganAmi' => UndanganAmi::findOrFail($id),
             'foto_kegiatan_ami' => $foto_kegiatan_ami

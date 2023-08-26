@@ -16,7 +16,9 @@ class DaftarHadirAmiController extends Controller
      */
     public function index($id)
     {
-        $daftar_hadir_ami = DaftarHadirAmi::where('id_undangan', $id)->latest()->paginate(10);
+        $daftar_hadir_ami = DaftarHadirAmi::whereHas('jadwal.historiAmi', function ($query) {
+            $query->where('status', 1);
+        })->where('id_undangan', $id)->latest()->paginate(10);
         $data = [
             'undanganAmi' => UndanganAmi::findOrFail($id),
             'daftar_hadir_ami' => $daftar_hadir_ami

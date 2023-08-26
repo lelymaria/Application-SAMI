@@ -27,8 +27,8 @@ class StandarController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::whereHas('jadwal', function ($query) {
-                $query->where('id_jadwal', auth()->user()->id);
+            'standar' => Standar::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
             })->latest()->paginate(10)
         ];
         return view('ami.standar.standar', $data);
@@ -109,12 +109,6 @@ class StandarController extends Controller
     {
         $standar = Standar::findOrFail($idStandar);
         DB::transaction(function () use ($standar) {
-            $standar->pertanyaanStandar()->delete();
-            $standar->tugasStandar()->delete();
-            $standar->dataDukungAuditee()->delete();
-            $standar->uraianTemuanAmi()->delete();
-            $standar->verifikasiKp4mp()->delete();
-            $standar->analisaTindakanAmi()->delete();
             $standar->delete();
         });
         return redirect('/ami/standar')->with('message', 'Data Berhasil Terhapus!');
@@ -154,8 +148,8 @@ class StandarController extends Controller
             // If Ketersediaan Dokumen exists, retrieve its properties
             if ($ketersediaanDokumen) {
                 $listNamadokumen[] = $ketersediaanDokumen->nama_dokumen;
-                $listKetersediaanYa[] = $ketersediaanDokumen->ketersediaan_dokumen === 'ya' ? 'Ya' : '';
-                $listKeteresediaanTidak[] = $ketersediaanDokumen->ketersediaan_dokumen === 'tidak' ? 'Tidak' : '';
+                $listKetersediaanYa[] = $ketersediaanDokumen->ketersediaan_dokumen === 'ya' ? 'V' : '';
+                $listKeteresediaanTidak[] = $ketersediaanDokumen->ketersediaan_dokumen === 'tidak' ? 'V' : '';
                 $listPic[] = $ketersediaanDokumen->pic;
             } else {
                 $listNamadokumen[] = '';
@@ -224,6 +218,23 @@ class StandarController extends Controller
                 if (!$prodi) {
                     return back()->with('error', 'Unit Kerja tidak ditemukan.');
                 }
+
+                $nama = $user->akunAuditee->nama;
+
+                // Jika user adalah akunAuditee, ambil informasi unit kerja dari akunAuditee
+                $unitKerjaId = $user->akunAuditee->id_unit_kerja;
+
+                $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
+                $unitKerja = $layanan->nama_layanan;
+
+                if (!$layanan) {
+                    // Jika tidak ditemukan di LayananAkademik, coba ambil dari ProgramStudi
+                    $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
+                    $unitKerja = $prodi->nama_prodi;
+                    if (!$prodi) {
+                        return back()->with('error', 'Unit Kerja tidak ditemukan.');
+                    }
+                }
             }
         } elseif ($user->akunAuditee) {
             $nama = $user->akunAuditee->nama;
@@ -231,14 +242,14 @@ class StandarController extends Controller
             // Jika user adalah akunAuditee, ambil informasi unit kerja dari akunAuditee
             $unitKerjaId = $user->akunAuditee->id_unit_kerja;
 
-            $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
-            $unitKerja = $layanan->nama_layanan;
+            $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
+            $unitKerja = $prodi->nama_prodi;
 
-            if (!$layanan) {
+            if (!$prodi) {
                 // Jika tidak ditemukan di LayananAkademik, coba ambil dari ProgramStudi
-                $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
-                $unitKerja = $prodi->nama_prodi;
-                if (!$prodi) {
+                $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
+                $unitKerja = $layanan->nama_layanan;
+                if (!$layanan) {
                     return back()->with('error', 'Unit Kerja tidak ditemukan.');
                 }
             }
@@ -260,8 +271,8 @@ class StandarController extends Controller
 
             if ($cheklistAudit) {
                 $listHasilObservasi[] = $cheklistAudit->hasil_observasi;
-                $listKesesuaianYa[] = $cheklistAudit->kesesuaian === 'ya' ? 'Ya' : '';
-                $listKesesuaianTidak[] = $cheklistAudit->kesesuaian === 'tidak' ? 'Tidak' : '';
+                $listKesesuaianYa[] = $cheklistAudit->kesesuaian === 'ya' ? 'V' : '';
+                $listKesesuaianTidak[] = $cheklistAudit->kesesuaian === 'tidak' ? 'V' : '';
                 $listCatatanKhusus[] = $cheklistAudit->catatan_khusus;
                 $listTanggapanAuditee[] = $cheklistAudit->tanggapanChecklist->tanggapan_auditee;
             } else {
@@ -363,13 +374,14 @@ class StandarController extends Controller
 
             $unitKerjaId = $akunAuditor->id_unit_kerja;
 
-            $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
-            $unitKerja = $layanan->nama_layanan;
+            $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
+            $unitKerja = $prodi->nama_prodi;
 
-            if (!$layanan) {
-                $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
-                $unitKerja = $prodi->nama_prodi;
-                if (!$prodi) {
+            if (!$prodi) {
+                $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
+                $unitKerja = $layanan->nama_layanan;
+
+                if (!$layanan) {
                     return back()->with('error', 'Unit Kerja tidak ditemukan.');
                 }
             }
@@ -386,10 +398,10 @@ class StandarController extends Controller
             "tanggal_berlaku" => $standar->uraianTemuanAmi->kopSurat->tanggal_berlaku,
             "halaman" => $standar->uraianTemuanAmi->kopSurat->halaman,
             "nama_standar" => $standar->nama_standar,
-            "lead_auditor" => $akunAuditor->nama,  //?
+            "lead_auditor" => $akunAuditor->nama,
             "unit_kerja" => $unitKerja,
-            "anggota_audior" => $anggotaAuditorsNamesString, //?
-            "akun_auditee" => $akunAuditee->akunAuditee->nama, //?
+            "anggota_audior" => $anggotaAuditorsNamesString,
+            "akun_auditee" => $akunAuditee->akunAuditee->nama,
             "uraian_ketidaksesuaian" => $standar->uraianTemuanAmi->uraian_ketidaksesuaian,
             "checklist_uraia_c" => $standar->uraianTemuanAmi->checklist_uraian === 'NC' ? 'V' : '',
             "checklist_uraia_o" => $standar->uraianTemuanAmi->checklist_uraian === 'O' ? 'V' : '',

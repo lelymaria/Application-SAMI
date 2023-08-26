@@ -15,7 +15,9 @@ class KopSuratController extends Controller
     public function index()
     {
         $data = [
-            'kop_surat' => KopSurat::latest()->paginate(10)
+            'kop_surat' => KopSurat::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->latest()->paginate(10)
         ];
         return view('ami.kop_surat.kop_surat', $data);
     }

@@ -18,7 +18,9 @@ class VerifikasiTemuanAmiController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10)
+            'standar' => Standar::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->latest()->paginate(10)
         ];
         return view('ami.draft_temuan.data_standar', $data);
     }

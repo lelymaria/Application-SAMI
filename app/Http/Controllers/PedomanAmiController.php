@@ -17,7 +17,9 @@ class PedomanAmiController extends Controller
     public function index()
     {
         $data = [
-            'pedoman_ami' => PedomanAmi::all()
+            'pedoman_ami' => PedomanAmi::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->get()
         ];
         return view('ami.pedoman.pedoman_ami', $data);
     }

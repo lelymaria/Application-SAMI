@@ -17,7 +17,9 @@ class LaporanAmiController extends Controller
      */
     public function index()
     {
-        $laporan = LaporanAmi::where(function ($query) {
+        $laporan = LaporanAmi::whereHas('jadwal.historiAmi', function ($query) {
+            $query->where('status', 1);
+        })->where(function ($query) {
             if (auth()->user()->akunAuditee) {
                 $query->where("id_unit_kerja", auth()->user()->akunAuditee->id_unit_kerja);
             }

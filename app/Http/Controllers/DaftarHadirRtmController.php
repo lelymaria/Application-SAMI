@@ -16,7 +16,9 @@ class DaftarHadirRtmController extends Controller
      */
     public function index($id)
     {
-        $daftar_hadir_rtm = DaftarHadirRtm::where('id_undangan', $id)->latest()->paginate(10);
+        $daftar_hadir_rtm = DaftarHadirRtm::whereHas('jadwal.historiAmi', function ($query) {
+            $query->where('status', 1);
+        })->where('id_undangan', $id)->latest()->paginate(10);
         $data = [
             'undanganRtm' => UndanganRtm::findOrFail($id),
             'daftar_hadir_rtm' => $daftar_hadir_rtm

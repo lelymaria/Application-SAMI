@@ -16,7 +16,9 @@ class PertanyaanStandarController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::latest()->paginate(10)
+            'standar' => Standar::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->latest()->paginate(10)
         ];
         return view('ami.pertanyaan_standar.data_standar', $data);
     }
@@ -114,9 +116,6 @@ class PertanyaanStandarController extends Controller
     {
         $pertanyaan = PertanyaanStandar::findOrFail($id);
         DB::transaction(function () use ($pertanyaan) {
-            $pertanyaan->ketersediaanDokumen()->delete();
-            $pertanyaan->cheklistAudit()->delete();
-            $pertanyaan->tanggapanChecklist()->delete();
             $pertanyaan->delete();
         });
         return back()->with('message', 'Data Berhasil Terhapus!');

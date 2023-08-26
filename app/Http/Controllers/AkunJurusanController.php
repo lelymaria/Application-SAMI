@@ -20,7 +20,9 @@ class AkunJurusanController extends Controller
     public function index()
     {
         $data = [
-            'akun_jurusan' => AkunJurusan::latest()->paginate(10),
+            'akun_jurusan' => AkunJurusan::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->latest()->paginate(10),
             'dataJurusan' => Jurusan::all()
         ];
         return view('manage_akun.jurusan.akun_jurusan', $data);
@@ -126,7 +128,6 @@ class AkunJurusanController extends Controller
     {
         $akunJurusan = AkunJurusan::findOrFail($id);
         DB::transaction(function () use ($akunJurusan) {
-            $akunJurusan->user()->forceDelete();
             $akunJurusan->forceDelete();
         });
         return redirect('/manage_user/akun_jurusan')->with('message', 'Data Berhasil Terhapus!');

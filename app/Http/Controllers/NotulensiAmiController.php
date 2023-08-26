@@ -16,7 +16,9 @@ class NotulensiAmiController extends Controller
      */
     public function index($id)
     {
-        $notulensiAmi = NotulensiAmi::where('id_undangan', $id)->latest()->paginate(10);
+        $notulensiAmi = NotulensiAmi::whereHas('jadwal.historiAmi', function ($query) {
+            $query->where('status', 1);
+        })->where('id_undangan', $id)->latest()->paginate(10);
         $data = [
             'undanganAmi' => UndanganAmi::findOrFail($id),
             'notulensiAmi' => $notulensiAmi

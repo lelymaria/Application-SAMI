@@ -19,7 +19,9 @@ class KepalaP4mpController extends Controller
     public function index()
     {
         $data = [
-            'kepala_p4mp' => KepalaP4mp::latest()->paginate(10)
+            'kepala_p4mp' => KepalaP4mp::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->latest()->paginate(10)
         ];
         return view('manage_akun.p4mp.akun_kepalap4mp', $data);
     }
@@ -122,7 +124,6 @@ class KepalaP4mpController extends Controller
     {
         $kepalaP4mp = KepalaP4mp::findOrFail($id);
         DB::transaction(function () use ($kepalaP4mp) {
-            $kepalaP4mp->user()->forceDelete();
             $kepalaP4mp->forceDelete();
         });
         return redirect('/manage_user/kepalaP4mp/')->with('message', 'Data Berhasil Terhapus!');

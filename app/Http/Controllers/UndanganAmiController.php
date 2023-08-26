@@ -15,7 +15,9 @@ class UndanganAmiController extends Controller
     public function index()
     {
         $data = [
-            'undanganAmi' => UndanganAmi::latest()->paginate(10)
+            'undanganAmi' => UndanganAmi::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->latest()->paginate(10)
         ];
         return view('ami.dokumentasi_ami.undangan.undangan_ami', $data);
     }
@@ -125,9 +127,6 @@ class UndanganAmiController extends Controller
     {
         $undanganAmi = UndanganAmi::findOrFail($id);
         DB::transaction(function () use ($undanganAmi) {
-            $undanganAmi->fotoKegiatanAmi()->delete();
-            $undanganAmi->daftarHadirAmi()->delete();
-            $undanganAmi->notulensiAmi()->delete();
             $undanganAmi->delete();
         });
         return redirect('/dokumentasiAmi/undangan/')->with('message', 'Data Berhasil Terhapus!');

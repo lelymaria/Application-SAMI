@@ -22,7 +22,9 @@ class AkunAuditeeController extends Controller
     public function index()
     {
         $data = [
-            'akun_auditee' => AkunAuditee::latest()->paginate(10),
+            'akun_auditee' => AkunAuditee::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->latest()->paginate(10),
             'dataProdi' => ProgramStudi::all(),
             'layananAkademik' => LayananAkademik::all()
         ];
@@ -65,7 +67,6 @@ class AkunAuditeeController extends Controller
             $user->akunAuditee()->create([
                 'email' => $request->email,
                 'nama' => $request->nama,
-                
                 'id_unit_kerja' => $request->unit_kerja,
                 'id_jadwal' => $jadwal_ami->id
             ]);
@@ -131,7 +132,6 @@ class AkunAuditeeController extends Controller
     {
         $akunAuditee = AkunAuditee::findOrFail($id);
         DB::transaction(function () use ($akunAuditee) {
-            $akunAuditee->user()->forceDelete();
             $akunAuditee->forceDelete();
         });
         return redirect('/manage_user/akun_auditee/')->with('message', 'Data Berhasil Terhapus!');

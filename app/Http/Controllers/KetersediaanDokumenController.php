@@ -18,7 +18,9 @@ class KetersediaanDokumenController extends Controller
     public function index()
     {
         $data = [
-            'standar' => Standar::whereHas('tugasStandar', function ($query) {
+            'standar' => Standar::whereHas('jadwal.historiAmi', function ($query) {
+                $query->where('status', 1);
+            })->whereHas('tugasStandar', function ($query) {
                 $query->where('id_user', auth()->user()->id);
             })->latest()->paginate(10)
         ];
