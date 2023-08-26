@@ -83,7 +83,7 @@
                         <li><a href="{{ url('/ami/jadwal_pelaksanaan') }}">Tahun Pelaksanaan AMI</a></li>
                         <li><a href="{{ url('/ami/jadwalAmi') }}">Jadwal AMI</a></li>
                         <li><a href="{{ url('/ami/data_standar') }}">Pertanyaan Standar</a></li>
-                        <li><a href="{{ url('/historiami') }}">History AMI</a></li>
+                        {{-- <li><a href="{{ url('/historiami') }}">History AMI</a></li> --}}
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -118,10 +118,10 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        <li><a href="/monitoringamiP4mp">Monitoring AMI</a></li>
+                        {{-- <li><a href="/monitoringamiP4mp">Monitoring AMI</a></li> --}}
                         <li><a href="{{ url('/ami/verifikasi_ami') }}">Draft Temuan AMI</a></li>
                         <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
-                        <li><a href="/historiAll">History AMI</a></li>
+                        {{-- <li><a href="/historiAll">History AMI</a></li> --}}
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -159,7 +159,7 @@
                         <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
                         <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
                         <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
-                        <li><a href="/historiAll">History AMI</a></li>
+                        {{-- <li><a href="/historiAll">History AMI</a></li> --}}
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -197,7 +197,7 @@
                         <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
                         <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
                         <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
-                        <li><a href="/historiAll">History AMI</a></li>
+                        {{-- <li><a href="/historiAll">History AMI</a></li> --}}
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -237,7 +237,7 @@
                         <li><a href="{{ url('/ami/tanggapan_audit') }}">Checklist Hasil AMI</a></li>
                         <li><a href="{{ url('/ami/analisa_tindakan_ami') }}">Draft Temuan AMI</a></li>
                         <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
-                        <li><a href="/historiAll">History AMI</a></li>
+                        {{-- <li><a href="/historiAll">History AMI</a></li> --}}
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -272,8 +272,8 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        <li><a href="/monitoringamiP4mp">Monitoring</a></li>
-                        <li><a href="/historiAll">History AMI</a></li>
+                        {{-- <li><a href="/monitoringamiP4mp">Monitoring</a></li> --}}
+                        {{-- <li><a href="/historiAll">History AMI</a></li> --}}
                     </ul>
                 </li>
                 <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

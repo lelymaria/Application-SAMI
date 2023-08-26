@@ -100,12 +100,14 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="d-flex justify-content-end">
+                                                @can('operator')
                                                 <button type="button" class="btn btn-rounded btn-secondary btn-xs"
                                                     data-bs-toggle="modal" data-bs-target="#basicModal"><span
                                                         class="btn-icon-start text-secondary"><i
                                                             class="fa fa-plus color-secondary"></i>
                                                     </span>Add
                                                 </button>
+                                                @endcan
                                             </div>
                                             {{-- Modal --}}
                                             <div class="modal fade" id="basicModal">
@@ -171,16 +173,18 @@
                                                                                 target="_blank"
                                                                                 class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                                                     class="fa fa-file-invoice"></i></a>
-                                                                            <a href="#"
-                                                                                data-url="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"
-                                                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#updateKehadiran"><i
-                                                                                    class="fas fa-pencil-alt"></i></a>
-                                                                            <button
-                                                                                class="btn btn-danger shadow btn-xs sharp btn-delete"
-                                                                                data-url="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"><i
-                                                                                    class="fa fa-trash"></i></button>
+                                                                                    @can('operator')
+                                                                                    <a href="#"
+                                                                                        data-url="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"
+                                                                                        class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#updateKehadiran"><i
+                                                                                            class="fas fa-pencil-alt"></i></a>
+                                                                                    <button
+                                                                                        class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                                                        data-url="{{ url('/dokumentasiAmi/daftar_hadir_ami/' . $kehadiran->id) }}"><i
+                                                                                            class="fa fa-trash"></i></button>
+                                                                                    @endcan
                                                                         </div>
                                                                     </td>
                                                         </tr>

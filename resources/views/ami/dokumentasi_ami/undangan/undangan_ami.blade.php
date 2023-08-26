@@ -78,10 +78,12 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Undangan Kegiatan</h4>
+                @can('operator')
                 <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
                     data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
                             class="fa fa-plus color-secondary"></i>
                     </span>Add</button>
+                @endcan
                 {{-- Modal --}}
                 <div class="modal fade" id="basicModal">
                     <div class="modal-dialog" role="document">
@@ -149,14 +151,16 @@
                                             <a href="{{ url('dokumentasiAmi/' . $undangan->id . '/daftar_hadir_ami') }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                     class="fas fa-plus"></i></a>
-                                            <a href="#"
-                                                data-url="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"
-                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
-                                                data-bs-toggle="modal" data-bs-target="#updateUndangan"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
-                                                data-url="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"><i
-                                                    class="fa fa-trash"></i></button>
+                                                    @can('operator')
+                                                    <a href="#"
+                                                        data-url="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"
+                                                        class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                                        data-bs-toggle="modal" data-bs-target="#updateUndangan"><i
+                                                            class="fas fa-pencil-alt"></i></a>
+                                                    <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                        data-url="{{ url('/dokumentasiAmi/undangan/' . $undangan->id) }}"><i
+                                                            class="fa fa-trash"></i></button>
+                                                    @endcan
                                         </div>
                                     </td>
                                 </tr>

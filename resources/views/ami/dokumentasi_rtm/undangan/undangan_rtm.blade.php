@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-                                    Header start
-                                    ***********************************-->
+                                        Header start
+                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -51,8 +51,8 @@
         @endif
     </div>
     <!--**********************************
-                                    Header end ti-comment-alt
-                                    ***********************************-->
+                                        Header end ti-comment-alt
+                                        ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -78,10 +78,12 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Undangan Kegiatan</h4>
-                <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
-                    data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
-                            class="fa fa-plus color-secondary"></i>
-                    </span>Add</button>
+                @can('operator')
+                    <button type="button" class="btn btn-rounded btn-secondary btn-xs" data-bs-toggle="modal"
+                        data-bs-target="#basicModal"><span class="btn-icon-start text-secondary"><i
+                                class="fa fa-plus color-secondary"></i>
+                        </span>Add</button>
+                @endcan
                 {{-- Modal --}}
                 <div class="modal fade" id="basicModal">
                     <div class="modal-dialog" role="document">
@@ -149,14 +151,16 @@
                                             <a href="{{ url('dokumentasiRtm/' . $undangan->id . '/daftar_hadir_rtm') }}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"><i
                                                     class="fas fa-plus"></i></a>
-                                            <a href="#"
-                                                data-url="{{ url('/dokumentasiRtm/undangan/' . $undangan->id) }}"
-                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
-                                                data-bs-toggle="modal" data-bs-target="#updateUndangan"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
-                                                data-url="{{ url('/dokumentasiRtm/undangan/' . $undangan->id) }}"><i
-                                                    class="fa fa-trash"></i></button>
+                                            @can('operator')
+                                                <a href="#"
+                                                    data-url="{{ url('/dokumentasiRtm/undangan/' . $undangan->id) }}"
+                                                    class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                                    data-bs-toggle="modal" data-bs-target="#updateUndangan"><i
+                                                        class="fas fa-pencil-alt"></i></a>
+                                                <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                    data-url="{{ url('/dokumentasiRtm/undangan/' . $undangan->id) }}"><i
+                                                        class="fa fa-trash"></i></button>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
@@ -165,58 +169,58 @@
                                     <td colspan="10" class="text-center">Data tidak tersedia!
                                     </td>
                                 </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        {{ $undanganRtm->links() }}
-                    </div>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    {{ $undanganRtm->links() }}
                 </div>
             </div>
         </div>
+    </div>
 
-        {{-- update --}}
-        <div class="modal fade" id="updateUndangan">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Undangan RTM</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal">
-                        </button>
-                    </div>
-                    <div class="modal-body" id="editModalBody">
-                        <div class="form-validate">
-                            <form class="needs-validation" novalidate="" action="{{ url('/dokumentasiRtm/undangan/') }}"
-                                method="post" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row" id="formBodyEdit">
-
-                                </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                    </form>
+    {{-- update --}}
+    <div class="modal fade" id="updateUndangan">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Undangan RTM</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
                 </div>
+                <div class="modal-body" id="editModalBody">
+                    <div class="form-validate">
+                        <form class="needs-validation" novalidate="" action="{{ url('/dokumentasiRtm/undangan/') }}"
+                            method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row" id="formBodyEdit">
+
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
 
-    @push('js')
-        <script>
-            $('body').on('click', '.btn-edit', function() {
-                let url = $(this).data('url');
-                console.log(url);
-                $('#editModalBody form').attr('action', url)
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(data) {
-                        console.log(data);
-                        $('#editModalBody .row').html(data);
-                    }
-                })
+@push('js')
+    <script>
+        $('body').on('click', '.btn-edit', function() {
+            let url = $(this).data('url');
+            console.log(url);
+            $('#editModalBody form').attr('action', url)
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    console.log(data);
+                    $('#editModalBody .row').html(data);
+                }
             })
-        </script>
-    @endpush
+        })
+    </script>
+@endpush

@@ -98,6 +98,7 @@
                                 <form action="{{ url('/dokumentasiRtm/' . $undanganRtm->id . '/foto_kegiatan_rtm') }}"
                                     method="post" enctype="multipart/form-data">
                                     @csrf
+                                    @can('operator')
                                     <div class="post-input">
                                         <textarea name="caption_foto_kegiatan_rtm" id="textarea" cols="30" rows="5"
                                             class="form-control bg-transparent" placeholder="Please type what you want...."></textarea>
@@ -127,6 +128,7 @@
                                         </div>
                                         <button type="submit" class="btn btn-primary">Post</button>
                                     </div>
+                                    @endcan
                                 </form>
 
                                 <div class="row">
@@ -188,14 +190,16 @@
                                                             <a href="{{ url('/dokumentasiRtm/download_foto_kegiatan_rtm/' . $kegiatan->id) }}"
                                                                 class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                                                     class="las la-download"></i></a>
-                                                            <a href="#"
-                                                                data-url="{{ url('/dokumentasiRtm/foto_kegiatan_rtm/' . $kegiatan->id) }}"
-                                                                class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
-                                                                data-bs-toggle="modal" data-bs-target="#updateFotoRtm"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
-                                                            <button class="btn btn-danger shadow btn-xs sharp btn-delete"
-                                                                data-url="{{ url('/dokumentasiRtm/foto_kegiatan_rtm/' . $kegiatan->id) }}"><i
-                                                                    class="fa fa-trash"></i></button>
+                                                                    @can('operator')
+                                                                    <a href="#"
+                                                                        data-url="{{ url('/dokumentasiRtm/foto_kegiatan_rtm/' . $kegiatan->id) }}"
+                                                                        class="btn btn-primary shadow btn-xs sharp me-1 btn-edit"
+                                                                        data-bs-toggle="modal" data-bs-target="#updateFotoRtm"><i
+                                                                            class="fas fa-pencil-alt"></i></a>
+                                                                    <button class="btn btn-danger shadow btn-xs sharp btn-delete"
+                                                                        data-url="{{ url('/dokumentasiRtm/foto_kegiatan_rtm/' . $kegiatan->id) }}"><i
+                                                                            class="fa fa-trash"></i></button>
+                                                                    @endcan
                                                         </div>
                                                     </div>
                                                 </div>
