@@ -98,10 +98,11 @@ class PertanyaanStandarController extends Controller
      */
     public function update(Request $request, string $idPertanyaan)
     {
-        $pertanyaan = PertanyaanStandar::where('id', $idPertanyaan)->first();
+        $pertanyaan = PertanyaanStandar::where('id_standar', $idPertanyaan)->first();
         $request->validate([
             "list_pertanyaan_standar" => "required",
         ]);
+        // dd($idPertanyaan);
 
         DB::transaction(function () use ($request, $pertanyaan) {
             $pertanyaan->update($request->all());
