@@ -156,6 +156,8 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                        <li><a href="{{ url('/ami/auditee/data_dukung') }}">Data Dukung</a></li>
+                        <li><a href="{{ url('/ami/ketersediaan_dokumen') }}">Ketersediaan Dokumen</a></li>
                         <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
                         <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
                         <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
@@ -194,6 +196,8 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                        <li><a href="{{ url('/ami/auditee/data_dukung') }}">Data Dukung</a></li>
+                        <li><a href="{{ url('/ami/ketersediaan_dokumen') }}">Ketersediaan Dokumen</a></li>
                         <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
                         <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
                         <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>

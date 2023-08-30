@@ -29,10 +29,21 @@ class KetersediaanDokumenController extends Controller
 
     public function show($id)
     {
-        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->latest()->paginate(10);
+        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->where(function ($query) {
+            if (auth()->user()->akunAuditor) {
+                $query->whereHas('ketersediaanDokumen.user.akunAuditee', function ($query) {
+                    $query->where("id_unit_kerja", auth()->user()->akunAuditor->id_unit_kerja);
+                });
+            }
+        });
+
+        $jumlah_yang_sudah_diisi = KetersediaanDokumen::whereIn('id_pertanyaan', $pertanyaan->get()->pluck('id'))->where('id_user', auth()->user()->id);
+
         $data = [
             'standar' => Standar::findOrFail($id),
-            'pertanyaan' => $pertanyaan
+            'pertanyaan' => $pertanyaan->latest()->paginate(10),
+            'jumlah_yang_sudah_diisi' => $jumlah_yang_sudah_diisi,
+            'jumlah_yang_belum_diisi' => $pertanyaan->count() - $jumlah_yang_sudah_diisi->count(),
         ];
         return view('ami.ketersediaan_dokumen.data_pertanyaan', $data);
     }

@@ -33,7 +33,18 @@ class DataDukungAuditeeController extends Controller
      */
     public function create($id)
     {
-        $dataDukung = DataDukungAuditee::where('id_standar', $id)->where('id_user', auth()->user()->id)->latest()->paginate(10);
+        $dataDukung = DataDukungAuditee::where('id_standar', $id)->where(function ($query) {
+            if (auth()->user()->akunAuditee) {
+                $query->whereHas('user.akunAuditee', function ($query) {
+                    $query->where("id_unit_kerja", auth()->user()->akunAuditee->id_unit_kerja);
+                });
+            }
+            if (auth()->user()->akunAuditor) {
+                $query->whereHas('user.akunAuditee', function ($query) {
+                    $query->where("id_unit_kerja", auth()->user()->akunAuditor->id_unit_kerja);
+                });
+            }
+        })->latest()->paginate(10);
         $data = [
             'standar' => Standar::findOrFail($id),
             'dataDukung' => $dataDukung
@@ -124,21 +135,22 @@ class DataDukungAuditeeController extends Controller
     public function destroy(string $id)
     {
         $dataDukung = DataDukungAuditee::findOrFail($id);
-        DB::transaction(function () use ($dataDukung){
+        DB::transaction(function () use ($dataDukung) {
             Storage::delete($dataDukung->data_file);
             $dataDukung->delete();
         });
         return back()->with('message', 'Data Berhasil Terhapus!');
     }
 
-    public function downloadZip($id) {
+    public function downloadZip($id)
+    {
         $zipArchive = new ZipArchive();
 
         $dataDukung = DataDukungAuditee::where('id_standar', $id)->get();
 
         $standar = Standar::findOrFail($id);
 
-        if ($zipArchive->open(public_path($standar->nama_standar.".zip"), ZipArchive::CREATE) === TRUE) {
+        if ($zipArchive->open(public_path($standar->nama_standar . ".zip"), ZipArchive::CREATE) === TRUE) {
             foreach ($dataDukung as $data) {
                 $path = public_path('storage/' . $data->data_file);
                 $relativeName = basename($path);
@@ -148,6 +160,6 @@ class DataDukungAuditeeController extends Controller
             $zipArchive->close();
         }
 
-        return Response::download(public_path($standar->nama_standar.".zip"));
+        return Response::download(public_path($standar->nama_standar . ".zip"));
     }
 }
