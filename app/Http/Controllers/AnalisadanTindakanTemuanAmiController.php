@@ -16,12 +16,16 @@ class AnalisadanTindakanTemuanAmiController extends Controller
      */
     public function index()
     {
+        $standar = Standar::whereHas('jadwal.historiAmi', function ($query) {
+            $query->where('status', 1);
+        })->whereHas('tugasStandar', function ($query) {
+            $query->where('id_user', auth()->user()->id);
+        });
+        $jumlah_yang_sudah_diisi = AnalisadanTindakanTemuanAmi::whereIn('id_standar', $standar->get()->pluck('id'))->where('id_user', auth()->user()->id);
         $data = [
-            'standar' => Standar::whereHas('jadwal.historiAmi', function ($query) {
-                $query->where('status', 1);
-            })->whereHas('tugasStandar', function ($query) {
-                $query->where('id_user', auth()->user()->id);
-            })->latest()->paginate(10)
+            'standar' => $standar->latest()->paginate(10),
+            'jumlah_yang_sudah_diisi' => $jumlah_yang_sudah_diisi,
+            'jumlah_yang_belum_diisi' => $standar->count() - $jumlah_yang_sudah_diisi->count()
         ];
         return view('ami.draft_temuan.data_standar', $data);
     }

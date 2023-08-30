@@ -63,6 +63,26 @@
         </ol>
     </div>
 
+    <div class="col-xl-3">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="card-list mt-4">
+                            <li><span class="bg-light circle"></span>Jumlah
+                                Standar<span>{{ $standar->count() }}</span></li>
+                            <br>
+                            <li><span class="bg-blue circle"></span>Sudah
+                                diisi<span>{{ $jumlah_yang_sudah_diisi->count() }}</span></li>
+                            <li><span class="bg-success circle"></span>Belum
+                                diisi<span>{{ $jumlah_yang_belum_diisi }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-12">
         <div class="card">
             <div class="card-body">

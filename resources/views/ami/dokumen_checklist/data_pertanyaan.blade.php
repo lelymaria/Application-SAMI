@@ -67,6 +67,33 @@
         </ol>
     </div>
 
+    <div class="col-xl-3">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header border-0 pb-0">
+                        <div>
+                            <h4 class="card-title mb-2">Data</h4>
+                            <span class="fs-12">{{ $standar->nama_standar }}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="polarChart"></div>
+                        <ul class="card-list mt-4">
+                            <li><span class="bg-light circle"></span>Jumlah
+                                Pertanyaan<span>{{ $pertanyaan->count() }}</span></li>
+                            <br>
+                            <li><span class="bg-blue circle"></span>Sudah
+                                diisi<span>{{ $jumlah_yang_sudah_diisi->count() }}</span></li>
+                            <li><span class="bg-success circle"></span>Belum
+                                diisi<span>{{ $jumlah_yang_belum_diisi }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-12">
         <div class="card">
             <div class="card-body">

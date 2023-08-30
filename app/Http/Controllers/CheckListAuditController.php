@@ -30,10 +30,13 @@ class CheckListAuditController extends Controller
 
     public function show($id)
     {
-        $pertanyaan = PertanyaanStandar::where('id_standar', $id)->latest()->paginate(10);
+        $pertanyaan = PertanyaanStandar::where('id_standar', $id);
+        $jumlah_yang_sudah_diisi = CheckListAudit::whereIn('id_pertanyaan', $pertanyaan->get()->pluck('id'))->where('id_user', auth()->user()->id);
         $data = [
             'standar' => Standar::findOrFail($id),
-            'pertanyaan' => $pertanyaan
+            'pertanyaan' => $pertanyaan->latest()->paginate(10),
+            'jumlah_yang_sudah_diisi' => $jumlah_yang_sudah_diisi,
+            'jumlah_yang_belum_diisi' => $pertanyaan->count() - $jumlah_yang_sudah_diisi->count(),
         ];
         return view('ami.dokumen_checklist.data_pertanyaan', $data);
     }

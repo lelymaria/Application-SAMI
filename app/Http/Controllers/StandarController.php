@@ -208,33 +208,18 @@ class StandarController extends Controller
             $unitKerjaId = $user->akunAuditor->id_unit_kerja;
 
             // Cek apakah unitKerjaId sesuai dengan id_unit_kerja pada LayananAkademik
-            $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
-            $unitKerja = $layanan->nama_layanan;
+            $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
+            $unitKerja = $prodi->nama_prodi;
 
-            if (!$layanan) {
+            if (!$prodi) {
                 // Jika tidak ditemukan di LayananAkademik, coba ambil dari ProgramStudi
-                $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
-                $unitKerja = $prodi->nama_prodi;
-                if (!$prodi) {
+                $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
+            $unitKerja = $layanan->nama_layanan;
+                if (!$layanan) {
                     return back()->with('error', 'Unit Kerja tidak ditemukan.');
                 }
 
                 $nama = $user->akunAuditee->nama;
-
-                // Jika user adalah akunAuditee, ambil informasi unit kerja dari akunAuditee
-                $unitKerjaId = $user->akunAuditee->id_unit_kerja;
-
-                $layanan = LayananAkademik::where('id', $unitKerjaId)->first();
-                $unitKerja = $layanan->nama_layanan;
-
-                if (!$layanan) {
-                    // Jika tidak ditemukan di LayananAkademik, coba ambil dari ProgramStudi
-                    $prodi = ProgramStudi::where('id', $unitKerjaId)->first();
-                    $unitKerja = $prodi->nama_prodi;
-                    if (!$prodi) {
-                        return back()->with('error', 'Unit Kerja tidak ditemukan.');
-                    }
-                }
             }
         } elseif ($user->akunAuditee) {
             $nama = $user->akunAuditee->nama;
