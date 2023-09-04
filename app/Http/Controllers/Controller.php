@@ -10,13 +10,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    //FOLDER OPERATOR
-    public function historiAmi()
-    {
-        return view('ami.histori.histori_ami');
-    }
-
-
     //FOLDER MENU->DOKUMENTASI
     public function dokAmiAll()
     {

@@ -288,6 +288,10 @@ Route::get('/ami/jadwal_pelaksanaan/{id}', [HistoriAmiController::class, "edit"]
 Route::post('/ami/jadwal_pelaksanaan/{id}', [HistoriAmiController::class, "update"]);
 Route::delete('/ami/jadwal_pelaksanaan/{id}', [HistoriAmiController::class, "destroy"]);
 
+Route::get('/ami/historiami', [HistoriAmiController::class, "historiAmi"]);
+Route::get('/ami/historiami/{id}', [HistoriAmiController::class, "historiAmiData"]);
+Route::get('/ami/historiami/{id}/data_auditee', [HistoriAmiController::class, "menuAuditee"]);
+
 /* ============================================================= */
 
 //FOLDER OPERATOR
