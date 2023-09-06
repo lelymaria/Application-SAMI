@@ -288,12 +288,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/ami/jadwal_pelaksanaan/{id}', [HistoriAmiController::class, "destroy"]);
 
     Route::get('/ami/historiami', [HistoriAmiController::class, "historiAmi"]);
-    Route::get('/ami/historiami/{id}', [HistoriAmiController::class, "historiAmiData"]);
     Route::get('/ami/historiami/data_auditee/download/data_dukung/{id}', [HistoriAmiController::class, "downloadDataDukungAuditee"]);
     Route::get('/ami/historiami/data_auditee/download/ketersediaan/{id}', [HistoriAmiController::class, "downloadKetersediaan"]);
     Route::get('/ami/historiami/data_auditee/download/checklist/{id}', [HistoriAmiController::class, "downloadChecklist"]);
     Route::get('/ami/historiami/data_auditee/download/draft_temuan/{id}', [HistoriAmiController::class, "downloadDraftTemuan"]);
     Route::get('/ami/historiami/data_auditee/download/laporan/{id}', [HistoriAmiController::class, "downloadLaporanAmi"]);
+    Route::get('/ami/historiami/dokumentasi_ami/download/{id}', [HistoriAmiController::class, "downloadDokumentasiAmi"]);
+    Route::get('/ami/historiami/dokumentasi_rtm/download/{id}', [HistoriAmiController::class, "downloadDokumentasiRtm"]);
     Route::get('/ami/historiami/data_auditee/{id}', [HistoriAmiController::class, "menuAuditee"]);
     Route::get('/ami/historiami/data_auditee/data_dukung/{id}', [HistoriAmiController::class, "dataDukungAuditee"]);
     Route::get('/ami/historiami/data_auditee/ketersediaan/{id}', [HistoriAmiController::class, "ketersediaan"]);
@@ -301,6 +302,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/ami/historiami/data_auditee/temuan/{id}', [HistoriAmiController::class, "temuan"]);
     Route::get('/ami/historiami/dokumentasi_ami', [HistoriAmiController::class, "dokumentasiAmi"]);
     Route::get('/ami/historiami/dokumentasi_rtm', [HistoriAmiController::class, "dokumentasiRtm"]);
+    Route::get('/ami/historiami/{id}', [HistoriAmiController::class, "historiAmiData"]);
 
     /* ============================================================= */
 

@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+                    Header start
+                    ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -16,8 +16,8 @@
         </div>
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+                    Header end ti-comment-alt
+                    ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -63,16 +63,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>nama file undangannya apa trs bisa download 4 file(undangan, daftar hadir, foto sm notulensi)</td>
-                                <td><a href="" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
-                            </tr>
+                            @foreach ($histori_ami->jadwal[0]->undanganRtm as $undangan)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $undangan->file_nama }}</td>
+                                    <td>
+                                        <a href="{{ url('/ami/historiami/dokumentasi_rtm/download/' . $undangan->id) }}"
+                                            class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                                class="las la-download"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    @endsection
+@endsection

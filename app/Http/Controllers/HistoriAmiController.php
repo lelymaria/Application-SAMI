@@ -11,6 +11,8 @@ use App\Models\PertanyaanStandar;
 use App\Models\ProgramStudi;
 use App\Models\Standar;
 use App\Models\TugasStandar;
+use App\Models\UndanganAmi;
+use App\Models\UndanganRtm;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -179,12 +181,24 @@ class HistoriAmiController extends Controller
 
     public function dokumentasiAmi()
     {
-        return view('ami.histori.dokumentasi.dokumentasi_ami');
+        $historiAmi = HistoriAmi::whereStatus(0)->latest()->first();
+
+        $data = [
+            "histori_ami" => $historiAmi,
+        ];
+
+        return view('ami.histori.dokumentasi.dokumentasi_ami', $data);
     }
 
     public function dokumentasiRtm()
     {
-        return view('ami.histori.dokumentasi.dokumentasi_rtm');
+        $historiAmi = HistoriAmi::whereStatus(0)->latest()->first();
+
+        $data = [
+            "histori_ami" => $historiAmi,
+        ];
+
+        return view('ami.histori.dokumentasi.dokumentasi_rtm', $data);
     }
 
     public function downloadLaporanAmi($id)
@@ -507,5 +521,73 @@ class HistoriAmiController extends Controller
         $fileName = 'arsip/dok_temuan/' . date('d-m-Y') . ' Temuan Audit Mutu Internal.docx';
         $template->saveAs($fileName);
         return Response::download(public_path($fileName));
+    }
+
+    public function downloadDokumentasiAmi($id)
+    {
+        $zipArchive = new ZipArchive();
+
+        $undangan = UndanganAmi::findOrFail($id);
+
+        $nama_file = $undangan->file_nama . '.zip';
+
+        if ($zipArchive->open(public_path($nama_file), ZipArchive::CREATE) === TRUE) {
+            foreach ($undangan->daftarHadirAmi as $data) {
+                $path = public_path('storage/' . $data->file_daftar_hadir_ami);
+                $zipArchive->addFile($path, $data->file_nama);
+            }
+
+            foreach ($undangan->fotoKegiatanAmi as $data) {
+                $fotoKegiatanAmi = json_decode($data->file_foto_kegiatan_ami);
+                foreach ($fotoKegiatanAmi as $fotoKegiatan) {
+                    $path = public_path('storage/' . $fotoKegiatan);
+                    $relativeName = basename($path);
+                    $zipArchive->addFile($path, $relativeName);
+                }
+            }
+
+            foreach ($undangan->notulensiAmi as $data) {
+                $path = public_path('storage/' . $data->file_notulensi_ami);
+                $zipArchive->addFile($path, $data->file_nama);
+            }
+
+            $zipArchive->close();
+        }
+
+        return response()->download(public_path($nama_file));
+    }
+
+    public function downloadDokumentasiRtm($id)
+    {
+        $zipArchive = new ZipArchive();
+
+        $undangan = UndanganRtm::findOrFail($id);
+
+        $nama_file = $undangan->file_nama . '.zip';
+
+        if ($zipArchive->open(public_path($nama_file), ZipArchive::CREATE) === TRUE) {
+            foreach ($undangan->daftarHadirRtm as $data) {
+                $path = public_path('storage/' . $data->file_daftar_hadir_rtm);
+                $zipArchive->addFile($path, $data->file_nama);
+            }
+
+            foreach ($undangan->fotoKegiatanRtm as $data) {
+                $fotoKegiatanRtm = json_decode($data->file_foto_kegiatan_rtm);
+                foreach ($fotoKegiatanRtm as $fotoKegiatan) {
+                    $path = public_path('storage/' . $fotoKegiatan);
+                    $relativeName = basename($path);
+                    $zipArchive->addFile($path, $relativeName);
+                }
+            }
+
+            foreach ($undangan->notulensiRtm as $data) {
+                $path = public_path('storage/' . $data->file_notulensi_rtm);
+                $zipArchive->addFile($path, $data->file_nama);
+            }
+
+            $zipArchive->close();
+        }
+
+        return response()->download(public_path($nama_file));
     }
 }

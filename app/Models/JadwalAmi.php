@@ -59,6 +59,11 @@ class JadwalAmi extends Model
         return $this->hasMany(UndanganAmi::class, 'id_jadwal', 'id');
     }
 
+    public function undanganRtm()
+    {
+        return $this->hasMany(UndanganRtm::class, 'id_jadwal', 'id');
+    }
+
     public function daftarHadirAmi()
     {
         return $this->hasMany(DaftarHadirAmi::class, 'id_jadwal', 'id');

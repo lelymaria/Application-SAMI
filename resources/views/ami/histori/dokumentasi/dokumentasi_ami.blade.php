@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+                                                        Header start
+                                                        ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -16,9 +16,10 @@
         </div>
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+                                                        Header end ti-comment-alt
+                                                        ***********************************-->
 @endpush
+
 @extends('layouts.main')
 @section('content')
     <div class="row page-titles">
@@ -35,14 +36,8 @@
                     <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom05">Periode
                         </label>
-                        <div class="col-lg-6">
-                            <select class="default-select wide form-control" id="dataAuditee" name="id_tahun_ami">
-                                <option data-display="Select" disabled selected>Please select
-                                </option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a one.
-                            </div>
+                        <div class="col-lg-6 pt-2">
+                            {{ $histori_ami->tahun_ami }}
                         </div>
                     </div>
                 </div>
@@ -58,21 +53,26 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Undangan AMI</th></th>
+                                <th>Undangan AMI</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>nama file undangannya apa trs bisa download 4 file(undangan, daftar hadir, foto sm notulensi)</td>
-                                <td><a href="" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
-                            </tr>
+                            @foreach ($histori_ami->jadwal[0]->undanganAmi as $undangan)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $undangan->file_nama }}</td>
+                                    <td>
+                                        <a href="{{ url('/ami/historiami/dokumentasi_ami/download/' . $undangan->id) }}"
+                                            class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                                class="las la-download"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    @endsection
+@endsection
