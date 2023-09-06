@@ -24,7 +24,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ url('/ami/historiami/'.$auditee->user->id.'/data_auditee') }}"
+                                    <a href="{{ ('/ami/historiami/data_auditee/'.$auditee->id) }}"
                                         class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a>
                                 </td>
                             </tr>
@@ -57,13 +57,13 @@
                         <tr>
                             <td>1</td>
                             <td>Dokumentasi AMI</td>
-                            <td><a href=""
+                            <td><a href="{{ ('/ami/historiami/dokumentasi_ami') }}"
                                 class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a></td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Dokumentasi RTM</td>
-                            <td><a href=""
+                            <td><a href="{{ ('/ami/historiami/dokumentasi_rtm') }}"
                                 class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a></td>
                         </tr>
                     </tbody>

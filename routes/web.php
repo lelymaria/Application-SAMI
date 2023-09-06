@@ -290,7 +290,13 @@ Route::delete('/ami/jadwal_pelaksanaan/{id}', [HistoriAmiController::class, "des
 
 Route::get('/ami/historiami', [HistoriAmiController::class, "historiAmi"]);
 Route::get('/ami/historiami/{id}', [HistoriAmiController::class, "historiAmiData"]);
-Route::get('/ami/historiami/{id}/data_auditee', [HistoriAmiController::class, "menuAuditee"]);
+Route::get('/ami/historiami/data_auditee/{id}', [HistoriAmiController::class, "menuAuditee"]);
+Route::get('/ami/historiami/data_auditee/data_dukung', [HistoriAmiController::class, "dataDukungAuditee"]);
+Route::get('/ami/historiami/data_auditee/ketersediaan', [HistoriAmiController::class, "ketersediaan"]);
+Route::get('/ami/historiami/data_auditee/checklist', [HistoriAmiController::class, "checklist"]);
+Route::get('/ami/historiami/data_auditee/temuan', [HistoriAmiController::class, "temuan"]);
+Route::get('/ami/historiami/dokumentasi_ami', [HistoriAmiController::class, "dokumentasiAmi"]);
+Route::get('/ami/historiami/dokumentasi_rtm', [HistoriAmiController::class, "dokumentasiRtm"]);
 
 /* ============================================================= */
 

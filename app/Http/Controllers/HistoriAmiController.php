@@ -115,9 +115,34 @@ class HistoriAmiController extends Controller
     }
 
     public function menuAuditee($id) {
+        $auditee = AkunAuditee::where('id_unit_kerja', $id);
         $data = [
-            'data_dukung' => Data
+            'auditee' => $auditee
         ];
         return view('ami.histori.menu_auditee', $data);
+    }
+
+    public function dataDukung() {
+        return view('ami.histori.menu_auditee.data_dukung');
+    }
+
+    public function ketersediaan() {
+        return view('ami.histori.menu_auditee.ketersediaan_dokumen');
+    }
+
+    public function checklist() {
+        return view('ami.histori.menu_auditee.checklist');
+    }
+
+    public function temuan() {
+        return view('ami.histori.menu_auditee.temuan');
+    }
+
+    public function dokumentasiAmi() {
+        return view('ami.histori.dokumentasi.dokumentasi_ami');
+    }
+
+    public function dokumentasiRtm() {
+        return view('ami.histori.dokumentasi.dokumentasi_rtm');
     }
 }
