@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+                                                                                                Header start
+                                                                                                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -16,8 +16,8 @@
         </div>
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+                                                                                                Header end ti-comment-alt
+                                                                                                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -35,14 +35,8 @@
                     <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom05">Periode
                         </label>
-                        <div class="col-lg-6">
-                            <select class="default-select wide form-control" id="dataAuditee" name="id_tahun_ami">
-                                <option data-display="Select" disabled selected>Please select
-                                </option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a one.
-                            </div>
+                        <div class="col-lg-6 pt-2">
+                            {{ $auditee->jadwal->historiAmi->tahun_ami }}
                         </div>
                     </div>
                 </div>
@@ -58,7 +52,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Data Auditee(nama unit kerja nya)</th>
+                                <th>Data Auditee (@if ($auditee->dataProdi)
+                                        {{ $auditee->dataProdi->nama_prodi }}
+                                    @else
+                                        {{ $auditee->layanan_akademik->nama_layanan }}
+                                    @endif)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -66,33 +64,38 @@
                             <tr>
                                 <td>1</td>
                                 <td>Data Dukung</td>
-                                <td><a href="{{ ('/ami/historiami/data_auditee/data_dukung') }}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
+                                <td>
+                                    <a href="{{ '/ami/historiami/data_auditee/data_dukung/' . $auditee->id_user }}"
+                                        class="btn btn-primary shadow btn-xs sharp me-1">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Ketersediaan Dokumen</td>
-                                <td><a href="{{ ('/ami/historiami/data_auditee/ketersediaan') }}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
+                                <td><a href="{{ '/ami/historiami/data_auditee/ketersediaan/' . $auditee->id_user }}"
+                                        class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Check List Audit</td>
-                                <td><a href="{{ ('/ami/historiami/data_auditee/checklist') }}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
+                                <td><a href="{{ '/ami/historiami/data_auditee/checklist/' . $auditee->id_user }}"
+                                        class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Draft Temuan AMI</td>
-                                <td><a href="{{ ('/ami/historiami/data_auditee/temuan') }}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
+                                <td><a href="{{ '/ami/historiami/data_auditee/temuan/' . $auditee->id_user }}"
+                                        class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a></td>
                             </tr>
                             <tr>
                                 <td>4</td>
                                 <td>Laporan Hasil AMI (Langsung Bisa Download perauditee nya)</td>
-                                <td><a href=""
-                                    class="btn btn-secondary shadow btn-xs sharp me-1"><i
-                                        class="las la-download"></i></a></td>
+                                <td><a target="_blank"
+                                        href="{{ '/ami/historiami/data_auditee/download/laporan/' . $auditee->id_user }}"
+                                        class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                            class="las la-download"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -100,4 +103,4 @@
             </div>
         </div>
     </div>
-    @endsection
+@endsection

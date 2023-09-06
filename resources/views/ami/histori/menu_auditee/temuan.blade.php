@@ -1,7 +1,7 @@
 @push('header')
     <!--**********************************
-        Header start
-        ***********************************-->
+                Header start
+                ***********************************-->
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
@@ -14,10 +14,27 @@
                 </div>
             </nav>
         </div>
+        @if (session('error'))
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger left-icon-big alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"><span><i
+                                class="mdi mdi-btn-close"></i></span>
+                    </button>
+                    <div class="media">
+                        <div class="alert-left-icon-big">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="mt-1 mb-2">Ooops!</h5>
+                            <p class="mb-0">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
     <!--**********************************
-        Header end ti-comment-alt
-        ***********************************-->
+                Header end ti-comment-alt
+                ***********************************-->
 @endpush
 @extends('layouts.main')
 @section('content')
@@ -35,14 +52,8 @@
                     <div class="mb-3 row">
                         <label class="col-lg-2 col-form-label" for="validationCustom05">Periode
                         </label>
-                        <div class="col-lg-6">
-                            <select class="default-select wide form-control" id="dataAuditee" name="id_tahun_ami">
-                                <option data-display="Select" disabled selected>Please select
-                                </option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a one.
-                            </div>
+                        <div class="col-lg-6 p-2">
+                            {{ $user->akunAuditee->jadwal->historiAmi->tahun_ami }}
                         </div>
                     </div>
                 </div>
@@ -58,22 +69,28 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Draft Temuan AMI <br> (Nama Unit Kerja Nya)</th>
+                                <th>Draft Temuan AMI <br> (@if ($user->akunAuditee->dataProdi)
+                                        {{ $user->akunAuditee->dataProdi->nama_prodi }}
+                                    @else
+                                        {{ $user->akunAuditee->layanan_akademik->nama_layanan }}
+                                    @endif)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>standar nya apa langsung bisa download dokumennya</td>
-                                <td><a href=""
-                                    class="btn btn-secondary shadow btn-xs sharp me-1"><i
-                                        class="las la-download"></i></a></td>
-                            </tr>
+                            @foreach ($user->tugasStandar as $tugasStandar)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $tugasStandar->standar->nama_standar }}</td>
+                                    <td><a href="{{ url('/ami/historiami/data_auditee/download/draft_temuan/' . $tugasStandar->standar->id) }}"
+                                            class="btn btn-secondary shadow btn-xs sharp me-1"><i
+                                                class="las la-download"></i></a></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    @endsection
+@endsection

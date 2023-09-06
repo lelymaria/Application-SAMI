@@ -34,6 +34,13 @@ class Standar extends Model
         return $this->hasMany(DataDukungAuditee::class, 'id_standar', 'id');
     }
 
+    public function dataDukungAuditeeTidakAktif()
+    {
+        return $this->hasMany(DataDukungAuditee::class, 'id_standar', 'id')->whereHas('jadwal.historiAmi', function ($query) {
+            $query->whereStatus(0);
+        });
+    }
+
     public function uraianTemuanAmi()
     {
         return $this->hasOne(uraianTemuanAmi::class, 'id_standar', 'id');

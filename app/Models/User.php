@@ -86,6 +86,14 @@ class User extends Authenticatable
         return $this->hasMany(TugasStandar::class, 'id_user', 'id');
     }
 
+    public function tugasStandarTidakAktif()
+    {
+        return $this->hasMany(TugasStandar::class, 'id_user', 'id')
+            ->whereHas('jadwal.historiAmi', function ($query) {
+                $query->whereStatus(0);
+            });
+    }
+
     public function dataDukungAuditee()
     {
         return $this->hasMany(DataDukungAuditee::class, 'id', 'id_user');
@@ -93,7 +101,7 @@ class User extends Authenticatable
 
     public function ketersediaanDokumen()
     {
-        return $this->hasOne(KetersediaanDokumen::class, 'id', 'id_user');
+        return $this->hasOne(KetersediaanDokumen::class, 'id_user', 'id');
     }
 
     public function checklistAudit()
