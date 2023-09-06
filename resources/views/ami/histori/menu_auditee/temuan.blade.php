@@ -58,38 +58,14 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Data Auditee(nama unit kerja nya)</th>
+                                <th>Draft Temuan AMI <br> (Nama Unit Kerja Nya)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>Data Dukung</td>
-                                <td><a href="{{ ('/ami/historiami/data_auditee/data_dukung') }}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Ketersediaan Dokumen</td>
-                                <td><a href="{{ ('/ami/historiami/data_auditee/ketersediaan') }}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Check List Audit</td>
-                                <td><a href="{{ ('/ami/historiami/data_auditee/checklist') }}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Draft Temuan AMI</td>
-                                <td><a href="{{ ('/ami/historiami/data_auditee/temuan') }}" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                            class="fa fa-plus"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Laporan Hasil AMI (Langsung Bisa Download perauditee nya)</td>
+                                <td>standar nya apa langsung bisa download dokumennya</td>
                                 <td><a href=""
                                     class="btn btn-secondary shadow btn-xs sharp me-1"><i
                                         class="las la-download"></i></a></td>
