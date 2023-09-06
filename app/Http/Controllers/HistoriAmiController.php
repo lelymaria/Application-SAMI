@@ -190,7 +190,9 @@ class HistoriAmiController extends Controller
     public function downloadLaporanAmi($id)
     {
         $user = User::findOrFail($id);
-        $tugasStandar = LaporanAmi::whereIdUnitKerja($user->akunAuditee->id_unit_kerja)->first();
+        $tugasStandar = LaporanAmi::whereHas('jadwal.historiAmi', function ($query) {
+            $query->whereStatus(0);
+        })->whereIdUnitKerja($user->akunAuditee->id_unit_kerja)->first();
 
         return response()->download("storage/" . $tugasStandar->file_laporan_ami);
     }
