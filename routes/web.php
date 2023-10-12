@@ -23,6 +23,8 @@ use App\Http\Controllers\KopSuratController;
 use App\Http\Controllers\LaporanAmiController;
 use App\Http\Controllers\LayananAkademikController;
 use App\Http\Controllers\LayoutController;
+use App\Http\Controllers\MonitoringAMIP4MPController;
+use App\Http\Controllers\MonitoringJurusanController;
 use App\Http\Controllers\NotulensiAmiController;
 use App\Http\Controllers\NotulensiRtmController;
 use App\Http\Controllers\PedomanAmiController;
@@ -30,6 +32,8 @@ use App\Http\Controllers\PertanyaanStandarController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\StandarController;
 use App\Http\Controllers\TanggapanCheckListAuditController;
+use App\Http\Controllers\TinjauManajemenPengendalianController;
+use App\Http\Controllers\TinjauManajemenPeningkatanController;
 use App\Http\Controllers\TugasStandarController;
 use App\Http\Controllers\UndanganAmiController;
 use App\Http\Controllers\UndanganRtmController;
@@ -257,6 +261,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/ami/uraian_ami/update/{id}', [UraianTemuanAmiController::class, "edit"]);
     Route::post('/ami/uraian_ami/update/{id}', [UraianTemuanAmiController::class, "update"]);
 
+    Route::resource('/ami/tinjau_manajemen_pengendalian', TinjauManajemenPengendalianController::class);
+    Route::resource('/ami/tinjau_manajemen_peningkatan', TinjauManajemenPeningkatanController::class);
+
     Route::get('/ami/analisa_tindakan_ami', [AnalisadanTindakanTemuanAmiController::class, "index"]);
     Route::get('/ami/analisa_tindakan_ami/{id}', [AnalisadanTindakanTemuanAmiController::class, "show"]);
     Route::get('/ami/analisa_tindakan_ami/create/{id}', [AnalisadanTindakanTemuanAmiController::class, "create"]);
@@ -306,6 +313,13 @@ Route::middleware('auth')->group(function () {
 
     /* ============================================================= */
 
+    Route::resource('ami/monitoring-p4mp', MonitoringAMIP4MPController::class);
+    Route::get('/ami/monitoring-p4mp/data-dukung/{id}', [MonitoringAMIP4MPController::class, 'dataDukungAuditee'])->name('p4mp.data-dukung');
+    Route::get('/ami/monitoring-p4mp/ketersediaan-dokumen/{id}', [MonitoringAMIP4MPController::class, 'ketersediaanDokumen'])->name('p4mp.ketersediaan-dokumen');
+    Route::get('/ami/monitoring-p4mp/checklist-audit/{id}', [MonitoringAMIP4MPController::class, 'checklistAudit'])->name('p4mp.checklist-audit');
+    Route::get('/ami/monitoring-p4mp/draft-temuan/{id}', [MonitoringAMIP4MPController::class, 'draftTemuan'])->name('p4mp.draft-temuan');
+
+    Route::resource('ami/monitoring-jurusan', MonitoringJurusanController::class);
     //FOLDER OPERATOR
     // (Ami)
     Route::get('/pedomanami', [Controller::class, "pedomanAmi"]);

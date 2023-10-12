@@ -94,6 +94,14 @@ class User extends Authenticatable
             });
     }
 
+    public function tugasStandarAktif()
+    {
+        return $this->hasMany(TugasStandar::class, 'id_user', 'id')
+            ->whereHas('jadwal', function ($query) {
+                $query->whereStatus(1);
+        });
+    }
+
     public function dataDukungAuditee()
     {
         return $this->hasMany(DataDukungAuditee::class, 'id', 'id_user');

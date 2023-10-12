@@ -55,4 +55,9 @@ class Standar extends Model
     {
         return $this->hasOne(AnalisadanTindakanTemuanAmi::class, 'id_standar', 'id');
     }
+
+    public function tinjauanManajemenPengendalian()
+    {
+        return $this->hasOne(TinjauManajemenPengendalian::class, 'id_standar', 'id');
+    }
 }

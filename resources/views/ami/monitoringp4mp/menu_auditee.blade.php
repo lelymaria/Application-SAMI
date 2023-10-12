@@ -65,7 +65,7 @@
                                 <td>1</td>
                                 <td>Data Dukung</td>
                                 <td>
-                                    <a href="{{ '/ami/historiami/data_auditee/data_dukung/' . $auditee->id_user }}"
+                                    <a href="{{ route('p4mp.data-dukung', $auditee->id_user) }}"
                                         class="btn btn-primary shadow btn-xs sharp me-1">
                                         <i class="fa fa-plus"></i>
                                     </a>
@@ -74,19 +74,19 @@
                             <tr>
                                 <td>2</td>
                                 <td>Ketersediaan Dokumen</td>
-                                <td><a href="{{ '/ami/historiami/data_auditee/ketersediaan/' . $auditee->id_user }}"
+                                <td><a href="{{ route('p4mp.ketersediaan-dokumen', $auditee->id_user) }}"
                                         class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td>Check List Audit</td>
-                                <td><a href="{{ '/ami/historiami/data_auditee/checklist/' . $auditee->id_user }}"
+                                <td><a href="{{ route('p4mp.checklist-audit',$auditee->id_user) }}"
                                         class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a></td>
                             </tr>
                             <tr>
                                 <td>4</td>
                                 <td>Draft Temuan AMI</td>
-                                <td><a href="{{ '/ami/historiami/data_auditee/temuan/' . $auditee->id_user }}"
+                                <td><a href="{{ route('p4mp.draft-temuan', $auditee->id_user) }}"
                                         class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-plus"></i></a></td>
                             </tr>
                             <tr>

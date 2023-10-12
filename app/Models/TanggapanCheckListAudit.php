@@ -29,7 +29,8 @@ class TanggapanCheckListAudit extends Model
         return $this->hasOne(CheckListAudit::class, 'id', 'id_check_list_audit');
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->hasOne(User::class, 'id_user', 'id');
     }
 }

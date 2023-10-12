@@ -123,4 +123,5 @@ class JadwalAmi extends Model
     {
         return $this->hasMany(LaporanAmi::class, 'id_jadwal', 'id');
     }
+    
 }

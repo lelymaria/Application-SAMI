@@ -10,15 +10,15 @@
                     <div class="header-info ms-3">
                         <span class="font-w600 ">Hallo,<b>
                                 @if (auth()->user()->akunOperator)
-                                    {{ auth()->user()->akunOperator->nama }}
+                                {{ auth()->user()->akunOperator->nama }}
                                 @elseif (auth()->user()->kepalaP4mp)
-                                    {{ auth()->user()->kepalaP4mp->nama }}
+                                {{ auth()->user()->kepalaP4mp->nama }}
                                 @elseif (auth()->user()->akunJurusan)
-                                    {{ auth()->user()->akunJurusan->nama }}
+                                {{ auth()->user()->akunJurusan->nama }}
                                 @elseif (auth()->user()->akunAuditee)
-                                    {{ auth()->user()->akunAuditee->nama }}
+                                {{ auth()->user()->akunAuditee->nama }}
                                 @else
-                                    {{ auth()->user()->akunAuditor->nama }}
+                                {{ auth()->user()->akunAuditor->nama }}
                                 @endif
                             </b></span>
                         <small class="font-w400">{{ auth()->user()->levelRole->name }}</small>
@@ -47,183 +47,186 @@
                 </div>
             </li>
             @can('operator')
-                <li><a href="{{ url('/dashboard') }}" class="ai-icon" aria-expanded="false">
-                        <i class="flaticon-025-dashboard"></i>
-                        <span class="nav-text">Dashboard</span>
-                    </a>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-043-menu"></i>
-                        <span class="nav-text">Data</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/data/layanan_akademik') }}">Unit Kerja</a></li>
-                        <li><a href="{{ url('/data/datajurusan') }}">Jurusan</a></li>
-                        <li><a href="{{ url('/data/dataprodi') }}">Prodi</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-045-heart"></i>
-                        <span class="nav-text">Manage User</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/manage_user/akun_operator') }}">Operator</a></li>
-                        <li><a href="{{ url('/manage_user/kepalaP4mp') }}">Kepala P4MP</a></li>
-                        <li><a href="{{ url('/manage_user/akun_jurusan') }}">Jurusan</a></li>
-                        <li><a href="{{ url('/manage_user/lead_auditor') }}">Auditor</a></li>
-                        <li><a href="{{ url('/manage_user/akun_auditee') }}">Auditee</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-072-printer"></i>
-                        <span class="nav-text">Audit Mutu Internal</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/ami/jadwal_pelaksanaan') }}">Tahun Pelaksanaan AMI</a></li>
-                        <li><a href="{{ url('/ami/jadwalAmi') }}">Jadwal AMI</a></li>
-                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        <li><a href="{{ url('/ami/standar') }}">Standar</a></li>
-                        <li><a href="{{ url('/ami/data_standar') }}">Pertanyaan Standar</a></li>
-                        <li><a href="{{ url('/ami/kop_surat') }}">KOP Surat</a></li>
-                        <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-041-graph"></i>
-                        <span class="nav-text">Dokumentasi</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
-                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-050-info"></i>
-                        <span class="nav-text">Account</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
-                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
-                    </ul>
-                </li>
+            <li><a href="{{ url('/dashboard') }}" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-025-dashboard"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-043-menu"></i>
+                    <span class="nav-text">Data</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/data/layanan_akademik') }}">Unit Kerja</a></li>
+                    <li><a href="{{ url('/data/datajurusan') }}">Jurusan</a></li>
+                    <li><a href="{{ url('/data/dataprodi') }}">Prodi</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-045-heart"></i>
+                    <span class="nav-text">Manage User</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/manage_user/akun_operator') }}">Operator</a></li>
+                    <li><a href="{{ url('/manage_user/kepalaP4mp') }}">Kepala P4MP</a></li>
+                    <li><a href="{{ url('/manage_user/akun_jurusan') }}">Jurusan</a></li>
+                    <li><a href="{{ url('/manage_user/lead_auditor') }}">Auditor</a></li>
+                    <li><a href="{{ url('/manage_user/akun_auditee') }}">Auditee</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-072-printer"></i>
+                    <span class="nav-text">Audit Mutu Internal</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/ami/jadwal_pelaksanaan') }}">Tahun Pelaksanaan AMI</a></li>
+                    <li><a href="{{ url('/ami/jadwalAmi') }}">Jadwal AMI</a></li>
+                    <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                    <li><a href="{{ url('/ami/standar') }}">Standar</a></li>
+                    <li><a href="{{ url('/ami/data_standar') }}">Pertanyaan Standar</a></li>
+                    <li><a href="{{ url('/ami/kop_surat') }}">KOP Surat</a></li>
+                    <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-041-graph"></i>
+                    <span class="nav-text">Dokumentasi</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                    <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-050-info"></i>
+                    <span class="nav-text">Account</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                    <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
+                </ul>
+            </li>
             @endcan
 
             @can('ketuaP4mp')
-                <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
-                        <i class="flaticon-025-dashboard"></i>
-                        <span class="nav-text">Dashboard</span>
-                    </a>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-072-printer"></i>
-                        <span class="nav-text">Audit Mutu Internal</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        {{-- <li><a href="/monitoringamiP4mp">Monitoring AMI</a></li> --}}
-                        <li><a href="{{ url('/ami/verifikasi_ami') }}">Draft Temuan AMI</a></li>
-                        <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
-                        <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-041-graph"></i>
-                        <span class="nav-text">Dokumentasi</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
-                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-050-info"></i>
-                        <span class="nav-text">Account</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
-                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
-                    </ul>
-                </li>
+            <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-025-dashboard"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-072-printer"></i>
+                    <span class="nav-text">Audit Mutu Internal</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                    {{-- <li><a href="/monitoringamiP4mp">Monitoring AMI</a></li> --}}
+                    <li><a href="{{ url('/ami/verifikasi_ami') }}">Draft Temuan AMI</a></li>
+                    <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
+                    <li><a href="{{ route('monitoring-p4mp.index') }}">Monitoring AMI</a></li>
+                    <li><a href="{{ route('tinjau_manajemen_pengendalian.index') }}">Tinjau Manajemen Pengendalian</a>
+                    </li>
+                    <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-041-graph"></i>
+                    <span class="nav-text">Dokumentasi</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                    <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-050-info"></i>
+                    <span class="nav-text">Account</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                    <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
+                </ul>
+            </li>
             @endcan
 
             @can('lead')
-                <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
-                        <i class="flaticon-025-dashboard"></i>
-                        <span class="nav-text">Dashboard</span>
-                    </a>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-072-printer"></i>
-                        <span class="nav-text">Audit Mutu Internal</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        <li><a href="{{ url('/ami/auditee/data_dukung') }}">Data Dukung</a></li>
-                        <li><a href="{{ url('/ami/ketersediaan_dokumen') }}">Ketersediaan Dokumen</a></li>
-                        <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
-                        <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
-                        <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
-                        <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-041-graph"></i>
-                        <span class="nav-text">Dokumentasi</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
-                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-050-info"></i>
-                        <span class="nav-text">Account</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
-                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
-                    </ul>
-                </li>
+            <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-025-dashboard"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-072-printer"></i>
+                    <span class="nav-text">Audit Mutu Internal</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                    <li><a href="{{ url('/ami/auditee/data_dukung') }}">Data Dukung</a></li>
+                    <li><a href="{{ url('/ami/ketersediaan_dokumen') }}">Ketersediaan Dokumen</a></li>
+                    <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
+                    <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
+                    <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
+                    <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-041-graph"></i>
+                    <span class="nav-text">Dokumentasi</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                    <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-050-info"></i>
+                    <span class="nav-text">Account</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                    <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
+                </ul>
+            </li>
             @endcan
 
             @can('anggota')
-                <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
-                        <i class="flaticon-025-dashboard"></i>
-                        <span class="nav-text">Dashboard</span>
-                    </a>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-072-printer"></i>
-                        <span class="nav-text">Audit Mutu Internal</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        <li><a href="{{ url('/ami/auditee/data_dukung') }}">Data Dukung</a></li>
-                        <li><a href="{{ url('/ami/ketersediaan_dokumen') }}">Ketersediaan Dokumen</a></li>
-                        <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
-                        <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
-                        <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
-                        <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-041-graph"></i>
-                        <span class="nav-text">Dokumentasi</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
-                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-050-info"></i>
-                        <span class="nav-text">Account</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
-                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
-                    </ul>
-                </li>
+            <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-025-dashboard"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-072-printer"></i>
+                    <span class="nav-text">Audit Mutu Internal</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                    <li><a href="{{ url('/ami/auditee/data_dukung') }}">Data Dukung</a></li>
+                    <li><a href="{{ url('/ami/ketersediaan_dokumen') }}">Ketersediaan Dokumen</a></li>
+                    <li><a href="{{ url('/ami/checklist_audit') }}">Checklist AMI</a></li>
+                    <li><a href="{{ url('/ami/uraian_ami') }}">Draft Temuan AMI</a></li>
+                    <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
+                    <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-041-graph"></i>
+                    <span class="nav-text">Dokumentasi</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                    <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-050-info"></i>
+                    <span class="nav-text">Account</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                    <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
+                </ul>
+            </li>
             @endcan
 
             @can('auditee')
@@ -242,6 +245,7 @@
                         <li><a href="{{ url('/ami/ketersediaan_dokumen') }}">Ketersediaan Dokumen</a></li>
                         <li><a href="{{ url('/ami/tanggapan_audit') }}">Checklist Hasil AMI</a></li>
                         <li><a href="{{ url('/ami/analisa_tindakan_ami') }}">Draft Temuan AMI</a></li>
+                        <li><a href="{{ route('tinjau_manajemen_peningkatan.index') }}">Tinjau Manajemen Peningkatan</a></li>
                         <li><a href="{{ url('/ami/laporan_ami') }}">Laporan Hasil AMI</a></li>
                         <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
                     </ul>
@@ -267,39 +271,39 @@
             @endcan
 
             @can('jurusan')
-                <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
-                        <i class="flaticon-025-dashboard"></i>
-                        <span class="nav-text">Dashboard</span>
-                    </a>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-072-printer"></i>
-                        <span class="nav-text">Audit Mutu Internal</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
-                        {{-- <li><a href="/monitoringamiP4mp">Monitoring</a></li> --}}
-                        <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-041-graph"></i>
-                        <span class="nav-text">Dokumentasi</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
-                        <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
-                    </ul>
-                </li>
-                <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                        <i class="flaticon-050-info"></i>
-                        <span class="nav-text">Account</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
-                        <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
-                    </ul>
-                </li>
+            <li><a href="/dashboard" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-025-dashboard"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-072-printer"></i>
+                    <span class="nav-text">Audit Mutu Internal</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/ami/pedomanAmi') }}">Pedoman AMI</a></li>
+                    {{-- <li><a href="/monitoringamiP4mp">Monitoring</a></li> --}}
+                    <li><a href="{{ url('/ami/historiami') }}">History AMI</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-041-graph"></i>
+                    <span class="nav-text">Dokumentasi</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/dokumentasiAmi/undangan') }}">AMI</a></li>
+                    <li><a href="{{ url('/dokumentasiRtm/undangan') }}">RTM</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-050-info"></i>
+                    <span class="nav-text">Account</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('/profile/edit') }}">Profile</a></li>
+                    <li><a href="{{ url('/password/edit') }}">Edit Password</a></li>
+                </ul>
+            </li>
             @endcan
         </ul>
         <div class="copyright">

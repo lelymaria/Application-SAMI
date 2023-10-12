@@ -26,6 +26,14 @@ class PertanyaanStandar extends Model
         return $this->hasOne(CheckListAudit::class, 'id_pertanyaan', 'id');
     }
 
+    public function tinjauanPengendalian() {
+        return $this->hasOne(TinjauManajemenPengendalian::class, 'id_pertanyaan', 'id');
+    }
+
+    public function tinjauanPeningkatan() {
+        return $this->hasOne(TinjauManajemenPeningkatan::class, 'id_pertanyaan', 'id');
+    }
+
     public function tanggapanChecklist() {
         return $this->hasOne(TanggapanCheckListAudit::class, 'id_pertanyaan', 'id' );
     }
